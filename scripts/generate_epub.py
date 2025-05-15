@@ -28,7 +28,7 @@ def generar_epub():
         item = epub.EpubHtml(title=personaje['nombre'], file_name=f"{personaje['nombre'].lower().replace(' ', '-')}.xhtml", lang='es')
         content = f"""<html><head><link rel="stylesheet" type="text/css" href="style.css"></head><body>
                     <h1>{personaje['nombre']}</h1>
-                    <p><strong>Variantes:</strong> <span class="variantes">{', '.join(personaje.get('variantes', []))}</span></p>
+                    <p><strong>alias:</strong> <span class="variantes">{', '.join(personaje.get('variantes', []))}</span></p>
                     <p class="descripcion">{personaje['descripcion']}</p>
                     </body></html>"""
         item.set_content(content)

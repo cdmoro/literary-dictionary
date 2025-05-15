@@ -1,0 +1,16 @@
+saga: Harry Potter
+author: J.K. Rowling
+characters:
+  - name: Harry Potter
+    alias:
+      - El niño que vivió
+    description: Protagonista de la saga, huérfano criado por sus tíos, estudiante de Hogwarts.
+  - name: Severus Snape
+    alias:
+      - Profesor Snape
+    description: Profesor de pociones y defensa contra las artes oscuras, con un pasado ambiguo.
+words:
+  - word: Horrocrux
+    description: Objeto oscuro que contiene parte del alma de un mago para alcanzar la inmortalidad.
+  - word: Patronus
+    description: Hechizo protector que toma forma de animal, usado para ahuyentar dementores.

@@ -1,41 +1,41 @@
-from utils import get_characters
+from utils import get_entries
 
-def generar_estadisticas():
-    personajes = get_characters()
+def get_stats():
+    entries = get_entries()
 
-    estadisticas = {}
+    stats = {}
 
-    for personaje in personajes:
-        autor = personaje['autor']
-        libro = personaje['libro']
+    for entry in entries:
+        author = entry['author']
+        book = entry['book']
         
-        if autor not in estadisticas:
-            estadisticas[autor] = {}
+        if author not in stats:
+            stats[author] = {}
 
-        if libro not in estadisticas[autor]:
-            estadisticas[autor][libro] = 0
+        if book not in stats[author]:
+            stats[author][book] = 0
 
-        estadisticas[autor][libro] += 1
+        stats[author][book] += 1
 
     print("📊 Estadísticas\n")
 
-    total_autores = 0
-    total_general = 0
+    total_authors = 0
+    total_entries = 0
 
-    for autor, libros in estadisticas.items():
-        total_por_autor = 0
-        print(f"🖋️ {autor}")
-        total_autores += 1
+    for author, books in stats.items():
+        total_por_author = 0
+        print(f"🖋️ {author}")
+        total_authors += 1
 
-        for libro, cantidad in libros.items():
-            print(f"   📖 {libro}: {cantidad} personajes")
-            total_por_autor += cantidad
+        for book, cantidad in books.items():
+            print(f"   📖 {book}: {cantidad} registros")
+            total_por_author += cantidad
 
-        print(f"   👥 Total personajes: {total_por_autor}\n")
-        total_general += total_por_autor
+        print(f"   👥 Total registros: {total_por_author}\n")
+        total_entries += total_por_author
 
     print("\nTotal\n")
-    print(f"🖋️ Autores: {total_autores}")
-    print(f"👥 Personajes: {total_general}")
+    print(f"🖋️ Autores: {total_authors}")
+    print(f"👥 registros: {total_entries}")
 
-generar_estadisticas()
+get_stats()

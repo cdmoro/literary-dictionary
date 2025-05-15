@@ -1,0 +1,20 @@
+saga: Dune
+author: Frank Herbert
+characters:
+  - name: Paul Atreides
+    alias:
+      - Muad'Dib
+      - Usul
+      - Kwisatz Haderach
+    description: Hijo del Duque Leto Atreides, líder de los Fremen y figura mesiánica.
+  - name: Baron Vladimir Harkonnen
+    alias:
+      - Barón Harkonnen
+    description: Antagonista principal, líder de la Casa Harkonnen.
+words:
+  - word: Melange
+    alias:
+      - Especia
+    description: Sustancia que extiende la vida y permite la presciencia, clave en el universo de Dune.
+  - word: Fremen
+    description: Pueblo nómada del desierto de Arrakis, expertos en supervivencia y combate.

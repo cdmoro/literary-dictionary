@@ -1,0 +1,20 @@
+saga: El Señor de los Anillos
+author: J.R.R. Tolkien
+characters:
+  - name: Frodo Bolsón
+    alias:
+      - Frodo Baggins
+      - Frodo
+    description: Hobbit encargado de destruir el Anillo Único.
+  - name: Gandalf
+    alias:
+      - Gandalf el Gris
+      - Gandalf el Blanco
+    description: Mago y miembro de la Compañía del Anillo, guía espiritual y estratega.
+words:
+  - word: Anillo Único
+    alias:
+      - El Anillo
+    description: Objeto creado por Sauron para controlar a los pueblos de la Tierra Media.
+  - word: Mordor
+    description: Región oscura y desolada, bastión de Sauron y hogar del Monte del Destino.

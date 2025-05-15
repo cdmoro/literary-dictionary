@@ -1,15 +1,15 @@
 import csv
-from utils import get_characters  # Asumiendo que la función está en otro archivo
+from utils import get_entries  # Asumiendo que la función está en otro archivo
 
 def generar_csv():
     # Llamamos a la función que carga los personajes desde los archivos YAML
-    personajes = get_characters()
+    entries = get_entries()
 
     # Definimos el nombre del archivo CSV
     output_file = 'output/diccionario.csv'
 
     # Definimos los encabezados del CSV
-    fieldnames = ['autor', 'libro', 'nombre', 'variantes', 'descripcion']
+    fieldnames = ['word', 'alias', 'description', 'author', 'book', 'saga', 'category']
 
     # Abrimos el archivo CSV en modo escritura
     with open(output_file, mode='w', newline='', encoding='utf-8') as file:
@@ -19,12 +19,12 @@ def generar_csv():
         writer.writeheader()
 
         # Escribimos cada personaje en el archivo
-        for personaje in personajes:
+        for entry in entries:
             # Convertimos la lista de variantes en una cadena de texto separada por comas
-            personaje['variantes'] = ', '.join(personaje['variantes'])
+            entry['alias'] = ', '.join(entry['alias'])
             
             # Escribimos la información del personaje en el archivo CSV
-            writer.writerow(personaje)
+            writer.writerow(entry)
 
     print(f"Archivo CSV generado: {output_file}")
 

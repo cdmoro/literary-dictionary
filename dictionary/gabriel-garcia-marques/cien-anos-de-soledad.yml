@@ -1,0 +1,24 @@
+author: Gabriel García Márquez
+book: Cien años de soledad
+characters:
+  - name: José Arcadio Buendía
+    alias:
+      - Arcadio
+      - Patriarca Buendía
+    description: Fundador de Macondo y patriarca de la familia Buendía.
+  - name: Úrsula Iguarán
+    alias:
+      - Úrsula
+    description: Esposa de José Arcadio Buendía, matriarca de la familia Buendía.
+  - name: Aureliano Buendía
+    alias:
+      - Coronel Aureliano Buendía
+    description: Uno de los hijos de José Arcadio y Úrsula, protagonista de varias de las historias.
+  - name: Remedios la Bella
+    alias:
+      - Remedios
+    description: Joven hermosa que sube al cielo, rodeada de misterio.
+  - name: Fernanda del Carpio
+    alias:
+      - Fernanda
+    description: Esposa de Aureliano Segundo, pertenece a una familia aristocrática que se convierte en matriarca.
