@@ -3,22 +3,22 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
 }
 
 h1 {
-    color: #2e3a59;
     font-size: 24px;
 }
 
-p {
-    color: #333;
+h2 {
     font-size: 16px;
 }
 
-.variantes {
+p {
+    font-size: 16px;
+}
+
+.alias {
     font-style: italic;
-    color: #666;
 }
 
 .descripcion {
