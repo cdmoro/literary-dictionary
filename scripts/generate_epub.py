@@ -27,7 +27,7 @@ def generar_epub():
     copyright_page.set_content("""
     <html><head><link rel="stylesheet" type="text/css" href="style.css"></head><body>
     <h1>Diccionario de Personajes</h1>
-    <p>© 2025 Carlos Bonadeo. Ningún derecho reservados.</p>
+    <p>© 2025 Carlos Bonadeo. Ningún derecho reservado.</p>
     <p>Este diccionario es una obra de referencia educativa sin fines comerciales.</p>
     </body></html>
     """)
