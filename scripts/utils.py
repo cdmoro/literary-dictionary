@@ -20,7 +20,7 @@ def get_entries(base_dir='dictionary'):
                 book = data.get('book', '')
                 saga = data.get('saga', '')
 
-                if not author or (not book and not saga):
+                if not author:
                     print(f"⚠️ Faltan datos de autor en {book_file}")
                     continue
 

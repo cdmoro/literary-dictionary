@@ -36,27 +36,25 @@ def generate_stats():
     lines.append("|Autor|Sagas|Libros|Registros|")
     lines.append("|---|---|---|---|")
 
-    for author, books in stats.items():
-        total_por_author = 0
+    for author in sorted(stats.keys()):
+        books = stats[author]
+        total_por_author = sum(books.values())
         total_authors += 1
-
-        for book, cantidad in books.items():
-            total_por_author += cantidad
-
-        lines.append(f"|{author}||{len(books)}|{total_por_author}|")
-
-        total_entries += total_por_author
         total_books += len(books)
+        total_entries += total_por_author
+
+        # Siempre mostrar 0 en Sagas (columna vacía) de forma elegante
+        lines.append(f"|{author}|0|{len(books)}|{total_por_author}|")
 
     lines.append("## Total\n")
 
     lines.append("|Autores|Sagas|Libros|Registros|")
     lines.append("|---|---|---|---|")
-    lines.append(f"|{total_authors}||{total_books}|{total_entries}|")
+    lines.append(f"|{total_authors}|0|{total_books}|{total_entries}|")
 
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write('\n'.join(lines))
 
-    print(f"📄 Archivo '{output_file}' generado correctamente.")
+    print(f"Archivo '{output_file}' generado correctamente.")
 
 generate_stats()
