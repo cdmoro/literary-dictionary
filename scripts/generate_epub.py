@@ -65,12 +65,12 @@ def generar_epub():
                            <h1>{letra}</h1>"""
 
         for personaje in sorted(grupo, key=lambda x: x['word']):
-            html_content += f"""<h2>{personaje['word']}</h2>"""
+            html_content += f"""<dl><h2><dt>{personaje['word']}</dt></h2><dd>"""
+
+            html_content += f"""<p class="descripcion">{personaje['description']}</p>"""
 
             if personaje.get('alias'):
                 html_content += f"""<p><strong>Alias:</strong> <em>{', '.join(personaje.get('alias', []))}</em></p>"""
-
-            html_content += f"""<p class="descripcion">{personaje['description']}</p>"""
 
             if personaje.get('book'):
                 html_content += f"""<p>{personaje['category']} del libro <em>{personaje['book']}</em> de {personaje['author']}</p>"""
@@ -79,7 +79,7 @@ def generar_epub():
             else:
                 html_content += f"""<p>{personaje['category']} de {personaje['author']}</p>"""
 
-            html_content += "<hr>"
+            html_content += "</dd><hr></dl>"
 
         html_content += "</body></html>"
 
