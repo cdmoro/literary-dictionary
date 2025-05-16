@@ -1,6 +1,10 @@
 from ebooklib import epub
 from utils import get_entries
 from collections import defaultdict
+import unicodedata
+
+def limpiar_letra(letra):
+    return unicodedata.normalize('NFKD', letra).encode('ASCII', 'ignore').decode('utf-8').upper()
 
 def generar_epub():
     personajes = get_entries()
@@ -22,6 +26,16 @@ def generar_epub():
     style = epub.EpubItem(uid="style1", file_name="style.css", media_type="text/css", content=css_content)
     book.add_item(style)
 
+    portada_html = epub.EpubHtml(title='Portada', file_name='portada.xhtml', lang='es')
+    portada_html.set_content(f"""
+    <html><head><link rel="stylesheet" type="text/css" href="style.css"></head><body>
+        <div class="portada">
+            <img src="cover.jpg" alt="Portada" style="width: 100%; height: auto;"/>
+        </div>
+    </body></html>
+    """)
+    book.add_item(portada_html)
+
     # Crear página de copyright
     copyright_page = epub.EpubHtml(title='Créditos', file_name='creditos.xhtml', lang='es')
     copyright_page.set_content("""
@@ -36,7 +50,7 @@ def generar_epub():
     # Agrupar personajes por letra inicial
     grupos_por_letra = defaultdict(list)
     for personaje in personajes:
-        letra = personaje['word'][0].upper()
+        letra = limpiar_letra(personaje['word'][0])
         grupos_por_letra[letra].append(personaje)
 
     # Ordenar las letras
@@ -69,7 +83,7 @@ def generar_epub():
 
         html_content += "</body></html>"
 
-        item = epub.EpubHtml(title=f"{letra}", file_name=f"letra-{letra}.xhtml", lang='es')
+        item = epub.EpubHtml(title=f"{limpiar_letra(letra)}", file_name=f"letra-{limpiar_letra(letra)}.xhtml", lang='es')
         item.set_content(html_content)
         book.add_item(item)
         grupo_items.append(item)
@@ -78,7 +92,7 @@ def generar_epub():
     book.toc = [epub.Link(item.file_name, item.title, f"letra-{i+1}") for i, item in enumerate(grupo_items)]
 
     # Definir el spine (orden de navegación)
-    book.spine = ['cover', 'nav', copyright_page] + grupo_items
+    book.spine = ['cover', portada_html, copyright_page] + grupo_items + ['nav']
 
     # Agregar navegación
     book.add_item(epub.EpubNav())
