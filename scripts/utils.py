@@ -51,7 +51,7 @@ def get_entries(base_dir='dictionary'):
                         'author': author,
                         'book': book,
                         'saga': saga,
-                        'category': 'Palabra o expresión'
+                        'category': 'Concepto'
                     })
 
     return sorted(entries, key=lambda d: d['word'])

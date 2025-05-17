@@ -13,7 +13,7 @@ def generar_epub():
     book = epub.EpubBook()
 
     # Definir metadatos
-    book.set_title('Diccionario de Personajes')
+    book.set_title('Diccionario Literario')
     book.set_language('es')
 
     # Incluir la portada
@@ -40,7 +40,7 @@ def generar_epub():
     copyright_page = epub.EpubHtml(title='Créditos', file_name='creditos.xhtml', lang='es')
     copyright_page.set_content("""
     <html><head><link rel="stylesheet" type="text/css" href="style.css"></head><body>
-    <h1>Diccionario de Personajes</h1>
+    <h1>Diccionario Literario</h1>
     <p>© 2025 Carlos Bonadeo. Ningún derecho reservado.</p>
     <p>Este diccionario es una obra de referencia educativa sin fines comerciales.</p>
     </body></html>
@@ -65,7 +65,7 @@ def generar_epub():
                            <h1>{letra}</h1>"""
 
         for personaje in sorted(grupo, key=lambda x: x['word']):
-            html_content += f"""<dl><h2><dt>{personaje['word']}</dt></h2><dd>"""
+            html_content += f"""<dl><dt>{personaje['word']}</dt><dd>"""
 
             html_content += f"""<p class="descripcion">{personaje['description']}</p>"""
 
@@ -73,11 +73,11 @@ def generar_epub():
                 html_content += f"""<p><strong>Alias:</strong> <em>{', '.join(personaje.get('alias', []))}</em></p>"""
 
             if personaje.get('book'):
-                html_content += f"""<p>{personaje['category']} del libro <em>{personaje['book']}</em> de {personaje['author']}</p>"""
+                html_content += f"""<p>{personaje['category']} aparecido en <em>{personaje['book']}</em> ({personaje['author']})</p>"""
             elif personaje.get('saga'):
-                html_content += f"""<p>{personaje['category']} de la saga <em>{personaje['saga']}</em> de {personaje['author']}</p>"""
+                html_content += f"""<p>{personaje['category']} de la saga <em>{personaje['saga']}</em> ({personaje['author']})</p>"""
             else:
-                html_content += f"""<p>{personaje['category']} de {personaje['author']}</p>"""
+                html_content += f"""<p>{personaje['category']} creado por {personaje['author']}</p>"""
 
             html_content += "</dd><hr></dl>"
 
