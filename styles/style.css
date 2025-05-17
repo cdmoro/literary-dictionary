@@ -21,6 +21,10 @@ p {
     font-style: italic;
 }
 
+dt {
+    font-size: 16px;
+}
+
 dd {
     margin: 0;
     padding: 0 0 0 1em;
