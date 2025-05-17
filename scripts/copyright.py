@@ -28,8 +28,8 @@ def get_copyright_html(registros):
     <p><em>Desde Aurelieano a Zaratustra: personajes y jergas de la literatura universal</em></p>
     <br>
     <p>© 2025 Carlos Bonadeo. Ningún derecho reservado.</p>
-    <p>Este diccionario fue creado con fines educativos y no comerciales.</p>
-    <p><strong>Versión:</strong> {os.getenv('DICT_VERSION', '0.0.1')}</p>
+    <p>Este diccionario fue creado con fines educativos.</p>
+    <p><strong>Datos de la versión (v{os.getenv('DICT_VERSION', '0.0.1')})</p>
     <ul>
         <li>Registros: {total_registros}</li>
         <li>Autores: {total_autores}</li>
