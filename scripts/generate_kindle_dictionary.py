@@ -3,12 +3,14 @@ import unicodedata
 import shutil
 import zipfile
 from collections import defaultdict
-from utils import get_entries  # Asegúrate de que esta función esté definida correctamente
+
+from utils import get_entries
+from copyright import get_copyright_html  
 
 output_folder = 'output/kindle'
 epub_filename = 'output/Diccionario_Literario.epub'
 
-def normalizar_letra(letra):
+def normalize_character(letra):
     return unicodedata.normalize('NFD', letra).encode('ascii', 'ignore').decode('utf-8').upper()
 
 def generar_diccionario():
@@ -16,20 +18,20 @@ def generar_diccionario():
         shutil.rmtree(output_folder)
     os.makedirs(output_folder, exist_ok=True)
 
-    personajes = get_entries()
+    entries = get_entries()
 
     entradas_por_letra = defaultdict(list)
-    for personaje in personajes:
-        palabra = personaje['word']
-        letra = normalizar_letra(palabra[0])
-        if letra.isalpha():
-            entradas_por_letra[letra].append(personaje)
+    for entry in entries:
+        headWord = entry['word']
+        firstLetter = normalize_character(headWord[0])
+        if firstLetter.isalpha():
+            entradas_por_letra[firstLetter].append(entry)
         else:
-            entradas_por_letra['Otros'].append(personaje)
+            entradas_por_letra['Otros'].append(entry)
 
     xhtml_files = []
-    for letra, entradas in sorted(entradas_por_letra.items()):
-        filename = f"{letra}.xhtml"
+    for firstLetter, entradas in sorted(entradas_por_letra.items()):
+        filename = f"{firstLetter}.xhtml"
         xhtml_files.append(filename)
         with open(os.path.join(output_folder, filename), 'w', encoding='utf-8') as f:
             f.write('<?xml version="1.0" encoding="utf-8"?>\n')
@@ -38,54 +40,52 @@ def generar_diccionario():
             f.write('<head>\n')
             f.write('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>\n')
             f.write('<link rel="stylesheet" type="text/css" href="style.css"/>\n')
-            f.write(f'<title>{letra}</title>\n')
+            f.write(f'<title>{firstLetter}</title>\n')
             f.write('</head>\n<body>\n')
-            for personaje in entradas:
-                palabra = personaje['word']
-                descripcion = personaje['description']
-                categoria = personaje.get('category')
-                autor = personaje.get('author')
-                libro = personaje.get('book')
-                saga = personaje.get('saga')
+            for entry in entradas:
+                headWord = entry['word']
+                descripcion = entry['description']
+                categoria = entry.get('category')
+                autor = entry.get('author')
+                libro = entry.get('book')
+                saga = entry.get('saga')
 
                 f.write(f'<idx:entry name="main" scriptable="yes" spell="yes">\n')
-                f.write(f'  <idx:orth>{palabra}\n')
-                aliases = personaje.get('alias', [])
+                f.write(f'  <dt><idx:orth><strong>{headWord}</strong>\n')
+                aliases = entry.get('alias', [])
+                
                 if aliases:
                     f.write(f'    <idx:infl>\n')
                     for alt in aliases:
                         f.write(f'      <idx:iform value="{alt}"/>\n')
                     f.write(f'    </idx:infl>\n')
-                f.write(f'  </idx:orth>\n')
                 
-                if aliases:
-                    f.write(f'  <p><strong>Alias:</strong> <em>{", ".join(aliases)}</em></p>\n')
+                f.write(f'  </idx:orth></dt>\n')
+                f.write('<dd>')
+                
+                # if aliases:
+                #     f.write(f'<p><strong>Alias:</strong> <em>{", ".join(aliases)}</em></p>\n')
+
                 f.write(f'  <p>{descripcion}</p>\n')
+                
                 if libro:
-                    f.write(f'  <p><em>{categoria}</em> aparecido en <em>{libro}</em> ({autor}).</p>\n')
+                    f.write(f'  <p>Aparece en <em>{libro}</em> ({autor}).</p>\n')
                 elif saga:
-                    f.write(f'  <p><em>{categoria}</em> de la saga <em>{saga}</em> ({autor}).</p>\n')
+                    f.write(f'  <p>Aparece en la saga <em>{saga}</em> ({autor}).</p>\n')
                 else:
-                    f.write(f'  <p><em>{categoria}</em> creado por {autor}.</p>\n')
-                f.write(f'</idx:entry>\n')
+                    f.write(f'  <p>Aparece en {autor}.</p>\n')
+                
+                f.write(f'</dd></idx:entry>\n')
+                f.write(f'<hr/>\n')
             f.write('</body>\n</html>\n')
 
     # Copiar estilos y portada
     shutil.copyfile('styles/style.css', os.path.join(output_folder, 'style.css'))
-    if os.path.exists('assets/cover.jpg'):
-        shutil.copyfile('assets/cover.jpg', os.path.join(output_folder, 'cover.jpg'))
+    shutil.copyfile('assets/cover.jpg', os.path.join(output_folder, 'cover.jpg'))
 
     # Página copyright
     with open(os.path.join(output_folder, 'copyright.xhtml'), 'w', encoding='utf-8') as f:
-        f.write('''<?xml version="1.0" encoding="utf-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<body>
-<h1>Diccionario Literario</h1>
-<p>© 2025 Carlos Bonadeo. Ningún derecho reservado.</p>
-<p>Este diccionario fue creado con fines educativos y no comerciales.</p>
-</body>
-</html>
-''')
+        f.write(get_copyright_html(entries))
 
     # Archivo OPF
     with open(os.path.join(output_folder, 'diccionario.opf'), 'w', encoding='utf-8') as f:
