@@ -3,7 +3,7 @@ from datetime import datetime
 from dotenv import load_dotenv
 import os
 
-output_file = 'statistics.md'
+output_file = 'Statistics.md'
 
 def generate_stats():
     load_dotenv()
@@ -69,4 +69,5 @@ def generate_stats():
 
     print(f"Archivo '{output_file}' generado correctamente.")
 
-generate_stats()
+if __name__ == '__main__':
+    generate_stats()

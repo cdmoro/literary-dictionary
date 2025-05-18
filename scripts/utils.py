@@ -1,7 +1,7 @@
 from pathlib import Path
 import yaml
 
-def load_entries_from_section(data_section, author, book, saga, category):
+def load_entries_from_section(data_section, author, book, saga, category=''):
     entries = []
     for item in data_section:
         headword = item.get('name') or item.get('entry') or ''
@@ -46,6 +46,6 @@ def get_entries(base_dir='dictionary'):
             entries.extend(load_entries_from_section(characters, author, book, saga, 'Personaje'))
 
             glossary = data.get('glossary', [])
-            entries.extend(load_entries_from_section(glossary, author, book, saga, 'Concepto'))
+            entries.extend(load_entries_from_section(glossary, author, book, saga))
 
     return sorted(entries, key=lambda d: d['headword'].lower())
