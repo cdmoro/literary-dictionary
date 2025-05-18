@@ -1,15 +1,18 @@
 import csv
-from utils import get_entries  # Asumiendo que la función está en otro archivo
+from dotenv import load_dotenv
+import os
+from utils import get_entries
 
-def generar_csv():
+def generate_csv():
+    load_dotenv()
     # Llamamos a la función que carga los personajes desde los archivos YAML
     entries = get_entries()
 
     # Definimos el nombre del archivo CSV
-    output_file = 'output/diccionario.csv'
+    output_file = f'output/Bonadeo, Carlos - Diccionario Literario (v{os.getenv('DICT_VERSION')}).csv'
 
     # Definimos los encabezados del CSV
-    fieldnames = ['word', 'alias', 'description', 'author', 'book', 'saga', 'category']
+    fieldnames = ['headword', 'alias', 'description', 'author', 'book', 'saga', 'category']
 
     # Abrimos el archivo CSV en modo escritura
     with open(output_file, mode='w', newline='', encoding='utf-8') as file:
@@ -29,4 +32,4 @@ def generar_csv():
     print(f"Archivo CSV generado: {output_file}")
 
 # Llamamos a la función para generar el archivo CSV
-generar_csv()
+generate_csv()

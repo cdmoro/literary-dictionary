@@ -1,13 +1,20 @@
 from ebooklib import epub
-from utils import get_entries
 from collections import defaultdict
 import unicodedata
+import os
+from dotenv import load_dotenv
+
+from utils import get_entries
+from copyright import get_copyright_html
+
+epub_filename = f'output/Bonadeo, Carlos - Diccionario Literario (v{os.getenv('DICT_VERSION')}).epub'
 
 def limpiar_letra(letra):
     return unicodedata.normalize('NFKD', letra).encode('ASCII', 'ignore').decode('utf-8').upper()
 
 def generar_epub():
-    personajes = get_entries()
+    load_dotenv()
+    entries = get_entries()
 
     # Crear un libro EPUB
     book = epub.EpubBook()
@@ -38,19 +45,13 @@ def generar_epub():
 
     # Crear página de copyright
     copyright_page = epub.EpubHtml(title='Créditos', file_name='creditos.xhtml', lang='es')
-    copyright_page.set_content("""
-    <html><head><link rel="stylesheet" type="text/css" href="style.css"></head><body>
-    <h1>Diccionario Literario</h1>
-    <p>© 2025 Carlos Bonadeo. Ningún derecho reservado.</p>
-    <p>Este diccionario es una obra de referencia educativa sin fines comerciales.</p>
-    </body></html>
-    """)
+    copyright_page.set_content(get_copyright_html(entries))
     book.add_item(copyright_page)
 
     # Agrupar personajes por letra inicial
     grupos_por_letra = defaultdict(list)
-    for personaje in personajes:
-        letra = limpiar_letra(personaje['word'][0])
+    for personaje in entries:
+        letra = limpiar_letra(personaje['headword'][0])
         grupos_por_letra[letra].append(personaje)
 
     # Ordenar las letras
@@ -64,8 +65,8 @@ def generar_epub():
         html_content = f"""<html><head><link rel="stylesheet" type="text/css" href="style.css"></head><body>
                            <h1>{letra}</h1>"""
 
-        for personaje in sorted(grupo, key=lambda x: x['word']):
-            html_content += f"""<dl><dt>{personaje['word']}</dt><dd>"""
+        for personaje in sorted(grupo, key=lambda x: x['headword']):
+            html_content += f"""<dl><dt>{personaje['headword']}</dt><dd>"""
 
             html_content += f"""<p class="descripcion">{personaje['description']}</p>"""
 

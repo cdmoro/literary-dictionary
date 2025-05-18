@@ -3,17 +3,20 @@ import unicodedata
 import shutil
 import zipfile
 from collections import defaultdict
+from dotenv import load_dotenv
 
 from utils import get_entries
 from copyright import get_copyright_html  
 
 output_folder = 'output/kindle'
-epub_filename = 'output/Diccionario_Literario.epub'
+epub_filename = f'output/Bonadeo, Carlos - Diccionario Literario [dict] (v{os.getenv('DICT_VERSION')}).epub'
 
 def normalize_character(letra):
     return unicodedata.normalize('NFD', letra).encode('ascii', 'ignore').decode('utf-8').upper()
 
 def generar_diccionario():
+    load_dotenv()
+
     if os.path.exists(output_folder):
         shutil.rmtree(output_folder)
     os.makedirs(output_folder, exist_ok=True)
@@ -22,8 +25,8 @@ def generar_diccionario():
 
     entradas_por_letra = defaultdict(list)
     for entry in entries:
-        headWord = entry['word']
-        firstLetter = normalize_character(headWord[0])
+        headword = entry['headword']
+        firstLetter = normalize_character(headword[0])
         if firstLetter.isalpha():
             entradas_por_letra[firstLetter].append(entry)
         else:
@@ -43,15 +46,15 @@ def generar_diccionario():
             f.write(f'<title>{firstLetter}</title>\n')
             f.write('</head>\n<body>\n')
             for entry in entradas:
-                headWord = entry['word']
+                headword = entry['headword']
                 descripcion = entry['description']
-                categoria = entry.get('category')
+                # categoria = entry.get('category')
                 autor = entry.get('author')
                 libro = entry.get('book')
                 saga = entry.get('saga')
 
                 f.write(f'<idx:entry name="main" scriptable="yes" spell="yes">\n')
-                f.write(f'  <dt><idx:orth><strong>{headWord}</strong>\n')
+                f.write(f'  <dt><idx:orth><strong>{headword}</strong>\n')
                 aliases = entry.get('alias', [])
                 
                 if aliases:

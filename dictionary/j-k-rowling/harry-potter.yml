@@ -1,15 +1,57 @@
 author: J.K. Rowling
+saga: Harry Potter
 characters:
   - name: Harry Potter
     alias:
       - El niño que vivió
-    description: Protagonista de la saga, huérfano criado por sus tíos, estudiante de Hogwarts.
+      - Potter
+    description: Protagonista de la saga; huérfano que asiste a Hogwarts y enfrenta a Voldemort.
+  - name: Hermione Granger
+    alias:
+      - Hermione
+    description: Mejor amiga de Harry; muy inteligente y valiente.
+  - name: Ron Weasley
+    alias:
+      - Ron
+    description: Compañero leal de Harry; miembro de la numerosa familia Weasley.
+  - name: Albus Dumbledore
+    alias:
+      - Dumbledore
+      - Profesor Dumbledore
+    description: Director de Hogwarts y uno de los magos más poderosos de su tiempo.
+  - name: Lord Voldemort
+    alias:
+      - El que no debe ser nombrado
+      - Tú-sabes-quién
+      - Tom Riddle
+    description: Mago tenebroso que busca el poder absoluto.
   - name: Severus Snape
     alias:
-      - Profesor Snape
-    description: Profesor de pociones y defensa contra las artes oscuras, con un pasado ambiguo.
-words:
-  - word: Horrocrux
-    description: Objeto oscuro que contiene parte del alma de un mago para alcanzar la inmortalidad.
-  - word: Patronus
-    description: Hechizo protector que toma forma de animal, usado para ahuyentar dementores.
+      - Snape
+    description: Profesor de Pociones en Hogwarts; personaje complejo y ambiguo.
+  - name: Draco Malfoy
+    alias:
+      - Malfoy
+    description: Estudiante de Slytherin; antagonista escolar de Harry.
+  - name: Rubeus Hagrid
+    alias:
+      - Hagrid
+    description: Guardabosques de Hogwarts; gran amigo de Harry.
+
+glossary:
+  - entry: Hogwarts
+    description: Escuela de magia donde transcurre gran parte de la saga.
+  - entry: Muggle
+    description: Persona sin habilidades mágicas.
+  - entry: Varita
+    description: Objeto mágico esencial para los magos y brujas.
+  - entry: Dementores
+    description: Criaturas que absorben la felicidad; utilizadas como guardianes de Azkaban.
+  - entry: Azkaban
+    description: Prisión mágica donde se encierran a los peores criminales del mundo mágico.
+  - entry: Quidditch
+    description: Deporte mágico jugado en escobas.
+  - entry: Ministerio de Magia
+    description: Institución que gobierna el mundo mágico británico.
+  - entry: Hechizo
+    description: Fórmula mágica que produce un efecto sobrenatural.

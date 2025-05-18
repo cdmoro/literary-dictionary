@@ -1,20 +1,67 @@
-saga: El Señor de los Anillos
 author: J.R.R. Tolkien
+saga: El Señor de los Anillos
 characters:
   - name: Frodo Bolsón
     alias:
-      - Frodo Baggins
       - Frodo
-    description: Hobbit encargado de destruir el Anillo Único.
+    description: Hobbit de la Comarca encargado de destruir el Anillo Único.
+  - name: Samwise Gamyi
+    alias:
+      - Sam
+      - Samsagaz
+    description: Leal compañero de Frodo en su misión hacia Mordor.
   - name: Gandalf
     alias:
-      - Gandalf el Gris
-      - Gandalf el Blanco
-    description: Mago y miembro de la Compañía del Anillo, guía espiritual y estratega.
-words:
-  - word: Anillo Único
+      - Mithrandir
+      - El Gris
+      - El Blanco
+    description: Mago sabio que guía y ayuda a los pueblos libres de la Tierra Media.
+  - name: Aragorn
     alias:
-      - El Anillo
-    description: Objeto creado por Sauron para controlar a los pueblos de la Tierra Media.
-  - word: Mordor
-    description: Región oscura y desolada, bastión de Sauron y hogar del Monte del Destino.
+      - Trancos
+      - Elessar
+      - Rey de Gondor
+    description: Heredero al trono de Gondor, guerrero noble y líder del Oeste.
+  - name: Legolas
+    alias:
+      - Hijo de Thranduil
+    description: Elfo del Bosque Negro; hábil arquero y miembro de la Compañía del Anillo.
+  - name: Gimli
+    alias:
+      - Hijo de Glóin
+    description: Enano guerrero; parte de la Compañía del Anillo.
+  - name: Boromir
+    alias:
+      - Capitán de Gondor
+    description: Guerrero humano valiente pero tentado por el poder del Anillo.
+  - name: Gollum
+    alias:
+      - Sméagol
+    description: Criatura corrompida por el Anillo; guía a Frodo y Sam en su viaje.
+  - name: Sauron
+    alias:
+      - El Señor Oscuro
+      - El Ojo
+    description: Antiguo Maia y creador del Anillo Único; representa el mal supremo.
+
+glossary:
+  - entry: Anillo Único
+    description: Objeto creado por Sauron para dominar a todos los pueblos de la Tierra Media.
+  - entry: Comarca
+    description: Región rural habitada por hobbits, hogar de Frodo y Sam.
+  - entry: Mordor
+    description: Tierra oscura y desolada donde habita Sauron.
+  - entry: Rivendel
+    description: Refugio élfico dirigido por Elrond; punto clave en el viaje de la Compañía.
+  - entry: Lothlórien
+    description: Bosque encantado gobernado por Galadriel y Celeborn.
+  - entry: Gondor
+    description: Reino humano en el sur; último bastión contra Mordor.
+  - entry: Rohan
+    description: Reino de jinetes; aliado importante en la lucha contra Sauron.
+  - entry: La Compañía del Anillo
+    description: Grupo de nueve enviados para destruir el Anillo Único en el Monte del Destino.
+  - entry: Nazgûl
+    description: Espectros del Anillo al servicio de Sauron; antiguos reyes humanos corrompidos.
+  - entry: Monte del Destino
+    description: Volcán en Mordor donde debe destruirse el Anillo Único.

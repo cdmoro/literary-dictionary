@@ -16,12 +16,38 @@ characters:
       - Coronel Aureliano Buendía
       - Aureliano
       - Buendía
-    description: Uno de los hijos de José Arcadio y Úrsula, protagonista de varias de las historias.
+    description: Hijo de José Arcadio y Úrsula, protagonista de varias historias.
   - name: Remedios la Bella
     alias:
       - Remedios
-    description: Joven hermosa que sube al cielo, rodeada de misterio.
+    description: Joven de extraordinaria belleza que vive ajena a la realidad y sube al cielo de forma misteriosa.
   - name: Fernanda del Carpio
     alias:
       - Fernanda
-    description: Esposa de Aureliano Segundo, pertenece a una familia aristocrática que se convierte en matriarca.
+    description: Esposa de Aureliano Segundo; de familia aristocrática, representa la tradición y el orden.
+  - name: Melquíades
+    alias:
+      - El gitano
+    description: Misterioso viajero que trae novedades científicas a Macondo y se convierte en figura clave en la historia de los Buendía.
+  - name: Amaranta
+    alias:
+      - Amaranta
+    description: Hija de José Arcadio y Úrsula; marcada por la tragedia, el amor no correspondido y el deber familiar.
+  - name: Rebeca
+    alias:
+      - Rebeca
+    description: Niña adoptada por los Buendía que llega con una bolsa de huesos y el hábito de comer tierra.
+
+glossary:
+  - entry: Macondo
+    description: Pueblo ficticio fundado por José Arcadio Buendía; escenario principal de la novela.
+  - entry: Peste del insomnio
+    description: Enfermedad que causa la pérdida del sueño y de la memoria; fuerza a los personajes a etiquetar las cosas para no olvidar su función.
+  - entry: Hielo
+    description: Objeto fascinante para los niños en su primera visita al mundo exterior; símbolo del descubrimiento y del tiempo.
+  - entry: Pergaminos de Melquíades
+    description: Manuscritos misteriosos que contienen el destino de la familia Buendía, escritos en un idioma críptico.
+  - entry: Laboratorio de alquimia
+    description: Espacio creado por José Arcadio Buendía para experimentar; representa su obsesión con el conocimiento y el destino.
+  - entry: Plátano
+    description: Fruto central en la economía de Macondo durante la llegada de la compañía bananera; relacionado con un evento traumático colectivo.

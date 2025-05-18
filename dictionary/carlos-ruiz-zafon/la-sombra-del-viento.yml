@@ -1,87 +1,48 @@
-author: "Carlos Ruiz Zafón"
-book: "La sombra del viento"
-saga: "El cementerio de los libros olvidados"
+author: Carlos Ruiz Zafón
+book: La sombra del viento
+saga: El cementerio de los libros olvidados
 characters:
-  - name: "Daniel Sempere"
+  - name: Daniel Sempere
     alias:
       - Daniel
-      - Sempere
-    description: "Joven protagonista de la historia, hijo de un librero en la Barcelona de posguerra. Su vida cambia al descubrir un libro olvidado en el Cementerio de los Libros Olvidados."
-
-  - name: "Fermín Romero de Torres"
+    description: Joven barcelonés que descubre un misterioso libro que cambiará su vida.
+  - name: Julián Carax
+    alias:
+      - Carax
+    description: Autor de "La Sombra del Viento", rodeado de misterio.
+  - name: Fermín Romero de Torres
     alias:
       - Fermín
-    description: "Ex mendigo carismático y ayudante de la librería Sempere. Es un personaje entrañable y clave en la investigación de Daniel."
-
-  - name: "Julián Carax"
+    description: Personaje excéntrico y carismático que se convierte en amigo y aliado de Daniel.
+  - name: Gustavo Barceló
     alias:
-      - Julián
-      - Carax
-    description: "Autor del libro 'La sombra del viento'. Su vida y misterioso pasado son el eje central de la historia."
-
-  - name: "Beatriz Aguilar"
+      - Barceló
+    description: Bibliófilo y coleccionista de libros antiguos; ayuda a Daniel en su investigación.
+  - name: Bea Barceló
     alias:
       - Bea
-      - Breatriz
-      - Aguilar
-    description: "Hermana del mejor amigo de Daniel, por quien él desarrolla sentimientos amorosos."
-
-  - name: "Nuria Monfort"
-    alias:
-      - Nuria
-      - Monfort
-    description: "Trabajó en la editorial Cabestany y tiene un vínculo estrecho con Julián Carax y su obra."
-
-  - name: "Gustavo Barceló"
-    alias:
-      - Gustavo
-      - Barceló
-    description: "Coleccionista de libros y amigo del padre de Daniel. Es quien guía a Daniel en sus primeros pasos como bibliófilo."
-
-  - name: "Tomás Aguilar"
+    description: Hija de Gustavo Barceló, amiga de la infancia de Daniel.
+  - name: Tomás Aguilar
     alias:
       - Tomás
-      - Aguilar
-    description: "Amigo leal de Daniel desde la infancia, hermano de Bea."
-
-  - name: "Inspector Francisco Javier Fumero"
+    description: Amigo leal de Daniel desde la infancia.
+  - name: Sr. Sempere
     alias:
-      - Fumero
-      - Inspector Fumero
-    description: "Antagonista de la historia. Es un inspector de policía corrupto y violento con conexiones oscuras al pasado de varios personajes."
+      - Padre de Daniel
+      - Sr. Sempere
+    description: Padre de Daniel y dueño de una pequeña librería en Barcelona.
 
-  - name: "Penélope Aldaya"
-    alias:
-      - Penélope
-      - Aldaya
-    description: "Joven de familia adinerada, relacionada con Julián Carax. Su historia es fundamental en la trama."
+glossary:
+  - entry: Cementerio de los Libros Olvidados
+    description: Lugar secreto y mágico donde se guardan libros olvidados, y donde Daniel encuentra "La Sombra del Viento".
+  - entry: Librería Sempere e Hijos
+    description: Pequeña librería en Barcelona, regentada por el padre de Daniel.
+  - entry: Barcelona
+    description: Ciudad en la que transcurre la historia; escenario lleno de misterio, niebla y rincones góticos.
+  - entry: La Sombra del Viento
+    description: Novela escrita por Julián Carax, que Daniel encuentra en el Cementerio de los Libros Olvidados.
+  - entry: Los libros de Carax
+    description: Obras misteriosas del autor Julián Carax, difíciles de encontrar y envueltas en leyendas.
+  - entry: Escuela de los jesuitas
+    description: Lugar mencionado en el pasado de algunos personajes, representa parte de la historia oculta.
 
-  - name: "Isabella Gispert"
-    alias:
-      - Isabella
-      - Gispert
-    description: "Madre de Julián Carax, cuyo pasado influye profundamente en la vida de su hijo."
-
-  - name: "Miquel Moliner"
-    alias:
-      - Miquel
-      - Moliner
-    description: "Amigo inseparable de Julián Carax desde su juventud, conocido por su carácter alegre y generoso."
-
-  - name: "Jorge Aldaya"
-    alias:
-      - Jorge
-      - Aldaya
-    description: "Hermano de Penélope Aldaya, cuya familia tiene un oscuro pasado."
-
-  - name: "Laín Coubert"
-    alias:
-      - Laín
-      - Coubert
-    description: "Nombre tomado del personaje de una de las novelas de Julián Carax. En la historia, es una figura enigmática que persigue los libros de Carax para destruirlos."
-
-  - name: "Clara Barceló"
-    alias:
-      - Clara
-      - Barceló
-    description: "Hija de Gustavo Barceló. Es una joven invidente que despierta el interés de Daniel al inicio de la novela."

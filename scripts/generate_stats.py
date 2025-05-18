@@ -1,24 +1,33 @@
 from utils import get_entries
 from datetime import datetime
+from dotenv import load_dotenv
+import os
 
 output_file = 'statistics.md'
 
 def generate_stats():
+    load_dotenv()
     entries = get_entries()
 
     stats = {}
 
     for entry in entries:
-        author = entry['author']
-        book = entry['book']
-        
+        author = entry.get('author', 'Unknown')
+
         if author not in stats:
-            stats[author] = {}
+            stats[author] = {
+                'sagas': set(),
+                'books': set(),
+                'entries_count': 0
+            }
 
-        if book not in stats[author]:
-            stats[author][book] = 0
+        stats[author]['entries_count'] += 1
 
-        stats[author][book] += 1
+        if 'saga' in entry and entry['saga'].strip():
+            stats[author]['sagas'].add(entry['saga'].strip())
+
+        if 'book' in entry and entry['book'].strip():
+            stats[author]['books'].add(entry['book'].strip())
 
     lines = []
 
@@ -26,8 +35,10 @@ def generate_stats():
 
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     lines.append(f"_Última actualización: {now}_\n")
+    lines.append(f"_Versión: {os.getenv('DICT_VERSION')}_\n")
 
-    total_authors = 0
+    total_authors = len(stats)
+    total_sagas = 0
     total_books = 0
     total_entries = 0
 
@@ -37,20 +48,21 @@ def generate_stats():
     lines.append("|---|---|---|---|")
 
     for author in sorted(stats.keys()):
-        books = stats[author]
-        total_por_author = sum(books.values())
-        total_authors += 1
-        total_books += len(books)
-        total_entries += total_por_author
+        sagas_count = len(stats[author]['sagas'])
+        books_count = len(stats[author]['books'])
+        entries_count = stats[author]['entries_count']
 
-        # Siempre mostrar 0 en Sagas (columna vacía) de forma elegante
-        lines.append(f"|{author}|0|{len(books)}|{total_por_author}|")
+        total_sagas += sagas_count
+        total_books += books_count
+        total_entries += entries_count
 
-    lines.append("## Total\n")
+        lines.append(f"|{author}|{sagas_count}|{books_count}|{entries_count}|")
+
+    lines.append("\n## Total\n")
 
     lines.append("|Autores|Sagas|Libros|Registros|")
     lines.append("|---|---|---|---|")
-    lines.append(f"|{total_authors}|0|{total_books}|{total_entries}|")
+    lines.append(f"|{total_authors}|{total_sagas}|{total_books}|{total_entries}|")
 
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write('\n'.join(lines))

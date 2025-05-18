@@ -1,18 +1,21 @@
 # Estadísticas
 
-_Última actualización: 2025-05-16 13:22:38_
+_Última actualización: 2025-05-18 10:51:09_
+
+_Versión: 0.0.1_
 
 ## Por autor
 
 |Autor|Sagas|Libros|Registros|
 |---|---|---|---|
-|Carlos Ruiz Zafón|0|1|14|
-|Frank Herbert|0|1|4|
-|Gabriel García Márquez|0|1|5|
-|J.K. Rowling|0|1|4|
-|J.R.R. Tolkien|0|1|4|
+|Carlos Ruiz Zafón|1|1|13|
+|Frank Herbert|1|0|21|
+|Gabriel García Márquez|0|1|14|
+|J.K. Rowling|1|1|24|
+|J.R.R. Tolkien|1|0|19|
+
 ## Total
 
 |Autores|Sagas|Libros|Registros|
 |---|---|---|---|
-|5|0|5|31|
+|5|4|3|91|
