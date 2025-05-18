@@ -1,0 +1,6 @@
+EbookLib==0.17.1
+PyYAML==6.0
+python-dotenv==1.0.0
+lxml==4.9.3
+pandas==1.5.3
+fuzzywuzzy==0.18.0
