@@ -29,7 +29,7 @@ def get_copyright_html(registros):
     <br>
     <p>© 2025 Carlos Bonadeo. Ningún derecho reservado.</p>
     <p>Este diccionario fue creado con fines educativos.</p>
-    <p><strong>Datos de la versión (v{os.getenv('DICT_VERSION', '0.0.1')})</p>
+    <p><strong>Versión {os.getenv('DICT_VERSION', '0.0.1')}</p>
     <ul>
         <li>Registros: {total_registros}</li>
         <li>Autores: {total_autores}</li>
