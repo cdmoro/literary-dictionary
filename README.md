@@ -4,7 +4,13 @@ Este proyecto es un diccionario literario para libros electrónicos que organiza
 
 # Uso
 
-El diccionario está optimizado para ser usado en los dispositivos Kindle (ya que no tengo otro lector). Podés bajar el __archivo MOBI__ desde [acá](https://github.com/cdmoro/literature-clock/releases/latest).
+El diccionario está optimizado para ser usado en los dispositivos Kindle (ya que no tengo otro lector). Podés bajar el __archivo MOBI__ desde [acá](https://github.com/cdmoro/diccionario-literario/releases/latest).
+
+Se pueden buscar tanto palabras individuales como grupos de palabras. Y, por supuesto, sirve para libros en cualquier idioma.
+
+|Palabra individual|Grupo de palabras|Libro en otro idioma|
+|---|---|---|
+|![img_1](https://github.com/user-attachments/assets/4ce93382-4ab8-4aad-be9b-9b295dbdc909)|![img_2](https://github.com/user-attachments/assets/4a6c1059-9cf8-452d-bb66-a24b6f09a229)|![img_3](https://github.com/user-attachments/assets/7eb6ae37-105f-4a14-b3f0-95fae9f291e8)|
 
 # Historia
 
