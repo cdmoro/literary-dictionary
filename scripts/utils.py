@@ -1,6 +1,19 @@
 from pathlib import Path
 import yaml
 
+sections = {
+    'characters': 'per.',
+    'places': 'lugar',
+    'objects': 'obj.',
+    'concepts': 'concep.',
+    'events': 'evento',
+    'creatures': 'criatura',
+    'institutions': 'inst.',
+    'spells': 'hechizo',
+    'languages': 'lang.',
+    'quotes': 'cita',
+    'glossary': None,
+}
 def load_entries_from_section(data_section, author, book, saga, category=''):
     entries = []
     for item in data_section:
@@ -42,10 +55,13 @@ def get_entries(base_dir='dictionary'):
                 print(f"⚠️ Faltan datos de autor en {book_file.name}")
                 continue
 
-            characters = data.get('characters', [])
-            entries.extend(load_entries_from_section(characters, author, book, saga, 'Personaje'))
-
-            glossary = data.get('glossary', [])
-            entries.extend(load_entries_from_section(glossary, author, book, saga))
+            for key, abbrev in sections.items():
+                entries.extend(load_entries_from_section(
+                    data.get(key, []),
+                    author,
+                    book,
+                    saga,
+                    abbrev
+                ))
 
     return sorted(entries, key=lambda d: d['headword'].lower())

@@ -63,7 +63,7 @@ def generate_dictionary():
             for entry in entradas:
                 headword = entry['headword']
                 descripcion = entry['description']
-                # categoria = entry.get('category')
+                category = entry.get('category')
                 autor = entry.get('author')
                 libro = entry.get('book')
                 saga = entry.get('saga')
@@ -71,7 +71,11 @@ def generate_dictionary():
                 f.write('    <idx:entry name="default" scriptable="yes" spell="yes">\n')
                 f.write('      <dt>\n')
                 f.write('        <idx:orth>\n')
-                f.write(f'          {headword}\n')
+                f.write(f'          {headword}')
+
+                if (category):
+                    f.write(f' <em>({category})</em>')
+                f.write('\n')
 
                 aliases = entry.get('alias', [])
                 if aliases:
@@ -92,9 +96,9 @@ def generate_dictionary():
                 if libro:
                     f.write(f'Aparece en <em>{libro}</em> de {autor}.')
                 elif saga:
-                    f.write(f'Aparece en la saga <em>{saga}</em> de {autor}.')
+                    f.write(f'Pertenece al universo de <em>{saga}</em> creado por {autor}.')
                 else:
-                    f.write(f'Aparece en {autor}.')
+                    f.write(f'Figura en la obra de {autor}.')
                 f.write('</div>\n')
                 
                 f.write('      </dd>\n')
@@ -123,6 +127,26 @@ def generate_dictionary():
     with open(os.path.join(output_folder, 'Copyright.xhtml'), 'w', encoding='utf-8') as f:
         f.write(get_copyright_html(entries))
 
+    # Abreviaturas
+    with open(os.path.join(output_folder, 'Abbreviations.xhtml'), 'w', encoding='utf-8') as f:
+        f.write('''<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<body>
+    <h2>Guía de abreviaturas</h2>
+    <div><em>(per.)</em> Personaje</div>  
+    <div><em>(lugar)</em> Lugar</div>
+    <div><em>(obj.)</em> Objeto</div>
+    <div><em>(concepto)</em> Concepto abstracto</div>
+    <div><em>(evento)</em> Suceso o acontecimiento</div>
+    <div><em>(criatura)</em> Ser fantástico o mítico</div>
+    <div><em>(inst.)</em> Institución o grupo</div>
+    <div><em>(hechizo)</em> Hechizo o habilidad mágica</div>
+    <div><em>(idioma)</em> Lengua o código ficticio</div>
+    <div><em>(cita)</em> Frase destacada o memorable</div>
+</body>
+</html>
+''')
+
     # Archivo OPF
     with open(os.path.join(output_folder, 'Dictionary.opf'), 'w', encoding='utf-8') as f:
         f.write('<?xml version="1.0" encoding="utf-8"?>\n')
@@ -139,15 +163,16 @@ def generate_dictionary():
         f.write('  </metadata>\n')
         f.write('  <manifest>\n')
         f.write('    <item id="style" href="style.css" media-type="text/css"/>\n')
-        # f.write('    <item id="cover" href="cover.jpg" media-type="image/jpeg"/>\n')
         f.write('    <item id="cover" href="Cover.xhtml" media-type="application/xhtml+xml"/>\n')
         f.write('    <item id="copyright" href="Copyright.xhtml" media-type="application/xhtml+xml"/>\n')
+        f.write('    <item id="abbreviations" href="Abbreviations.xhtml" media-type="application/xhtml+xml"/>\n')
         for filename in xhtml_files:
             f.write(f'    <item id="{filename}" href="{filename}" media-type="application/xhtml+xml"/>\n')
         f.write('  </manifest>\n')
         f.write('  <spine>\n')
         f.write('    <itemref idref="cover"/>\n')
         f.write('    <itemref idref="copyright"/>\n')
+        f.write('    <itemref idref="abbreviations"/>\n')
         for filename in xhtml_files:
             f.write(f'    <itemref idref="{filename}"/>\n')
         f.write('  </spine>\n')

@@ -38,9 +38,11 @@ characters:
       - Rebeca
     description: Niña adoptada por los Buendía que llega con una bolsa de huesos y el hábito de comer tierra.
 
-glossary:
+places:
   - entry: Macondo
-    description: Pueblo ficticio fundado por José Arcadio Buendía; escenario principal de la novela.
+    description: <Ciudad ficticia> Representa un microcosmos del Caribe colombiano, atravesado por el mito, la historia y el realismo mágico. Fundada por José Arcadio Buendía; escenario principal de la novela.
+
+glossary:
   - entry: Peste del insomnio
     description: Enfermedad que causa la pérdida del sueño y de la memoria; fuerza a los personajes a etiquetar las cosas para no olvidar su función.
   - entry: Hielo
