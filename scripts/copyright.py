@@ -27,8 +27,7 @@ def get_copyright_html(registros):
     <h2>Diccionario Literario</h2>
     <p><em>Desde Aurelieano a Zaratustra: personajes y jergas de la literatura universal</em></p>
     <br>
-    <p>© 2025 Carlos Bonadeo. Ningún derecho reservado.</p>
-    <p>Este diccionario fue creado con fines educativos.</p>
+    <p>© 2025 Carlos Bonadeo. Ningún derecho reservado. Queda alentada la distribución de esta obra citando en lo posible las fuentes.</p>
     <p><strong>Versión {os.getenv('DICT_VERSION')}</p>
     <ul>
         <li>Registros: {total_registros}</li>

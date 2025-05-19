@@ -1,5 +1,4 @@
 from utils import get_entries
-from datetime import datetime
 from dotenv import load_dotenv
 import os
 
@@ -32,9 +31,6 @@ def generate_stats():
     lines = []
 
     lines.append("# Estadísticas\n")
-
-    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    lines.append(f"_Última actualización: {now}_\n")
     lines.append(f"_Versión: {os.getenv('DICT_VERSION')}_\n")
 
     total_authors = len(stats)

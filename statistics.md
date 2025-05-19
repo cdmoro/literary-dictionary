@@ -1,7 +1,5 @@
 # Estadísticas
 
-_Última actualización: 2025-05-18 14:50:09_
-
 _Versión: 0.0.1_
 
 ## Por autor

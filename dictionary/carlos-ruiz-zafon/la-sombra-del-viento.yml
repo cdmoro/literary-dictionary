@@ -5,9 +5,11 @@ characters:
   - name: Daniel Sempere
     alias:
       - Daniel
+      - Sempere
     description: Joven barcelonés que descubre un misterioso libro que cambiará su vida.
   - name: Julián Carax
     alias:
+      - Julián
       - Carax
     description: Autor de "La Sombra del Viento", rodeado de misterio.
   - name: Fermín Romero de Torres
@@ -16,19 +18,23 @@ characters:
     description: Personaje excéntrico y carismático que se convierte en amigo y aliado de Daniel.
   - name: Gustavo Barceló
     alias:
+      - Gustavo
       - Barceló
     description: Bibliófilo y coleccionista de libros antiguos; ayuda a Daniel en su investigación.
   - name: Bea Barceló
     alias:
       - Bea
+      - Barceló
     description: Hija de Gustavo Barceló, amiga de la infancia de Daniel.
   - name: Tomás Aguilar
     alias:
       - Tomás
+      - Aguilar
     description: Amigo leal de Daniel desde la infancia.
   - name: Sr. Sempere
     alias:
       - Padre de Daniel
+      - Sempere
       - Sr. Sempere
     description: Padre de Daniel y dueño de una pequeña librería en Barcelona.
 

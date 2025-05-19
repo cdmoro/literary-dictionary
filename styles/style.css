@@ -13,24 +13,13 @@ h2 {
     font-size: 16px;
 }
 
-p {
-    font-size: 16px;
-}
-
-.alias {
-    font-style: italic;
-}
-
 dt {
-    font-size: 16px;
+    font-weight: bold;
 }
 
 dd {
     margin: 0;
-    padding: 0 0 0 1em !important;
-    display: block
-}
-
-dd p {
-    margin: 0;
+    padding: 0 0 0.5em 0;
+    display: block;
+    margin-left: 1rem;
 }

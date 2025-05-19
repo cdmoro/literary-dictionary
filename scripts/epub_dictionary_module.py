@@ -39,13 +39,27 @@ def generate_dictionary():
         with open(os.path.join(output_folder, filename), 'w', encoding='utf-8') as f:
             f.write('<?xml version="1.0" encoding="utf-8"?>\n')
             f.write('<!DOCTYPE html>\n')
-            f.write('<html xmlns="http://www.w3.org/1999/xhtml" xmlns:idx="http://www.mobipocket.com/idx">\n')
+            f.write('''<html 
+    xmlns:math="http://exslt.org/math"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns:tl="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
+    xmlns:saxon="http://saxon.sf.net/"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:cx="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:mbp="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
+    xmlns:mmc="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
+    xmlns:idx="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
+>\n''')
             f.write('<head>\n')
             f.write('  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>\n')
             f.write('  <link rel="stylesheet" type="text/css" href="style.css"/>\n')
             f.write(f'  <title>{firstLetter}</title>\n')
             f.write('</head>\n')
             f.write('<body>\n')
+            f.write('  <mbp:frameset>\n')
+
             for entry in entradas:
                 headword = entry['headword']
                 descripcion = entry['description']
@@ -54,43 +68,56 @@ def generate_dictionary():
                 libro = entry.get('book')
                 saga = entry.get('saga')
 
-                f.write('<idx:entry name="main" scriptable="yes" spell="yes">\n')
-                f.write('  <dt>\n')
-                f.write('    <idx:orth>\n')
-                f.write(f'      <strong>{headword}</strong>\n')
+                f.write('    <idx:entry name="default" scriptable="yes" spell="yes">\n')
+                f.write('      <dt>\n')
+                f.write('        <idx:orth>\n')
+                f.write(f'          {headword}\n')
 
                 aliases = entry.get('alias', [])
                 if aliases:
-                    f.write('      <idx:infl>\n')
+                    f.write('          <idx:infl>\n')
                     for alt in aliases:
-                        f.write(f'        <idx:iform value="{alt}"/>\n')
-                    f.write('      </idx:infl>\n')
+                        f.write(f'            <idx:iform value="{alt}"/>\n')
+                    f.write('          </idx:infl>\n')
                 
-                f.write('    </idx:orth>\n')
-                f.write('  </dt>\n')
-                f.write('  <dd>\n')
+                f.write('        </idx:orth>\n')
+                f.write('      </dt>\n')
+                f.write('      <dd>\n')
                 
                 # if aliases:
-                #     f.write(f'<p><strong>Alias:</strong> <em>{", ".join(aliases)}</em></p>\n')
+                #     f.write(f'<div><strong>Alias:</strong> <em>{", ".join(aliases)}</em></div>\n')
 
-                f.write(f'    <p>{descripcion}</p>\n')
-                
+                f.write(f'        <div>{descripcion}</div>\n')
+                f.write('        <div>')
                 if libro:
-                    f.write(f'    <p>Aparece en <em>{libro}</em> ({autor}).</p>\n')
+                    f.write(f'Aparece en <em>{libro}</em> de {autor}.')
                 elif saga:
-                    f.write(f'    <p>Aparece en la saga <em>{saga}</em> ({autor}).</p>\n')
+                    f.write(f'Aparece en la saga <em>{saga}</em> de {autor}.')
                 else:
-                    f.write(f'    <p>Aparece en {autor}.</p>\n')
+                    f.write(f'Aparece en {autor}.')
+                f.write('</div>\n')
                 
-                f.write('  </dd>\n')
-                f.write('</idx:entry>\n\n')
-                f.write('<hr/>\n\n')
+                f.write('      </dd>\n')
+                f.write('    </idx:entry>\n')
+                f.write('    <hr/>\n\n')
+
+            f.write('  </mbp:frameset>\n')
             f.write('</body>\n')
             f.write('</html>')
 
     # Copiar estilos y portada
     shutil.copyfile('styles/style.css', os.path.join(output_folder, 'style.css'))
     shutil.copyfile('assets/cover.jpg', os.path.join(output_folder, 'cover.jpg'))
+
+    with open(os.path.join(output_folder, 'Cover.xhtml'), 'w', encoding='utf-8') as f:
+        f.write('''<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<body>
+    <svg viewBox="0 0 600 900" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="100%" preserveAspectRatio="xMidYMid meet" height="100%">
+        <image xlink:href="cover.jpg" width="600" height="900"/>
+    </svg>
+</body>
+</html>''')
 
     # Página copyright
     with open(os.path.join(output_folder, 'Copyright.xhtml'), 'w', encoding='utf-8') as f:
@@ -107,23 +134,25 @@ def generate_dictionary():
         f.write('    <x-metadata>\n')
         f.write('      <DictionaryInLanguage>es</DictionaryInLanguage>\n')
         f.write('      <DictionaryOutLanguage>es</DictionaryOutLanguage>\n')
+        f.write('      <DefaultLookupIndex>headword</DefaultLookupIndex>\n')
         f.write('    </x-metadata>\n')
         f.write('  </metadata>\n')
         f.write('  <manifest>\n')
         f.write('    <item id="style" href="style.css" media-type="text/css"/>\n')
-        f.write('    <item id="cover" href="cover.jpg" media-type="image/jpeg"/>\n')
+        # f.write('    <item id="cover" href="cover.jpg" media-type="image/jpeg"/>\n')
+        f.write('    <item id="cover" href="Cover.xhtml" media-type="application/xhtml+xml"/>\n')
         f.write('    <item id="copyright" href="Copyright.xhtml" media-type="application/xhtml+xml"/>\n')
         for filename in xhtml_files:
             f.write(f'    <item id="{filename}" href="{filename}" media-type="application/xhtml+xml"/>\n')
         f.write('  </manifest>\n')
         f.write('  <spine>\n')
+        f.write('    <itemref idref="cover"/>\n')
         f.write('    <itemref idref="copyright"/>\n')
         for filename in xhtml_files:
             f.write(f'    <itemref idref="{filename}"/>\n')
         f.write('  </spine>\n')
         f.write('</package>\n')
 
-    # Ahora, crear el EPUB (zip con estructura especial)
     crear_epub()
 
 def crear_epub():
