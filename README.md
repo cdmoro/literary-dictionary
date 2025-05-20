@@ -35,8 +35,7 @@ Cada archivo YAML contiene:
     - `alias` (opcional): Lista de variantes del término.
     - `description`: Descripción del término.
  
-El campo `glossary` es más que suficience para agregar registros, pero si queremos ser más específicos podemos usar los siguientes campos, lo que resultará en la adición de abreviaturas en la definición, dichos campos tienen la misma estructura que `glossary` ():
-
+El campo `glossary` es más que suficience para agregar registros, pero si queremos ser más específicos podemos usar los siguientes campos:
 - `characters`: _(per.)_ - Personajes principales, secundarios, etc.
 - `places`: _(lugar)_ - Lugares importantes para la historia.
 - `objects`: _(obj.)_ - Objetos especiales que se mencionen en el libro.
@@ -47,6 +46,8 @@ El campo `glossary` es más que suficience para agregar registros, pero si quere
 - `spells`: _(hechizo)_ - Ideal para las novelas de fantasía.
 - `languages`: _(lang.)_ - Por si se menciona algún lenguaje ficticio.
 - `quotes`: _(cita)_ - Citas que tienen algún significado especial para la historia.
+
+lo que resultará en la adición de abreviaturas en la definición, dichos campos tienen la misma estructura que `glossary` (`entry`, `alias`, `description`):
 
 # Cómo contribuir
 
