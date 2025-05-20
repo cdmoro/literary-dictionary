@@ -39,14 +39,14 @@ El campo `glossary` es más que suficience para agregar registros, pero si quere
 
 - `characters`: _(per.)_ - Personajes principales, secundarios, etc.
 - `places`: _(lugar)_ - Lugares importantes para la historia.
-- `objects`: _(obj.)_ - Objetos especiales que se mencionen en el libro
-- `concepts`: _(concep.)_ - Conceptos particulares
-- `events`: _(evento)_ - Eventos relevantes para la historia
+- `objects`: _(obj.)_ - Objetos especiales que se mencionen en el libro.
+- `concepts`: _(concep.)_ - Conceptos particulares.
+- `events`: _(evento)_ - Eventos relevantes para la historia.
 - `creatures`: _(criatura)_ - Animales reales o mitológicos, tribus, etc.
-- `institutions`: _(inst.)_ - Parecido a `places` pero más específico
-- `spells`: _(hechizo)_ - Ideal para las novelas de fantasía
-- `languages`: _(lang.)_ - Por si se menciona algún lenguaje ficticio
-- `quotes`: _(cita)_ - Citas que tienen algún significado especial para la historia
+- `institutions`: _(inst.)_ - Parecido a `places` pero más específico.
+- `spells`: _(hechizo)_ - Ideal para las novelas de fantasía.
+- `languages`: _(lang.)_ - Por si se menciona algún lenguaje ficticio.
+- `quotes`: _(cita)_ - Citas que tienen algún significado especial para la historia.
 
 # Cómo contribuir
 

@@ -2,36 +2,36 @@ author: Carlos Ruiz Zafón
 book: La sombra del viento
 saga: El cementerio de los libros olvidados
 characters:
-  - name: Daniel Sempere
+  - entry: Daniel Sempere
     alias:
       - Daniel
       - Sempere
     description: Joven barcelonés que descubre un misterioso libro que cambiará su vida.
-  - name: Julián Carax
+  - entry: Julián Carax
     alias:
       - Julián
       - Carax
     description: Autor de <em>La Sombra del Viento</em>, rodeado de misterio.
-  - name: Fermín Romero de Torres
+  - entry: Fermín Romero de Torres
     alias:
       - Fermín
     description: Personaje excéntrico y carismático que se convierte en amigo y aliado de Daniel.
-  - name: Gustavo Barceló
+  - entry: Gustavo Barceló
     alias:
       - Gustavo
       - Barceló
     description: Bibliófilo y coleccionista de libros antiguos; ayuda a Daniel en su investigación.
-  - name: Bea Barceló
+  - entry: Bea Barceló
     alias:
       - Bea
       - Barceló
     description: Hija de Gustavo Barceló, amiga de la infancia de Daniel.
-  - name: Tomás Aguilar
+  - entry: Tomás Aguilar
     alias:
       - Tomás
       - Aguilar
     description: Amigo leal de Daniel desde la infancia.
-  - name: Sr. Sempere
+  - entry: Sr. Sempere
     alias:
       - Padre de Daniel
       - Sempere

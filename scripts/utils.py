@@ -17,7 +17,7 @@ sections = {
 def load_entries_from_section(data_section, author, book, saga, category=''):
     entries = []
     for item in data_section:
-        headword = item.get('name') or item.get('entry') or ''
+        headword = item.get('entry')
         alias = item.get('alias')
         if not isinstance(alias, list):
             alias = []

@@ -1,39 +1,39 @@
 author: J.K. Rowling
 saga: Harry Potter
 characters:
-  - name: Harry Potter
+  - entry: Harry Potter
     alias:
       - El niño que vivió
       - Potter
     description: Protagonista de la saga; huérfano que asiste a Hogwarts y enfrenta a Voldemort.
-  - name: Hermione Granger
+  - entry: Hermione Granger
     alias:
       - Hermione
     description: Mejor amiga de Harry; muy inteligente y valiente.
-  - name: Ron Weasley
+  - entry: Ron Weasley
     alias:
       - Ron
     description: Compañero leal de Harry; miembro de la numerosa familia Weasley.
-  - name: Albus Dumbledore
+  - entry: Albus Dumbledore
     alias:
       - Dumbledore
       - Profesor Dumbledore
     description: Director de Hogwarts y uno de los magos más poderosos de su tiempo.
-  - name: Lord Voldemort
+  - entry: Lord Voldemort
     alias:
       - El que no debe ser nombrado
       - Tú-sabes-quién
       - Tom Riddle
     description: Mago tenebroso que busca el poder absoluto.
-  - name: Severus Snape
+  - entry: Severus Snape
     alias:
       - Snape
     description: Profesor de Pociones en Hogwarts; personaje complejo y ambiguo.
-  - name: Draco Malfoy
+  - entry: Draco Malfoy
     alias:
       - Malfoy
     description: Estudiante de Slytherin; antagonista escolar de Harry.
-  - name: Rubeus Hagrid
+  - entry: Rubeus Hagrid
     alias:
       - Hagrid
     description: Guardabosques de Hogwarts; gran amigo de Harry.

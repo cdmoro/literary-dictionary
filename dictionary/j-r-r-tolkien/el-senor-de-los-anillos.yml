@@ -1,44 +1,44 @@
 author: J.R.R. Tolkien
 saga: El Señor de los Anillos
 characters:
-  - name: Frodo Bolsón
+  - entry: Frodo Bolsón
     alias:
       - Frodo
     description: Hobbit de la Comarca encargado de destruir el Anillo Único.
-  - name: Samwise Gamyi
+  - entry: Samwise Gamyi
     alias:
       - Sam
       - Samsagaz
     description: Leal compañero de Frodo en su misión hacia Mordor.
-  - name: Gandalf
+  - entry: Gandalf
     alias:
       - Mithrandir
       - El Gris
       - El Blanco
     description: Mago sabio que guía y ayuda a los pueblos libres de la Tierra Media.
-  - name: Aragorn
+  - entry: Aragorn
     alias:
       - Trancos
       - Elessar
       - Rey de Gondor
     description: Heredero al trono de Gondor, guerrero noble y líder del Oeste.
-  - name: Legolas
+  - entry: Legolas
     alias:
       - Hijo de Thranduil
     description: Elfo del Bosque Negro; hábil arquero y miembro de la Compañía del Anillo.
-  - name: Gimli
+  - entry: Gimli
     alias:
       - Hijo de Glóin
     description: Enano guerrero; parte de la Compañía del Anillo.
-  - name: Boromir
+  - entry: Boromir
     alias:
       - Capitán de Gondor
     description: Guerrero humano valiente pero tentado por el poder del Anillo.
-  - name: Gollum
+  - entry: Gollum
     alias:
       - Sméagol
     description: Criatura corrompida por el Anillo; guía a Frodo y Sam en su viaje.
-  - name: Sauron
+  - entry: Sauron
     alias:
       - El Señor Oscuro
       - El Ojo

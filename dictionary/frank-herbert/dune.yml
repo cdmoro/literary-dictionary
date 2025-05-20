@@ -1,40 +1,40 @@
 author: Frank Herbert
 saga: Dune
 characters:
-  - name: Paul Atreides
+  - entry: Paul Atreides
     alias:
       - Muad'Dib
       - El joven duque
     description: Hijo del duque Leto Atreides, destinado a un rol clave en la historia de Arrakis.
-  - name: Leto Atreides
+  - entry: Leto Atreides
     alias:
       - Duque Leto
     description: Noble honorable y padre de Paul; líder de la Casa Atreides.
-  - name: Jessica
+  - entry: Jessica
     alias:
       - Dama Jessica
     description: Concubina del duque Leto, miembro de la orden Bene Gesserit.
-  - name: Baron Vladimir Harkonnen
+  - entry: Baron Vladimir Harkonnen
     alias:
       - Barón Harkonnen
     description: Enemigo mortal de la Casa Atreides, líder de la Casa Harkonnen.
-  - name: Duncan Idaho
+  - entry: Duncan Idaho
     alias:
       - Idaho
     description: Espadachín leal a la Casa Atreides.
-  - name: Gurney Halleck
+  - entry: Gurney Halleck
     alias:
       - Gurney
     description: Guerrero y músico, uno de los hombres de confianza de los Atreides.
-  - name: Stilgar
+  - entry: Stilgar
     alias:
       - Naib Stilgar
     description: Líder Fremen del Sietch Tabr, aliado de Paul.
-  - name: Chani
+  - entry: Chani
     alias:
       - Ninguna
     description: Fremen cercana a Paul, nacida en Arrakis.
-  - name: Reverend Mother Gaius Helen Mohiam
+  - entry: Reverend Mother Gaius Helen Mohiam
     alias:
       - Madre Reverenda
     description: Miembro de alto rango de las Bene Gesserit.
