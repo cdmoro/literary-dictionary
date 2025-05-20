@@ -71,16 +71,14 @@ Si querés colaborar estos son los pasos para poder compilar el proyecto y subir
     ```
 1. Compilar proyecto
     ```
-    python build.py
+    python scripts/build.py
     ```
-    Esto generará tres archivos:
-    - EPUB
-    - CSV
-    - JSON
-1. Compilar el EPUB usando KindleGen o Kindle Previewer
+    Esto generará un archivo EPUB y una carpeta llamada `dictionary_files` en la carpeta `output`
+1. Abrir el programa Kindle Previewer y cargar el EPUB (o el archivo `Dictionary.opf` dentro de `dictionary_files`)
+1. Generar un archivo MOBI
 1. Copiar el archivo MOBI generado en el paso anterior a la carpeta dictionary de tu Kindle
 
-Y listo, ya deberías poder usar el diccionario en tu lector electrónico!
+Y listo, ya deberías poder usar el diccionario!
 
 # Contacto
 

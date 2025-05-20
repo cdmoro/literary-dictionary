@@ -13,6 +13,4 @@ if __name__ == '__main__':
         os.makedirs(output_folder, exist_ok=True)
 
     generate_stats()
-    generate_csv()
-    generate_json()
     generate_dictionary()
