@@ -10,7 +10,7 @@ Se pueden buscar tanto palabras individuales como grupos de palabras. Y, por sup
 
 |Palabra individual|Grupo de palabras|Libro en otro idioma|
 |---|---|---|
-|![image](https://github.com/user-attachments/assets/6793015d-ac4f-4679-ac9d-4b16ded026cc)|![image](https://github.com/user-attachments/assets/2512ae4f-89b6-4065-a06d-0ce7738cd0f7)|![image](https://github.com/user-attachments/assets/26d1416c-046d-4ffb-bed4-17013c94760d)|
+|﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿![image](https://github.com/user-attachments/assets/43fe84ab-9879-4b0f-a888-9b71d4f11e88)|![image](https://github.com/user-attachments/assets/826923f0-74ec-4d70-b62f-1fe823747b08)|![image](https://github.com/user-attachments/assets/8491310c-d80a-490f-a90a-2963b9d1badf)|
 
 
 # Historia
