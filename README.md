@@ -10,7 +10,8 @@ Se pueden buscar tanto palabras individuales como grupos de palabras. Y, por sup
 
 |Palabra individual|Grupo de palabras|Libro en otro idioma|
 |---|---|---|
-|![img_1](https://github.com/user-attachments/assets/4ce93382-4ab8-4aad-be9b-9b295dbdc909)|![img_2](https://github.com/user-attachments/assets/4a6c1059-9cf8-452d-bb66-a24b6f09a229)|![img_3](https://github.com/user-attachments/assets/7eb6ae37-105f-4a14-b3f0-95fae9f291e8)|
+|![image](https://github.com/user-attachments/assets/6793015d-ac4f-4679-ac9d-4b16ded026cc)|![image](https://github.com/user-attachments/assets/2512ae4f-89b6-4065-a06d-0ce7738cd0f7)|![image](https://github.com/user-attachments/assets/26d1416c-046d-4ffb-bed4-17013c94760d)|
+
 
 # Historia
 
@@ -25,15 +26,27 @@ Dentro de la carpeta `dictionary` se encuentran las entradas para el diccionario
 ## Formato
 
 Cada archivo YAML contiene:
+
 - `author`: Nombre del autor.
 - `book` (opcional): Nombre del libro.
 - `saga` (opcional): Nombre de la saga.
-- `characters`: Lista de personajes.
-    - `alias` (opcional): Lista de variantes del nombre.
-    - `description`: Descripción del personaje
-- `glossary`: Lista de términos, lugares, frases.
+- `glossary`: Lista de términos, lugares, frases, etc. sin categorizar.
+    - `entry`: Palabra principal. 
     - `alias` (opcional): Lista de variantes del término.
     - `description`: Descripción del término.
+ 
+El campo `glossary` es más que suficience para agregar registros, pero si queremos ser más específicos podemos usar los siguientes campos, lo que resultará en la adición de abreviaturas en la definición, dichos campos tienen la misma estructura que `glossary` ():
+
+- `characters`: _(per.)_ - Personajes principales, secundarios, etc.
+- `places`: _(lugar)_ - Lugares importantes para la historia.
+- `objects`: _(obj.)_ - Objetos especiales que se mencionen en el libro
+- `concepts`: _(concep.)_ - Conceptos particulares
+- `events`: _(evento)_ - Eventos relevantes para la historia
+- `creatures`: _(criatura)_ - Animales reales o mitológicos, tribus, etc.
+- `institutions`: _(inst.)_ - Parecido a `places` pero más específico
+- `spells`: _(hechizo)_ - Ideal para las novelas de fantasía
+- `languages`: _(lang.)_ - Por si se menciona algún lenguaje ficticio
+- `quotes`: _(cita)_ - Citas que tienen algún significado especial para la historia
 
 # Cómo contribuir
 
