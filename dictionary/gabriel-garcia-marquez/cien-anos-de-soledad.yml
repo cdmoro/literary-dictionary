@@ -40,7 +40,7 @@ characters:
 
 places:
   - entry: Macondo
-    description: <Ciudad ficticia> Representa un microcosmos del Caribe colombiano, atravesado por el mito, la historia y el realismo mágico. Fundada por José Arcadio Buendía; escenario principal de la novela.
+    description: "&lt;Ciudad ficticia&gt; Representa un microcosmos del Caribe colombiano, atravesado por el mito, la historia y el realismo mágico. Fundada por José Arcadio Buendía; escenario principal de la novela."
 
 glossary:
   - entry: Peste del insomnio

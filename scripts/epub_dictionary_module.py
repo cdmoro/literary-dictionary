@@ -70,28 +70,27 @@ def generate_dictionary():
 
                 f.write('    <idx:entry name="default" scriptable="yes" spell="yes">\n')
                 f.write('      <dt>\n')
-                f.write('        <idx:orth>\n')
-                f.write(f'          {headword}')
-
-                if (category):
-                    f.write(f' <em>({category})</em>')
-                f.write('\n')
+                f.write(f'        <idx:orth>{headword}')
 
                 aliases = entry.get('alias', [])
                 if aliases:
-                    f.write('          <idx:infl>\n')
+                    f.write('\n          <idx:infl>\n')
                     for alt in aliases:
                         f.write(f'            <idx:iform value="{alt}"/>\n')
                     f.write('          </idx:infl>\n')
+                    f.write('        ')
                 
-                f.write('        </idx:orth>\n')
+                f.write('</idx:orth>\n')
                 f.write('      </dt>\n')
                 f.write('      <dd>\n')
                 
                 # if aliases:
                 #     f.write(f'<div><strong>Alias:</strong> <em>{", ".join(aliases)}</em></div>\n')
 
-                f.write(f'        <div>{descripcion}</div>\n')
+                f.write(f'        <div>')
+                if (category):
+                    f.write(f'<em>({category})</em> ')
+                f.write(f'{descripcion}</div>\n')
                 f.write('        <div>')
                 if libro:
                     f.write(f'Aparece en <em>{libro}</em> de {autor}.')
