@@ -23,8 +23,9 @@ def load_entries_from_section(data_section, author, book, saga, category, abbrev
         if not isinstance(alias, list):
             alias = []
         description = item.get('description', '')
+        skip = item.get('skip', False)
 
-        if headword:
+        if headword and not skip:
             entries.append({
                 'headword': headword,
                 'displayValue': displayValue,

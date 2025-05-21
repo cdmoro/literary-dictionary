@@ -2,7 +2,7 @@ import os
 import shutil
 
 from csv_module import generate_csv
-from epub_dictionary_module import generate_dictionary
+from dictionary_module import generate_dictionary
 from json_module import generate_json
 from stats_module import generate_stats
 
