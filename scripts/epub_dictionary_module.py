@@ -130,7 +130,7 @@ def generate_dictionary():
 <html xmlns="http://www.w3.org/1999/xhtml">
 <body>
     <h1>Índice</h1>
-    <div><a href="Abbreviations.xhtml">Abreviaturas</a></div>''')
+    <div><a href="Abbreviations.xhtml">Guía de abreviaturas</a></div>''')
         
         for firstLetter in sorted(entradas_por_letra.keys()):
             f.write(f'    <div><a href="{firstLetter}.xhtml">{firstLetter}</a></div>\n')
