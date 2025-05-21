@@ -3,13 +3,13 @@ import os
 
 load_dotenv()
 
-def get_copyright_html(registros):
-    total_registros = len(registros)
+def get_copyright_html(entries):
+    total_registros = len(entries)
     autores = set()
     sagas = set()
     libros = set()
 
-    for p in registros:
+    for p in entries:
         if p.get('author'):
             autores.add(p['author'])
         if p.get('saga'):

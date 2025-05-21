@@ -23,6 +23,10 @@ def generate_dictionary():
 
     entries = get_entries()
 
+    # Copyright
+    with open(os.path.join(output_folder, 'Copyright.xhtml'), 'w', encoding='utf-8') as f:
+        f.write(get_copyright_html(entries))
+
     entradas_por_letra = defaultdict(list)
     for entry in entries:
         headword = entry['headword']
@@ -58,6 +62,7 @@ def generate_dictionary():
             f.write(f'  <title>{firstLetter}</title>\n')
             f.write('</head>\n')
             f.write('<body>\n')
+            f.write(f'<h1>{firstLetter}</h1>\n')
             f.write('  <mbp:frameset>\n')
 
             for entry in entries:
@@ -120,29 +125,34 @@ def generate_dictionary():
 </body>
 </html>''')
 
-    # Página copyright
-    with open(os.path.join(output_folder, 'Copyright.xhtml'), 'w', encoding='utf-8') as f:
-        f.write(get_copyright_html(entries))
-
     # Index
-    with open(os.path.join(output_folder, 'Index.xhtml'), 'w', encoding='utf-8') as f:
+    with open(os.path.join(output_folder, 'Contents.xhtml'), 'w', encoding='utf-8') as f:
         f.write('''<?xml version="1.0" encoding="utf-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
 <body>
-    <h1>Índice</h1>
-    <div><a href="Abbreviations.xhtml">Guía de abreviaturas</a></div>''')
-        
-        for firstLetter in sorted(entradas_por_letra.keys()):
-            f.write(f'    <div><a href="{firstLetter}.xhtml">{firstLetter}</a></div>\n')
-        
-        f.write('''</body>
-        </html>
-        ''')
+    <h1>Contents</h1>
+    <nav epub:type="toc" class="toc">
+        <ol>
+            <li><a href="Cover.xhtml">Portada</a></li>
+            <li><a href="Copyright.xhtml">Sobre este libro</a></li>
+            <li><a href="A.xhtml">Definiciones</a></li>
+            <li><a href="Abbreviations.xhtml">Guía de abreviaturas</a></li>
+        </ol>
+    </nav>
+</body>
+</html>
+''')
 
     # Abreviaturas
     with open(os.path.join(output_folder, 'Abbreviations.xhtml'), 'w', encoding='utf-8') as f:
         f.write('''<?xml version="1.0" encoding="utf-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
 <body>
     <h1>Guía de abreviaturas</h1>
     <div><em>per.</em> — Personajes principales, secundarios, etc.</div>  
@@ -177,18 +187,22 @@ def generate_dictionary():
         f.write('    <item id="style" href="style.css" media-type="text/css"/>\n')
         f.write('    <item id="cover" href="Cover.xhtml" media-type="application/xhtml+xml"/>\n')
         f.write('    <item id="copyright" href="Copyright.xhtml" media-type="application/xhtml+xml"/>\n')
-        f.write('    <item id="index" href="Index.xhtml" media-type="application/xhtml+xml"/>\n')
-        f.write('    <item id="abbreviations" href="Abbreviations.xhtml" media-type="application/xhtml+xml"/>\n')
+        f.write('    <item id="index" properties="nav" href="Contents.xhtml" media-type="application/xhtml+xml"/>\n')
+        
         for filename in xhtml_files:
             f.write(f'    <item id="{filename}" href="{filename}" media-type="application/xhtml+xml"/>\n')
+        
+        f.write('    <item id="abbreviations" href="Abbreviations.xhtml" media-type="application/xhtml+xml"/>\n')
         f.write('  </manifest>\n')
         f.write('  <spine>\n')
         f.write('    <itemref idref="cover"/>\n')
         f.write('    <itemref idref="copyright"/>\n')
         f.write('    <itemref idref="index"/>\n')
-        f.write('    <itemref idref="abbreviations"/>\n')
+        
         for filename in xhtml_files:
             f.write(f'    <itemref idref="{filename}"/>\n')
+        
+        f.write('    <itemref idref="abbreviations"/>\n')
         f.write('  </spine>\n')
         f.write('</package>\n')
 
