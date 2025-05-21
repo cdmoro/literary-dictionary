@@ -134,16 +134,16 @@ def generate_dictionary():
 <html xmlns="http://www.w3.org/1999/xhtml">
 <body>
     <h2>Guía de abreviaturas</h2>
-    <div><em>per.</em> PersonajePersonajes principales, secundarios, etc.</div>  
-    <div><em>lug.</em> Lugares importantes para la historia.</div>
-    <div><em>obj.</em> Objetos especiales que se mencionen en el libro.</div>
-    <div><em>con.</em> Concepto particulares.</div>
-    <div><em>ev.</em> Eventos relevantes para la historia.</div>
-    <div><em>cri.</em> Animales reales o mitológicos, tribus, etc.</div>
-    <div><em>inst.</em> Parecido a <em>lugar</em> pero más específico.</div>
-    <div><em>hech.</em> Ideal para las novelas de fantasía.</div>
-    <div><em>leng.</em> Por si se menciona algún lenguaje ficticio.</div>
-    <div><em>cit.</em> Citas que tienen algún significado especial para la historia.</div>
+    <div><em>per.</em> — Personajes principales, secundarios, etc.</div>  
+    <div><em>lug.</em> — Lugares importantes para la historia.</div>
+    <div><em>obj.</em> — Objetos especiales que se mencionen en el libro.</div>
+    <div><em>con.</em> — Concepto particulares.</div>
+    <div><em>ev.</em> — Eventos relevantes para la historia.</div>
+    <div><em>cri.</em> — Criaturas reales o mitológicos, animales, etc.</div>
+    <div><em>inst.</em> — Institución. Parecido a <em>lug.</em> pero más específico.</div>
+    <div><em>hech.</em> — Hechizos, ideal para las novelas de fantasía.</div>
+    <div><em>leng.</em> — Lengua o idioma artificial.</div>
+    <div><em>cit.</em> — Citas que tienen algún significado especial para la historia.</div>
 </body>
 </html>
 ''')
