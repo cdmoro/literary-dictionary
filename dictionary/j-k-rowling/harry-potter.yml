@@ -46,6 +46,8 @@ glossary:
   - headword: Varita
     description: Objeto mágico esencial para los magos y brujas.
   - headword: Dementores
+    alias:
+      - Dementor
     description: Criaturas que absorben la felicidad; utilizadas como guardianes de Azkaban.
   - headword: Azkaban
     description: Prisión mágica donde se encierran a los peores criminales del mundo mágico.
@@ -53,5 +55,3 @@ glossary:
     description: Deporte mágico jugado en escobas.
   - headword: Ministerio de Magia
     description: Institución que gobierna el mundo mágico británico.
-  - headword: Hechizo
-    description: Fórmula mágica que produce un efecto sobrenatural.

@@ -6,6 +6,15 @@ output_file = 'Statistics.md'
 
 def generate_stats():
     load_dotenv()
+    version = os.getenv('DICT_VERSION')
+
+    if os.path.exists(output_file):
+        with open(output_file, 'r', encoding='utf-8') as f:
+            current_content = f.read()
+            if f"_Versión: {version}_" in current_content:
+                print(f"No se actualizó '{output_file}' porque la versión es la misma.")
+                return
+            
     entries = get_entries()
 
     stats = {}
@@ -31,7 +40,7 @@ def generate_stats():
     lines = []
 
     lines.append("# Estadísticas\n")
-    lines.append(f"_Versión: {os.getenv('DICT_VERSION')}_\n")
+    lines.append(f"_Versión: {version}_\n")
 
     total_authors = len(stats)
     total_sagas = 0
