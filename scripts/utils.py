@@ -14,7 +14,7 @@ sections = {
     'quotes': 'cita',
     'glossary': None,
 }
-def load_entries_from_section(data_section, author, book, saga, category=''):
+def load_entries_from_section(data_section, author, book, saga, category, abbrev = ''):
     entries = []
     for item in data_section:
         headword = item.get('entry')
@@ -31,7 +31,8 @@ def load_entries_from_section(data_section, author, book, saga, category=''):
                 'author': author,
                 'book': book,
                 'saga': saga,
-                'category': category
+                'category': category,
+                'abbrev': abbrev,
             })
     return entries
 
@@ -61,6 +62,7 @@ def get_entries(base_dir='dictionary'):
                     author,
                     book,
                     saga,
+                    key,
                     abbrev
                 ))
 

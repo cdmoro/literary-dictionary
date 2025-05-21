@@ -23,6 +23,3 @@ def generate_json():
         json.dump(entries, file, ensure_ascii=False, indent=4)
 
     print(f"JSON creado en: {output_file}")
-
-if __name__ == '__main__':
-    generate_json()

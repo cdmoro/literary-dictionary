@@ -64,6 +64,3 @@ def generate_stats():
         f.write('\n'.join(lines))
 
     print(f"Archivo '{output_file}' generado correctamente.")
-
-if __name__ == '__main__':
-    generate_stats()

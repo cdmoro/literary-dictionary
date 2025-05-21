@@ -63,7 +63,7 @@ def generate_dictionary():
             for entry in entradas:
                 headword = entry['headword']
                 descripcion = entry['description']
-                category = entry.get('category')
+                abbrev = entry.get('abbrev')
                 autor = entry.get('author')
                 libro = entry.get('book')
                 saga = entry.get('saga')
@@ -88,8 +88,8 @@ def generate_dictionary():
                 #     f.write(f'<div><strong>Alias:</strong> <em>{", ".join(aliases)}</em></div>\n')
 
                 f.write(f'        <div>')
-                if (category):
-                    f.write(f'<em>({category})</em> ')
+                if (abbrev):
+                    f.write(f'<em>({abbrev})</em> ')
                 f.write(f'{descripcion}</div>\n')
                 f.write('        <div>')
                 if libro:
@@ -196,6 +196,3 @@ def crear_epub():
                 epub.write(full_path, arcname)
 
     print(f"EPUB creado en: {epub_path}")
-
-if __name__ == '__main__':
-    generate_dictionary()
