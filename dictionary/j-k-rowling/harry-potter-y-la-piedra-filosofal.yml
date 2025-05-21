@@ -1,31 +1,31 @@
 author: J.K. Rowling
 book: Harry Potter y la piedra filosofal
 characters:
-  - entry: Quirinus Quirrell
+  - headword: Quirinus Quirrell
     alias:
       - Profesor Quirrell
     description: Profesor de Defensa Contra las Artes Oscuras; tiene un papel central en el conflicto del libro.
-  - entry: Nicolás Flamel
+  - headword: Nicolás Flamel
     alias:
       - Flamel
     description: Alquimista legendario, creador de la piedra filosofal.
-  - entry: Hedwig
+  - headword: Hedwig
     alias:
       - La lechuza de Harry
     description: Lechuza blanca que acompaña a Harry en sus primeros años.
-  - entry: Norberto
+  - headword: Norberto
     alias:
       - Dragón de Hagrid
     description: Cría de dragón que Hagrid cuida brevemente.
-  - entry: Señora Norris
+  - headword: Señora Norris
     alias:
       - Mrs Norris
     description: Gata del celador Filch; vigila a los alumnos.
 
 glossary:
-  - entry: Piedra filosofal
+  - headword: Piedra filosofal
     description: Objeto mágico que otorga la vida eterna y convierte metales en oro.
-  - entry: Sombrero Seleccionador
+  - headword: Sombrero Seleccionador
     description: Sombrero mágico que decide a qué casa de Hogwarts pertenece cada estudiante.
-  - entry: Fluffy
+  - headword: Fluffy
     description: Perro gigante de tres cabezas que protege la piedra filosofal.

@@ -6,7 +6,7 @@ _Versión: 0.0.2_
 
 |Autor|Sagas|Libros|Registros|
 |---|---|---|---|
-|Carlos Ruiz Zafón|1|1|13|
+|Carlos Ruiz Zafón|1|1|21|
 |Frank Herbert|1|0|21|
 |Gabriel García Márquez|0|1|14|
 |J.K. Rowling|1|1|24|
@@ -16,4 +16,4 @@ _Versión: 0.0.2_
 
 |Autores|Sagas|Libros|Registros|
 |---|---|---|---|
-|5|4|3|91|
+|5|4|3|99|

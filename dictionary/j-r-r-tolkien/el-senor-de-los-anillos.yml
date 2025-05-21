@@ -1,71 +1,71 @@
 author: J.R.R. Tolkien
 saga: El Señor de los Anillos
 characters:
-  - entry: Frodo Bolsón
+  - headword: Frodo Bolsón
     alias:
       - Frodo
     description: Hobbit de la Comarca encargado de destruir el Anillo Único.
-  - entry: Samwise Gamyi
+  - headword: Samwise Gamyi
     alias:
       - Sam
       - Samsagaz
     description: Leal compañero de Frodo en su misión hacia Mordor.
-  - entry: Gandalf
+  - headword: Gandalf
     alias:
       - Mithrandir
       - El Gris
       - El Blanco
     description: Mago sabio que guía y ayuda a los pueblos libres de la Tierra Media.
-  - entry: Aragorn
+  - headword: Aragorn
     alias:
       - Trancos
       - Elessar
       - Rey de Gondor
     description: Heredero al trono de Gondor, guerrero noble y líder del Oeste.
-  - entry: Legolas
+  - headword: Legolas
     alias:
       - Hijo de Thranduil
     description: Elfo del Bosque Negro; hábil arquero y miembro de la Compañía del Anillo.
-  - entry: Gimli
+  - headword: Gimli
     alias:
       - Hijo de Glóin
     description: Enano guerrero; parte de la Compañía del Anillo.
-  - entry: Boromir
+  - headword: Boromir
     alias:
       - Capitán de Gondor
     description: Guerrero humano valiente pero tentado por el poder del Anillo.
-  - entry: Gollum
+  - headword: Gollum
     alias:
       - Sméagol
     description: Criatura corrompida por el Anillo; guía a Frodo y Sam en su viaje.
-  - entry: Sauron
+  - headword: Sauron
     alias:
       - El Señor Oscuro
       - El Ojo
     description: Antiguo Maia y creador del Anillo Único; representa el mal supremo.
 
 places:
-  - entry: Comarca
+  - headword: Comarca
     description: Región rural habitada por hobbits, hogar de Frodo y Sam.
-  - entry: Mordor
+  - headword: Mordor
     description: Tierra oscura y desolada donde habita Sauron.
-  - entry: Rivendel
+  - headword: Rivendel
     description: Refugio élfico dirigido por Elrond; punto clave en el viaje de la Compañía.
-  - entry: Lothlórien
+  - headword: Lothlórien
     description: Bosque encantado gobernado por Galadriel y Celeborn.
-  - entry: Gondor
+  - headword: Gondor
     description: Reino humano en el sur; último bastión contra Mordor.
-  - entry: Rohan
+  - headword: Rohan
     description: Reino de jinetes; aliado importante en la lucha contra Sauron.
-  - entry: Monte del Destino
+  - headword: Monte del Destino
     description: Volcán en Mordor donde debe destruirse el Anillo Único.
 
 creatures:
-  - entry: Nazgûl
+  - headword: Nazgûl
     description: Espectros del Anillo al servicio de Sauron; antiguos reyes humanos corrompidos.
 
 glossary:
-  - entry: Anillo Único
+  - headword: Anillo Único
     description: Objeto creado por Sauron para dominar a todos los pueblos de la Tierra Media.
-  - entry: La Compañía del Anillo
+  - headword: La Compañía del Anillo
     description: Grupo de nueve enviados para destruir el Anillo Único en el Monte del Destino.

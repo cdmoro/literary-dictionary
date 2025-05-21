@@ -33,7 +33,7 @@ def generate_dictionary():
             entradas_por_letra['Otros'].append(entry)
 
     xhtml_files = []
-    for firstLetter, entradas in sorted(entradas_por_letra.items()):
+    for firstLetter, entries in sorted(entradas_por_letra.items()):
         filename = f"{firstLetter}.xhtml"
         xhtml_files.append(filename)
         with open(os.path.join(output_folder, filename), 'w', encoding='utf-8') as f:
@@ -58,10 +58,12 @@ def generate_dictionary():
             f.write(f'  <title>{firstLetter}</title>\n')
             f.write('</head>\n')
             f.write('<body>\n')
+            f.write(f'  <h1>{firstLetter}</h1>\n\n')
             f.write('  <mbp:frameset>\n')
 
-            for entry in entradas:
+            for entry in entries:
                 headword = entry['headword']
+                displayValue = entry.get('displayValue') or headword
                 descripcion = entry['description']
                 abbrev = entry.get('abbrev')
                 autor = entry.get('author')
@@ -70,7 +72,7 @@ def generate_dictionary():
 
                 f.write('    <idx:entry name="default" scriptable="yes" spell="yes">\n')
                 f.write('      <dt>\n')
-                f.write(f'        <idx:orth>{headword}')
+                f.write(f'        <idx:orth value="{headword}">{displayValue}')
 
                 aliases = entry.get('alias', [])
                 if aliases:
@@ -89,7 +91,7 @@ def generate_dictionary():
 
                 f.write(f'        <div>')
                 if (abbrev):
-                    f.write(f'<em>({abbrev})</em> ')
+                    f.write(f'<em>{abbrev}</em> ')
                 f.write(f'{descripcion}</div>\n')
                 f.write('        <div>')
                 if libro:
@@ -132,16 +134,16 @@ def generate_dictionary():
 <html xmlns="http://www.w3.org/1999/xhtml">
 <body>
     <h2>Guía de abreviaturas</h2>
-    <div><em>(per.)</em> PersonajePersonajes principales, secundarios, etc.</div>  
-    <div><em>(lugar)</em> Lugares importantes para la historia.</div>
-    <div><em>(obj.)</em> Objetos especiales que se mencionen en el libro.</div>
-    <div><em>(concepto)</em> Concepto particulares.</div>
-    <div><em>(evento)</em> Eventos relevantes para la historia.</div>
-    <div><em>(criatura)</em> Animales reales o mitológicos, tribus, etc.</div>
-    <div><em>(inst.)</em> Parecido a <em>lugar</em> pero más específico.</div>
-    <div><em>(hechizo)</em> Ideal para las novelas de fantasía.</div>
-    <div><em>(idioma)</em> Por si se menciona algún lenguaje ficticio.</div>
-    <div><em>(cita)</em> Citas que tienen algún significado especial para la historia.</div>
+    <div><em>per.</em> PersonajePersonajes principales, secundarios, etc.</div>  
+    <div><em>lug.</em> Lugares importantes para la historia.</div>
+    <div><em>obj.</em> Objetos especiales que se mencionen en el libro.</div>
+    <div><em>con.</em> Concepto particulares.</div>
+    <div><em>ev.</em> Eventos relevantes para la historia.</div>
+    <div><em>cri.</em> Animales reales o mitológicos, tribus, etc.</div>
+    <div><em>inst.</em> Parecido a <em>lugar</em> pero más específico.</div>
+    <div><em>hech.</em> Ideal para las novelas de fantasía.</div>
+    <div><em>leng.</em> Por si se menciona algún lenguaje ficticio.</div>
+    <div><em>cit.</em> Citas que tienen algún significado especial para la historia.</div>
 </body>
 </html>
 ''')

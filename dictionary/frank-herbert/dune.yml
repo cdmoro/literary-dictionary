@@ -1,66 +1,66 @@
 author: Frank Herbert
 saga: Dune
 characters:
-  - entry: Paul Atreides
+  - headword: Paul Atreides
     alias:
       - Muad'Dib
       - El joven duque
     description: Hijo del duque Leto Atreides, destinado a un rol clave en la historia de Arrakis.
-  - entry: Leto Atreides
+  - headword: Leto Atreides
     alias:
       - Duque Leto
     description: Noble honorable y padre de Paul; líder de la Casa Atreides.
-  - entry: Jessica
+  - headword: Jessica
     alias:
       - Dama Jessica
     description: Concubina del duque Leto, miembro de la orden Bene Gesserit.
-  - entry: Baron Vladimir Harkonnen
+  - headword: Baron Vladimir Harkonnen
     alias:
       - Barón Harkonnen
     description: Enemigo mortal de la Casa Atreides, líder de la Casa Harkonnen.
-  - entry: Duncan Idaho
+  - headword: Duncan Idaho
     alias:
       - Idaho
     description: Espadachín leal a la Casa Atreides.
-  - entry: Gurney Halleck
+  - headword: Gurney Halleck
     alias:
       - Gurney
     description: Guerrero y músico, uno de los hombres de confianza de los Atreides.
-  - entry: Stilgar
+  - headword: Stilgar
     alias:
       - Naib Stilgar
     description: Líder Fremen del Sietch Tabr, aliado de Paul.
-  - entry: Chani
+  - headword: Chani
     alias:
       - Ninguna
     description: Fremen cercana a Paul, nacida en Arrakis.
-  - entry: Reverend Mother Gaius Helen Mohiam
+  - headword: Reverend Mother Gaius Helen Mohiam
     alias:
       - Madre Reverenda
     description: Miembro de alto rango de las Bene Gesserit.
 
 glossary:
-  - entry: Arrakis
+  - headword: Arrakis
     description: Planeta desértico conocido también como Dune; único lugar donde se encuentra la especia melange.
-  - entry: Especia
+  - headword: Especia
     description: Sustancia que extiende la vida y amplía la conciencia; vital para los viajes espaciales.
-  - entry: Fremen
+  - headword: Fremen
     description: Pueblo nómada que vive en el desierto de Arrakis; grandes guerreros y supervivientes.
-  - entry: Bene Gesserit
+  - headword: Bene Gesserit
     description: Antigua orden femenina con habilidades mentales y físicas extraordinarias; manipulan la política y la genética.
-  - entry: Mentat
+  - headword: Mentat
     description: Humanos entrenados como computadoras vivientes, reemplazan a las máquinas pensantes.
-  - entry: Casa Atreides
+  - headword: Casa Atreides
     description: Noble casa conocida por su honor y justicia; enemigos de los Harkonnen.
-  - entry: Casa Harkonnen
+  - headword: Casa Harkonnen
     description: Noble casa rival de los Atreides; conocida por su crueldad.
-  - entry: Sietch
+  - headword: Sietch
     description: Comunidad o refugio Fremen dentro de las cavernas de Arrakis.
-  - entry: Kwisatz Haderach
+  - headword: Kwisatz Haderach
     description: Figura mesiánica predicha por las Bene Gesserit; hombre capaz de acceder a recuerdos genéticos de ambos sexos.
-  - entry: CHOAM
+  - headword: CHOAM
     description: Corporación interplanetaria que regula el comercio en el universo, incluida la especia.
-  - entry: Lanza-escudo
+  - headword: Lanza-escudo
     description: Campo de energía defensiva personal, común en combate cuerpo a cuerpo.
-  - entry: Gilda Espacial
+  - headword: Gilda Espacial
     description: Organización que controla los viajes interestelares gracias a los navegantes que usan la especia.

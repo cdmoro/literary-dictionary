@@ -1,54 +1,106 @@
 author: Carlos Ruiz Zafón
 book: La sombra del viento
 saga: El cementerio de los libros olvidados
+
 characters:
-  - entry: Daniel Sempere
+  - headword: Daniel Sempere
     alias:
       - Daniel
       - Sempere
-    description: Joven barcelonés que descubre un misterioso libro que cambiará su vida.
-  - entry: Julián Carax
+    description: Joven barcelonés que descubre un libro olvidado en el Cementerio de los Libros Olvidados, lo que marca el inicio de una investigación literaria y personal.
+
+  - headword: Julián Carax
     alias:
       - Julián
       - Carax
-    description: Autor de <em>La Sombra del Viento</em>, rodeado de misterio.
-  - entry: Fermín Romero de Torres
+    description: Misterioso autor de <em>La Sombra del Viento</em>, cuya vida parece estar envuelta en tragedia, secretos y desapariciones.
+
+  - headword: Fermín Romero de Torres
     alias:
       - Fermín
-    description: Personaje excéntrico y carismático que se convierte en amigo y aliado de Daniel.
-  - entry: Gustavo Barceló
+    description: Hombre excéntrico, culto y sagaz, que se convierte en el mejor amigo y aliado de Daniel.
+
+  - headword: Gustavo Barceló
     alias:
       - Gustavo
       - Barceló
-    description: Bibliófilo y coleccionista de libros antiguos; ayuda a Daniel en su investigación.
-  - entry: Bea Barceló
+    description: Bibliófilo influyente y dueño de una valiosa colección. Ayuda a Daniel a descubrir más sobre Carax.
+
+  - headword: Bea Barceló
     alias:
       - Bea
       - Barceló
-    description: Hija de Gustavo Barceló, amiga de la infancia de Daniel.
-  - entry: Tomás Aguilar
+    description: Hija de Gustavo y amiga de la infancia de Daniel. Su relación con él evoluciona con el tiempo.
+
+  - headword: Tomás Aguilar
     alias:
       - Tomás
       - Aguilar
-    description: Amigo leal de Daniel desde la infancia.
-  - entry: Sr. Sempere
+    description: Fuerte, leal y protector. Amigo íntimo de Daniel desde la infancia.
+
+  - headword: Sr. Sempere
     alias:
       - Padre de Daniel
       - Sempere
       - Sr. Sempere
-    description: Padre de Daniel y dueño de una pequeña librería en Barcelona.
+    description: Dueño de la librería Sempere e Hijos y figura paterna amorosa, comprensiva y lectora incansable.
+
+  - headword: Inspector Fumero
+    alias:
+      - Fumero
+      - Inspector Fumero
+    description: Temido inspector de policía con un oscuro pasado. Su figura genera tensión y peligro a lo largo de la historia.
+
+  - headword: Nuria Monfort
+    alias:
+      - Nuria
+      - Monfort
+    description: Mujer solitaria con un vínculo directo con los libros de Carax y los hechos que investiga Daniel.
+
+  - headword: Penélope Aldaya
+    alias:
+      - Penélope
+      - Aldaya
+    description: Joven que pertenece a una familia adinerada de Barcelona. Su nombre está ligado a episodios del pasado.
+
+  - headword: Jacinta Coronado
+    alias:
+      - Jacinta
+    description: Antigua institutriz con recuerdos importantes que revelan fragmentos del pasado oculto.
+
+places:
+  - headword: Cementerio de los Libros Olvidados
+    description: Misterioso laberinto de libros en el corazón de Barcelona. Es el lugar donde comienza la historia de Daniel con el libro de Carax.
+
+  - headword: Librería Sempere e Hijos
+    description: Pequeña librería ubicada en el Raval, propiedad del padre de Daniel. Centro de la vida cotidiana del protagonista.
+
+  - headword: Barcelona
+    description: Ciudad donde transcurre la novela. Su atmósfera gótica, lluviosa y nostálgica potencia el tono del relato.
+
+  - headword: Casa Aldaya
+    description: Antigua mansión en el Ensanche vinculada a la familia Aldaya y a episodios del pasado de Carax.
+
+  - headword: Escuela de los jesuitas
+    description: Centro educativo por el que pasaron varios personajes. Es escenario de acontecimientos clave en la juventud de Carax.
+
+objects:
+  - headword: La Sombra del Viento
+    description: Libro escrito por Julián Carax que Daniel encuentra en el Cementerio de los Libros Olvidados. Desencadena toda la investigación posterior.
+
+  - headword: Los libros de Carax
+    description: Títulos de escasa circulación escritos por Julián Carax. Se rumorea que alguien los busca para destruirlos.
+
+concepts:
+  - headword: Cementerio de los Libros Olvidados
+    description: Tradición secreta que protege libros olvidados por el mundo. Cada persona que entra debe adoptar un libro y protegerlo.
+
+institutions:
+  - headword: Editorial Cabestany
+    alias:
+      - Cabestany
+    description: Editorial mencionada en la historia, relacionada con la publicación de algunas obras y con personajes del entorno de Carax.
 
 glossary:
-  - entry: Cementerio de los Libros Olvidados
-    description: Lugar secreto y mágico donde se guardan libros olvidados, y donde Daniel encuentra "La Sombra del Viento".
-  - entry: Librería Sempere e Hijos
-    description: Pequeña librería en Barcelona, regentada por el padre de Daniel.
-  - entry: Barcelona
-    description: Ciudad en la que transcurre la historia; escenario lleno de misterio, niebla y rincones góticos.
-  - entry: La Sombra del Viento
-    description: Novela escrita por Julián Carax, que Daniel encuentra en el Cementerio de los Libros Olvidados.
-  - entry: Los libros de Carax
-    description: Obras misteriosas del autor Julián Carax, difíciles de encontrar y envueltas en leyendas.
-  - entry: Escuela de los jesuitas
-    description: Lugar mencionado en el pasado de algunos personajes, representa parte de la historia oculta.
-
+  - headword: Posguerra
+    description: Período posterior a la Guerra Civil Española. Afecta profundamente a los personajes y es el telón de fondo de la novela.

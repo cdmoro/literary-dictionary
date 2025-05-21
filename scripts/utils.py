@@ -3,21 +3,22 @@ import yaml
 
 sections = {
     'characters': 'per.',
-    'places': 'lugar',
+    'places': 'lug.',
     'objects': 'obj.',
-    'concepts': 'concep.',
-    'events': 'evento',
-    'creatures': 'criatura',
+    'concepts': 'con.',
+    'events': 'ev.',
+    'creatures': 'cri.',
     'institutions': 'inst.',
-    'spells': 'hechizo',
-    'languages': 'lang.',
-    'quotes': 'cita',
+    'spells': 'hech.',
+    'languages': 'leng.',
+    'quotes': 'cit.',
     'glossary': None,
 }
 def load_entries_from_section(data_section, author, book, saga, category, abbrev = ''):
     entries = []
     for item in data_section:
-        headword = item.get('entry')
+        headword = item.get('headword')
+        displayValue = item.get('displayValue')
         alias = item.get('alias')
         if not isinstance(alias, list):
             alias = []
@@ -26,6 +27,7 @@ def load_entries_from_section(data_section, author, book, saga, category, abbrev
         if headword:
             entries.append({
                 'headword': headword,
+                'displayValue': displayValue,
                 'alias': alias,
                 'description': description,
                 'author': author,
