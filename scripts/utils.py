@@ -19,6 +19,7 @@ CATEGORY_KEYS = CATEGORIES.keys()
 def load_entries_from_section(data_section, author, book, saga, category, abbrev = ''):
     entries = []
     for item in data_section:
+        id = item.get('id')
         headword = item.get('headword')
         displayValue = item.get('displayValue')
         alias = item.get('alias')
@@ -29,6 +30,7 @@ def load_entries_from_section(data_section, author, book, saga, category, abbrev
 
         if headword and not skip:
             entries.append({
+                'id': id,
                 'headword': headword,
                 'displayValue': displayValue,
                 'alias': alias,

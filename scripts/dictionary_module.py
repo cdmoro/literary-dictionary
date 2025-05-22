@@ -66,6 +66,7 @@ def generate_dictionary():
             f.write('  <mbp:frameset>\n')
 
             for entry in entries:
+                id = entry["id"]
                 headword = entry['headword']
                 displayValue = entry.get('displayValue') or headword
                 descripcion = entry['description']
@@ -74,7 +75,8 @@ def generate_dictionary():
                 libro = entry.get('book')
                 saga = entry.get('saga')
 
-                f.write('    <idx:entry name="default" scriptable="yes" spell="yes">\n')
+                f.write(f'    <idx:entry name="default" scriptable="yes" spell="yes" id="{id}">\n')
+                f.write(f'      <a id="{id}"></a>\n')
                 f.write('      <dt>\n')
                 f.write(f'        <idx:orth value="{headword}">{displayValue}')
 
