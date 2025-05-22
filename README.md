@@ -36,16 +36,16 @@ Cada archivo YAML contiene:
     - `description`: Descripción del término.
  
 El campo `glossary` es más que suficience para agregar registros, pero si queremos ser más específicos podemos usar los siguientes campos:
-- `characters`: _(per.)_ - Personajes principales, secundarios, etc.
-- `places`: _(lugar)_ - Lugares importantes para la historia.
-- `objects`: _(obj.)_ - Objetos especiales que se mencionen en el libro.
-- `concepts`: _(concep.)_ - Conceptos particulares.
-- `events`: _(evento)_ - Eventos relevantes para la historia.
-- `creatures`: _(criatura)_ - Animales reales o mitológicos, tribus, etc.
-- `institutions`: _(inst.)_ - Parecido a `places` pero más específico.
-- `spells`: _(hechizo)_ - Ideal para las novelas de fantasía.
-- `languages`: _(lang.)_ - Por si se menciona algún lenguaje ficticio.
-- `quotes`: _(cita)_ - Citas que tienen algún significado especial para la historia.
+- `characters`: Personajes principales, secundarios, etc.
+- `places`: Lugares importantes para la historia.
+- `objects`: Objetos especiales que se mencionen en el libro.
+- `concepts`: Conceptos particulares.
+- `events`: Eventos relevantes para la historia.
+- `creatures`: Animales reales o mitológicos, tribus, etc.
+- `institutions`: Parecido a `places` pero más específico.
+- `spells`: Ideal para las novelas de fantasía.
+- `languages`: Por si se menciona algún lenguaje ficticio.
+- `quotes`: Citas que tienen algún significado especial para la historia.
 
 lo que resultará en la adición de abreviaturas en la definición, dichos campos tienen la misma estructura que `glossary` (`entry`, `alias`, `description`):
 
@@ -76,7 +76,7 @@ Si querés colaborar estos son los pasos para poder compilar el proyecto y subir
     Esto generará un archivo EPUB y una carpeta llamada `dictionary_files` en la carpeta `output`
 1. Abrir el programa Kindle Previewer y cargar el EPUB (o el archivo `Dictionary.opf` dentro de `dictionary_files`)
 1. Generar un archivo MOBI
-1. Copiar el archivo MOBI generado en el paso anterior a la carpeta dictionary de tu Kindle
+1. Copiar el archivo MOBI generado en el paso anterior a la carpeta `dictionaries` de tu Kindle
 
 Y listo, ya deberías poder usar el diccionario!
 
