@@ -2,54 +2,66 @@ author: Gabriel García Márquez
 book: Cien años de soledad
 characters:
   - headword: José Arcadio Buendía
+    id: 85
     alias:
       - Arcadio
       - Patriarca Buendía
       - Buendía
     description: Fundador de Macondo y patriarca de la familia Buendía.
   - headword: Úrsula Iguarán
+    id: 86
     alias:
       - Úrsula
     description: Esposa de José Arcadio Buendía, matriarca de la familia Buendía.
   - headword: Aureliano Buendía
+    id: 87
     alias:
       - Coronel Aureliano Buendía
       - Aureliano
       - Buendía
     description: Hijo de José Arcadio y Úrsula, protagonista de varias historias.
   - headword: Remedios la Bella
+    id: 88
     alias:
       - Remedios
     description: Joven de extraordinaria belleza que vive ajena a la realidad y sube al cielo de forma misteriosa.
   - headword: Fernanda del Carpio
+    id: 89
     alias:
       - Fernanda
     description: Esposa de Aureliano Segundo; de familia aristocrática, representa la tradición y el orden.
   - headword: Melquíades
+    id: 90
     alias:
       - El gitano
     description: Misterioso viajero que trae novedades científicas a Macondo y se convierte en figura clave en la historia de los Buendía.
   - headword: Amaranta
+    id: 91
     alias:
       - Amaranta
     description: Hija de José Arcadio y Úrsula; marcada por la tragedia, el amor no correspondido y el deber familiar.
   - headword: Rebeca
+    id: 92
     alias:
       - Rebeca
     description: Niña adoptada por los Buendía que llega con una bolsa de huesos y el hábito de comer tierra.
-
 places:
   - headword: Macondo
+    id: 93
     description: "&lt;Ciudad ficticia&gt; Representa un microcosmos del Caribe colombiano, atravesado por el mito, la historia y el realismo mágico. Fundada por José Arcadio Buendía; escenario principal de la novela."
-
 glossary:
   - headword: Peste del insomnio
+    id: 94
     description: Enfermedad que causa la pérdida del sueño y de la memoria; fuerza a los personajes a etiquetar las cosas para no olvidar su función.
   - headword: Hielo
+    id: 95
     description: Objeto fascinante para los niños en su primera visita al mundo exterior; símbolo del descubrimiento y del tiempo.
   - headword: Pergaminos de Melquíades
+    id: 96
     description: Manuscritos misteriosos que contienen el destino de la familia Buendía, escritos en un idioma críptico.
   - headword: Laboratorio de alquimia
+    id: 97
     description: Espacio creado por José Arcadio Buendía para experimentar; representa su obsesión con el conocimiento y el destino.
   - headword: Plátano
+    id: 98
     description: Fruto central en la economía de Macondo durante la llegada de la compañía bananera; relacionado con un evento traumático colectivo.

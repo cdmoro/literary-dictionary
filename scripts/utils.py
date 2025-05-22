@@ -1,7 +1,7 @@
 from pathlib import Path
 import yaml
 
-sections = {
+CATEGORIES = {
     'characters': 'per.',
     'places': 'lug.',
     'objects': 'obj.',
@@ -14,6 +14,8 @@ sections = {
     'quotes': 'cit.',
     'glossary': None,
 }
+CATEGORY_KEYS = CATEGORIES.keys()
+
 def load_entries_from_section(data_section, author, book, saga, category, abbrev = ''):
     entries = []
     for item in data_section:
@@ -59,7 +61,7 @@ def get_entries(base_dir='dictionary'):
                 print(f"⚠️ Faltan datos de autor en {book_file.name}")
                 continue
 
-            for key, abbrev in sections.items():
+            for key, abbrev in CATEGORIES.items():
                 entries.extend(load_entries_from_section(
                     data.get(key, []),
                     author,
