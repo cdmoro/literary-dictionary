@@ -8,6 +8,8 @@ from dotenv import load_dotenv
 from utils import get_entries
 from copyright import get_copyright_html  
 
+load_dotenv()
+
 output_folder = 'output/dictionary_files'
 epub_path = f'output/Bonadeo, Carlos - Diccionario Literario (v{os.getenv('DICT_VERSION')}).epub'
 
@@ -15,13 +17,19 @@ def normalize_character(letra):
     return unicodedata.normalize('NFD', letra).encode('ascii', 'ignore').decode('utf-8').upper()
 
 def generate_dictionary():
-    load_dotenv()
+    print('\nGenerating dictionary...')
 
     if os.path.exists(output_folder):
         shutil.rmtree(output_folder)
     os.makedirs(output_folder, exist_ok=True)
 
     entries = get_entries()
+
+    cross_reference_data = {}
+    for entry in entries:
+        if "id" in entry and "headword" in entry:
+            filename = f'{entry['headword'].strip()[0].upper()}.xhtml'
+            cross_reference_data[entry["id"]] = (entry["headword"], filename)
 
     # Copyright
     with open(os.path.join(output_folder, 'Copyright.xhtml'), 'w', encoding='utf-8') as f:
@@ -74,6 +82,7 @@ def generate_dictionary():
                 autor = entry.get('author')
                 libro = entry.get('book')
                 saga = entry.get('saga')
+                seeAlso = entry.get('seeAlso')
 
                 f.write(f'    <idx:entry name="default" scriptable="yes" spell="yes" id="{id}">\n')
                 f.write(f'      <a id="{id}"></a>\n')
@@ -104,6 +113,17 @@ def generate_dictionary():
                 else:
                     f.write(f'Figura en la obra de {autor}.')
                 f.write('</div>\n')
+
+                if seeAlso:
+                    f.write('        <div><em>Ver también:<em> ')
+                    seeAlsoLinks = []
+                    for id in seeAlso:
+                        if not id in cross_reference_data:
+                            print(f'  - ⏭️  Cross Reference ID {id} not found, skipped')
+                            continue
+                        seeAlsoLinks.append(f'<a href="{cross_reference_data[id][1]}#{id}">{cross_reference_data[id][0]}</a>')
+                    f.write(', '.join(seeAlsoLinks))
+                    f.write('</div>\n')
                 
                 f.write('      </dd>\n')
                 f.write('    </idx:entry>\n')
@@ -208,6 +228,7 @@ def generate_dictionary():
         f.write('  </spine>\n')
         f.write('</package>\n')
 
+    print(f"✅ Diccionary files created successfully")
     crear_epub()
 
 def crear_epub():
@@ -226,4 +247,4 @@ def crear_epub():
                 arcname = os.path.relpath(full_path, output_folder)
                 epub.write(full_path, arcname)
 
-    print(f"EPUB creado en: {epub_path}")
+    print(f"✅ EPUB created successfully")

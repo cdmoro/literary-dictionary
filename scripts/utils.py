@@ -26,6 +26,9 @@ def load_entries_from_section(data_section, author, book, saga, category, abbrev
         if not isinstance(alias, list):
             alias = []
         description = item.get('description', '')
+        seeAlso = item.get('seeAlso')
+        if not isinstance(seeAlso, list):
+            seeAlso = []
         skip = item.get('skip', False)
 
         if headword and not skip:
@@ -40,6 +43,7 @@ def load_entries_from_section(data_section, author, book, saga, category, abbrev
                 'saga': saga,
                 'category': category,
                 'abbrev': abbrev,
+                'seeAlso': seeAlso,
             })
     return entries
 
@@ -60,7 +64,7 @@ def get_entries(base_dir='dictionary'):
             saga = data.get('saga', '')
 
             if not author:
-                print(f"⚠️ Faltan datos de autor en {book_file.name}")
+                print(f"- ⏭️  Missing author data in {book_file.name}")
                 continue
 
             for key, abbrev in CATEGORIES.items():
