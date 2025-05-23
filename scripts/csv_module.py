@@ -6,6 +6,7 @@ from utils import get_entries
 
 def generate_csv():
     load_dotenv()
+    print('\nGenerating CSV...')
 
     entries = get_entries()
     output_file = f'output/Bonadeo, Carlos - Diccionario Literario (v{os.getenv('DICT_VERSION')}).csv'
@@ -20,4 +21,4 @@ def generate_csv():
             entry['seeAlso'] = ', '.join(str(id) for id in entry['seeAlso'])
             writer.writerow(entry)
 
-    print(f"CSV creado en: {output_file}")
+    print(f"✅ CSV created successfully")

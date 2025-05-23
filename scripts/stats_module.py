@@ -6,13 +6,14 @@ output_file = 'Statistics.md'
 
 def generate_stats():
     load_dotenv()
+    print('\nGenerating statistics...')
     version = os.getenv('DICT_VERSION')
 
     if os.path.exists(output_file):
         with open(output_file, 'r', encoding='utf-8') as f:
             current_content = f.read()
             if f"_Versión: {version}_" in current_content:
-                print(f"No se actualizó '{output_file}' porque la versión es la misma.")
+                print(f"⏭️  Update of '{output_file}' was skipped: version unchanged ({version}).")
                 return
             
     entries = get_entries()

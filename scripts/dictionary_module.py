@@ -17,6 +17,8 @@ def normalize_character(letra):
     return unicodedata.normalize('NFD', letra).encode('ascii', 'ignore').decode('utf-8').upper()
 
 def generate_dictionary():
+    print('\nGenerating dictionary...')
+
     if os.path.exists(output_folder):
         shutil.rmtree(output_folder)
     os.makedirs(output_folder, exist_ok=True)
@@ -116,6 +118,9 @@ def generate_dictionary():
                     f.write('        <div><em>Ver también:<em> ')
                     seeAlsoLinks = []
                     for id in seeAlso:
+                        if not id in cross_reference_data:
+                            print(f'  - ⏭️  Cross Reference ID {id} not found, skipped')
+                            continue
                         seeAlsoLinks.append(f'<a href="{cross_reference_data[id][1]}#{id}">{cross_reference_data[id][0]}</a>')
                     f.write(', '.join(seeAlsoLinks))
                     f.write('</div>\n')
@@ -223,6 +228,7 @@ def generate_dictionary():
         f.write('  </spine>\n')
         f.write('</package>\n')
 
+    print(f"✅ Diccionary files created successfully")
     crear_epub()
 
 def crear_epub():
@@ -241,4 +247,4 @@ def crear_epub():
                 arcname = os.path.relpath(full_path, output_folder)
                 epub.write(full_path, arcname)
 
-    print(f"EPUB creado en: {epub_path}")
+    print(f"✅ EPUB created successfully")

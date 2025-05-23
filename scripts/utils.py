@@ -64,7 +64,7 @@ def get_entries(base_dir='dictionary'):
             saga = data.get('saga', '')
 
             if not author:
-                print(f"⚠️ Faltan datos de autor en {book_file.name}")
+                print(f"- ⏭️  Missing author data in {book_file.name}")
                 continue
 
             for key, abbrev in CATEGORIES.items():

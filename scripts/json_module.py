@@ -6,6 +6,7 @@ from utils import get_entries
 
 def generate_json():
     load_dotenv()
+    print('\nGenerating JSON...')
 
     entries = get_entries()
     output_file = f"output/Bonadeo, Carlos - Diccionario Literario (v{os.getenv('DICT_VERSION')}).json"
@@ -22,4 +23,4 @@ def generate_json():
     with open(output_file, mode='w', encoding='utf-8') as file:
         json.dump(entries, file, ensure_ascii=False, indent=4)
 
-    print(f"JSON creado en: {output_file}")
+    print(f"✅ JSON created successfully")
