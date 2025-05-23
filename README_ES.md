@@ -1,88 +1,84 @@
-# Diccionario Literario
+# 📚 Diccionario Literario para Kindle
 
-Este proyecto es un diccionario literario para libros electrónicos que organiza personajes, conceptos y elementos de distintas sagas y libros famosos.
+**Tu compañero de lectura definitivo.**  
+¿Perdiste la cuenta de los nombres en _Cien años de soledad_? ¿No recordás si ese objeto mágico era de Frodo o de Harry? Este **Diccionario Literario** de código abierto te ayuda a seguirle el ritmo a personajes, lugares y conceptos de libros y sagas famosas, directamente desde tu Kindle.
 
-# Uso
+## 🚀 ¿Qué es?
 
-El diccionario está optimizado para ser usado en los dispositivos Kindle (ya que no tengo otro lector). Podés bajar el __archivo MOBI__ desde [acá](https://github.com/cdmoro/diccionario-literario/releases/latest).
+Un diccionario literario optimizado para Kindle, pensado para mejorar tu experiencia de lectura. Solo tenés que descargarlo, instalarlo y empezar a buscar nombres o frases desconocidas sin salir de la página.
 
-Se pueden buscar tanto palabras individuales como grupos de palabras. Y, por supuesto, sirve para libros en cualquier idioma.
+- Funciona con **palabras individuales** y **expresiones compuestas**
+- Compatible con libros en **cualquier idioma**
+- Totalmente integrado al **sistema de diccionarios del Kindle**
 
-|Palabra individual|Grupo de palabras|Libro en otro idioma|
+|Palabra individual|Expresión compuesta|Libro en otro idioma|
 |---|---|---|
 |﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿![image](https://github.com/user-attachments/assets/43fe84ab-9879-4b0f-a888-9b71d4f11e88)|![image](https://github.com/user-attachments/assets/826923f0-74ec-4d70-b62f-1fe823747b08)|![image](https://github.com/user-attachments/assets/8491310c-d80a-490f-a90a-2963b9d1badf)|
 
+🎯 [Descargar el archivo MOBI más reciente desde acá](https://github.com/cdmoro/diccionario-literario/releases/latest)
 
-# Historia
+---
 
-Después de leer _Cien años de soledad_ y ya no saber qué personaje hizo tal o cuál cosa, me puse en la tarea de hacer un diccionario que contenga personajes y términos de la literatura universal para que no me vuelva a pasar.
+## ✍️ Cómo funciona
 
-Y qué mejor para esto que aprovechar el sistema de diccionarios del Kindle, donde se puede buscar por palabras (sí, más de una) y te muestra la definición en una forma muy cómoda para el lector.
+Las entradas están organizadas en archivos YAML por autor. Cada archivo puede cubrir un libro, una saga completa o el universo general del autor.
 
-# Diccionario
+### ✅ Estructura de cada entrada
 
-Dentro de la carpeta `dictionary` se encuentran las entradas para el diccionario separadas por autor, en archivos YAML. Cada archivo puede corresponderse con un libro, con una saga o simplemente puede contener registros que forman parte del universo del autor, sin estar necesariamente conectadas con un libro o saga en particular.
+Cada entrada incluye:
+- `entry`: Término principal
+- `alias` (opcional): Nombres alternativos
+- `description`: Breve explicación
 
-## Formato
+Además, podés categorizar las entradas usando:
+- `characters`, `places`, `objects`, `concepts`, `events`, `creatures`, `institutions`, `spells`, `languages`, `quotes`
 
-Cada archivo YAML contiene:
+Desde lenguas élficas hasta frases memorables.  
+Todo se encuentra en `dictionary/*.yaml`.
 
-- `author`: Nombre del autor.
-- `book` (opcional): Nombre del libro.
-- `saga` (opcional): Nombre de la saga.
-- `glossary`: Lista de términos, lugares, frases, etc. sin categorizar.
-    - `entry`: Palabra principal. 
-    - `alias` (opcional): Lista de variantes del término.
-    - `description`: Descripción del término.
- 
-El campo `glossary` es más que suficience para agregar registros, pero si queremos ser más específicos podemos usar los siguientes campos:
-- `characters`: Personajes principales, secundarios, etc.
-- `places`: Lugares importantes para la historia.
-- `objects`: Objetos especiales que se mencionen en el libro.
-- `concepts`: Conceptos particulares.
-- `events`: Eventos relevantes para la historia.
-- `creatures`: Animales reales o mitológicos, tribus, etc.
-- `institutions`: Parecido a `places` pero más específico.
-- `spells`: Ideal para las novelas de fantasía.
-- `languages`: Por si se menciona algún lenguaje ficticio.
-- `quotes`: Citas que tienen algún significado especial para la historia.
+---
 
-lo que resultará en la adición de abreviaturas en la definición, dichos campos tienen la misma estructura que `glossary` (`entry`, `alias`, `description`):
+## 🛠️ Cómo contribuir
 
-# Cómo contribuir
+¿Te gustan los libros y la tecnología? ¡Sumate!
 
-Cualquier tipo de contribución será más que bienvenida. Se puede hacer a través de varias formas. Desde contribuciones al código fuente, cargar sugerencias o issues, hasta contribuciones monetarias.
+- Agregá nuevas entradas (formato YAML)
+- Mejorá los scripts en Python
+- Reportá errores o sugerí mejoras
+- Compartí tus universos literarios favoritos
 
-- Agregar nuevos personajes siguiendo la estructura `YALM` mencionada.
-- Mejorar scripts para procesamiento y generación de datos.
-- Reportar issues o sugerencias en el repositorio.
-- Enviarme un mail o contactarme por las redes sociales.
-- Comprarme un [coffee](https://buymeacoffee.com/cdmoro) o un [cafecito](http://cafecito.app/cdmoro)
-- Contribuir en la plataforma [Patreon](https://patreon.com/cdmoro)
+También podés:
+- ☕ [Invitarme un café](https://buymeacoffee.com/cdmoro)
+- 🧉 [Convidarme un cafecito](http://cafecito.app/cdmoro)
+- 🎁 [Colaborar en Patreon](https://patreon.com/cdmoro)
 
-## Desarrollo
+---
 
-Si querés colaborar estos son los pasos para poder compilar el proyecto y subir tu archivo al Kindle.
+## 🧪 Entorno de desarrollo
 
-1. Clonar el repositorio
-1. Instalar dependencias:
-    ```
-    pip install -r requirements.txt
-    ```
-1. Compilar proyecto
-    ```
-    python scripts/build.py
-    ```
-    Esto generará un archivo EPUB y una carpeta llamada `dictionary_files` en la carpeta `output`
-1. Abrir el programa Kindle Previewer y cargar el EPUB (o el archivo `Dictionary.opf` dentro de `dictionary_files`)
-1. Generar un archivo MOBI
-1. Copiar el archivo MOBI generado en el paso anterior a la carpeta `dictionaries` de tu Kindle
+Para compilar y testear el diccionario localmente:
 
-Y listo, ya deberías poder usar el diccionario!
+```bash
+git clone https://github.com/cdmoro/diccionario-literario.git
+cd diccionario-literario
+pip install -r requirements.txt
+python scripts/build.py
+```
 
-# Contacto
+Después:
 
-Hola, me llamo Carlos y podés encontrarme en:
+1. Abrí Kindle Previewer
+1. Cargá el archivo EPUB generado o dictionary_files/Dictionary.opf
+1. Exportalo como MOBI
+1. Copialo a la carpeta dictionaries/ de tu Kindle
 
-- [Twitter](https://twitter.com/CarlosBonadeo)
-- [LinkedIn](https://www.linkedin.com/in/cdbonadeo/)
+¡Listo! 🔍📖
+
+## 🙋‍♂️ Sobre mí
+
+Hola, soy Carlos — lector empedernido, programador y hacker de Kindle.
+
+- 🐦 [Twitter](https://twitter.com/CarlosBonadeo)
+- 💼 [LinkedIn](https://www.linkedin.com/in/cdbonadeo/)
+
+Llevemos la literatura al siguiente nivel, una búsqueda a la vez.
