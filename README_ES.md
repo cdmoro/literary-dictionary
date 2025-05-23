@@ -18,7 +18,7 @@ Un diccionario literario optimizado para Kindle, pensado para mejorar tu experie
 |---|---|---|
 |﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿![image](https://github.com/user-attachments/assets/43fe84ab-9879-4b0f-a888-9b71d4f11e88)|![image](https://github.com/user-attachments/assets/826923f0-74ec-4d70-b62f-1fe823747b08)|![image](https://github.com/user-attachments/assets/8491310c-d80a-490f-a90a-2963b9d1badf)|
 
-🎯 [Descargar el archivo MOBI más reciente desde acá](https://github.com/cdmoro/diccionario-literario/releases/latest)
+🎯 [Descargar el archivo MOBI más reciente desde acá](https://github.com/cdmoro/literary-dictionary/releases/latest)
 
 ---
 
