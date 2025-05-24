@@ -111,6 +111,7 @@ def generate_dictionary():
                 f.write('</div>\n')
 
                 if seeAlso:
+                    f.write('<br />')
                     f.write('        <div><em>Ver también:<em> ')
                     seeAlsoLinks = []
                     for id in seeAlso:

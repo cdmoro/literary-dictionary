@@ -16,7 +16,7 @@ CATEGORIES = {
 }
 CATEGORY_KEYS = CATEGORIES.keys()
 
-def load_entries_from_section(data_section, author, book, saga, category, abbrev = ''):
+def load_entries_from_section(data_section, author, book, saga, category, abbrev = '', characters_ids = []):
     entries = []
     for item in data_section:
         id = item.get('id')
@@ -30,6 +30,7 @@ def load_entries_from_section(data_section, author, book, saga, category, abbrev
         if not isinstance(seeAlso, list):
             seeAlso = []
         skip = item.get('skip', False)
+        filtered_ids = [cid for cid in characters_ids if cid != id] if category == 'characters' else []
 
         if headword and not skip:
             entries.append({
@@ -43,7 +44,7 @@ def load_entries_from_section(data_section, author, book, saga, category, abbrev
                 'saga': saga,
                 'category': category,
                 'abbrev': abbrev,
-                'seeAlso': seeAlso,
+                'seeAlso': seeAlso + filtered_ids,
             })
     return entries
 
@@ -62,10 +63,15 @@ def get_entries(base_dir='dictionary'):
             author = data.get('author')
             book = data.get('book', '')
             saga = data.get('saga', '')
+            characters = data.get('characters', [])
+            characters_ids = []
 
             if not author:
                 print(f"- ⏭️  Missing author data in {book_file.name}")
                 continue
+
+            if characters:
+                characters_ids = [c['id'] for c in characters]
 
             for key, abbrev in CATEGORIES.items():
                 entries.extend(load_entries_from_section(
@@ -74,7 +80,8 @@ def get_entries(base_dir='dictionary'):
                     book,
                     saga,
                     key,
-                    abbrev
+                    abbrev,
+                    characters_ids,
                 ))
 
     return sorted(entries, key=lambda d: d['headword'].lower())
