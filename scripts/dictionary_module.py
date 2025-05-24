@@ -4,7 +4,6 @@ import shutil
 import zipfile
 from collections import defaultdict
 from dotenv import load_dotenv
-from utils import get_translations
 
 from utils import get_entries
 from copyright import get_copyright_html  
@@ -14,18 +13,16 @@ load_dotenv()
 def normalize_character(letra):
     return unicodedata.normalize('NFD', letra).encode('ascii', 'ignore').decode('utf-8').upper()
 
-def generate_dictionary():
-    lang = "es"
+def generate_dictionary(lang, strings):
     print(f'\nGenerating dictionary ({lang.upper()})...')
 
-    strings = get_translations(lang)
     output_folder = f'output/dictionary_files_{lang}'
 
     if os.path.exists(output_folder):
         shutil.rmtree(output_folder)
     os.makedirs(output_folder, exist_ok=True)
 
-    entries = get_entries()
+    entries = get_entries(lang)
 
     cross_reference_data = {}
     for entry in entries:
@@ -35,7 +32,7 @@ def generate_dictionary():
 
     # Copyright
     with open(os.path.join(output_folder, 'Copyright.xhtml'), 'w', encoding='utf-8') as f:
-        f.write(get_copyright_html(entries))
+        f.write(get_copyright_html(strings, entries))
 
     entradas_por_letra = defaultdict(list)
     for entry in entries:
@@ -138,7 +135,7 @@ def generate_dictionary():
 
     # Copiar estilos y portada
     shutil.copyfile('styles/style.css', os.path.join(output_folder, 'style.css'))
-    shutil.copyfile('assets/cover.jpg', os.path.join(output_folder, 'cover.jpg'))
+    shutil.copyfile(f'assets/cover_{lang}.jpg', os.path.join(output_folder, 'cover.jpg'))
 
     with open(os.path.join(output_folder, 'Cover.xhtml'), 'w', encoding='utf-8') as f:
         f.write('''<?xml version="1.0" encoding="utf-8"?>
@@ -236,7 +233,7 @@ def generate_dictionary():
 
 def crear_epub(lang, strings):
     output_folder = f'output/dictionary_files_{lang}'
-    epub_path = f'output/{strings["epub_file_name"].format(lang=lang.upper(), version=os.getenv('DICT_VERSION'))}'
+    epub_path = f'output/{strings["file_name"].format(lang=lang.upper(), version=os.getenv('DICT_VERSION'))}.epub'
     mimetype_path = os.path.join(output_folder, 'mimetype')
     with open(mimetype_path, 'w', encoding='utf-8') as f:
         f.write('application/epub+zip')

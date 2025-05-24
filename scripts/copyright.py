@@ -1,11 +1,9 @@
 from dotenv import load_dotenv
 import os
-from utils import get_translations
 
 load_dotenv()
 
-def get_copyright_html(entries):
-    strings = get_translations("es")
+def get_copyright_html(strings, entries):
     total_registros = len(entries)
     autores = {p['author'] for p in entries if p.get('author')}
     sagas = {p['saga'] for p in entries if p.get('saga')}

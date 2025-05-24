@@ -1,10 +1,10 @@
-# Estadísticas
+# Statistics
 
-_Versión: 0.0.4_
+_Version: 0.1.0_
 
-## Por autor
+## By Author
 
-|Autor|Sagas|Libros|Registros|
+|Author|Sagas|Books|Entries|
 |---|---|---|---|
 |Carlos Ruiz Zafón|1|1|21|
 |Frank Herbert|1|0|21|
@@ -14,6 +14,6 @@ _Versión: 0.0.4_
 
 ## Total
 
-|Autores|Sagas|Libros|Registros|
+|Authors|Sagas|Books|Entries|
 |---|---|---|---|
 |5|4|3|98|

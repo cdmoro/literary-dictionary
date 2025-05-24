@@ -4,12 +4,12 @@ import os
 
 from utils import get_entries
 
-def generate_csv():
+def generate_csv(lang, strings):
     load_dotenv()
-    print('\nGenerating CSV...')
+    print(f'\nGenerating CSV ({lang.upper()})...')
 
-    entries = get_entries()
-    output_file = f'output/Bonadeo, Carlos - Diccionario Literario (v{os.getenv('DICT_VERSION')}).csv'
+    entries = get_entries(lang)
+    output_file = f'output/{strings["file_name"].format(lang=lang.upper(), version=os.getenv('DICT_VERSION'))}.csv'
     fieldnames = ['id', 'headword', 'displayValue', 'alias', 'description', 'author', 'book', 'saga', 'category', 'abbrev', 'seeAlso']
 
     with open(output_file, mode='w', newline='', encoding='utf-8') as file:

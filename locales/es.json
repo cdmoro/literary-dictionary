@@ -7,7 +7,7 @@
     "authors": "Autores",
     "sagas": "Sagas",
     "books": "Libros",
-    "epub_file_name": "Bonadeo, Carlos - Diccionario Literario [{lang}] (v{version}).epub",
+    "file_name": "Bonadeo, Carlos - Diccionario Literario [{lang}] (v{version})",
     "book_origin": "Aparece en <em>{book}</em> de {author}.",
     "saga_origin": "Pertenece al universo de <em>{saga}</em> creado por {author}.",
     "author_origin": "Figura en la obra de {author}.",

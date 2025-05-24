@@ -53,8 +53,8 @@ def load_entries_from_section(data_section, author, book, saga, category, abbrev
             })
     return entries
 
-def get_entries(base_dir='dictionary'):
-    base_path = Path(base_dir)
+def get_entries(lang):
+    base_path = Path(f'dictionary/{lang}')
     entries = []
 
     for author_dir in base_path.iterdir():

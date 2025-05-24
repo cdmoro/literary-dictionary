@@ -1,0 +1,108 @@
+author: Carlos Ruiz Zafón
+book: La sombra del viento
+saga: El cementerio de los libros olvidados
+characters:
+  - headword: Daniel Sempere
+    id: 41
+    alias:
+      - Daniel
+      - Sempere
+    description: Joven barcelonés que descubre un libro olvidado en el Cementerio de los Libros Olvidados, lo que marca el inicio de una investigación literaria y personal.
+  - headword: Julián Carax
+    id: 42
+    alias:
+      - Julián
+      - Carax
+    description: Misterioso autor de <em>La Sombra del Viento</em>, cuya vida parece estar envuelta en tragedia, secretos y desapariciones.
+  - headword: Fermín Romero de Torres
+    id: 43
+    alias:
+      - Fermín
+    description: Hombre excéntrico, culto y sagaz, que se convierte en el mejor amigo y aliado de Daniel.
+  - headword: Gustavo Barceló
+    id: 44
+    alias:
+      - Gustavo
+      - Barceló
+    description: Bibliófilo influyente y dueño de una valiosa colección. Ayuda a Daniel a descubrir más sobre Carax.
+  - headword: Bea Barceló
+    id: 45
+    alias:
+      - Bea
+      - Barceló
+    description: Hija de Gustavo y amiga de la infancia de Daniel. Su relación con él evoluciona con el tiempo.
+  - headword: Tomás Aguilar
+    id: 46
+    alias:
+      - Tomás
+      - Aguilar
+    description: Fuerte, leal y protector. Amigo íntimo de Daniel desde la infancia.
+  - headword: Sr. Sempere
+    id: 47
+    alias:
+      - Padre de Daniel
+      - Sempere
+      - Sr. Sempere
+    description: Dueño de la librería Sempere e Hijos y figura paterna amorosa, comprensiva y lectora incansable.
+  - headword: Inspector Fumero
+    id: 48
+    alias:
+      - Fumero
+      - Inspector Fumero
+    description: Temido inspector de policía con un oscuro pasado. Su figura genera tensión y peligro a lo largo de la historia.
+  - headword: Nuria Monfort
+    id: 49
+    alias:
+      - Nuria
+      - Monfort
+    description: Mujer solitaria con un vínculo directo con los libros de Carax y los hechos que investiga Daniel.
+  - headword: Penélope Aldaya
+    id: 50
+    alias:
+      - Penélope
+      - Aldaya
+    description: Joven que pertenece a una familia adinerada de Barcelona. Su nombre está ligado a episodios del pasado.
+  - headword: Jacinta Coronado
+    id: 51
+    alias:
+      - Jacinta
+    description: Antigua institutriz con recuerdos importantes que revelan fragmentos del pasado oculto.
+  - headword: Clara Barceló
+    id: 99
+    alias:
+      - Clara
+      - Barceló
+    description: Sobrina de Gustavo Barceló, ciega y apasionada por la literatura. Conecta con Daniel por su interés en Carax, y despierta en él una temprana atracción romántica.
+places:
+  - headword: Cementerio de los Libros Olvidados
+    id: 52
+    description: Misterioso laberinto de libros en el corazón de Barcelona. Es el lugar donde comienza la historia de Daniel con el libro de Carax.
+  - headword: Librería Sempere e Hijos
+    id: 53
+    description: Pequeña librería ubicada en el Raval, propiedad del padre de Daniel. Centro de la vida cotidiana del protagonista.
+  - headword: Barcelona
+    id: 54
+    description: Ciudad donde transcurre la novela. Su atmósfera gótica, lluviosa y nostálgica potencia el tono del relato.
+  - headword: Casa Aldaya
+    id: 55
+    description: Antigua mansión en el Ensanche vinculada a la familia Aldaya y a episodios del pasado de Carax.
+  - headword: Escuela de los jesuitas
+    id: 56
+    description: Centro educativo por el que pasaron varios personajes. Es escenario de acontecimientos clave en la juventud de Carax.
+objects:
+  - headword: La Sombra del Viento
+    id: 57
+    description: Libro escrito por Julián Carax que Daniel encuentra en el Cementerio de los Libros Olvidados. Desencadena toda la investigación posterior.
+  - headword: Los libros de Carax
+    id: 58
+    description: Títulos de escasa circulación escritos por Julián Carax. Se rumorea que alguien los busca para destruirlos.
+institutions:
+  - headword: Editorial Cabestany
+    id: 60
+    alias:
+      - Cabestany
+    description: Editorial mencionada en la historia, relacionada con la publicación de algunas obras y con personajes del entorno de Carax.
+glossary:
+  - headword: Posguerra
+    id: 61
+    description: Período posterior a la Guerra Civil Española. Afecta profundamente a los personajes y es el telón de fondo de la novela.
