@@ -87,17 +87,13 @@ def generate_dictionary():
                 f.write(f'    <idx:entry name="default" scriptable="yes" spell="yes" id="{id}">\n')
                 f.write(f'      <a id="{id}"></a>\n')
                 f.write('      <dt>\n')
-                f.write(f'        <idx:orth value="{headword}">{displayValue}')
+                f.write(f'        <idx:orth value="{headword}">{displayValue}</idx:orth>\n')
 
                 aliases = entry.get('alias', [])
                 if aliases:
-                    f.write('\n          <idx:infl>\n')
-                    for alt in aliases:
-                        f.write(f'            <idx:iform value="{alt}"/>\n')
-                    f.write('          </idx:infl>\n')
-                    f.write('        ')
+                    for alias in aliases:
+                        f.write(f'        <idx:orth value="{alias}" />\n')
                 
-                f.write('</idx:orth>\n')
                 f.write('      </dt>\n')
                 f.write('      <dd>\n')
 

@@ -1,6 +1,6 @@
 # Estadísticas
 
-_Versión: 0.0.3_
+_Versión: 0.0.4_
 
 ## Por autor
 

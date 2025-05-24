@@ -69,6 +69,12 @@ characters:
     alias:
       - Jacinta
     description: Antigua institutriz con recuerdos importantes que revelan fragmentos del pasado oculto.
+  - headword: Clara Barceló
+    id: 99
+    alias:
+      - Clara
+      - Barceló
+    description: Sobrina de Gustavo Barceló, ciega y apasionada por la literatura. Conecta con Daniel por su interés en Carax, y despierta en él una temprana atracción romántica.
 places:
   - headword: Cementerio de los Libros Olvidados
     id: 52
@@ -92,10 +98,6 @@ objects:
   - headword: Los libros de Carax
     id: 58
     description: Títulos de escasa circulación escritos por Julián Carax. Se rumorea que alguien los busca para destruirlos.
-concepts:
-  - headword: Cementerio de los Libros Olvidados
-    id: 59
-    description: Tradición secreta que protege libros olvidados por el mundo. Cada persona que entra debe adoptar un libro y protegerlo.
 institutions:
   - headword: Editorial Cabestany
     id: 60
