@@ -16,7 +16,7 @@ def generate_stats():
                 print(f"⏭️  Update of '{output_file}' was skipped: version unchanged ({version}).")
                 return
             
-    entries = get_entries()
+    entries = get_entries("es")
 
     stats = {}
 

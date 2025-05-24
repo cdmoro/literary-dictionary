@@ -4,20 +4,22 @@ import shutil
 import zipfile
 from collections import defaultdict
 from dotenv import load_dotenv
+from utils import get_translations
 
 from utils import get_entries
 from copyright import get_copyright_html  
 
 load_dotenv()
 
-output_folder = 'output/dictionary_files'
-epub_path = f'output/Bonadeo, Carlos - Diccionario Literario (v{os.getenv('DICT_VERSION')}).epub'
-
 def normalize_character(letra):
     return unicodedata.normalize('NFD', letra).encode('ascii', 'ignore').decode('utf-8').upper()
 
 def generate_dictionary():
-    print('\nGenerating dictionary...')
+    lang = "es"
+    print(f'\nGenerating dictionary ({lang.upper()})...')
+
+    strings = get_translations(lang)
+    output_folder = f'output/dictionary_files_{lang}'
 
     if os.path.exists(output_folder):
         shutil.rmtree(output_folder)
@@ -77,10 +79,10 @@ def generate_dictionary():
                 id = entry["id"]
                 headword = entry['headword']
                 displayValue = entry.get('displayValue') or headword
-                descripcion = entry['description']
+                description = entry['description']
                 abbrev = entry.get('abbrev')
-                autor = entry.get('author')
-                libro = entry.get('book')
+                author = entry.get('author')
+                book = entry.get('book')
                 saga = entry.get('saga')
                 seeAlso = entry.get('seeAlso')
 
@@ -100,20 +102,20 @@ def generate_dictionary():
                 f.write(f'        <div>')
                 if (abbrev):
                     f.write(f'<em>{abbrev}</em> ')
-                f.write(f'{descripcion}</div>\n')
+                f.write(f'{description}</div>\n')
                 f.write('        <br />\n')
                 f.write('        <div>')
-                if libro:
-                    f.write(f'Aparece en <em>{libro}</em> de {autor}.')
+                if book:
+                    f.write(strings["book_origin"].format(book=book, author=author))
                 elif saga:
-                    f.write(f'Pertenece al universo de <em>{saga}</em> creado por {autor}.')
+                    f.write(strings["saga_origin"].format(saga=saga, author=author))
                 else:
-                    f.write(f'Figura en la obra de {autor}.')
+                    f.write(strings["author_origin"].format(author=author))
                 f.write('</div>\n')
 
                 if seeAlso:
                     f.write('        <div>\n')
-                    f.write('          <em>Ver también:</em> \n')
+                    f.write(f'          <em>{strings["see_also"]}:</em> \n')
                     
                     seeAlso = list(dict.fromkeys(seeAlso))
                     seeAlso = sorted(seeAlso, key=lambda id: cross_reference_data[id][0].lower() if id in cross_reference_data else '')
@@ -150,19 +152,19 @@ def generate_dictionary():
 
     # Index
     with open(os.path.join(output_folder, 'Contents.xhtml'), 'w', encoding='utf-8') as f:
-        f.write('''<?xml version="1.0" encoding="utf-8"?>
+        f.write(f'''<?xml version="1.0" encoding="utf-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>
-    <h1>Contents</h1>
+    <h1>{strings["contents"]}</h1>
     <nav epub:type="toc" class="toc">
         <ol>
-            <li><a href="Cover.xhtml">Portada</a></li>
-            <li><a href="Copyright.xhtml">Sobre este libro</a></li>
-            <li><a href="A.xhtml">Definiciones</a></li>
-            <li><a href="Abbreviations.xhtml">Guía de abreviaturas</a></li>
+            <li><a href="Cover.xhtml">{strings["cover"]}</a></li>
+            <li><a href="Copyright.xhtml">{strings["about"]}</a></li>
+            <li><a href="A.xhtml">{strings["definitions"]}</a></li>
+            <li><a href="Abbreviations.xhtml">{strings["abbr_guide"]}</a></li>
         </ol>
     </nav>
 </body>
@@ -177,20 +179,20 @@ def generate_dictionary():
     <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>
-    <h1>Guía de abreviaturas</h1>
-    <div><em>per.</em> — Personajes principales, secundarios, etc.</div>  
-    <div><em>lug.</em> — Lugares importantes para la historia.</div>
-    <div><em>obj.</em> — Objetos especiales que se mencionen en el libro.</div>
-    <div><em>con.</em> — Concepto particulares.</div>
-    <div><em>ev.</em> — Eventos relevantes para la historia.</div>
-    <div><em>cri.</em> — Criaturas reales o mitológicos, animales, etc.</div>
-    <div><em>inst.</em> — Institución. Parecido a <em>lug.</em> pero más específico.</div>
-    <div><em>hech.</em> — Hechizos, ideal para las novelas de fantasía.</div>
-    <div><em>leng.</em> — Lengua o idioma artificial.</div>
-    <div><em>cit.</em> — Citas que tienen algún significado especial para la historia.</div>
+    <h1>{abbr_guide}</h1>
+    <div><em>{char_abbr}</em> — {char_abbr_desc}</div>  
+    <div><em>{place_abbr}</em> — {place_abbr_desc}</div>
+    <div><em>{object_abbr}</em> — {object_abbr_desc}</div>
+    <div><em>{concept_abbr}</em> — {concept_abbr_desc}</div>
+    <div><em>{event_abbr}</em> — {event_abbr_desc}</div>
+    <div><em>{criature_abbr}</em> — {criature_abbr_desc}</div>
+    <div><em>{institute_abbr}</em> — {institute_abbr_desc}</div>
+    <div><em>{spell_abbr}</em> — {spell_abbr_desc}</div>
+    <div><em>{language_abbr}</em> — {language_abbr_desc}</div>
+    <div><em>{quote_abbr}</em> — {quote_abbr_desc}</div>
 </body>
 </html>
-''')
+'''.format(**strings))
 
     # Archivo OPF
     with open(os.path.join(output_folder, 'Dictionary.opf'), 'w', encoding='utf-8') as f:
@@ -198,11 +200,11 @@ def generate_dictionary():
         f.write('<package version="2.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId">\n')
         f.write('  <metadata>\n')
         f.write('    <dc:title>Diccionario Literario</dc:title>\n')
-        f.write('    <dc:language>es</dc:language>\n')
+        f.write(f'    <dc:language>{lang}</dc:language>\n')
         f.write('    <dc:creator>Carlos Bonadeo</dc:creator>\n')
         f.write('    <x-metadata>\n')
-        f.write('      <DictionaryInLanguage>es</DictionaryInLanguage>\n')
-        f.write('      <DictionaryOutLanguage>es</DictionaryOutLanguage>\n')
+        f.write(f'      <DictionaryInLanguage>{lang}</DictionaryInLanguage>\n')
+        f.write(f'      <DictionaryOutLanguage>{lang}</DictionaryOutLanguage>\n')
         f.write('      <DefaultLookupIndex>headword</DefaultLookupIndex>\n')
         f.write('    </x-metadata>\n')
         f.write('  </metadata>\n')
@@ -230,9 +232,11 @@ def generate_dictionary():
         f.write('</package>\n')
 
     print(f"✅ Diccionary files created successfully")
-    crear_epub()
+    crear_epub(lang, strings)
 
-def crear_epub():
+def crear_epub(lang, strings):
+    output_folder = f'output/dictionary_files_{lang}'
+    epub_path = f'output/{strings["epub_file_name"].format(lang=lang.upper(), version=os.getenv('DICT_VERSION'))}'
     mimetype_path = os.path.join(output_folder, 'mimetype')
     with open(mimetype_path, 'w', encoding='utf-8') as f:
         f.write('application/epub+zip')

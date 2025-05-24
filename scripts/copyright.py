@@ -1,40 +1,50 @@
 from dotenv import load_dotenv
 import os
+from utils import get_translations
 
 load_dotenv()
 
 def get_copyright_html(entries):
+    strings = get_translations("es")
     total_registros = len(entries)
-    autores = set()
-    sagas = set()
-    libros = set()
+    autores = {p['author'] for p in entries if p.get('author')}
+    sagas = {p['saga'] for p in entries if p.get('saga')}
+    libros = {p['book'] for p in entries if p.get('book')}
 
-    for p in entries:
-        if p.get('author'):
-            autores.add(p['author'])
-        if p.get('saga'):
-            sagas.add(p['saga'])
-        if p.get('book'):
-            libros.add(p['book'])
+    data = {
+        "title": strings["title"],
+        "subtitle": strings["subtitle"],
+        "copyright": strings["copyright"],
+        "version": strings["copyright_version"].format(version=os.getenv("DICT_VERSION")),
+        "entries": total_registros,
+        "authors": len(autores),
+        "sagas": len(sagas),
+        "books": len(libros),
+        "entries_label": strings["entries"],
+        "authors_label": strings["authors"],
+        "sagas_label": strings["sagas"],
+        "books_label": strings["books"],
+    }
 
-    total_autores = len(autores)
-    total_sagas = len(sagas)
-    total_libros = len(libros)
-
-    return f'''<?xml version="1.0" encoding="utf-8"?>
+    template = """<?xml version="1.0" encoding="utf-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
 <body>
-    <p><strong>Diccionario Literario</strong></p>
-    <p><em>Desde Aurelieano a Zaratustra: personajes y jergas de la literatura universal</em></p>
-    <br>
-    <p>© 2025 Carlos Bonadeo. Ningún derecho reservado. Queda alentada la distribución de esta obra citando en lo posible las fuentes.</p>
-    <p><strong>Versión {os.getenv('DICT_VERSION')}</p>
+    <div><strong>{title}</strong></div>
+    <div><em>{subtitle}</em></div>
+    <br />
+    <div>{copyright}</div>
+    <div><strong>{version}</strong></div>
+    <br />
     <ul>
-        <li>Registros: {total_registros}</li>
-        <li>Autores: {total_autores}</li>
-        <li>Sagas: {total_sagas}</li>
-        <li>Libros: {total_libros}</li>
+        <li>{entries_label}: {entries}</li>
+        <li>{authors_label}: {authors}</li>
+        <li>{sagas_label}: {sagas}</li>
+        <li>{books_label}: {books}</li>
     </ul>
 </body>
-</html>
-'''
+</html>"""
+
+    return template.format(**data)
