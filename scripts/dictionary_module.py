@@ -28,7 +28,7 @@ def generate_dictionary():
     cross_reference_data = {}
     for entry in entries:
         if "id" in entry and "headword" in entry:
-            filename = f'{entry['headword'].strip()[0].upper()}.xhtml'
+            filename = f'{normalize_character(entry['headword'].strip()[0].upper())}.xhtml'
             cross_reference_data[entry["id"]] = (entry["headword"], filename)
 
     # Copyright
@@ -111,16 +111,17 @@ def generate_dictionary():
                 f.write('</div>\n')
 
                 if seeAlso:
-                    f.write('<br />')
-                    f.write('        <div><em>Ver también:<em> ')
+                    f.write('        <br />\n')
+                    f.write('        <div>\n')
+                    f.write('          <em>Ver también:<em> \n')
                     seeAlsoLinks = []
                     for id in seeAlso:
                         if not id in cross_reference_data:
                             print(f'  - ⏭️  Cross Reference ID {id} not found, skipped')
                             continue
-                        seeAlsoLinks.append(f'<a href="{cross_reference_data[id][1]}#{id}">{cross_reference_data[id][0]}</a>')
-                    f.write(', '.join(seeAlsoLinks))
-                    f.write('</div>\n')
+                        seeAlsoLinks.append(f'          <a href="{cross_reference_data[id][1]}#{id}">{cross_reference_data[id][0]}</a>')
+                    f.write(', \n'.join(seeAlsoLinks))
+                    f.write('\n        </div>\n')
                 
                 f.write('      </dd>\n')
                 f.write('    </idx:entry>\n')
