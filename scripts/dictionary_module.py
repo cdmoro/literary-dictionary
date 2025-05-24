@@ -114,6 +114,8 @@ def generate_dictionary():
                     f.write('        <br />\n')
                     f.write('        <div>\n')
                     f.write('          <em>Ver también:<em> \n')
+                    
+                    seeAlso = sorted(seeAlso, key=lambda id: cross_reference_data[id][0].lower() if id in cross_reference_data else '')
                     seeAlsoLinks = []
                     for id in seeAlso:
                         if not id in cross_reference_data:
