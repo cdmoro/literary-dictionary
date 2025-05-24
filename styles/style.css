@@ -1,22 +1,48 @@
-body {
-    font-family: 'Georgia', serif;
-    line-height: 1.6;
+address, blockquote, dd, div, dl, dt, h1, h2, h3, h4, h5, h6, li, ol, p, pre, ul {
+    font-size: 1em;
+    font-style: inherit;
+    font-weight: inherit;
+    line-height: inherit;
     margin: 0;
     padding: 0;
+    text-indent: 0;
+}
+
+a, abbr, b, bdi, bdo, cite, code, data, del, dfn, em, i, ins, kbd, mark, q, rp, rt, rtc, ruby, s, samp, small, span, strong, sub, sup, time, var {
+    color: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    text-decoration: none;
+    vertical-align: baseline;
+}
+
+body {
+    border: 0;
+    font-size: 1em;
+    orphans: 2;
+    padding: 0;
+    widows: 2;
+    font-style: normal;
+    font-weight: normal;
 }
 
 h1 {
-    font-size: 24px;
-    margin-bottom: 16px;
-}
-
-h2 {
-    font-size: 16px;
+    font-size: 1.2em;
+    margin: 0 0 1em 0;
 }
 
 .toc ol {
-    list-style: none;
-    padding: 0;
+    list-style-type: none;
+    padding: 0 !important;
+}
+
+i, em, cite, dfn {
+    font-style: italic;
+}
+
+b, strong {
+    font-weight: bold;
 }
 
 dt {
