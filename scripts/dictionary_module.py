@@ -101,8 +101,8 @@ def generate_dictionary():
                 if (abbrev):
                     f.write(f'<em>{abbrev}</em> ')
                 f.write(f'{descripcion}</div>\n')
-                f.write('        <div>')
                 f.write('        <br />\n')
+                f.write('        <div>')
                 if libro:
                     f.write(f'Aparece en <em>{libro}</em> de {autor}.')
                 elif saga:
@@ -115,6 +115,7 @@ def generate_dictionary():
                     f.write('        <div>\n')
                     f.write('          <em>Ver también:<em> \n')
                     
+                    seeAlso = list(dict.fromkeys(seeAlso))
                     seeAlso = sorted(seeAlso, key=lambda id: cross_reference_data[id][0].lower() if id in cross_reference_data else '')
                     seeAlsoLinks = []
                     for id in seeAlso:
