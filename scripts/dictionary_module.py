@@ -113,7 +113,7 @@ def generate_dictionary():
 
                 if seeAlso:
                     f.write('        <div>\n')
-                    f.write('          <em>Ver también:<em> \n')
+                    f.write('          <em>Ver también:</em> \n')
                     
                     seeAlso = list(dict.fromkeys(seeAlso))
                     seeAlso = sorted(seeAlso, key=lambda id: cross_reference_data[id][0].lower() if id in cross_reference_data else '')
