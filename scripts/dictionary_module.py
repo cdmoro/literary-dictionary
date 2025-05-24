@@ -102,6 +102,7 @@ def generate_dictionary():
                     f.write(f'<em>{abbrev}</em> ')
                 f.write(f'{descripcion}</div>\n')
                 f.write('        <div>')
+                f.write('        <br />\n')
                 if libro:
                     f.write(f'Aparece en <em>{libro}</em> de {autor}.')
                 elif saga:
@@ -111,7 +112,6 @@ def generate_dictionary():
                 f.write('</div>\n')
 
                 if seeAlso:
-                    f.write('        <br />\n')
                     f.write('        <div>\n')
                     f.write('          <em>Ver también:<em> \n')
                     
