@@ -19,23 +19,23 @@ cover: Cover
 about: About this book
 definitions: Definitions
 abbr_guide: Abbreviation Guide
-char_abbr: char.
-place_abbr: plc.
-object_abbr: obj.
-concept_abbr: cncpt.
-event_abbr: evt.
-criature_abbr: crt.
-institute_abbr: inst.
-spell_abbr: spl.
-language_abbr: lang.
-quote_abbr: qte.
-char_abbr_desc: Main characters, secondary ones, etc.
-place_abbr_desc: Places important to the story.
-object_abbr_desc: Special objects mentioned in the book.
-concept_abbr_desc: Specific concepts.
-event_abbr_desc: Events relevant to the plot.
-criature_abbr_desc: Real or mythical creatures, animals, etc.
-institute_abbr_desc: Institution. Similar to <em>plc.</em> but more specific.
-spell_abbr_desc: Spells, ideal for fantasy novels.
-language_abbr_desc: Artificial or constructed languages.
-quote_abbr_desc: Quotes with special meaning in the story.
+characters_abbr: char.
+places_abbr: plc.
+objects_abbr: obj.
+concepts_abbr: cncpt.
+events_abbr: evt.
+creatures_abbr: crt.
+institutions_abbr: inst.
+spells_abbr: spl.
+languages_abbr: lang.
+quotes_abbr: qte.
+characters_abbr_desc: Main characters, secondary ones, etc.
+places_abbr_desc: Places important to the story.
+objects_abbr_desc: Special objects mentioned in the book.
+concepts_abbr_desc: Specific concepts.
+events_abbr_desc: Events relevant to the plot.
+creatures_abbr_desc: Real or mythical creatures, animals, etc.
+institutions_abbr_desc: Institution. Similar to <em>plc.</em> but more specific.
+spells_abbr_desc: Spells, ideal for fantasy novels.
+languages_abbr_desc: Artificial or constructed languages.
+quotes_abbr_desc: Quotes with special meaning in the story.

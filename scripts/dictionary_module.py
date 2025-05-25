@@ -177,16 +177,16 @@ def generate_dictionary(lang, strings):
 </head>
 <body>
     <h1>{abbr_guide}</h1>
-    <div><em>{char_abbr}</em> — {char_abbr_desc}</div>  
-    <div><em>{place_abbr}</em> — {place_abbr_desc}</div>
-    <div><em>{object_abbr}</em> — {object_abbr_desc}</div>
-    <div><em>{concept_abbr}</em> — {concept_abbr_desc}</div>
-    <div><em>{event_abbr}</em> — {event_abbr_desc}</div>
-    <div><em>{criature_abbr}</em> — {criature_abbr_desc}</div>
-    <div><em>{institute_abbr}</em> — {institute_abbr_desc}</div>
-    <div><em>{spell_abbr}</em> — {spell_abbr_desc}</div>
-    <div><em>{language_abbr}</em> — {language_abbr_desc}</div>
-    <div><em>{quote_abbr}</em> — {quote_abbr_desc}</div>
+    <div><em>{characters_abbr}</em> — {characters_abbr_desc}</div>  
+    <div><em>{places_abbr}</em> — {places_abbr_desc}</div>
+    <div><em>{objects_abbr}</em> — {objects_abbr_desc}</div>
+    <div><em>{concepts_abbr}</em> — {concepts_abbr_desc}</div>
+    <div><em>{events_abbr}</em> — {events_abbr_desc}</div>
+    <div><em>{creatures_abbr}</em> — {creatures_abbr_desc}</div>
+    <div><em>{institutions_abbr}</em> — {institutions_abbr_desc}</div>
+    <div><em>{spells_abbr}</em> — {spells_abbr_desc}</div>
+    <div><em>{languages_abbr}</em> — {languages_abbr_desc}</div>
+    <div><em>{quotes_abbr}</em> — {quotes_abbr_desc}</div>
 </body>
 </html>
 '''.format(**strings))

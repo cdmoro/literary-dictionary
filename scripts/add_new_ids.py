@@ -1,7 +1,7 @@
 import os
 import yaml
 from collections import OrderedDict
-from utils import CATEGORY_KEYS
+from utils import CATEGORIES
 
 ROOT_FOLDER = "dictionary"
 
@@ -25,7 +25,7 @@ def find_max_id():
                 except Exception:
                     continue
 
-                for field in CATEGORY_KEYS:
+                for field in CATEGORIES:
                     if field in data:
                         for entry in data[field]:
                             if isinstance(entry, dict) and "id" in entry:
@@ -52,7 +52,7 @@ def assign_ids_to_new_entries(filepath, start_id):
     modified = False
     assigned = []
 
-    for field in CATEGORY_KEYS:
+    for field in CATEGORIES:
         if field in data and isinstance(data[field], list):
             new_entries = []
             for entry in data[field]:

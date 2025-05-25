@@ -1,20 +1,19 @@
 from pathlib import Path
 import yaml
 
-CATEGORIES = {
-    'characters': 'per.',
-    'places': 'lug.',
-    'objects': 'obj.',
-    'concepts': 'con.',
-    'events': 'ev.',
-    'creatures': 'cri.',
-    'institutions': 'inst.',
-    'spells': 'hech.',
-    'languages': 'leng.',
-    'quotes': 'cit.',
-    'glossary': None,
-}
-CATEGORY_KEYS = CATEGORIES.keys()
+CATEGORIES = [
+    'characters',
+    'places',
+    'objects',
+    'concepts',
+    'events',
+    'creatures',
+    'institutions',
+    'spells',
+    'languages',
+    'quotes',
+    'glossary',
+]
 
 def get_translations(lang):
     with open(f"locales/{lang}.yaml", "r", encoding="utf-8") as f:
@@ -67,6 +66,7 @@ def load_entries_from_section(data_section, author, book, saga, category, abbrev
 
 def get_entries(lang):
     base_path = Path(f'dictionary/{lang}')
+    strings = get_translations(lang)
     entries = []
 
     for author_dir in base_path.iterdir():
@@ -91,14 +91,14 @@ def get_entries(lang):
                 if key != 'glossary'
             }
 
-            for key, abbrev in CATEGORIES.items():
+            for key in CATEGORIES:
                 entries.extend(load_entries_from_section(
                     data.get(key, []),
                     author,
                     book,
                     saga,
                     key,
-                    abbrev,
+                    strings[f'{key}_abbr'] if key != 'glossary' else None,
                     cross_ref_ids,
                 ))
 

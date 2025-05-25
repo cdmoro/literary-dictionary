@@ -19,23 +19,23 @@ cover: Portada
 about: Sobre este libro
 definitions: Definiciones
 abbr_guide: Guía de abreviaturas
-char_abbr: per.
-place_abbr: lug.
-object_abbr: obj.
-concept_abbr: con.
-event_abbr: ev.
-criature_abbr: cri.
-institute_abbr: inst.
-spell_abbr: hech.
-language_abbr: leng.
-quote_abbr: cit.
-char_abbr_desc: Personajes principales, secundarios, etc.per.
-place_abbr_desc: Lugares importantes para la historia.
-object_abbr_desc: Objetos especiales que se mencionen en el libro.
-concept_abbr_desc: Concepto particulares.
-event_abbr_desc: Eventos relevantes para la historia.
-criature_abbr_desc: Criaturas reales o mitológicos, animales, etc.
-institute_abbr_desc: Institución. Parecido a <em>lug.</em> pero más específico.
-spell_abbr_desc: Hechizos, ideal para las novelas de fantasía.
-language_abbr_desc: Lengua o idioma artificial.
-quote_abbr_desc: Citas que tienen algún significado especial para la historia.
+characters_abbr: per.
+places_abbr: lug.
+objects_abbr: obj.
+concepts_abbr: con.
+events_abbr: ev.
+creatures_abbr: cri.
+institutions_abbr: inst.
+spells_abbr: hech.
+languages_abbr: leng.
+quotes_abbr: cit.
+characters_abbr_desc: Personajes principales, secundarios, etc.per.
+places_abbr_desc: Lugares importantes para la historia.
+objects_abbr_desc: Objetos especiales que se mencionen en el libro.
+concepts_abbr_desc: Concepto particulares.
+events_abbr_desc: Eventos relevantes para la historia.
+creatures_abbr_desc: Criaturas reales o mitológicos, animales, etc.
+institutions_abbr_desc: Institución. Parecido a <em>lug.</em> pero más específico.
+spells_abbr_desc: Hechizos, ideal para las novelas de fantasía.
+languages_abbr_desc: Lengua o idioma artificial.
+quotes_abbr_desc: Citas que tienen algún significado especial para la historia.
