@@ -10,6 +10,7 @@ def get_copyright_html(strings, entries):
     libros = {p['book'] for p in entries if p.get('book')}
 
     data = {
+        "lang": strings["lang"],
         "title": strings["title"],
         "subtitle": strings["subtitle"],
         "copyright": strings["copyright"],
@@ -30,7 +31,7 @@ def get_copyright_html(strings, entries):
     <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>
-    <div><strong>{title}</strong></div>
+    <div><strong>{title} ({lang})</strong></div>
     <div><em>{subtitle}</em></div>
     <br />
     <div>{copyright}</div>

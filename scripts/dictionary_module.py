@@ -196,7 +196,7 @@ def generate_dictionary(lang, strings):
         f.write('<?xml version="1.0" encoding="utf-8"?>\n')
         f.write('<package version="2.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId">\n')
         f.write('  <metadata>\n')
-        f.write('    <dc:title>Diccionario Literario</dc:title>\n')
+        f.write(f'    <dc:title>{strings["title"]} ({lang.upper()})</dc:title>\n')
         f.write(f'    <dc:language>{lang}</dc:language>\n')
         f.write('    <dc:creator>Carlos Bonadeo</dc:creator>\n')
         f.write('    <x-metadata>\n')
