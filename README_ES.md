@@ -3,7 +3,7 @@
 **Tu compañero de lectura definitivo.**  
 ¿Perdiste la cuenta de los nombres en _Cien años de soledad_? ¿No recordás si ese objeto mágico era de Frodo o de Harry? Este **Diccionario Literario** de código abierto te ayuda a seguirle el ritmo a personajes, lugares y conceptos de libros y sagas famosas, directamente desde tu Kindle.
 
-El diccionario está disponible actualmente en **español**. La versión en **inglés** está en desarrollo y se publicará pronto. Se planea ofrecer versiones separadas para cada idioma, para facilitar la lectura y navegación en los dispositivos Kindle.
+El diccionario está disponible actualmente en inglés y en español. Se planean más idiomas para futuras ediciones. Cada versión se diseña de forma independiente para garantizar una lectura fluida y una navegación óptima en Kindle y otros dispositivos de lectura electrónica.
 
 
 ## 🚀 ¿Qué es?
