@@ -1,0 +1,39 @@
+lang: FR
+title: Dictionnaire Littéraire
+subtitle: "D’Auréliano à Zaratoustra : personnages et jargon de la littérature mondiale"
+copyright: "© 2025 Carlos Bonadeo. Aucun droit réservé. La diffusion de ce travail est encouragée, de préférence en citant les sources."
+copyright_version: Version {version}
+entries: Entrées
+authors: Auteurs
+sagas: Sagas
+books: Livres
+file_name: Bonadeo, Carlos - Dictionnaire Littéraire [{lang}] (v{version})
+book_origin: Apparaît dans <em>{book}</em> de {author}.
+saga_origin: Fait partie de l’univers <em>{saga}</em> créé par {author}.
+author_origin: Présent dans l’œuvre de {author}.
+see_also: Voir aussi
+contents: Sommaire
+cover: Couverture
+about: À propos de ce livre
+definitions: Définitions
+abbr_guide: Guide des Abréviations
+characters_abbr: pers.
+places_abbr: lieux
+objects_abbr: obj.
+concepts_abbr: conc.
+events_abbr: év.
+creatures_abbr: créat.
+institutions_abbr: inst.
+spells_abbr: sort.
+languages_abbr: lang.
+quotes_abbr: cit.
+characters_abbr_desc: Personnages principaux, secondaires, etc.
+places_abbr_desc: Lieux importants dans l’histoire.
+objects_abbr_desc: Objets spéciaux mentionnés dans le livre.
+concepts_abbr_desc: Concepts spécifiques.
+events_abbr_desc: Événements pertinents pour l’intrigue.
+creatures_abbr_desc: Créatures réelles ou mythiques, animaux, etc.
+institutions_abbr_desc: Institution. Semblable à <em>lieux</em> mais plus spécifique.
+spells_abbr_desc: Sortilèges, idéal pour les romans fantastiques.
+languages_abbr_desc: Langues artificielles ou construites.
+quotes_abbr_desc: Citations ayant une signification particulière dans l’histoire.

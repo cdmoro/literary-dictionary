@@ -1,0 +1,39 @@
+lang: PT
+title: Dicionário Literário
+subtitle: "De Aureliano a Zaratustra: personagens e jargões da literatura mundial"
+copyright: "© 2025 Carlos Bonadeo. Nenhum direito reservado. A distribuição deste trabalho é incentivada, preferencialmente citando as fontes."
+copyright_version: Versão {version}
+entries: Verbetes
+authors: Autores
+sagas: Sagas
+books: Livros
+file_name: Bonadeo, Carlos - Dicionário Literário [{lang}] (v{version})
+book_origin: Aparece em <em>{book}</em> de {author}.
+saga_origin: Parte do universo <em>{saga}</em> criado por {author}.
+author_origin: Presente na obra de {author}.
+see_also: Ver também
+contents: Conteúdo
+cover: Capa
+about: Sobre este livro
+definitions: Definições
+abbr_guide: Guia de Abreviações
+characters_abbr: pers.
+places_abbr: lug.
+objects_abbr: obj.
+concepts_abbr: conc.
+events_abbr: evt.
+creatures_abbr: criat.
+institutions_abbr: inst.
+spells_abbr: fei.
+languages_abbr: idiom.
+quotes_abbr: cit.
+characters_abbr_desc: Personagens principais, secundários, etc.
+places_abbr_desc: Lugares importantes para a história.
+objects_abbr_desc: Objetos especiais mencionados no livro.
+concepts_abbr_desc: Conceitos específicos.
+events_abbr_desc: Eventos relevantes para a trama.
+creatures_abbr_desc: Criaturas reais ou míticas, animais, etc.
+institutions_abbr_desc: Instituição. Similar a <em>lug.</em> mas mais específica.
+spells_abbr_desc: Feitiços, ideal para romances de fantasia.
+languages_abbr_desc: Línguas artificiais ou construídas.
+quotes_abbr_desc: Citações com significado especial na história.

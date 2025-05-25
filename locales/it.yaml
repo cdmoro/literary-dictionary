@@ -1,0 +1,39 @@
+lang: IT
+title: Dizionario Letterario
+subtitle: "Da Aureliano a Zarathustra: personaggi e gergo della letteratura mondiale"
+copyright: "© 2025 Carlos Bonadeo. Nessun diritto riservato. La distribuzione di quest'opera è incoraggiata, preferibilmente citando le fonti."
+copyright_version: Versione {version}
+entries: Voci
+authors: Autori
+sagas: Saghe
+books: Libri
+file_name: Bonadeo, Carlos - Dizionario Letterario [{lang}] (v{version})
+book_origin: Compare in <em>{book}</em> di {author}.
+saga_origin: Parte dell'universo <em>{saga}</em> creato da {author}.
+author_origin: Presente nell'opera di {author}.
+see_also: Vedi anche
+contents: Indice
+cover: Copertina
+about: Su questo libro
+definitions: Definizioni
+abbr_guide: Guida alle Abbreviazioni
+characters_abbr: pers.
+places_abbr: luog.
+objects_abbr: ogg.
+concepts_abbr: conc.
+events_abbr: ev.
+creatures_abbr: creat.
+institutions_abbr: ist.
+spells_abbr: inc.
+languages_abbr: ling.
+quotes_abbr: cit.
+characters_abbr_desc: Personaggi principali, secondari, ecc.
+places_abbr_desc: Luoghi importanti per la storia.
+objects_abbr_desc: Oggetti speciali menzionati nel libro.
+concepts_abbr_desc: Concetti specifici.
+events_abbr_desc: Eventi rilevanti per la trama.
+creatures_abbr_desc: Creature reali o mitiche, animali, ecc.
+institutions_abbr_desc: Istituzioni. Simili a <em>luog.</em> ma più specifiche.
+spells_abbr_desc: Incantesimi, ideale per romanzi fantasy.
+languages_abbr_desc: Lingue artificiali o costruite.
+quotes_abbr_desc: Citazioni con significato speciale nella storia.
