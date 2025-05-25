@@ -8,6 +8,7 @@ characters:
       - Arcadio
       - Patriarca Buendía
       - Buendía
+      - José Arcadio
     description: Fundador de Macondo y patriarca de la familia Buendía.
   - headword: Úrsula Iguarán
     id: 86
@@ -38,13 +39,9 @@ characters:
     description: Misterioso viajero que trae novedades científicas a Macondo y se convierte en figura clave en la historia de los Buendía.
   - headword: Amaranta
     id: 91
-    alias:
-      - Amaranta
     description: Hija de José Arcadio y Úrsula; marcada por la tragedia, el amor no correspondido y el deber familiar.
   - headword: Rebeca
     id: 92
-    alias:
-      - Rebeca
     description: Niña adoptada por los Buendía que llega con una bolsa de huesos y el hábito de comer tierra.
 
 places:
