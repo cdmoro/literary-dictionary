@@ -1,5 +1,4 @@
 from pathlib import Path
-import json
 import yaml
 
 CATEGORIES = {
@@ -18,8 +17,8 @@ CATEGORIES = {
 CATEGORY_KEYS = CATEGORIES.keys()
 
 def get_translations(lang):
-     with open(f"locales/{lang}.json", "r", encoding="utf-8") as f:
-         return json.load(f)
+    with open(f"locales/{lang}.yaml", "r", encoding="utf-8") as f:
+        return yaml.safe_load(f)
 
 def load_entries_from_section(data_section, author, book, saga, category, abbrev = '', cross_ref_ids = {}):
     entries = []

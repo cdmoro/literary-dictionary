@@ -1,0 +1,40 @@
+title: Literary Dictionary
+subtitle: "From Aurelieano to Zarathustra: characters and jargon from world literature"
+copyright:
+  "© 2025 Carlos Bonadeo. No rights reserved. Distribution of this work is
+  encouraged, preferably citing the sources."
+copyright_version: Version {version}
+entries: Entries
+authors: Authors
+sagas: Sagas
+books: Books
+file_name: Bonadeo, Carlos - Literary Dictionary [{lang}] (v{version})
+book_origin: Appears in <em>{book}</em> by {author}.
+saga_origin: Part of the <em>{saga}</em> universe created by {author}.
+author_origin: Featured in the work of {author}.
+see_also: See also
+contents: Contents
+cover: Cover
+about: About this book
+definitions: Definitions
+abbr_guide: Abbreviation Guide
+char_abbr: char.
+place_abbr: plc.
+object_abbr: obj.
+concept_abbr: cncpt.
+event_abbr: evt.
+criature_abbr: crt.
+institute_abbr: inst.
+spell_abbr: spl.
+language_abbr: lang.
+quote_abbr: qte.
+char_abbr_desc: Main characters, secondary ones, etc.
+place_abbr_desc: Places important to the story.
+object_abbr_desc: Special objects mentioned in the book.
+concept_abbr_desc: Specific concepts.
+event_abbr_desc: Events relevant to the plot.
+criature_abbr_desc: Real or mythical creatures, animals, etc.
+institute_abbr_desc: Institution. Similar to <em>plc.</em> but more specific.
+spell_abbr_desc: Spells, ideal for fantasy novels.
+language_abbr_desc: Artificial or constructed languages.
+quote_abbr_desc: Quotes with special meaning in the story.
