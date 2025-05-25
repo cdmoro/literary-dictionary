@@ -1,6 +1,6 @@
 # Statistics
 
-_Version: 0.1.0_
+_Version: 0.5.0_
 
 ## By Author
 
