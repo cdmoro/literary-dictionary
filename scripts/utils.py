@@ -21,7 +21,7 @@ def get_translations(lang):
      with open(f"locales/{lang}.json", "r", encoding="utf-8") as f:
          return json.load(f)
 
-def load_entries_from_section(data_section, author, book, saga, category, abbrev = '', category_ids = {}):
+def load_entries_from_section(data_section, author, book, saga, category, abbrev = '', cross_ref_ids = {}):
     entries = []
     for item in data_section:
         id = item.get('id')
@@ -34,10 +34,22 @@ def load_entries_from_section(data_section, author, book, saga, category, abbrev
         seeAlso = item.get('seeAlso')
         if not isinstance(seeAlso, list):
             seeAlso = []
-        skip = item.get('skip', False)
-        filtered_ids = [cid for cid in category_ids.get(category, []) if cid != id]
+        draft = item.get('draft', False)
+        filtered_ids = [cid for cid in cross_ref_ids.get(category, []) if cid != id]
 
-        if headword and not skip:
+        if not id:
+            print(f'  - ⚠️  ID missing, entry skipped')
+            continue
+
+        if not headword:
+            print(f'  - ⚠️  Headword missing for {id}, entry skipped')
+            continue
+
+        if draft:
+            print(f'  - ⏭️  {id} marked as draft, entry skipped')
+            continue
+
+        if headword and not draft:
             entries.append({
                 'id': id,
                 'headword': headword,
@@ -51,6 +63,7 @@ def load_entries_from_section(data_section, author, book, saga, category, abbrev
                 'abbrev': abbrev,
                 'seeAlso': filtered_ids + seeAlso,
             })
+
     return entries
 
 def get_entries(lang):
@@ -68,15 +81,13 @@ def get_entries(lang):
             author = data.get('author')
             book = data.get('book', '')
             saga = data.get('saga', '')
-            characters = data.get('characters', [])
-            characters_ids = []
 
             if not author:
                 print(f"- ⏭️  Missing author data in {book_file.name}")
                 continue
 
-            category_ids = {
-                key: [entry.get('id') for entry in data.get(key, []) if 'id' in entry]
+            cross_ref_ids = {
+                key: [entry.get('id') for entry in data.get(key, []) if 'id' in entry and not entry.get('draft', False)]
                 for key in CATEGORIES
                 if key != 'glossary'
             }
@@ -89,7 +100,7 @@ def get_entries(lang):
                     saga,
                     key,
                     abbrev,
-                    category_ids,
+                    cross_ref_ids,
                 ))
 
     return sorted(entries, key=lambda d: d['headword'].lower())

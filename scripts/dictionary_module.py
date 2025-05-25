@@ -117,9 +117,9 @@ def generate_dictionary(lang, strings):
                     seeAlso = list(dict.fromkeys(seeAlso))
                     seeAlso = sorted(seeAlso, key=lambda id: cross_reference_data[id][0].lower() if id in cross_reference_data else '')
                     seeAlsoLinks = []
-                    for id in seeAlso:
-                        if not id in cross_reference_data:
-                            print(f'  - ⏭️  Cross Reference ID {id} not found, skipped')
+                    for idr in seeAlso:
+                        if not idr in cross_reference_data:
+                            print(f'  - ⏭️  ID {id}: Cross Reference not found ({idr}), skipped')
                             continue
                         seeAlsoLinks.append(f'          <a href="{cross_reference_data[id][1]}#{id}">{cross_reference_data[id][0]}</a>')
                     f.write(', \n'.join(seeAlsoLinks))
