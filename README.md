@@ -37,7 +37,7 @@ You can further categorize entries with:
 - `characters`, `places`, `objects`, `concepts`, `events`, `creatures`, `institutions`, `spells`, `languages`, `quotes`
 
 Everything you need, from Elvish languages to famous literary quotes.  
-All stored in `dictionary/**/*.yml`.
+All stored in `dictionary/**/*.yaml`.
 
 ---
 

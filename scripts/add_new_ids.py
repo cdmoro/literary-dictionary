@@ -15,7 +15,7 @@ def find_max_id():
     max_id = 0
     for root, _, files in os.walk(ROOT_FOLDER):
         for filename in files:
-            if filename.endswith((".yaml", ".yml")):
+            if filename.endswith((".yaml")):
                 filepath = os.path.join(root, filename)
                 try:
                     with open(filepath, "r", encoding="utf-8") as f:
@@ -78,7 +78,7 @@ def main():
     print(f"🔍 ID inicial: {current_id}")
     for root, _, files in os.walk(ROOT_FOLDER):
         for filename in sorted(files):
-            if filename.endswith((".yaml", ".yml")):
+            if filename.endswith((".yaml")):
                 filepath = os.path.join(root, filename)
                 current_id = assign_ids_to_new_entries(filepath, current_id)
 

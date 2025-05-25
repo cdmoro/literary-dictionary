@@ -73,7 +73,7 @@ def get_entries(lang):
         if not author_dir.is_dir():
             continue
 
-        for book_file in author_dir.glob('*.yml'):
+        for book_file in author_dir.glob('*.yaml'):
             with book_file.open(encoding='utf-8') as f:
                 data = yaml.safe_load(f) or {}
 

@@ -50,7 +50,7 @@ def main():
     current_id = 1
     for root, _, files in os.walk(ROOT_FOLDER):
         for filename in sorted(files):
-            if filename.endswith((".yaml", ".yml")):
+            if filename.endswith((".yaml")):
                 filepath = os.path.join(root, filename)
                 current_id = add_ids_to_file(filepath, current_id)
 
