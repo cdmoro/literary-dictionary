@@ -1,0 +1,39 @@
+author: J.K. Rowling
+book: Harry Potter and the Philosopher's Stone
+book_alias: Harry Potter and the Sorcerer's Stone
+characters:
+  - headword: Quirinus Quirrell
+    id: 62
+    alias:
+      - Professor Quirrell
+    description: Defence Against the Dark Arts teacher; plays a central role in the book's conflict.
+  - headword: Nicolas Flamel
+    id: 63
+    alias:
+      - Flamel
+    description: Legendary alchemist, creator of the Philosopher’s Stone.
+  - headword: Hedwig
+    id: 64
+    alias:
+      - Harry's owl
+    description: White owl who accompanies Harry during his early years at Hogwarts.
+  - headword: Norbert
+    id: 65
+    alias:
+      - Hagrid’s dragon
+    description: Baby dragon briefly cared for by Hagrid.
+  - headword: Mrs Norris
+    id: 66
+    alias:
+      - Filch’s cat
+    description: Caretaker Filch’s cat; keeps watch on students.
+glossary:
+  - headword: Philosopher’s Stone
+    id: 67
+    description: Magical object that grants immortality and turns metal into gold.
+  - headword: Sorting Hat
+    id: 68
+    description: Magical hat that determines each student’s Hogwarts house.
+  - headword: Fluffy
+    id: 69
+    description: Giant three-headed dog guarding the Philosopher’s Stone.
