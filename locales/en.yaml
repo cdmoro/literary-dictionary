@@ -1,0 +1,44 @@
+lang: EN
+title: Literary Dictionary
+subtitle: "From Aurelieano to Zarathustra: characters and jargon from world literature"
+edition: English edition
+copyright: "© 2025 Carlos Bonadeo. No rights reserved. You are free to copy, share, or adapt this material — ideally citing the source."
+copyright_version: Version {version}
+copyright_desc: "This dictionary gathers characters, concepts, and objects from world literature in multiple languages. It is a free, evolving project created for curious readers."
+project: Project
+contact: Contact
+license: License
+entries: Entries
+authors: Authors
+sagas: Sagas
+books: Books
+file_name: Bonadeo, Carlos - Literary Dictionary [{lang}] (v{version})
+book_origin: Appears in <em>{book}</em> by {author}.
+saga_origin: Part of the <em>{saga}</em> universe created by {author}.
+author_origin: Featured in the work of {author}.
+see_also: See also
+contents: Contents
+cover: Cover
+about: About this book
+definitions: Definitions
+abbr_guide: Abbreviation Guide
+characters_abbr: char.
+places_abbr: plc.
+objects_abbr: obj.
+concepts_abbr: cncpt.
+events_abbr: evt.
+creatures_abbr: crt.
+institutions_abbr: inst.
+spells_abbr: spl.
+languages_abbr: lang.
+quotes_abbr: qte.
+characters_abbr_desc: Main characters, secondary ones, etc.
+places_abbr_desc: Places important to the story.
+objects_abbr_desc: Special objects mentioned in the book.
+concepts_abbr_desc: Specific concepts.
+events_abbr_desc: Events relevant to the plot.
+creatures_abbr_desc: Real or mythical creatures, animals, etc.
+institutions_abbr_desc: Institution. Similar to <em>plc.</em> but more specific.
+spells_abbr_desc: Spells, ideal for fantasy novels.
+languages_abbr_desc: Artificial or constructed languages.
+quotes_abbr_desc: Quotes with special meaning in the story.

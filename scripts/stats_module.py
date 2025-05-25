@@ -12,11 +12,11 @@ def generate_stats():
     if os.path.exists(output_file):
         with open(output_file, 'r', encoding='utf-8') as f:
             current_content = f.read()
-            if f"_Versión: {version}_" in current_content:
+            if f"_Version: {version}_" in current_content:
                 print(f"⏭️  Update of '{output_file}' was skipped: version unchanged ({version}).")
                 return
             
-    entries = get_entries()
+    entries = get_entries("es")
 
     stats = {}
 
@@ -40,17 +40,17 @@ def generate_stats():
 
     lines = []
 
-    lines.append("# Estadísticas\n")
-    lines.append(f"_Versión: {version}_\n")
+    lines.append("# Statistics\n")
+    lines.append(f"_Version: {version}_\n")
 
     total_authors = len(stats)
     total_sagas = 0
     total_books = 0
     total_entries = 0
 
-    lines.append("## Por autor\n")
+    lines.append("## By Author\n")
 
-    lines.append("|Autor|Sagas|Libros|Registros|")
+    lines.append("|Author|Sagas|Books|Entries|")
     lines.append("|---|---|---|---|")
 
     for author in sorted(stats.keys()):
@@ -66,11 +66,11 @@ def generate_stats():
 
     lines.append("\n## Total\n")
 
-    lines.append("|Autores|Sagas|Libros|Registros|")
+    lines.append("|Authors|Sagas|Books|Entries|")
     lines.append("|---|---|---|---|")
     lines.append(f"|{total_authors}|{total_sagas}|{total_books}|{total_entries}|")
 
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write('\n'.join(lines))
 
-    print(f"Archivo '{output_file}' generado correctamente.")
+    print(f"File '{output_file}' generated successfully.")

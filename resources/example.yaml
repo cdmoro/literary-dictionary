@@ -1,0 +1,26 @@
+# File name: XX-file-name.yaml
+# Where XX is the next file number in the folder
+
+author: Author
+# Optional
+book: Book
+# Optional 
+saga: Saga
+
+# Uncategorized entries
+glossary:
+  - headword: Headword
+    id: 6
+    description: A nice description
+
+# Categories
+characters:
+places:
+objects:
+concepts:
+creatures:
+events:
+languages:
+spells:
+quotes:
+institutions:

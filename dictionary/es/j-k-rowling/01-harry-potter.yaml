@@ -1,5 +1,6 @@
 author: J.K. Rowling
 saga: Harry Potter
+
 characters:
   - headword: Harry Potter
     id: 70
@@ -45,27 +46,38 @@ characters:
     alias:
       - Hagrid
     description: Guardabosques de Hogwarts; gran amigo de Harry.
-glossary:
+
+places:
   - headword: Hogwarts
     id: 78
     description: Escuela de magia donde transcurre gran parte de la saga.
-  - headword: Muggle
-    id: 79
-    description: Persona sin habilidades mágicas.
+  - headword: Azkaban
+    id: 82
+    description: Prisión mágica donde se encierran a los peores criminales del mundo mágico.
+
+objects:
   - headword: Varita
     id: 80
     description: Objeto mágico esencial para los magos y brujas.
+
+creatures:
   - headword: Dementores
     id: 81
     alias:
       - Dementor
     description: Criaturas que absorben la felicidad; utilizadas como guardianes de Azkaban.
-  - headword: Azkaban
-    id: 82
-    description: Prisión mágica donde se encierran a los peores criminales del mundo mágico.
+
+concepts:
+  - headword: Muggle
+    id: 79
+    description: Persona sin habilidades mágicas.
+
+events:
   - headword: Quidditch
     id: 83
     description: Deporte mágico jugado en escobas.
+
+institutions:
   - headword: Ministerio de Magia
     id: 84
     description: Institución que gobierna el mundo mágico británico.

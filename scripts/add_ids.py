@@ -1,7 +1,7 @@
 import os
 import yaml
 from collections import OrderedDict
-from utils import CATEGORY_KEYS
+from utils import CATEGORIES
 
 ROOT_FOLDER = "dictionary"  # Reemplazá esto
 
@@ -30,7 +30,7 @@ def add_ids_to_file(filepath, start_id):
 
     modified = False
 
-    for field in CATEGORY_KEYS:
+    for field in CATEGORIES:
         if field in data and isinstance(data[field], list):
             new_entries = []
             for entry in data[field]:
@@ -50,7 +50,7 @@ def main():
     current_id = 1
     for root, _, files in os.walk(ROOT_FOLDER):
         for filename in sorted(files):
-            if filename.endswith((".yaml", ".yml")):
+            if filename.endswith((".yaml")):
                 filepath = os.path.join(root, filename)
                 current_id = add_ids_to_file(filepath, current_id)
 

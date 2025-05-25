@@ -1,0 +1,96 @@
+author: Frank Herbert
+saga: Dune
+
+characters:
+  - headword: Paul Atreides
+    id: 1
+    alias:
+      - Muad'Dib
+      - The young duke
+    description: Son of Duke Leto Atreides, destined to play a key role in the history of Arrakis.
+  - headword: Leto Atreides
+    id: 2
+    alias:
+      - Duke Leto
+    description: Honorable noble and father of Paul; leader of House Atreides.
+  - headword: Jessica
+    id: 3
+    alias:
+      - Lady Jessica
+    description: Concubine of Duke Leto, member of the Bene Gesserit order.
+  - headword: Baron Vladimir Harkonnen
+    id: 4
+    alias:
+      - Baron Harkonnen
+    description: Mortal enemy of House Atreides, leader of House Harkonnen.
+  - headword: Duncan Idaho
+    id: 5
+    alias:
+      - Idaho
+    description: Swordmaster loyal to House Atreides.
+  - headword: Gurney Halleck
+    id: 6
+    alias:
+      - Gurney
+    description: Warrior and musician, one of the trusted men of House Atreides.
+  - headword: Stilgar
+    id: 7
+    alias:
+      - Naib Stilgar
+    description: Fremen leader of Sietch Tabr, ally of Paul.
+  - headword: Chani
+    id: 8
+    alias:
+      - None
+    description: Fremen close to Paul, born on Arrakis.
+  - headword: Reverend Mother Gaius Helen Mohiam
+    id: 9
+    alias:
+      - Reverend Mother
+    description: High-ranking member of the Bene Gesserit.
+
+places:
+  - headword: Arrakis
+    id: 10
+    description: Desert planet also known as Dune; the only place where the spice melange is found.
+  - headword: Sietch
+    id: 17
+    description: Fremen community or refuge within the caves of Arrakis.
+
+objects:
+  - headword: Shield-lance
+    id: 20
+    description: Personal defensive energy field, common in hand-to-hand combat.
+
+concepts:
+  - headword: Spice
+    id: 11
+    description: Substance that extends life and enhances awareness; vital for space travel.
+  - headword: Kwisatz Haderach
+    id: 18
+    description: Messianic figure foretold by the Bene Gesserit; a man able to access genetic memories of both sexes.
+  - headword: Mentat
+    id: 14
+    description: Humans trained as living computers, replacing thinking machines.
+
+institutions:
+  - headword: Bene Gesserit
+    id: 13
+    description: Ancient female order with extraordinary mental and physical abilities; manipulate politics and genetics.
+  - headword: CHOAM
+    id: 19
+    description: Interplanetary corporation that regulates trade in the universe, including spice.
+  - headword: Spacing Guild
+    id: 21
+    description: Organization that controls interstellar travel thanks to navigators who use spice.
+  - headword: House Atreides
+    id: 15
+    description: Noble house known for honor and justice; enemies of the Harkonnens.
+  - headword: House Harkonnen
+    id: 16
+    description: Rival noble house of the Atreides; known for cruelty.
+
+glossary:
+  - headword: Fremen
+    id: 12
+    description: Nomadic people living in the deserts of Arrakis; great warriors and survivors.
