@@ -1,5 +1,6 @@
 author: Frank Herbert
 saga: Dune
+
 characters:
   - headword: Paul Atreides
     id: 1
@@ -47,40 +48,49 @@ characters:
     alias:
       - Madre Reverenda
     description: Miembro de alto rango de las Bene Gesserit.
-glossary:
+
+places:
   - headword: Arrakis
     id: 10
     description: Planeta desértico conocido también como Dune; único lugar donde se encuentra la especia melange.
+  - headword: Sietch
+    id: 17
+    description: Comunidad o refugio Fremen dentro de las cavernas de Arrakis.
+
+objects:
+  - headword: Lanza-escudo
+    id: 20
+    description: Campo de energía defensiva personal, común en combate cuerpo a cuerpo.
+
+concepts:
   - headword: Especia
     id: 11
     description: Sustancia que extiende la vida y amplía la conciencia; vital para los viajes espaciales.
-  - headword: Fremen
-    id: 12
-    description: Pueblo nómada que vive en el desierto de Arrakis; grandes guerreros y supervivientes.
-  - headword: Bene Gesserit
-    id: 13
-    description: Antigua orden femenina con habilidades mentales y físicas extraordinarias; manipulan la política y la genética.
+  - headword: Kwisatz Haderach
+    id: 18
+    description: Figura mesiánica predicha por las Bene Gesserit; hombre capaz de acceder a recuerdos genéticos de ambos sexos.
   - headword: Mentat
     id: 14
     description: Humanos entrenados como computadoras vivientes, reemplazan a las máquinas pensantes.
+
+institutions:
+  - headword: Bene Gesserit
+    id: 13
+    description: Antigua orden femenina con habilidades mentales y físicas extraordinarias; manipulan la política y la genética.
+  - headword: CHOAM
+    id: 19
+    description: Corporación interplanetaria que regula el comercio en el universo, incluida la especia.
+  - headword: Gilda Espacial
+    id: 21
+    description: Organización que controla los viajes interestelares gracias a los navegantes que usan la especia.
   - headword: Casa Atreides
     id: 15
     description: Noble casa conocida por su honor y justicia; enemigos de los Harkonnen.
   - headword: Casa Harkonnen
     id: 16
     description: Noble casa rival de los Atreides; conocida por su crueldad.
-  - headword: Sietch
-    id: 17
-    description: Comunidad o refugio Fremen dentro de las cavernas de Arrakis.
-  - headword: Kwisatz Haderach
-    id: 18
-    description: Figura mesiánica predicha por las Bene Gesserit; hombre capaz de acceder a recuerdos genéticos de ambos sexos.
-  - headword: CHOAM
-    id: 19
-    description: Corporación interplanetaria que regula el comercio en el universo, incluida la especia.
-  - headword: Lanza-escudo
-    id: 20
-    description: Campo de energía defensiva personal, común en combate cuerpo a cuerpo.
-  - headword: Gilda Espacial
-    id: 21
-    description: Organización que controla los viajes interestelares gracias a los navegantes que usan la especia.
+
+glossary:
+  - headword: Fremen
+    id: 12
+    description: Pueblo nómada que vive en el desierto de Arrakis; grandes guerreros y supervivientes.

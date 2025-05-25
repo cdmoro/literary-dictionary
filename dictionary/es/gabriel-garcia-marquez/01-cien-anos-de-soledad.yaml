@@ -1,5 +1,6 @@
 author: Gabriel García Márquez
 book: Cien años de soledad
+
 characters:
   - headword: José Arcadio Buendía
     id: 85
@@ -45,10 +46,12 @@ characters:
     alias:
       - Rebeca
     description: Niña adoptada por los Buendía que llega con una bolsa de huesos y el hábito de comer tierra.
+
 places:
   - headword: Macondo
     id: 93
-    description: "&lt;Ciudad ficticia&gt; Representa un microcosmos del Caribe colombiano, atravesado por el mito, la historia y el realismo mágico. Fundada por José Arcadio Buendía; escenario principal de la novela."
+    description: "<Ciudad ficticia> Representa un microcosmos del Caribe colombiano, atravesado por el mito, la historia y el realismo mágico. Fundada por José Arcadio Buendía; escenario principal de la novela."
+
 glossary:
   - headword: Peste del insomnio
     id: 94

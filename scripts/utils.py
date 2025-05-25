@@ -86,7 +86,7 @@ def get_entries(lang):
                 continue
 
             cross_ref_ids = {
-                key: [entry.get('id') for entry in data.get(key, []) if 'id' in entry and not entry.get('draft', False)]
+                key: [entry.get('id') for entry in data.get(key) or [] if 'id' in entry and not entry.get('draft', False)]
                 for key in CATEGORIES
                 if key != 'glossary'
             }

@@ -1,5 +1,6 @@
 author: J.R.R. Tolkien
 saga: El Señor de los Anillos
+
 characters:
   - headword: Frodo Bolsón
     id: 22
@@ -52,6 +53,7 @@ characters:
       - El Señor Oscuro
       - El Ojo
     description: Antiguo Maia y creador del Anillo Único; representa el mal supremo.
+
 places:
   - headword: Comarca
     id: 31
@@ -74,14 +76,18 @@ places:
   - headword: Monte del Destino
     id: 37
     description: Volcán en Mordor donde debe destruirse el Anillo Único.
+
+objects:
+  - headword: Anillo Único
+    id: 39
+    description: Objeto creado por Sauron para dominar a todos los pueblos de la Tierra Media.
+
+concepts:
+  - headword: La Compañía del Anillo
+    id: 40
+    description: Grupo de nueve enviados para destruir el Anillo Único en el Monte del Destino.
+
 creatures:
   - headword: Nazgûl
     id: 38
     description: Espectros del Anillo al servicio de Sauron; antiguos reyes humanos corrompidos.
-glossary:
-  - headword: Anillo Único
-    id: 39
-    description: Objeto creado por Sauron para dominar a todos los pueblos de la Tierra Media.
-  - headword: La Compañía del Anillo
-    id: 40
-    description: Grupo de nueve enviados para destruir el Anillo Único en el Monte del Destino.

@@ -1,86 +1,96 @@
 author: Frank Herbert
 saga: Dune
+
 characters:
   - headword: Paul Atreides
     id: 1
     alias:
       - Muad'Dib
-      - El joven duque
-    description: Hijo del duque Leto Atreides, destinado a un rol clave en la historia de Arrakis.
+      - The young duke
+    description: Son of Duke Leto Atreides, destined to play a key role in the history of Arrakis.
   - headword: Leto Atreides
     id: 2
     alias:
-      - Duque Leto
-    description: Noble honorable y padre de Paul; líder de la Casa Atreides.
+      - Duke Leto
+    description: Honorable noble and father of Paul; leader of House Atreides.
   - headword: Jessica
     id: 3
     alias:
-      - Dama Jessica
-    description: Concubina del duque Leto, miembro de la orden Bene Gesserit.
+      - Lady Jessica
+    description: Concubine of Duke Leto, member of the Bene Gesserit order.
   - headword: Baron Vladimir Harkonnen
     id: 4
     alias:
-      - Barón Harkonnen
-    description: Enemigo mortal de la Casa Atreides, líder de la Casa Harkonnen.
+      - Baron Harkonnen
+    description: Mortal enemy of House Atreides, leader of House Harkonnen.
   - headword: Duncan Idaho
     id: 5
     alias:
       - Idaho
-    description: Espadachín leal a la Casa Atreides.
+    description: Swordmaster loyal to House Atreides.
   - headword: Gurney Halleck
     id: 6
     alias:
       - Gurney
-    description: Guerrero y músico, uno de los hombres de confianza de los Atreides.
+    description: Warrior and musician, one of the trusted men of House Atreides.
   - headword: Stilgar
     id: 7
     alias:
       - Naib Stilgar
-    description: Líder Fremen del Sietch Tabr, aliado de Paul.
+    description: Fremen leader of Sietch Tabr, ally of Paul.
   - headword: Chani
     id: 8
     alias:
-      - Ninguna
-    description: Fremen cercana a Paul, nacida en Arrakis.
+      - None
+    description: Fremen close to Paul, born on Arrakis.
   - headword: Reverend Mother Gaius Helen Mohiam
     id: 9
     alias:
-      - Madre Reverenda
-    description: Miembro de alto rango de las Bene Gesserit.
-glossary:
+      - Reverend Mother
+    description: High-ranking member of the Bene Gesserit.
+
+places:
   - headword: Arrakis
     id: 10
-    description: Planeta desértico conocido también como Dune; único lugar donde se encuentra la especia melange.
-  - headword: Especia
-    id: 11
-    description: Sustancia que extiende la vida y amplía la conciencia; vital para los viajes espaciales.
-  - headword: Fremen
-    id: 12
-    description: Pueblo nómada que vive en el desierto de Arrakis; grandes guerreros y supervivientes.
-  - headword: Bene Gesserit
-    id: 13
-    description: Antigua orden femenina con habilidades mentales y físicas extraordinarias; manipulan la política y la genética.
-  - headword: Mentat
-    id: 14
-    description: Humanos entrenados como computadoras vivientes, reemplazan a las máquinas pensantes.
-  - headword: Casa Atreides
-    id: 15
-    description: Noble casa conocida por su honor y justicia; enemigos de los Harkonnen.
-  - headword: Casa Harkonnen
-    id: 16
-    description: Noble casa rival de los Atreides; conocida por su crueldad.
+    description: Desert planet also known as Dune; the only place where the spice melange is found.
   - headword: Sietch
     id: 17
-    description: Comunidad o refugio Fremen dentro de las cavernas de Arrakis.
+    description: Fremen community or refuge within the caves of Arrakis.
+
+objects:
+  - headword: Shield-lance
+    id: 20
+    description: Personal defensive energy field, common in hand-to-hand combat.
+
+concepts:
+  - headword: Spice
+    id: 11
+    description: Substance that extends life and enhances awareness; vital for space travel.
   - headword: Kwisatz Haderach
     id: 18
-    description: Figura mesiánica predicha por las Bene Gesserit; hombre capaz de acceder a recuerdos genéticos de ambos sexos.
+    description: Messianic figure foretold by the Bene Gesserit; a man able to access genetic memories of both sexes.
+  - headword: Mentat
+    id: 14
+    description: Humans trained as living computers, replacing thinking machines.
+
+institutions:
+  - headword: Bene Gesserit
+    id: 13
+    description: Ancient female order with extraordinary mental and physical abilities; manipulate politics and genetics.
   - headword: CHOAM
     id: 19
-    description: Corporación interplanetaria que regula el comercio en el universo, incluida la especia.
-  - headword: Lanza-escudo
-    id: 20
-    description: Campo de energía defensiva personal, común en combate cuerpo a cuerpo.
-  - headword: Gilda Espacial
+    description: Interplanetary corporation that regulates trade in the universe, including spice.
+  - headword: Spacing Guild
     id: 21
-    description: Organización que controla los viajes interestelares gracias a los navegantes que usan la especia.
+    description: Organization that controls interstellar travel thanks to navigators who use spice.
+  - headword: House Atreides
+    id: 15
+    description: Noble house known for honor and justice; enemies of the Harkonnens.
+  - headword: House Harkonnen
+    id: 16
+    description: Rival noble house of the Atreides; known for cruelty.
+
+glossary:
+  - headword: Fremen
+    id: 12
+    description: Nomadic people living in the deserts of Arrakis; great warriors and survivors.

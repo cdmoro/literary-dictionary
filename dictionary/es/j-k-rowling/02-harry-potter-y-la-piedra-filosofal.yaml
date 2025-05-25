@@ -1,5 +1,6 @@
 author: J.K. Rowling
 book: Harry Potter y la piedra filosofal
+
 characters:
   - headword: Quirinus Quirrell
     id: 62
@@ -26,13 +27,18 @@ characters:
     alias:
       - Mrs Norris
     description: Gata del celador Filch; vigila a los alumnos.
-glossary:
+
+objects:
   - headword: Piedra filosofal
     id: 67
     description: Objeto mágico que otorga la vida eterna y convierte metales en oro.
-  - headword: Sombrero Seleccionador
-    id: 68
-    description: Sombrero mágico que decide a qué casa de Hogwarts pertenece cada estudiante.
+
+creatures:
   - headword: Fluffy
     id: 69
     description: Perro gigante de tres cabezas que protege la piedra filosofal.
+
+glossary:
+  - headword: Sombrero Seleccionador
+    id: 68
+    description: Sombrero mágico que decide a qué casa de Hogwarts pertenece cada estudiante.
