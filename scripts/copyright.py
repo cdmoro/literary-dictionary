@@ -14,6 +14,10 @@ def get_copyright_html(strings, entries):
         "title": strings["title"],
         "subtitle": strings["subtitle"],
         "edition": strings["edition"],
+        "copyright_desc": strings["copyright_desc"],
+        "license": strings["license"],
+        "project": strings["project"],
+        "contact": strings["contact"],
         "copyright": strings["copyright"],
         "version": strings["copyright_version"].format(version=os.getenv("DICT_VERSION")),
         "entries": total_registros,
@@ -32,18 +36,17 @@ def get_copyright_html(strings, entries):
     <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>
-    <div><strong>{title} ({lang})</strong></div>
-    <div><em>{subtitle}</em></div>
+    <div><strong>{title}</strong></div>
+    <div>{edition}</div>
+    <div>{version}</div>
     <br />
+    <div>{copyright_desc}</div>
+    <br />
+    <div><strong>{license}</strong></div>
     <div>{copyright}</div>
-    <div><strong>{version}</strong></div>
     <br />
-    <ul>
-        <li>{entries_label}: {entries}</li>
-        <li>{authors_label}: {authors}</li>
-        <li>{sagas_label}: {sagas}</li>
-        <li>{books_label}: {books}</li>
-    </ul>
+    <div>{project}: <a href="https://github.com/cdmoro/literary-dictionary">https://github.com/cdmoro/literary-dictionary</a></div>
+    <div>{contact}: <a href="mailto:carlosbonadeo@gmail.com">carlosbonadeo@gmail.com</a></div>
 </body>
 </html>"""
 

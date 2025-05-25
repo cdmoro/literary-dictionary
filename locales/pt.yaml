@@ -2,8 +2,12 @@ lang: PT
 title: Dicionário Literário
 subtitle: "De Aureliano a Zaratustra: personagens e jargões da literatura mundial"
 edition: Edição em português
-copyright: "© 2025 Carlos Bonadeo. Nenhum direito reservado. A distribuição deste trabalho é incentivada, preferencialmente citando as fontes."
+copyright: "© 2025 Carlos Bonadeo. Nenhum direito reservado. Você pode copiar, compartilhar ou adaptar este material — idealmente citando a fonte."
 copyright_version: Versão {version}
+copyright_desc: "Este dicionário reúne personagens, conceitos e objetos da literatura mundial em vários idiomas. É um projeto livre e em constante evolução, criado para leitores curiosos."
+project: Projeto
+contact: Contato
+license: Licença
 entries: Verbetes
 authors: Autores
 sagas: Sagas

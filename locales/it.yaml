@@ -2,8 +2,12 @@ lang: IT
 title: Dizionario Letterario
 subtitle: "Da Aureliano a Zarathustra: personaggi e gergo della letteratura mondiale"
 edition: Edizione italiana
-copyright: "© 2025 Carlos Bonadeo. Nessun diritto riservato. La distribuzione di quest'opera è incoraggiata, preferibilmente citando le fonti."
+copyright: "© 2025 Carlos Bonadeo. Nessun diritto riservato. Puoi copiare, condividere o modificare questo contenuto — idealmente citando la fonte."
 copyright_version: Versione {version}
+copyright_desc: "Questo dizionario raccoglie personaggi, concetti e oggetti della letteratura mondiale in più lingue. È un progetto libero e in continua evoluzione, creato per lettori curiosi."
+project: Progetto
+contact: Contatto
+license: Licenza
 entries: Voci
 authors: Autori
 sagas: Saghe
