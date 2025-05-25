@@ -3,7 +3,7 @@
 **Your ultimate reading companion.**  
 Lost in the maze of names from _One Hundred Years of Solitude_? Can’t remember if that magical object belonged to Frodo or Harry? This open-source **Literary Dictionary** helps you keep track of characters, places, and concepts from iconic books and sagas—right from your Kindle.
 
-The dictionary is currently available in **Spanish**. The **English** version is in progress and will be released soon. Separate versions for each language are planned to ensure smooth reading and navigation on Kindle devices.
+The dictionary is currently available in English and Spanish. Additional languages are planned for future releases. Each version is designed independently to ensure smooth reading and navigation on Kindle and other e-reader devices.
 
 
 ## 🚀 What It Is
