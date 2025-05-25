@@ -121,7 +121,7 @@ def generate_dictionary(lang, strings):
                         if not idr in cross_reference_data:
                             print(f'  - ⏭️  ID {id}: Cross Reference not found ({idr}), skipped')
                             continue
-                        seeAlsoLinks.append(f'          <a href="{cross_reference_data[id][1]}#{id}">{cross_reference_data[id][0]}</a>')
+                        seeAlsoLinks.append(f'          <a href="{cross_reference_data[idr][1]}#{id}">{cross_reference_data[idr][0]}</a>')
                     f.write(', \n'.join(seeAlsoLinks))
                     f.write('\n        </div>\n')
                 
