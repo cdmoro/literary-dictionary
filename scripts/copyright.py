@@ -13,6 +13,7 @@ def get_copyright_html(strings, entries):
         "lang": strings["lang"],
         "title": strings["title"],
         "subtitle": strings["subtitle"],
+        "edition": strings["edition"],
         "copyright": strings["copyright"],
         "version": strings["copyright_version"].format(version=os.getenv("DICT_VERSION")),
         "entries": total_registros,

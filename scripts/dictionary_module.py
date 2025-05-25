@@ -204,9 +204,11 @@ def generate_dictionary(lang, strings):
         f.write(f'      <DictionaryOutLanguage>{lang}</DictionaryOutLanguage>\n')
         f.write('      <DefaultLookupIndex>headword</DefaultLookupIndex>\n')
         f.write('    </x-metadata>\n')
+        f.write('    <meta name="cover" content="cover-image"/>')
         f.write('  </metadata>\n')
         f.write('  <manifest>\n')
         f.write('    <item id="style" href="style.css" media-type="text/css"/>\n')
+        f.write('    <item id="cover-image" href="cover.jpg" media-type="image/jpeg"/>\n')
         f.write('    <item id="cover" href="Cover.xhtml" media-type="application/xhtml+xml"/>\n')
         f.write('    <item id="copyright" href="Copyright.xhtml" media-type="application/xhtml+xml"/>\n')
         f.write('    <item id="index" properties="nav" href="Contents.xhtml" media-type="application/xhtml+xml"/>\n')
@@ -226,6 +228,11 @@ def generate_dictionary(lang, strings):
         
         f.write('    <itemref idref="abbreviations"/>\n')
         f.write('  </spine>\n')
+        f.write('  <guide>\n')
+        f.write('    <reference type="cover" title="Cover" href="Cover.xhtml"/>\n')
+        f.write('    <reference type="toc" title="Table of Contents" href="Contents.xhtml"/>\n')
+        f.write('    <reference type="text" title="Start" href="Copyright.xhtml"/>\n')
+        f.write('  </guide>\n')
         f.write('</package>\n')
 
     print(f"✅ Diccionary files created successfully")
