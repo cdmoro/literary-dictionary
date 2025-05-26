@@ -8,12 +8,19 @@ book: Book
 saga: Saga
 
 # Uncategorized entries
+# note: please, use categories whenever possible 
 glossary:
-  - headword: Headword
+  - headword: Headword(s)
     id: 6
     description: A nice description
+    # Optional
+    alias:
+      - Word(s) I
+      - Word(s) II
 
 # Categories
+# The format is the same as in glossary
+# note: delete the unused ones
 characters:
 places:
 objects:

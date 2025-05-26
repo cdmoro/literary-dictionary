@@ -4,10 +4,10 @@ import os
 load_dotenv()
 
 def get_copyright_html(strings, entries):
-    total_registros = len(entries)
-    autores = {p['author'] for p in entries if p.get('author')}
+    total_entries = len(entries)
+    authors = {p['author'] for p in entries if p.get('author')}
     sagas = {p['saga'] for p in entries if p.get('saga')}
-    libros = {p['book'] for p in entries if p.get('book')}
+    books = {p['book'] for p in entries if p.get('book')}
 
     data = {
         "lang": strings["lang"],
@@ -20,10 +20,10 @@ def get_copyright_html(strings, entries):
         "contact": strings["contact"],
         "copyright": strings["copyright"],
         "version": strings["copyright_version"].format(version=os.getenv("DICT_VERSION")),
-        "entries": total_registros,
-        "authors": len(autores),
+        "entries": total_entries,
+        "authors": len(authors),
         "sagas": len(sagas),
-        "books": len(libros),
+        "books": len(books),
         "entries_label": strings["entries"],
         "authors_label": strings["authors"],
         "sagas_label": strings["sagas"],

@@ -100,20 +100,24 @@ def generate_dictionary(lang, strings):
                 if (abbrev):
                     f.write(f'<em>{abbrev}</em> ')
                 f.write(f'{description}</div>\n')
-                f.write('        <br />\n')
+                
                 f.write('        <div>')
-                if book:
-                    f.write(strings["book_origin"].format(book=book, author=author))
+                f.write(f'          <strong>{strings["origin"]}:</strong> \n')
+
+                if book and saga:
+                    f.write(strings["origin_book_saga"].format(book=book, saga=saga, author=author))
+                elif book:
+                    f.write(strings["origin_book"].format(book=book, author=author))
                 elif saga:
-                    f.write(strings["saga_origin"].format(saga=saga, author=author))
+                    f.write(strings["origin_saga"].format(saga=saga, author=author))
                 else:
-                    f.write(strings["author_origin"].format(author=author))
+                    f.write(strings["origin_author"].format(author=author))
+
                 f.write('</div>\n')
 
                 if seeAlso:
-                    f.write('        <br />\n')
                     f.write('        <div>\n')
-                    f.write(f'          <em>{strings["see_also"]}:</em> \n')
+                    f.write(f'          <strong>{strings["see_also"]}:</strong> \n')
                     
                     seeAlso = list(dict.fromkeys(seeAlso))
                     seeAlso = sorted(seeAlso, key=lambda id: cross_reference_data[id][0].lower() if id in cross_reference_data else '')

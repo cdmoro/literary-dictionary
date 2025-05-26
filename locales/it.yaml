@@ -1,44 +1,48 @@
-lang: IT
-title: Dizionario Letterario
-subtitle: "Da Aureliano a Zarathustra: personaggi e gergo della letteratura mondiale"
-edition: Edizione italiana
-copyright: "© 2025 Carlos Bonadeo. Nessun diritto riservato. Puoi copiare, condividere o modificare questo contenuto — idealmente citando la fonte."
-copyright_version: Versione {version}
-copyright_desc: "Questo dizionario raccoglie personaggi, concetti e oggetti della letteratura mondiale in più lingue. È un progetto libero e in continua evoluzione, creato per lettori curiosi."
-project: Progetto
-contact: Contatto
-license: Licenza
-entries: Voci
-authors: Autori
-sagas: Saghe
-books: Libri
-file_name: Bonadeo, Carlos - Dizionario Letterario [{lang}] (v{version})
-book_origin: Compare in <em>{book}</em> di {author}.
-saga_origin: Parte dell'universo <em>{saga}</em> creato da {author}.
-author_origin: Presente nell'opera di {author}.
-see_also: Vedi anche
-contents: Indice
-cover: Copertina
-about: Su questo libro
-definitions: Definizioni
+---
 abbr_guide: Guida alle Abbreviazioni
+about: Su questo libro
+authors: Autori
+books: Libri
 characters_abbr: pers.
-places_abbr: luog.
-objects_abbr: ogg.
-concepts_abbr: conc.
-events_abbr: ev.
-creatures_abbr: creat.
-institutions_abbr: ist.
-spells_abbr: inc.
-languages_abbr: ling.
-quotes_abbr: cit.
 characters_abbr_desc: Personaggi principali, secondari, ecc.
-places_abbr_desc: Luoghi importanti per la storia.
-objects_abbr_desc: Oggetti speciali menzionati nel libro.
+concepts_abbr: conc.
 concepts_abbr_desc: Concetti specifici.
-events_abbr_desc: Eventi rilevanti per la trama.
+contact: Contatto
+contents: Indice
+copyright: © 2025 Carlos Bonadeo. Nessun diritto riservato. Puoi copiare, condividere o modificare questo contenuto — idealmente citando la fonte.
+copyright_desc: Questo dizionario raccoglie personaggi, concetti e oggetti della letteratura mondiale in più lingue. È un progetto libero e in continua evoluzione, creato per lettori curiosi.
+copyright_dict_stats: Questo dizionario contiene {entries} voci, suddivise in {autores} autori, {books} libri e {sagas} saghe.
+copyright_version: Versione {version}
+cover: Copertina
+creatures_abbr: creat.
 creatures_abbr_desc: Creature reali o mitiche, animali, ecc.
+definitions: Dizionario
+edition: Edizione italiana
+entries: Voci
+events_abbr: ev.
+events_abbr_desc: Eventi rilevanti per la trama.
+file_name: Bonadeo, Carlos - Dizionario Letterario [{lang}] (v{version})
+institutions_abbr: ist.
 institutions_abbr_desc: Istituzioni. Simili a <em>luog.</em> ma più specifiche.
-spells_abbr_desc: Incantesimi, ideale per romanzi fantasy.
+lang: IT
+languages_abbr: ling.
 languages_abbr_desc: Lingue artificiali o costruite.
+license: Licenza
+objects_abbr: ogg.
+objects_abbr_desc: Oggetti speciali menzionati nel libro.
+origin: Origine
+origin_author: Opere di {author}.
+origin_book: <em>{book}</em>, {author}.
+origin_book_saga: <em>{book}</em> (saga {saga}), {author}.
+origin_saga: Saga <em>{saga}</em>, {author}.
+places_abbr: luog.
+places_abbr_desc: Luoghi importanti per la storia.
+project: Progetto
+quotes_abbr: cit.
 quotes_abbr_desc: Citazioni con significato speciale nella storia.
+sagas: Saghe
+see_also: Vedi anche
+spells_abbr: inc.
+spells_abbr_desc: Incantesimi, ideale per romanzi fantasy.
+subtitle: 'Da Aureliano a Zarathustra: personaggi e gergo della letteratura mondiale'
+title: Dizionario Letterario
