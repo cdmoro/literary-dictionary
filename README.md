@@ -68,10 +68,12 @@ pip install -r requirements.txt
 python scripts/build.py
 ```
 
+It will generate several one dictionary per language in `output` folder.
+
 Then:
 
 1. Open Kindle Previewer
-1. Load the generated EPUB or dictionary_files/Dictionary.opf
+1. Load the generated EPUB or `dictionary_files_en/Dictionary.opf`
 1. Export to MOBI
 1. Copy to your Kindle’s dictionaries/ folder
 
