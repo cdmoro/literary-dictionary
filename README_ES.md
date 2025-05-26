@@ -5,20 +5,32 @@
 
 El diccionario está disponible actualmente en inglés y en español. Se planean más idiomas para futuras ediciones. Cada versión se diseña de forma independiente para garantizar una lectura fluida y una navegación óptima en Kindle y otros dispositivos de lectura electrónica.
 
+🎯 Descarga la última versión del diccionario [acá](https://github.com/cdmoro/literary-dictionary/releases/latest)
 
-## 🚀 ¿Qué es?
 
-Un diccionario literario optimizado para Kindle, pensado para mejorar tu experiencia de lectura. Solo tenés que descargarlo, instalarlo y empezar a buscar nombres o frases desconocidas sin salir de la página.
+## ✨ Funcionalidades
 
-- Funciona con **palabras individuales** y **expresiones compuestas**
-- Compatible con libros en **cualquier idioma**
-- Totalmente integrado al **sistema de diccionarios del Kindle**
+El **Diccionario Literario para Kindle** está diseñado para hacer tu lectura más inmersiva y menos confusa, directamente desde el diccionario integrado del dispositivo.
 
-|Palabra individual|Expresión compuesta|Libro en otro idioma|
-|---|---|---|
-|﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿![image](https://github.com/user-attachments/assets/43fe84ab-9879-4b0f-a888-9b71d4f11e88)|![image](https://github.com/user-attachments/assets/826923f0-74ec-4d70-b62f-1fe823747b08)|![image](https://github.com/user-attachments/assets/8491310c-d80a-490f-a90a-2963b9d1badf)|
+### ✅ Características principales
 
-🎯 [Descargar el archivo MOBI más reciente desde acá](https://github.com/cdmoro/literary-dictionary/releases/latest)
+- **Funciona con palabras sueltas y expresiones compuestas**
+- **Compatible con libros en cualquier idioma**
+- **Totalmente integrado con el sistema de diccionario de Kindle**
+- **Incluye referencias cruzadas entre personajes, lugares y conceptos de distintos universos literarios**
+- **Muestra múltiples definiciones cuando un nombre coincide con varias entradas (por ejemplo, apellidos familiares)**
+- **Entradas claras y concisas, optimizadas para búsquedas rápidas**
+- **Ligero, fácil de instalar y sin distracciones**
+
+### 📸 Capturas de pantalla
+
+| Búsqueda de palabra | Expresión compuesta | Soporte multilingüe |
+|---------------------|---------------------|----------------------|
+| ![Búsqueda palabra](./screenshots/single-word.png) | ![Expresión compuesta](./screenshots/multi-word.png) | ![Multilingüe](./screenshots/foreign-language.png) |
+
+| Referencia cruzada | Múltiples definiciones | Guía de abreviaciones |
+|--------------------|------------------------|------------------------|
+| ![Referencia cruzada](./screenshots/cross-reference.png) | ![Múltiples definiciones](./screenshots/multiple-definitions.png) | ![Guía de abreviaciones](./screenshots/abbreviation-guide.png) |
 
 ---
 
@@ -30,8 +42,9 @@ Las entradas están organizadas en archivos YAML por autor. Cada archivo puede c
 
 Cada entrada incluye:
 - `entry`: Término principal
+- `displayValue` (opcional): Reemplaza visualmente a `entry`
 - `alias` (opcional): Nombres alternativos
-- `description`: Breve explicación
+- `description`: Definición del término
 
 Además, podés categorizar las entradas usando:
 - `characters`, `places`, `objects`, `concepts`, `events`, `creatures`, `institutions`, `spells`, `languages`, `quotes`

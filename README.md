@@ -7,17 +7,30 @@ The dictionary is currently available in English and Spanish. Additional languag
 
 🎯 Download the latests version of the dictionary [here](https://github.com/cdmoro/literary-dictionary/releases/latest)
 
-## 🚀 What It Is
+## ✨ Features
 
-A Kindle-optimized literary dictionary designed to enrich your reading experience. Simply download it, install it, and start looking up unfamiliar names or phrases without ever leaving the page.
+The **Literary Dictionary for Kindle** is designed to make your reading more immersive and less confusing—right from your device’s built-in dictionary tool.
 
-- Works with **single words** and **multi-word expressions**
-- Supports books in **any language**
-- Fully functional with **Kindle’s built-in dictionary system**
+### ✅ Key Features
 
-|Single Word|Multi-word Phrase|Foreign Language Support|
-|---|---|---|
-|﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿![image](https://github.com/user-attachments/assets/43fe84ab-9879-4b0f-a888-9b71d4f11e88)|![image](https://github.com/user-attachments/assets/826923f0-74ec-4d70-b62f-1fe823747b08)|![image](https://github.com/user-attachments/assets/8491310c-d80a-490f-a90a-2963b9d1badf)|
+- **Works with both single words and multi-word expressions**  
+- **Supports books in any language**
+- **Fully compatible with Kindle’s native dictionary system**
+- **Cross-references characters, places, and concepts across literary universes**
+- **Returns multiple definitions when a name matches more than one entry (e.g., family surnames)**
+- **Clean and concise entries, optimized for fast lookup**
+- **Lightweight, easy to install, and distraction-free**
+
+### 📸 Screenshots
+
+| Single Word Lookup | Multi-word Phrase | Foreign Language Support |
+|--------------------|-------------------|---------------------------|
+| ![Single Word Screenshot](./screenshots/single-word.png) | ![Multi-word Screenshot](./screenshots/multi-word.png) | ![Foreign Language Screenshot](./screenshots/foreign-language.png) |
+
+| Cross-referenced Entry | Multiple Definitions | Abbreviation Guide |
+|------------------------|------------------------|------------------------|
+| ![Cross-reference Screenshot](./screenshots/cross-reference.png) | ![Multiple Definitions Screenshot](./screenshots/multiple-definitions.png) | ![Abbreviation Guide Screenshot](./screenshots/abbreviation-guide.png) |
+
 
 ---
 
@@ -29,8 +42,9 @@ Entries are neatly organized in YAML files by author. Each file can cover a sing
 
 Each entry includes:
 - `entry`: Main term
+- `displayValue` (optional): Visual term
 - `alias` (optional): Alternative names
-- `description`: Short explanation
+- `description`: Definition
 
 You can further categorize entries with:
 - `characters`, `places`, `objects`, `concepts`, `events`, `creatures`, `institutions`, `spells`, `languages`, `quotes`
