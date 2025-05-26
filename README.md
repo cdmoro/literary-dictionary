@@ -5,6 +5,7 @@ Lost in the maze of names from _One Hundred Years of Solitude_? Can’t remember
 
 The dictionary is currently available in English and Spanish. Additional languages are planned for future releases. Each version is designed independently to ensure smooth reading and navigation on Kindle and other e-reader devices.
 
+🎯 [Download the latest MOBI file here](https://github.com/cdmoro/literary-dictionary/releases/latest)
 
 ## 🚀 What It Is
 
@@ -17,8 +18,6 @@ A Kindle-optimized literary dictionary designed to enrich your reading experienc
 |Single Word|Multi-word Phrase|Foreign Language Support|
 |---|---|---|
 |﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿![image](https://github.com/user-attachments/assets/43fe84ab-9879-4b0f-a888-9b71d4f11e88)|![image](https://github.com/user-attachments/assets/826923f0-74ec-4d70-b62f-1fe823747b08)|![image](https://github.com/user-attachments/assets/8491310c-d80a-490f-a90a-2963b9d1badf)|
-
-🎯 [Download the latest MOBI file here](https://github.com/cdmoro/literary-dictionary/releases/latest)
 
 ---
 
