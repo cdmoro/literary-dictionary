@@ -1,48 +1,47 @@
 ---
+abbr_characters: char.
+abbr_characters_desc: Main characters, secondary ones, etc.
+abbr_concepts: cncpt.
+abbr_concepts_desc: Specific concepts.
+abbr_creatures: crt.
+abbr_creatures_desc: Real or mythical creatures, animals, etc.
+abbr_events: evt.
+abbr_events_desc: Events relevant to the plot.
 abbr_guide: Abbreviation Guide
+abbr_institutions: inst.
+abbr_institutions_desc: Institution. Similar to <em>plc.</em> but more specific.
+abbr_languages: lang.
+abbr_languages_desc: Artificial or constructed languages.
+abbr_objects: obj.
+abbr_objects_desc: Special objects mentioned in the book.
+abbr_places: plc.
+abbr_places_desc: Places important to the story.
+abbr_quotes: qte.
+abbr_quotes_desc: Quotes with special meaning in the story.
+abbr_spells: spl.
+abbr_spells_desc: Spells, ideal for fantasy novels.
 about: About this book
 authors: Authors
 books: Books
-characters_abbr: char.
-characters_abbr_desc: Main characters, secondary ones, etc.
-concepts_abbr: cncpt.
-concepts_abbr_desc: Specific concepts.
 contact: Contact
 contents: Contents
 copyright: © 2025 Carlos Bonadeo. No rights reserved. You are free to copy, share, or adapt this material — ideally citing the source.
-copyright_desc: This dictionary gathers characters, concepts, and objects from world literature in multiple languages. It is a free, evolving project created for curious readers.
-copyright_dict_stats: This dictionary contains {entries} entries, divided across {autores} authors, {books} books, and {sagas} sagas.
+copyright_desc: This dictionary brings together characters, concepts, and objects from world literature in multiple languages. It is a free and evolving project created for curious readers, and it contains {entries} entries, organized around {authors} authors, {books} books, and {sagas} sagas.
 copyright_version: Version {version}
 cover: Cover
-creatures_abbr: crt.
-creatures_abbr_desc: Real or mythical creatures, animals, etc.
 definitions: Dictionary
 edition: English edition
 entries: Entries
-events_abbr: evt.
-events_abbr_desc: Events relevant to the plot.
 file_name: Bonadeo, Carlos - Literary Dictionary [{lang}] (v{version})
-institutions_abbr: inst.
-institutions_abbr_desc: Institution. Similar to <em>plc.</em> but more specific.
 lang: EN
-languages_abbr: lang.
-languages_abbr_desc: Artificial or constructed languages.
 license: License
-objects_abbr: obj.
-objects_abbr_desc: Special objects mentioned in the book.
 origin: Origin
 origin_author: Works by {author}.
 origin_book: <em>{book}</em>, {author}.
-origin_book_saga: <em>{book}</em> (part of the {saga} series), {author}.
+origin_book_saga: <em>{book}</em> (part of the <em>{saga}</em> series), {author}.
 origin_saga: <em>{saga}</em> series, {author}.
-places_abbr: plc.
-places_abbr_desc: Places important to the story.
 project: Project
-quotes_abbr: qte.
-quotes_abbr_desc: Quotes with special meaning in the story.
 sagas: Sagas
 see_also: See also
-spells_abbr: spl.
-spells_abbr_desc: Spells, ideal for fantasy novels.
 subtitle: 'From Aurelieano to Zarathustra: characters and jargon from world literature'
 title: Literary Dictionary

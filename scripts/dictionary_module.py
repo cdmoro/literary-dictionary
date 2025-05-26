@@ -5,7 +5,7 @@ import zipfile
 from collections import defaultdict
 from dotenv import load_dotenv
 
-from utils import get_entries
+from utils import get_entries, CATEGORIES
 from copyright import get_copyright_html  
 
 load_dotenv()
@@ -173,28 +173,31 @@ def generate_dictionary(lang, strings):
 </html>
 ''')
 
+    abbrs = CATEGORIES[:-1]
+
     # Abreviaturas
     with open(os.path.join(output_folder, 'Abbreviations.xhtml'), 'w', encoding='utf-8') as f:
-        f.write('''<?xml version="1.0" encoding="utf-8"?>
+        abbr_xhtml = '''<?xml version="1.0" encoding="utf-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>
     <h1>{abbr_guide}</h1>
-    <div><em>{characters_abbr}</em> — {characters_abbr_desc}</div>  
-    <div><em>{places_abbr}</em> — {places_abbr_desc}</div>
-    <div><em>{objects_abbr}</em> — {objects_abbr_desc}</div>
-    <div><em>{concepts_abbr}</em> — {concepts_abbr_desc}</div>
-    <div><em>{events_abbr}</em> — {events_abbr_desc}</div>
-    <div><em>{creatures_abbr}</em> — {creatures_abbr_desc}</div>
-    <div><em>{institutions_abbr}</em> — {institutions_abbr_desc}</div>
-    <div><em>{spells_abbr}</em> — {spells_abbr_desc}</div>
-    <div><em>{languages_abbr}</em> — {languages_abbr_desc}</div>
-    <div><em>{quotes_abbr}</em> — {quotes_abbr_desc}</div>
+    <table class="abbr-table">'''
+        
+        for abbr in abbrs:
+            abbr_xhtml += f'''
+        <tr>
+            <td>{{abbr_{abbr}}}</td>
+            <td>{{abbr_{abbr}_desc}}</td>
+        </tr>'''
+        
+        abbr_xhtml += '''\n    </table>
 </body>
 </html>
-'''.format(**strings))
+'''
+        f.write(abbr_xhtml.format(**strings))
 
     # Archivo OPF
     with open(os.path.join(output_folder, 'Dictionary.opf'), 'w', encoding='utf-8') as f:

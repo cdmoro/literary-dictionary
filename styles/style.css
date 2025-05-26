@@ -32,9 +32,14 @@ h1 {
     margin: 0 0 1em 0;
 }
 
-.toc ol {
-    list-style-type: none;
-    padding: 0 !important;
+nav.toc ol {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+nav.toc li {
+  margin: 0;
 }
 
 i, em, cite, dfn {
@@ -54,4 +59,8 @@ dd {
     padding: 0 0 0.5em 0;
     display: block;
     margin-left: 1rem;
+}
+
+.abbr-table td {
+    vertical-align: top;
 }

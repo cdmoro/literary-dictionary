@@ -25,12 +25,15 @@ characters:
       - Gustavo
       - Barceló
     description: Influential bibliophile and owner of a valuable collection. Assists Daniel in uncovering more about Carax.
-  - headword: Bea Barceló
+  - headword: Bea Aguilar
     id: 45
     alias:
+      - Bea Aguilar
       - Bea
-      - Barceló
-    description: Daughter of Gustavo and Daniel's childhood friend. Her relationship with him evolves over time.
+      - Beatriz
+      - Aguilar
+      - Beatriz Aguilar
+    description: Sister of Tomás Aguilar. Childhood friend of Daniel Sempere, with whom she shares a meaningful relationship throughout the story.
   - headword: Tomás Aguilar
     id: 46
     alias:

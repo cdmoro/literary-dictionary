@@ -14,7 +14,7 @@ def get_copyright_html(strings, entries):
         "title": strings["title"],
         "subtitle": strings["subtitle"],
         "edition": strings["edition"],
-        "copyright_desc": strings["copyright_desc"],
+        "copyright_desc": strings["copyright_desc"].format(authors=len(authors), entries=total_entries, books=len(books), sagas=len(sagas)),
         "license": strings["license"],
         "project": strings["project"],
         "contact": strings["contact"],
@@ -46,7 +46,7 @@ def get_copyright_html(strings, entries):
     <div>{copyright}</div>
     <br />
     <div>{project}: <a href="https://github.com/cdmoro/literary-dictionary">https://github.com/cdmoro/literary-dictionary</a></div>
-    <div>{contact}: <a href="mailto:carlosbonadeo@gmail.com">carlosbonadeo@gmail.com</a></div>
+    <div>{contact}: carlosbonadeo@gmail.com</div>
 </body>
 </html>"""
 

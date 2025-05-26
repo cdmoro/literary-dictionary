@@ -98,7 +98,7 @@ def get_entries(lang):
                     book,
                     saga,
                     key,
-                    strings[f'{key}_abbr'] if key != 'glossary' else None,
+                    strings[f'abbr_{key}'] if key != 'glossary' else None,
                     cross_ref_ids,
                 ))
 

@@ -1,48 +1,47 @@
 ---
+abbr_characters: per.
+abbr_characters_desc: Personajes principales, secundarios, etc.
+abbr_concepts: con.
+abbr_concepts_desc: Concepto particulares.
+abbr_creatures: cri.
+abbr_creatures_desc: Criaturas reales o mitológicos, animales, etc.
+abbr_events: ev.
+abbr_events_desc: Eventos relevantes para la historia.
 abbr_guide: Guía de abreviaturas
+abbr_institutions: inst.
+abbr_institutions_desc: Institución. Parecido a <em>lug.</em> pero más específico.
+abbr_languages: leng.
+abbr_languages_desc: Lengua o idioma artificial.
+abbr_objects: obj.
+abbr_objects_desc: Objetos especiales que se mencionen en el libro.
+abbr_places: lug.
+abbr_places_desc: Lugares importantes para la historia.
+abbr_quotes: cit.
+abbr_quotes_desc: Citas que tienen algún significado especial para la historia.
+abbr_spells: hech.
+abbr_spells_desc: Hechizos, ideal para las novelas de fantasía.
 about: Sobre este libro
 authors: Autores
 books: Libros
-characters_abbr: per.
-characters_abbr_desc: Personajes principales, secundarios, etc.
-concepts_abbr: con.
-concepts_abbr_desc: Concepto particulares.
 contact: Contacto
 contents: Índice
 copyright: © 2025 Carlos Bonadeo. Sin derechos reservados. Podés copiar, compartir o modificar este contenido libremente — idealmente citando la fuente.
-copyright_desc: Este diccionario reúne personajes, conceptos y objetos de la literatura mundial en múltiples idiomas. Es un proyecto libre y en evolución, creado para lectores curiosos.
-copyright_dict_stats: Este diccionario cuenta con {entries} definiciones, divididas en {autores} autores, {books} libros y {sagas} sagas.
+copyright_desc: Este diccionario reúne personajes, conceptos y objetos de la literatura mundial en múltiples idiomas. Es un proyecto libre y en evolución, creado para lectores curiosos, y contiene {entries} definiciones, organizadas en torno a {authors} autores, {books} libros y {sagas} sagas.
 copyright_version: Versión {version}
 cover: Portada
-creatures_abbr: cri.
-creatures_abbr_desc: Criaturas reales o mitológicos, animales, etc.
 definitions: Diccionario
 edition: Edición española
 entries: Registros
-events_abbr: ev.
-events_abbr_desc: Eventos relevantes para la historia.
 file_name: Bonadeo, Carlos - Diccionario Literario [{lang}] (v{version})
-institutions_abbr: inst.
-institutions_abbr_desc: Institución. Parecido a <em>lug.</em> pero más específico.
 lang: ES
-languages_abbr: leng.
-languages_abbr_desc: Lengua o idioma artificial.
 license: Licencia
-objects_abbr: obj.
-objects_abbr_desc: Objetos especiales que se mencionen en el libro.
 origin: Origen
 origin_author: Obras de {author}.
 origin_book: <em>{book}</em>, {author}.
-origin_book_saga: <em>{book}</em> (saga {saga}), {author}.
+origin_book_saga: <em>{book}</em> (saga <em>{saga}</em>), {author}.
 origin_saga: <em>{saga}</em> (saga), {author}.
-places_abbr: lug.
-places_abbr_desc: Lugares importantes para la historia.
 project: Proyecto
-quotes_abbr: cit.
-quotes_abbr_desc: Citas que tienen algún significado especial para la historia.
 sagas: Sagas
 see_also: Véase también
-spells_abbr: hech.
-spells_abbr_desc: Hechizos, ideal para las novelas de fantasía.
 subtitle: 'Desde Aurelieano a Zaratustra: personajes y jergas de la literatura universal'
 title: Diccionario Literario
