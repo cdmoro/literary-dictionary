@@ -92,6 +92,74 @@ Then:
 
 You’re ready to go! 🔍📖
 
+## Database
+
+```mermaid
+erDiagram
+    AUTHORS {
+        INTEGER id PK
+        TEXT default_name NOT NULL
+    }
+    AUTHORS_TRANSLATIONS {
+        INTEGER id PK
+        INTEGER author_id FK
+        TEXT language_code NOT NULL
+        TEXT name NOT NULL
+        TEXT description
+    }
+
+    BOOKS {
+        INTEGER id PK
+        INTEGER author_id FK NOT NULL
+        TEXT default_title NOT NULL
+    }
+    BOOKS_TRANSLATIONS {
+        INTEGER id PK
+        INTEGER book_id FK
+        TEXT language_code NOT NULL
+        TEXT title NOT NULL
+        TEXT description
+    }
+
+    SAGAS {
+        INTEGER id PK
+        TEXT default_name NOT NULL
+    }
+    SAGAS_TRANSLATIONS {
+        INTEGER id PK
+        INTEGER saga_id FK
+        TEXT language_code NOT NULL
+        TEXT name NOT NULL
+        TEXT description
+    }
+
+    ENTRIES {
+        INTEGER id PK
+        INTEGER author_id FK NOT NULL
+        INTEGER book_id FK
+        INTEGER saga_id FK
+        TEXT category NOT NULL
+        TEXT alias
+    }
+    ENTRIES_TRANSLATIONS {
+        INTEGER id PK
+        INTEGER entry_id FK
+        TEXT language_code NOT NULL
+        TEXT headword NOT NULL
+        TEXT description
+    }
+
+    AUTHORS ||--o{ AUTHORS_TRANSLATIONS : has
+    BOOKS ||--o{ BOOKS_TRANSLATIONS : has
+    SAGAS ||--o{ SAGAS_TRANSLATIONS : has
+    AUTHORS ||--o{ BOOKS : writes
+    AUTHORS ||--o{ ENTRIES : has
+    BOOKS ||--o{ ENTRIES : has
+    SAGAS ||--o{ ENTRIES : has
+    ENTRIES ||--o{ ENTRIES_TRANSLATIONS : has
+
+```
+
 ## 🙋‍♂️ About Me
 
 Hi! I’m Carlos — book lover, coder, and Kindle hacker.
