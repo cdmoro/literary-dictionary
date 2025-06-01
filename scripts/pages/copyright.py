@@ -3,7 +3,7 @@ import os
 
 load_dotenv()
 
-def get_copyright_html(strings, entries):
+def get_copyright_xhtml(strings, entries):
     total_entries = len(entries)
     authors = {p['author'] for p in entries if p.get('author')}
     sagas = {p['saga'] for p in entries if p.get('saga')}

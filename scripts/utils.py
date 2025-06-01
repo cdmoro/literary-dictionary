@@ -1,28 +1,12 @@
 from pathlib import Path
 import sqlite3
-import yaml
-
-CATEGORIES = [
-    'characters',
-    'places',
-    'objects',
-    'concepts',
-    'events',
-    'creatures',
-    'institutions',
-    'spells',
-    'languages',
-    'quotes',
-    'glossary',
-]
+import json
 
 def get_translations(lang):
-    with open(f"locales/{lang}.yaml", "r", encoding="utf-8") as f:
-        return yaml.safe_load(f)
+    with open(f"locales/{lang}.json", "r", encoding="utf-8") as f:
+        return json.load(f)
 
-def get_entries_v2(conn):
-    # conn = sqlite3.connect(f'dictionary/dictionary.{lang}.db')
-    # conn.row_factory = sqlite3.Row
+def get_entries(conn):
     cur = conn.cursor()
 
     cur.execute("""
@@ -52,5 +36,4 @@ def get_entries_v2(conn):
     for row in cur.fetchall():
         entries.append(dict(row))
 
-    # conn.close()
     return entries

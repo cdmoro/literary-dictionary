@@ -5,8 +5,11 @@ import zipfile
 from collections import defaultdict
 from dotenv import load_dotenv
 
-from utils import get_entries_v2, CATEGORIES
-from copyright import get_copyright_html  
+from utils import get_entries
+from pages.cover import get_cover_xhtml
+from pages.copyright import get_copyright_xhtml  
+from pages.abbreviations import get_abbreviation_xhtml
+from pages.contents import get_contents_xhtml
 
 load_dotenv()
 
@@ -23,7 +26,7 @@ def generate_dictionary(conn, lang, strings):
         shutil.rmtree(output_folder)
     os.makedirs(output_folder, exist_ok=True)
 
-    entries = get_entries_v2(conn)
+    entries = get_entries(conn)
 
     cross_reference_data = {}
     for entry in entries:
@@ -31,21 +34,17 @@ def generate_dictionary(conn, lang, strings):
             filename = f'{normalize_character(entry['headword'].strip()[0].upper())}.xhtml'
             cross_reference_data[entry["id"]] = (entry["headword"], filename)
 
-    # Copyright
-    with open(os.path.join(output_folder, 'Copyright.xhtml'), 'w', encoding='utf-8') as f:
-        f.write(get_copyright_html(strings, entries))
-
-    entradas_por_letra = defaultdict(list)
+    entries_by_letter = defaultdict(list)
     for entry in entries:
         headword = entry['headword']
         firstLetter = normalize_character(headword[0])
         if firstLetter.isalpha():
-            entradas_por_letra[firstLetter].append(entry)
+            entries_by_letter[firstLetter].append(entry)
         else:
-            entradas_por_letra['Otros'].append(entry)
+            entries_by_letter['Otros'].append(entry)
 
     xhtml_files = []
-    for firstLetter, entries in sorted(entradas_por_letra.items()):
+    for firstLetter, entries in sorted(entries_by_letter.items()):
         filename = f"{firstLetter}.xhtml"
         xhtml_files.append(filename)
         with open(os.path.join(output_folder, filename), 'w', encoding='utf-8') as f:
@@ -84,8 +83,8 @@ def generate_dictionary(conn, lang, strings):
                 saga = entry.get('saga')
                 seeAlso = entry.get('seeAlso')
 
-                f.write(f'    <idx:entry name="default" scriptable="yes" spell="yes" id="{id}">\n')
-                f.write(f'      <a id="{id}"></a>\n')
+                f.write(f'    <idx:entry name="default" scriptable="yes" spell="yes" id="e-{id}">\n')
+                f.write(f'      <a id="e-{id}"></a>\n')
                 f.write('      <dt>\n')
                 f.write(f'        <idx:orth value="{headword}">{displayValue}</idx:orth>\n')
 
@@ -139,75 +138,20 @@ def generate_dictionary(conn, lang, strings):
             f.write('</body>\n')
             f.write('</html>')
 
-    # Copiar estilos y portada
     shutil.copyfile('styles/style.css', os.path.join(output_folder, 'style.css'))
     shutil.copyfile(f'assets/cover_{lang}.jpg', os.path.join(output_folder, 'cover.jpg'))
 
     with open(os.path.join(output_folder, 'Cover.xhtml'), 'w', encoding='utf-8') as f:
-        f.write('''<?xml version="1.0" encoding="utf-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<body>
-    <svg viewBox="0 0 600 900" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="100%" preserveAspectRatio="xMidYMid meet" height="100%">
-        <image xlink:href="cover.jpg" width="600" height="900"/>
-    </svg>
-</body>
-</html>''')
+        f.write(get_cover_xhtml())
 
-    # Index
+    with open(os.path.join(output_folder, 'Copyright.xhtml'), 'w', encoding='utf-8') as f:
+        f.write(get_copyright_xhtml(strings, entries))
+
     with open(os.path.join(output_folder, 'Contents.xhtml'), 'w', encoding='utf-8') as f:
-        f.write(f'''<?xml version="1.0" encoding="utf-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
-</head>
-<body>
-    <h1>{strings["contents"]}</h1>
-    <nav epub:type="toc" class="toc">
-        <ol>
-            <li><a href="Cover.xhtml">{strings["cover"]}</a></li>
-            <li><a href="Copyright.xhtml">{strings["about"]}</a></li>
-            <li><a href="A.xhtml">{strings["definitions"]}</a></li>
-            <li><a href="Abbreviations.xhtml">{strings["abbr_guide"]}</a></li>
-        </ol>
-    </nav>
-</body>
-</html>
-''')
+        f.write(get_contents_xhtml(strings))
 
-
-    cur.execute("""
-        SELECT abbr, name, description
-        FROM categories
-        ORDER BY abbr
-    """)
-    # abbrs = CATEGORIES[:-1]
-    categories = []
-    for row in cur.fetchall():
-        categories.append(dict(row))
-
-    # Abreviaturas
     with open(os.path.join(output_folder, 'Abbreviations.xhtml'), 'w', encoding='utf-8') as f:
-        abbr_xhtml = '''<?xml version="1.0" encoding="utf-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
-</head>
-<body>
-    <h1>{abbr_guide}</h1>
-    <table class="abbr-table">'''
-        
-        for category in categories:
-            abbr_xhtml += f'''
-        <tr>
-            <td>{category.get('abbr')}.</td>
-            <td>{category.get('name')} — {category.get('description')}</td>
-        </tr>'''
-        
-        abbr_xhtml += '''\n    </table>
-</body>
-</html>
-'''
-        f.write(abbr_xhtml.format(**strings))
+        f.write(get_abbreviation_xhtml(cur, strings))
 
     # Archivo OPF
     with open(os.path.join(output_folder, 'Dictionary.opf'), 'w', encoding='utf-8') as f:
