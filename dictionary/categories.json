@@ -1,0 +1,284 @@
+{
+  "_default": {
+    "1": {
+      "id": "character",
+      "en": {
+        "label": "Character",
+        "abbr": "char.",
+        "desc": "Individuals in the story, such as heroes or villains."
+      },
+      "es": {
+        "label": "Persona",
+        "abbr": "per.",
+        "desc": "Individuos de la historia, como héroes o villanos."
+      },
+      "fr": {
+        "label": "Personnage",
+        "abbr": "pers.",
+        "desc": "Individus de l'histoire, tels que des héros ou des méchants."
+      },
+      "it": {
+        "label": "Personaggio",
+        "abbr": "pers.",
+        "desc": "Individui della storia, come eroi o cattivi."
+      },
+      "pt": {
+        "label": "Pessoa",
+        "abbr": "pers.",
+        "desc": "Indivíduos da história, como heróis ou vilões."
+      }
+    },
+    "2": {
+      "id": "concept",
+      "en": {
+        "label": "Concept",
+        "abbr": "cncpt.",
+        "desc": "Abstract or thematic ideas present in the story."
+      },
+      "es": {
+        "label": "Concepto",
+        "abbr": "con.",
+        "desc": "Ideas abstractas o temáticas presentes en la historia."
+      },
+      "fr": {
+        "label": "Concept",
+        "abbr": "conc.",
+        "desc": "Idées abstraites ou thématiques présentes dans l'histoire."
+      },
+      "it": {
+        "label": "Concetto",
+        "abbr": "conc.",
+        "desc": "Idee astratte o tematiche presenti nella storia."
+      },
+      "pt": {
+        "label": "Conceito",
+        "abbr": "conc.",
+        "desc": "Ideias abstratas ou temáticas presentes na história."
+      }
+    },
+    "3": {
+      "id": "creature",
+      "en": {
+        "label": "Creature",
+        "abbr": "crt.",
+        "desc": "Fantasy or real animals and beings."
+      },
+      "es": {
+        "label": "Criatura",
+        "abbr": "cri.",
+        "desc": "Criaturas fantásticas o reales."
+      },
+      "fr": {
+        "label": "Créature",
+        "abbr": "créat.",
+        "desc": "Créatures fantastiques ou réelles."
+      },
+      "it": {
+        "label": "Creatura",
+        "abbr": "creat.",
+        "desc": "Creature fantastiche o reali."
+      },
+      "pt": {
+        "label": "Criatura",
+        "abbr": "criat.",
+        "desc": "Criaturas fantásticas ou reais."
+      }
+    },
+    "4": {
+      "id": "event",
+      "en": {
+        "label": "Event",
+        "abbr": "evt.",
+        "desc": "Important happenings or turning points in the plot."
+      },
+      "es": {
+        "label": "Evento",
+        "abbr": "ev.",
+        "desc": "Acontecimientos importantes o puntos de giro en la trama."
+      },
+      "fr": {
+        "label": "Événement",
+        "abbr": "év.",
+        "desc": "Événements importants ou tournants dans l'intrigue."
+      },
+      "it": {
+        "label": "Evento",
+        "abbr": "ev.",
+        "desc": "Eventi importanti o punti di svolta nella trama."
+      },
+      "pt": {
+        "label": "Evento",
+        "abbr": "evt.",
+        "desc": "Acontecimentos importantes ou viradas na trama."
+      }
+    },
+    "5": {
+      "id": "institution",
+      "en": {
+        "label": "Institution",
+        "abbr": "inst.",
+        "desc": "Organizations, groups, or formal bodies."
+      },
+      "es": {
+        "label": "Institución",
+        "abbr": "inst.",
+        "desc": "Organizaciones, grupos o entidades formales."
+      },
+      "fr": {
+        "label": "Institution",
+        "abbr": "inst.",
+        "desc": "Organisations, groupes ou entités officielles."
+      },
+      "it": {
+        "label": "Istituzione",
+        "abbr": "ist.",
+        "desc": "Organizzazioni, gruppi o enti formali."
+      },
+      "pt": {
+        "label": "Instituição",
+        "abbr": "inst.",
+        "desc": "Organizações, grupos ou entidades formais."
+      }
+    },
+    "6": {
+      "id": "language",
+      "en": {
+        "label": "Language",
+        "abbr": "lang.",
+        "desc": "Spoken or written forms of communication in the story."
+      },
+      "es": {
+        "label": "Lenguaje",
+        "abbr": "leng.",
+        "desc": "Formas de comunicación habladas o escritas en la historia."
+      },
+      "fr": {
+        "label": "Langue",
+        "abbr": "lang.",
+        "desc": "Formes de communication parlées ou écrites dans l'histoire."
+      },
+      "it": {
+        "label": "Linguaggio",
+        "abbr": "ling.",
+        "desc": "Forme di comunicazione parlate o scritte nella storia."
+      },
+      "pt": {
+        "label": "Idioma",
+        "abbr": "idiom.",
+        "desc": "Formas de comunicação faladas ou escritas na história."
+      }
+    },
+    "7": {
+      "id": "object",
+      "en": {
+        "label": "Object",
+        "abbr": "obj.",
+        "desc": "Relevant items, tools, or artifacts in the story."
+      },
+      "es": {
+        "label": "Objeto",
+        "abbr": "obj.",
+        "desc": "Objetos, herramientas o artefactos relevantes en la historia."
+      },
+      "fr": {
+        "label": "Objet",
+        "abbr": "obj.",
+        "desc": "Objets, outils ou artefacts importants dans l'histoire."
+      },
+      "it": {
+        "label": "Oggetto",
+        "abbr": "ogg.",
+        "desc": "Oggetti, strumenti o manufatti rilevanti nella storia."
+      },
+      "pt": {
+        "label": "Objeto",
+        "abbr": "obj.",
+        "desc": "Objetos, ferramentas ou artefatos relevantes na história."
+      }
+    },
+    "8": {
+      "id": "place",
+      "en": {
+        "label": "Place",
+        "abbr": "plc.",
+        "desc": "Locations or settings where the story takes place."
+      },
+      "es": {
+        "label": "Lugar",
+        "abbr": "lug.",
+        "desc": "Lugares o escenarios donde ocurre la historia."
+      },
+      "fr": {
+        "label": "Lieu",
+        "abbr": "lieux",
+        "desc": "Lieux ou décors où se déroule l'histoire."
+      },
+      "it": {
+        "label": "Luogo",
+        "abbr": "luog.",
+        "desc": "Luoghi o ambientazioni dove si svolge la storia."
+      },
+      "pt": {
+        "label": "Lugar",
+        "abbr": "lug.",
+        "desc": "Locais ou cenários onde a história acontece."
+      }
+    },
+    "9": {
+      "id": "quote",
+      "en": {
+        "label": "Quote",
+        "abbr": "qte.",
+        "desc": "Memorable or significant excerpts from the story."
+      },
+      "es": {
+        "label": "Cita",
+        "abbr": "cit.",
+        "desc": "Fragmentos memorables o significativos de la historia."
+      },
+      "fr": {
+        "label": "Citation",
+        "abbr": "cit.",
+        "desc": "Extraits mémorables ou significatifs de l'histoire."
+      },
+      "it": {
+        "label": "Citazione",
+        "abbr": "cit.",
+        "desc": "Estratti memorabili o significativi della storia."
+      },
+      "pt": {
+        "label": "Citação",
+        "abbr": "cit.",
+        "desc": "Trechos memoráveis ou significativos da história."
+      }
+    },
+    "10": {
+      "id": "spell",
+      "en": {
+        "label": "Spell",
+        "abbr": "spl.",
+        "desc": "Magical actions or incantations."
+      },
+      "es": {
+        "label": "Hechizo",
+        "abbr": "hech.",
+        "desc": "Hechizos o actos mágicos."
+      },
+      "fr": {
+        "label": "Sortilège",
+        "abbr": "sort.",
+        "desc": "Sortilèges ou actions magiques."
+      },
+      "it": {
+        "label": "Incantesimo",
+        "abbr": "inc.",
+        "desc": "Incantesimi o azioni magiche."
+      },
+      "pt": {
+        "label": "Feitiço",
+        "abbr": "fei.",
+        "desc": "Feitiços ou ações mágicas."
+      }
+    }
+  }
+}
