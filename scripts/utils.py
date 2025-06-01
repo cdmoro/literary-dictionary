@@ -1,4 +1,5 @@
 from pathlib import Path
+import sqlite3
 import yaml
 
 CATEGORIES = [
@@ -19,87 +20,37 @@ def get_translations(lang):
     with open(f"locales/{lang}.yaml", "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
 
-def load_entries_from_section(data_section, author, book, saga, category, abbrev = '', cross_ref_ids = {}):
+def get_entries_v2(conn):
+    # conn = sqlite3.connect(f'dictionary/dictionary.{lang}.db')
+    # conn.row_factory = sqlite3.Row
+    cur = conn.cursor()
+
+    cur.execute("""
+        SELECT
+        e.id,
+        e.headword,
+        e.display_name,
+        e.alias,
+        e.description,
+        a.id           AS author_id,
+        a.name         AS author,
+        s.id           AS saga_id,
+        s.name         AS saga,
+        b.id           AS book_id,
+        b.title        AS book,
+        c.abbr         AS category,
+        e.draft
+        FROM entries e
+        LEFT JOIN authors a ON e.author_id = a.id
+        LEFT JOIN sagas s   ON e.saga_id = s.id
+        LEFT JOIN books b   ON e.book_id = b.id
+        LEFT JOIN categories c ON e.category_id = c.id
+        ORDER BY e.headword COLLATE NOCASE
+    """)
+
     entries = []
-    for item in data_section:
-        id = item.get('id')
-        headword = item.get('headword')
-        displayValue = item.get('displayValue')
-        alias = item.get('alias')
-        if not isinstance(alias, list):
-            alias = []
-        description = item.get('description', '')
-        seeAlso = item.get('seeAlso')
-        if not isinstance(seeAlso, list):
-            seeAlso = []
-        draft = item.get('draft', False)
-        filtered_ids = [cid for cid in cross_ref_ids.get(category, []) if cid != id]
+    for row in cur.fetchall():
+        entries.append(dict(row))
 
-        if not id:
-            print(f'  - ⚠️  ID missing, entry skipped')
-            continue
-
-        if not headword:
-            print(f'  - ⚠️  Headword missing for {id}, entry skipped')
-            continue
-
-        if draft:
-            print(f'  - ⏭️  {id} marked as draft, entry skipped')
-            continue
-
-        if headword and not draft:
-            entries.append({
-                'id': id,
-                'headword': headword,
-                'displayValue': displayValue,
-                'alias': alias,
-                'description': description,
-                'author': author,
-                'book': book,
-                'saga': saga,
-                'category': category,
-                'abbrev': abbrev,
-                'seeAlso': filtered_ids + seeAlso,
-            })
-
+    # conn.close()
     return entries
-
-def get_entries(lang):
-    base_path = Path(f'dictionary/{lang}')
-    strings = get_translations(lang)
-    entries = []
-
-    for author_dir in base_path.iterdir():
-        if not author_dir.is_dir():
-            continue
-
-        for book_file in author_dir.glob('*.yaml'):
-            with book_file.open(encoding='utf-8') as f:
-                data = yaml.safe_load(f) or {}
-
-            author = data.get('author')
-            book = data.get('book', '')
-            saga = data.get('saga', '')
-
-            if not author:
-                print(f"- ⏭️  Missing author data in {book_file.name}")
-                continue
-
-            cross_ref_ids = {
-                key: [entry.get('id') for entry in data.get(key) or [] if 'id' in entry and not entry.get('draft', False)]
-                for key in CATEGORIES
-                if key != 'glossary'
-            }
-
-            for key in CATEGORIES:
-                entries.extend(load_entries_from_section(
-                    data.get(key, []),
-                    author,
-                    book,
-                    saga,
-                    key,
-                    strings[f'abbr_{key}'] if key != 'glossary' else None,
-                    cross_ref_ids,
-                ))
-
-    return sorted(entries, key=lambda d: d['headword'].lower())

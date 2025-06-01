@@ -5,7 +5,7 @@ import zipfile
 from collections import defaultdict
 from dotenv import load_dotenv
 
-from utils import get_entries, CATEGORIES
+from utils import get_entries_v2, CATEGORIES
 from copyright import get_copyright_html  
 
 load_dotenv()
@@ -13,16 +13,17 @@ load_dotenv()
 def normalize_character(letra):
     return unicodedata.normalize('NFD', letra).encode('ascii', 'ignore').decode('utf-8').upper()
 
-def generate_dictionary(lang, strings):
+def generate_dictionary(conn, lang, strings):
     print(f'\nGenerating dictionary ({lang.upper()})...')
 
+    cur = conn.cursor()
     output_folder = f'output/dictionary_files_{lang}'
 
     if os.path.exists(output_folder):
         shutil.rmtree(output_folder)
     os.makedirs(output_folder, exist_ok=True)
 
-    entries = get_entries(lang)
+    entries = get_entries_v2(conn)
 
     cross_reference_data = {}
     for entry in entries:
@@ -75,7 +76,7 @@ def generate_dictionary(lang, strings):
             for entry in entries:
                 id = entry["id"]
                 headword = entry['headword']
-                displayValue = entry.get('displayValue') or headword
+                displayValue = entry.get('display_value') or headword
                 description = entry['description']
                 abbrev = entry.get('abbrev')
                 author = entry.get('author')
@@ -88,9 +89,9 @@ def generate_dictionary(lang, strings):
                 f.write('      <dt>\n')
                 f.write(f'        <idx:orth value="{headword}">{displayValue}</idx:orth>\n')
 
-                aliases = entry.get('alias', [])
+                aliases = entry.get('alias', '')
                 if aliases:
-                    for alias in aliases:
+                    for alias in aliases.split(';'):
                         f.write(f'        <idx:orth value="{alias}" />\n')
                 
                 f.write('      </dt>\n')
@@ -102,7 +103,7 @@ def generate_dictionary(lang, strings):
                 f.write(f'{description}</div>\n')
                 
                 f.write('        <div>')
-                f.write(f'          <strong>{strings["origin"]}:</strong> \n')
+                f.write(f'<strong>{strings["origin"]}:</strong> ')
 
                 if book and saga:
                     f.write(strings["origin_book_saga"].format(book=book, saga=saga, author=author))
@@ -173,7 +174,16 @@ def generate_dictionary(lang, strings):
 </html>
 ''')
 
-    abbrs = CATEGORIES[:-1]
+
+    cur.execute("""
+        SELECT abbr, name, description
+        FROM categories
+        ORDER BY abbr
+    """)
+    # abbrs = CATEGORIES[:-1]
+    categories = []
+    for row in cur.fetchall():
+        categories.append(dict(row))
 
     # Abreviaturas
     with open(os.path.join(output_folder, 'Abbreviations.xhtml'), 'w', encoding='utf-8') as f:
@@ -186,11 +196,11 @@ def generate_dictionary(lang, strings):
     <h1>{abbr_guide}</h1>
     <table class="abbr-table">'''
         
-        for abbr in abbrs:
+        for category in categories:
             abbr_xhtml += f'''
         <tr>
-            <td>{{abbr_{abbr}}}</td>
-            <td>{{abbr_{abbr}_desc}}</td>
+            <td>{category.get('abbr')}.</td>
+            <td>{category.get('name')} — {category.get('description')}</td>
         </tr>'''
         
         abbr_xhtml += '''\n    </table>
