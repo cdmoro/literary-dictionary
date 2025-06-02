@@ -1,21 +1,18 @@
 import os
-import unicodedata
 import shutil
 import zipfile
 from collections import defaultdict
 from dotenv import load_dotenv
 
-from src.utils import get_entries
+from src.utils import get_entries, normalize_character
 from src.pages.cover import get_cover_page
 from src.pages.copyright import get_copyright_page  
 from src.pages.abbreviations import get_abbreviation_page
 from src.pages.contents import get_contents_page
 from src.pages.letter import get_letter_page
+from src.modules.cross_reference_module import build_cross_references
 
 load_dotenv()
-
-def normalize_character(letra):
-    return unicodedata.normalize('NFD', letra).encode('ascii', 'ignore').decode('utf-8').upper()
 
 def generate_dictionary(conn, lang, strings):
     print(f'\nGenerating dictionary ({lang.upper()})...')
@@ -29,12 +26,6 @@ def generate_dictionary(conn, lang, strings):
 
     entries = get_entries(conn)
 
-    cross_reference_data = {}
-    for entry in entries:
-        if "id" in entry and "headword" in entry:
-            filename = f'{normalize_character(entry['headword'].strip()[0].upper())}.xhtml'
-            cross_reference_data[entry["id"]] = (entry["headword"], filename)
-
     entries_by_letter = defaultdict(list)
     for entry in entries:
         headword = entry['headword']
@@ -42,18 +33,18 @@ def generate_dictionary(conn, lang, strings):
         if firstLetter.isalpha():
             entries_by_letter[firstLetter].append(entry)
         else:
-            entries_by_letter['Otros'].append(entry)
+            entries_by_letter['Other'].append(entry)
+
+    cross_references = build_cross_references(entries)
 
     xhtml_files = []
 
-    for letter, group in sorted(entries_by_letter.items()):
+    for letter, group in sorted(entries_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])):
         filename = f"{letter}.xhtml"
         xhtml_files.append(filename)
-        with open(os.path.join(output_folder, filename), 'w', encoding='utf-8') as f:
-            f.write(get_letter_page(letter, group, strings, cross_reference_data))
 
-    shutil.copyfile('styles/style.css', os.path.join(output_folder, 'style.css'))
-    shutil.copyfile(f'assets/cover_{lang}.jpg', os.path.join(output_folder, 'cover.jpg'))
+        with open(os.path.join(output_folder, filename), 'w', encoding='utf-8') as f:
+            f.write(get_letter_page(letter, group, strings, cross_references))
 
     with open(os.path.join(output_folder, 'Cover.xhtml'), 'w', encoding='utf-8') as f:
         f.write(get_cover_page())
@@ -67,7 +58,7 @@ def generate_dictionary(conn, lang, strings):
     with open(os.path.join(output_folder, 'Abbreviations.xhtml'), 'w', encoding='utf-8') as f:
         f.write(get_abbreviation_page(cur, strings))
 
-    # Archivo OPF
+    # OPF file
     with open(os.path.join(output_folder, 'Dictionary.opf'), 'w', encoding='utf-8') as f:
         f.write('<?xml version="1.0" encoding="utf-8"?>\n')
         f.write('<package version="2.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId">\n')
@@ -110,6 +101,10 @@ def generate_dictionary(conn, lang, strings):
         f.write('    <reference type="text" title="Start" href="Copyright.xhtml"/>\n')
         f.write('  </guide>\n')
         f.write('</package>\n')
+
+    # Copy static files
+    shutil.copyfile('styles/style.css', os.path.join(output_folder, 'style.css'))
+    shutil.copyfile(f'assets/cover_{lang}.jpg', os.path.join(output_folder, 'cover.jpg'))
 
     print(f"✅ Diccionary files created successfully")
     crear_epub(lang, strings)

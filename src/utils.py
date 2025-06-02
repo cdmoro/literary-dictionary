@@ -1,10 +1,13 @@
 from pathlib import Path
-import sqlite3
+import unicodedata
 import json
 
 def get_translations(lang):
     with open(f"locales/{lang}.json", "r", encoding="utf-8") as f:
         return json.load(f)
+    
+def normalize_character(letra):
+    return unicodedata.normalize('NFD', letra).encode('ascii', 'ignore').decode('utf-8').upper()
 
 def get_entries(conn):
     cur = conn.cursor()
@@ -23,6 +26,7 @@ def get_entries(conn):
         b.id           AS book_id,
         b.title        AS book,
         c.abbr         AS category,
+        c.id           AS category_id,
         e.draft
         FROM entries e
         LEFT JOIN authors a ON e.author_id = a.id

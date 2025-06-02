@@ -20,6 +20,7 @@
     "origin_book": "<em>{book}</em>, {author}.",
     "origin_book_saga": "<em>{book}</em> (part of the <em>{saga}</em> series), {author}.",
     "origin_saga": "<em>{saga}</em> series, {author}.",
+    "other_title": "Symbols and Numbers",
     "project": "Project",
     "sagas": "Sagas",
     "see_also": "See also",

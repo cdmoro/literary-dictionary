@@ -1,4 +1,5 @@
-def get_letter_page(letter, group, strings, cross_reference_data):
+def get_letter_page(letter, group, strings, cross_reference):
+    title = letter if letter != "Other" else strings["other_title"]
     template = f'''<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html 
@@ -17,11 +18,11 @@ def get_letter_page(letter, group, strings, cross_reference_data):
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="style.css"/>
-    <title>{letter}</title>
+    <title>{title}</title>
 </head>
 
 <body>
-  <h1>{letter}</h1>
+  <h1>{title}</h1>
   <mbp:frameset>\n'''
 
     for entry in group:
@@ -34,7 +35,6 @@ def get_letter_page(letter, group, strings, cross_reference_data):
         author = entry.get('author')
         book = entry.get('book')
         saga = entry.get('saga')
-        seeAlso = entry.get('seeAlso')
 
         # Headword
         template += f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="e-{id}">
@@ -75,18 +75,15 @@ def get_letter_page(letter, group, strings, cross_reference_data):
         template += '</div>\n'
 
         # See also
-        if seeAlso:
+        if cross_reference[id]:
             template += f'''        <div>
-                      <strong>{strings["see_also"]}:</strong> \n'''
+          <strong>{strings["see_also"]}:</strong> \n'''
             
-            seeAlso = list(dict.fromkeys(seeAlso))
-            seeAlso = sorted(seeAlso, key=lambda id: cross_reference_data[id][0].lower() if id in cross_reference_data else '')
             seeAlsoLinks = []
-            for idr in seeAlso:
-                if not idr in cross_reference_data:
-                    print(f'  - ⏭️  ID {id}: Cross Reference not found ({idr}), skipped')
-                    continue
-                seeAlsoLinks.append(f'          <a href="{cross_reference_data[idr][1]}#{idr}">{cross_reference_data[idr][0]}</a>')
+
+            for ref in cross_reference[id]:
+                seeAlsoLinks.append(f'          <a href="{ref["link"]}">{ref["headword"]}</a>')
+
             template += ', \n'.join(seeAlsoLinks)
             template += '\n        </div>\n'
         
