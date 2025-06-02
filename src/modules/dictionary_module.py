@@ -5,12 +5,12 @@ import zipfile
 from collections import defaultdict
 from dotenv import load_dotenv
 
-from utils import get_entries
-from pages.cover import get_cover_page
-from pages.copyright import get_copyright_page  
-from pages.abbreviations import get_abbreviation_page
-from pages.contents import get_contents_page
-from pages.letter import get_letter_page
+from src.utils import get_entries
+from src.pages.cover import get_cover_page
+from src.pages.copyright import get_copyright_page  
+from src.pages.abbreviations import get_abbreviation_page
+from src.pages.contents import get_contents_page
+from src.pages.letter import get_letter_page
 
 load_dotenv()
 

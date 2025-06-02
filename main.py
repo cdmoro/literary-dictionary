@@ -1,12 +1,12 @@
 import glob
 import os
 
-from db import get_connection
-from utils import get_translations
+from src.db import get_connection
+from src.utils import get_translations
 # from stats_module import generate_stats
 # from csv_module import generate_csv
 # from json_module import generate_json
-from dictionary_module import generate_dictionary
+from src.modules.dictionary_module import generate_dictionary
 
 def get_lang_from_filename(filename):
     base = os.path.basename(filename)
