@@ -1,6 +1,7 @@
 {
     "abbr_guide": "Abbreviation Guide",
     "about": "About this book",
+    "author": "Author",
     "authors": "Authors",
     "books": "Books",
     "contact": "Contact",
@@ -22,6 +23,7 @@
     "origin_saga": "<em>{saga}</em> series, {author}.",
     "other_title": "Symbols and Numbers",
     "project": "Project",
+    "saga": "Saga",
     "sagas": "Sagas",
     "see_also": "See also",
     "subtitle": "From Aurelieano to Zarathustra: characters and jargon from world literature",

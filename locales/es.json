@@ -1,6 +1,7 @@
 {
     "abbr_guide": "Guía de abreviaturas",
     "about": "Sobre este libro",
+    "author": "Autor",
     "authors": "Autores",
     "books": "Libros",
     "contact": "Contacto",
@@ -22,6 +23,7 @@
     "origin_saga": "<em>{saga}</em> (saga), {author}.",
     "other_title": "Símbolos y números",
     "project": "Proyecto",
+    "saga": "Saga",
     "sagas": "Sagas",
     "see_also": "Véase también",
     "subtitle": "Desde Aurelieano a Zaratustra: personajes y jergas de la literatura universal",

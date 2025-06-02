@@ -1,5 +1,3 @@
-import os
-
 def get_abbreviation_page(cur, strings):
     cur.execute("""
         SELECT abbr, name, description

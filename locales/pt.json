@@ -1,6 +1,7 @@
 {
     "abbr_guide": "Guia de Abreviações",
     "about": "Sobre este livro",
+    "author": "Autor",
     "authors": "Autores",
     "books": "Livros",
     "contact": "Contato",
@@ -22,6 +23,7 @@
     "origin_saga": "Saga <em>{saga}</em>, {author}.",
     "other_title": "Símbolos e números",
     "project": "Projeto",
+    "saga": "Saga",
     "sagas": "Sagas",
     "see_also": "Ver também",
     "subtitle": "De Aureliano a Zaratustra: personagens e jargões da literatura mundial",

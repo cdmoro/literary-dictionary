@@ -10,6 +10,9 @@ from src.pages.copyright import get_copyright_page
 from src.pages.abbreviations import get_abbreviation_page
 from src.pages.contents import get_contents_page
 from src.pages.letter import get_letter_page
+from src.pages.authors import get_authors_page
+from src.pages.books import get_books_page
+from src.pages.sagas import get_sagas_page
 from src.modules.cross_reference_module import build_cross_references
 
 load_dotenv()
@@ -57,6 +60,15 @@ def generate_dictionary(conn, lang, strings):
 
     with open(os.path.join(output_folder, 'Abbreviations.xhtml'), 'w', encoding='utf-8') as f:
         f.write(get_abbreviation_page(cur, strings))
+        
+    with open(os.path.join(output_folder, 'Books.xhtml'), 'w', encoding='utf-8') as f:
+        f.write(get_books_page(cur, strings))
+
+    with open(os.path.join(output_folder, 'Sagas.xhtml'), 'w', encoding='utf-8') as f:
+        f.write(get_sagas_page(cur, strings))
+        
+    with open(os.path.join(output_folder, 'Authors.xhtml'), 'w', encoding='utf-8') as f:
+        f.write(get_authors_page(cur, strings))
 
     # OPF file
     with open(os.path.join(output_folder, 'Dictionary.opf'), 'w', encoding='utf-8') as f:
@@ -83,6 +95,9 @@ def generate_dictionary(conn, lang, strings):
         for filename in xhtml_files:
             f.write(f'    <item id="{filename}" href="{filename}" media-type="application/xhtml+xml"/>\n')
         
+        f.write('    <item id="books" href="Books.xhtml" media-type="application/xhtml+xml"/>\n')
+        f.write('    <item id="sagas" href="Sagas.xhtml" media-type="application/xhtml+xml"/>\n')
+        f.write('    <item id="authors" href="Authors.xhtml" media-type="application/xhtml+xml"/>\n')
         f.write('    <item id="abbreviations" href="Abbreviations.xhtml" media-type="application/xhtml+xml"/>\n')
         f.write('  </manifest>\n')
         f.write('  <spine>\n')
@@ -93,6 +108,9 @@ def generate_dictionary(conn, lang, strings):
         for filename in xhtml_files:
             f.write(f'    <itemref idref="{filename}"/>\n')
         
+        f.write('    <itemref idref="books"/>\n')
+        f.write('    <itemref idref="sagas"/>\n')
+        f.write('    <itemref idref="authors"/>\n')
         f.write('    <itemref idref="abbreviations"/>\n')
         f.write('  </spine>\n')
         f.write('  <guide>\n')

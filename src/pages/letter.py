@@ -1,5 +1,6 @@
 def get_letter_page(letter, group, strings, cross_reference):
     title = letter if letter != "Other" else strings["other_title"]
+
     template = f'''<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html 
