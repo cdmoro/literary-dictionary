@@ -4,6 +4,7 @@ def get_books_page(cur, strings):
             b.id, 
             b.title, 
             b.description, 
+            b.publication_year,
             c.abbr, 
             a.name AS author, 
             s.name AS saga
@@ -50,6 +51,7 @@ def get_books_page(cur, strings):
         id = entry["id"]
         title = entry['title']
         description = entry['description']
+        publication_year = entry['publication_year']
         abbr = entry['abbr']
         saga = entry['saga']
         author = entry['author']
@@ -59,7 +61,7 @@ def get_books_page(cur, strings):
       <a id="b-{id}"></a>
 
       <dt>
-        <idx:orth>{title}</idx:orth>\n'''
+        <idx:orth value="{title}">{title} ({publication_year})</idx:orth>\n'''
         
         template += '      </dt>\n\n'
         

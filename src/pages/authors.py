@@ -1,6 +1,12 @@
 def get_authors_page(cur, strings):
     cur.execute('''
-        SELECT a.id, a.name, a.description, c.abbr
+        SELECT 
+            a.id, 
+            a.name, 
+            a.description,
+            a.birth_year,
+            a.death_year, 
+            c.abbr
         FROM authors a
         CROSS JOIN categories c
         WHERE c.id = 13
@@ -42,6 +48,8 @@ def get_authors_page(cur, strings):
         id = entry["id"]
         name = entry['name']
         description = entry['description']
+        birth_year = entry['birth_year']
+        death_year = entry['death_year']
         abbr = entry['abbr']
 
         # Headword
@@ -49,7 +57,14 @@ def get_authors_page(cur, strings):
       <a id="a-{id}"></a>
 
       <dt>
-        <idx:orth>{name}</idx:orth>\n'''
+        <idx:orth value="{name}">{name} '''
+        
+        if not death_year:
+            template += f'({strings["birth_abbr"]}. {birth_year})'
+        else:
+            template += f'({birth_year}–{death_year})'
+        
+        template += '''</idx:orth>\n'''
         
         template += '      </dt>\n\n'
         
