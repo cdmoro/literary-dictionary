@@ -1,6 +1,6 @@
 import os
 
-def get_abbreviation_xhtml(cur, strings):
+def get_abbreviation_page(cur, strings):
     cur.execute("""
         SELECT abbr, name, description
         FROM categories
@@ -11,7 +11,7 @@ def get_abbreviation_xhtml(cur, strings):
     for row in cur.fetchall():
         categories.append(dict(row))
 
-        abbr_xhtml = f'''<?xml version="1.0" encoding="utf-8"?>
+        template = f'''<?xml version="1.0" encoding="utf-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" type="text/css" href="style.css"/>
@@ -21,14 +21,14 @@ def get_abbreviation_xhtml(cur, strings):
     <table class="abbr-table">'''
         
         for category in categories:
-            abbr_xhtml += f'''
+            template += f'''
         <tr>
             <td>{category.get('abbr')}.</td>
             <td>{category.get('name')} — {category.get('description')}</td>
         </tr>'''
         
-        abbr_xhtml += '''\n    </table>
+        template += '''\n    </table>
 </body>
 </html>
 '''
-    return abbr_xhtml
+    return template

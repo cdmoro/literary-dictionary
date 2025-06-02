@@ -6,10 +6,11 @@ from collections import defaultdict
 from dotenv import load_dotenv
 
 from utils import get_entries
-from pages.cover import get_cover_xhtml
-from pages.copyright import get_copyright_xhtml  
-from pages.abbreviations import get_abbreviation_xhtml
-from pages.contents import get_contents_xhtml
+from pages.cover import get_cover_page
+from pages.copyright import get_copyright_page  
+from pages.abbreviations import get_abbreviation_page
+from pages.contents import get_contents_page
+from pages.letter import get_letter_page
 
 load_dotenv()
 
@@ -44,114 +45,27 @@ def generate_dictionary(conn, lang, strings):
             entries_by_letter['Otros'].append(entry)
 
     xhtml_files = []
-    for firstLetter, entries in sorted(entries_by_letter.items()):
-        filename = f"{firstLetter}.xhtml"
+
+    for letter, group in sorted(entries_by_letter.items()):
+        filename = f"{letter}.xhtml"
         xhtml_files.append(filename)
         with open(os.path.join(output_folder, filename), 'w', encoding='utf-8') as f:
-            f.write('<?xml version="1.0" encoding="utf-8"?>\n')
-            f.write('<!DOCTYPE html>\n')
-            f.write('''<html 
-    xmlns:math="http://exslt.org/math"
-    xmlns:svg="http://www.w3.org/2000/svg"
-    xmlns:tl="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
-    xmlns:saxon="http://saxon.sf.net/"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:cx="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
-    xmlns:dc="http://purl.org/dc/elements/1.1/"
-    xmlns:mbp="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
-    xmlns:mmc="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
-    xmlns:idx="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
->\n''')
-            f.write('<head>\n')
-            f.write('  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>\n')
-            f.write('  <link rel="stylesheet" type="text/css" href="style.css"/>\n')
-            f.write(f'  <title>{firstLetter}</title>\n')
-            f.write('</head>\n')
-            f.write('<body>\n')
-            f.write(f'<h1>{firstLetter}</h1>\n')
-            f.write('  <mbp:frameset>\n')
-
-            for entry in entries:
-                id = entry["id"]
-                headword = entry['headword']
-                displayValue = entry.get('display_value') or headword
-                description = entry['description']
-                abbrev = entry.get('abbrev')
-                author = entry.get('author')
-                book = entry.get('book')
-                saga = entry.get('saga')
-                seeAlso = entry.get('seeAlso')
-
-                f.write(f'    <idx:entry name="default" scriptable="yes" spell="yes" id="e-{id}">\n')
-                f.write(f'      <a id="e-{id}"></a>\n')
-                f.write('      <dt>\n')
-                f.write(f'        <idx:orth value="{headword}">{displayValue}</idx:orth>\n')
-
-                aliases = entry.get('alias', '')
-                if aliases:
-                    for alias in aliases.split(';'):
-                        f.write(f'        <idx:orth value="{alias}" />\n')
-                
-                f.write('      </dt>\n')
-                f.write('      <dd>\n')
-
-                f.write(f'        <div>')
-                if (abbrev):
-                    f.write(f'<em>{abbrev}</em> ')
-                f.write(f'{description}</div>\n')
-                
-                f.write('        <div>')
-                f.write(f'<strong>{strings["origin"]}:</strong> ')
-
-                if book and saga:
-                    f.write(strings["origin_book_saga"].format(book=book, saga=saga, author=author))
-                elif book:
-                    f.write(strings["origin_book"].format(book=book, author=author))
-                elif saga:
-                    f.write(strings["origin_saga"].format(saga=saga, author=author))
-                else:
-                    f.write(strings["origin_author"].format(author=author))
-
-                f.write('</div>\n')
-
-                if seeAlso:
-                    f.write('        <div>\n')
-                    f.write(f'          <strong>{strings["see_also"]}:</strong> \n')
-                    
-                    seeAlso = list(dict.fromkeys(seeAlso))
-                    seeAlso = sorted(seeAlso, key=lambda id: cross_reference_data[id][0].lower() if id in cross_reference_data else '')
-                    seeAlsoLinks = []
-                    for idr in seeAlso:
-                        if not idr in cross_reference_data:
-                            print(f'  - ⏭️  ID {id}: Cross Reference not found ({idr}), skipped')
-                            continue
-                        seeAlsoLinks.append(f'          <a href="{cross_reference_data[idr][1]}#{idr}">{cross_reference_data[idr][0]}</a>')
-                    f.write(', \n'.join(seeAlsoLinks))
-                    f.write('\n        </div>\n')
-                
-                f.write('      </dd>\n')
-                f.write('    </idx:entry>\n')
-                f.write('    <hr/>\n\n')
-
-            f.write('  </mbp:frameset>\n')
-            f.write('</body>\n')
-            f.write('</html>')
+            f.write(get_letter_page(letter, group, strings, cross_reference_data))
 
     shutil.copyfile('styles/style.css', os.path.join(output_folder, 'style.css'))
     shutil.copyfile(f'assets/cover_{lang}.jpg', os.path.join(output_folder, 'cover.jpg'))
 
     with open(os.path.join(output_folder, 'Cover.xhtml'), 'w', encoding='utf-8') as f:
-        f.write(get_cover_xhtml())
+        f.write(get_cover_page())
 
     with open(os.path.join(output_folder, 'Copyright.xhtml'), 'w', encoding='utf-8') as f:
-        f.write(get_copyright_xhtml(strings, entries))
+        f.write(get_copyright_page(strings, entries))
 
     with open(os.path.join(output_folder, 'Contents.xhtml'), 'w', encoding='utf-8') as f:
-        f.write(get_contents_xhtml(strings))
+        f.write(get_contents_page(strings))
 
     with open(os.path.join(output_folder, 'Abbreviations.xhtml'), 'w', encoding='utf-8') as f:
-        f.write(get_abbreviation_xhtml(cur, strings))
+        f.write(get_abbreviation_page(cur, strings))
 
     # Archivo OPF
     with open(os.path.join(output_folder, 'Dictionary.opf'), 'w', encoding='utf-8') as f:
