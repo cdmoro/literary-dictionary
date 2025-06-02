@@ -30,7 +30,7 @@ def get_letter_page(letter, group, strings, cross_reference_data):
         aliases = entry.get('alias', '')
         displayValue = entry.get('display_value') or headword
         description = entry['description']
-        abbrev = entry.get('abbrev')
+        category = entry.get('category')
         author = entry.get('author')
         book = entry.get('book')
         saga = entry.get('saga')
@@ -54,8 +54,8 @@ def get_letter_page(letter, group, strings, cross_reference_data):
         template += '''      <dd>
         <div>'''
 
-        if (abbrev):
-            template += f'<em>{abbrev}</em> '
+        if (category):
+            template += f'<em>{category}.</em> '
         template += f'{description}</div>\n'
         
         template += '        <div>'
