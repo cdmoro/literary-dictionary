@@ -14,6 +14,8 @@ from src.pages.authors import get_authors_page
 from src.pages.books import get_books_page
 from src.pages.sagas import get_sagas_page
 from src.pages.section import get_section_page
+from src.pages.ncx import get_ncx_page
+
 from src.modules.cross_reference_module import build_cross_references
 from src.modules.books_module import get_books_by_letter
 from src.modules.sagas_module import get_sagas_by_letter
@@ -123,14 +125,25 @@ def generate_dictionary(conn, lang, strings):
         with open(os.path.join(authors_folder, filename), 'w', encoding='utf-8') as f:
             f.write(get_authors_page(letter, group, strings))
 
+    # NCX file
+    ncx_structure = {
+        "Dictionary": dictionary_xhtml_files,
+        "Books": book_xhtml_files,
+        "Authors": authors_xhtml_files,
+        "Sagas": sagas_xhtml_files
+    }
+    with open(os.path.join(output_folder, 'tox.ncx'), 'w', encoding='utf-8') as f:
+        f.write(get_ncx_page(lang, ncx_structure, strings))
+
     # OPF file
     with open(os.path.join(output_folder, 'Dictionary.opf'), 'w', encoding='utf-8') as f:
         f.write('<?xml version="1.0" encoding="utf-8"?>\n')
-        f.write('<package version="2.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="BookId">\n')
+        f.write(f'<package version="2.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="literary-dictionary-{lang}">\n')
         f.write('  <metadata>\n')
         f.write(f'    <dc:title>{strings["title"]} ({lang.upper()})</dc:title>\n')
         f.write(f'    <dc:language>{lang}</dc:language>\n')
         f.write('    <dc:creator>Carlos Bonadeo</dc:creator>\n')
+        f.write(f'    <dc:identifier id="literary-dictionary-{lang}">literary-dictionary-{lang}</dc:identifier>\n')
         f.write('    <x-metadata>\n')
         f.write(f'      <DictionaryInLanguage>{lang}</DictionaryInLanguage>\n')
         f.write(f'      <DictionaryOutLanguage>{lang}</DictionaryOutLanguage>\n')
@@ -141,9 +154,11 @@ def generate_dictionary(conn, lang, strings):
         f.write('  <manifest>\n')
         f.write('    <item id="style" href="Styles/style.css" media-type="text/css"/>\n')
         f.write('    <item id="cover-image" href="Assets/cover.jpg" media-type="image/jpeg"/>\n')
+        f.write('    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>\n')
         f.write('    <item id="cover" href="Cover.xhtml" media-type="application/xhtml+xml"/>\n')
         f.write('    <item id="copyright" href="Copyright.xhtml" media-type="application/xhtml+xml"/>\n')
         f.write('    <item id="index" properties="nav" href="Contents.xhtml" media-type="application/xhtml+xml"/>\n')
+        f.write('    <item id="abbreviations" href="Abbreviations.xhtml" media-type="application/xhtml+xml"/>\n')
         
         f.write('    <item id="dictionary" href="Dictionary.xhtml" media-type="application/xhtml+xml"/>\n')   
         for filename in dictionary_xhtml_files:
@@ -160,13 +175,13 @@ def generate_dictionary(conn, lang, strings):
         f.write('    <item id="authors" href="Authors.xhtml" media-type="application/xhtml+xml"/>\n')
         for filename in authors_xhtml_files:
             f.write(f'    <item id="A-{filename}" href="Authors/{filename}.xhtml" media-type="application/xhtml+xml"/>\n')
-
-        f.write('    <item id="abbreviations" href="Abbreviations.xhtml" media-type="application/xhtml+xml"/>\n')
         f.write('  </manifest>\n')
-        f.write('  <spine>\n')
+
+        f.write('  <spine toc="ncx">\n')
         f.write('    <itemref idref="cover"/>\n')
         f.write('    <itemref idref="copyright"/>\n')
         f.write('    <itemref idref="index"/>\n')
+        f.write('    <itemref idref="abbreviations"/>\n')
 
         f.write('    <itemref idref="dictionary"/>\n')
         for filename in dictionary_xhtml_files:
@@ -184,7 +199,6 @@ def generate_dictionary(conn, lang, strings):
         for filename in authors_xhtml_files:
             f.write(f'    <itemref idref="A-{filename}"/>\n')
 
-        f.write('    <itemref idref="abbreviations"/>\n')
         f.write('  </spine>\n')
         f.write('  <guide>\n')
         f.write('    <reference type="cover" title="Cover" href="Cover.xhtml"/>\n')
