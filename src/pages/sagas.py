@@ -31,7 +31,7 @@ def get_sagas_page(title, sagas, strings):
         author = entry['author']
 
         # Headword
-        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="S-{id}">
+        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes">
       <a id="S-{id}"></a>
 
       <dt>

@@ -21,7 +21,6 @@ def get_authors_page(title, authors, strings):
 </head>
 
 <body>
-  <h1>{title}</h1>
   <mbp:frameset>\n'''
 
     for entry in authors:
@@ -33,7 +32,7 @@ def get_authors_page(title, authors, strings):
         abbr = entry['abbr']
 
         # Headword
-        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="A-{id}">
+        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes">
       <a id="A-{id}"></a>
 
       <dt>

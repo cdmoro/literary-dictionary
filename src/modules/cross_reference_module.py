@@ -59,7 +59,7 @@ def build_cross_references(entries):
                 related_links.append({
                     "id": e["id"],
                     "headword": target_headword,
-                    "link": f"{target_file}#e-{e['id']}"
+                    "link": f"{target_file}#D-{e['id']}"
                 })
 
         cross_references[entry_id] = related_links

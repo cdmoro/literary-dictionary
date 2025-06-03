@@ -23,7 +23,6 @@ def get_dictionary_page(letter, group, strings, cross_reference):
 </head>
 
 <body>
-  <h1>{title}</h1>
   <mbp:frameset>\n'''
 
     for entry in group:
@@ -38,7 +37,7 @@ def get_dictionary_page(letter, group, strings, cross_reference):
         saga = entry.get('saga')
 
         # Headword
-        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="D-{id}">
+        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes">
       <a id="D-{id}"></a>
 
       <dt>

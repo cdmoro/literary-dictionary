@@ -191,7 +191,7 @@ def generate_dictionary(conn, lang, strings):
         for filename in book_xhtml_files:
             f.write(f'    <itemref idref="B-{filename}"/>\n')
 
-        f.write('    <itemref idref="sgas"/>\n')
+        f.write('    <itemref idref="sagas"/>\n')
         for filename in sagas_xhtml_files:
             f.write(f'    <itemref idref="S-{filename}"/>\n')
 
