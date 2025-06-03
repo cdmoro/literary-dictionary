@@ -1,18 +1,4 @@
-def get_sagas_page(cur, strings):
-    cur.execute('''
-        SELECT s.id, s.name, s.description, c.abbr, a.name as author
-        FROM sagas s, authors a
-        CROSS JOIN categories c
-        WHERE c.id = 15 AND s.author_id == a.id
-        ORDER BY s.name
-    ''')
-
-    sagas = []
-    for row in cur.fetchall():
-        sagas.append(dict(row))
-        
-    title = strings["sagas"]
-
+def get_sagas_page(title, sagas, strings):
     template = f'''<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html 
@@ -30,12 +16,11 @@ def get_sagas_page(cur, strings):
 >
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" type="text/css" href="Styles/style.css"/>
     <title>{title}</title>
 </head>
 
 <body>
-  <h1>{title}</h1>
   <mbp:frameset>\n'''
 
     for entry in sagas:
@@ -46,8 +31,8 @@ def get_sagas_page(cur, strings):
         author = entry['author']
 
         # Headword
-        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="s-{id}">
-      <a id="s-{id}"></a>
+        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="S-{id}">
+      <a id="S-{id}"></a>
 
       <dt>
         <idx:orth>{name}</idx:orth>\n'''

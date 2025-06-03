@@ -1,4 +1,4 @@
-def get_letter_page(letter, group, strings, cross_reference):
+def get_dictionary_page(letter, group, strings, cross_reference):
     title = letter if letter != "Other" else strings["other_title"]
 
     template = f'''<?xml version="1.0" encoding="utf-8"?>
@@ -18,7 +18,7 @@ def get_letter_page(letter, group, strings, cross_reference):
 >
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" type="text/css" href="Styles/style.css"/>
     <title>{title}</title>
 </head>
 
@@ -38,8 +38,8 @@ def get_letter_page(letter, group, strings, cross_reference):
         saga = entry.get('saga')
 
         # Headword
-        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="e-{id}">
-      <a id="e-{id}"></a>
+        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="D-{id}">
+      <a id="D-{id}"></a>
 
       <dt>
         <idx:orth value="{headword}">{displayValue}</idx:orth>\n'''

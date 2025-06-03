@@ -11,8 +11,8 @@ def get_copyright_page(strings, entries):
 
     data = {
         "lang": strings["lang"],
-        "title": strings["title"],
-        "subtitle": strings["subtitle"],
+        "title": strings["about"],
+        "book_title": strings["title"],
         "edition": strings["edition"],
         "copyright_desc": strings["copyright_desc"].format(authors=len(authors), entries=total_entries, books=len(books), sagas=len(sagas)),
         "license": strings["license"],
@@ -33,10 +33,13 @@ def get_copyright_page(strings, entries):
     template = """<?xml version="1.0" encoding="utf-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="Styles/style.css"/>
+    <title>{title}</title>
 </head>
 <body>
-    <div><strong>{title}</strong></div>
+    <h1>{title}</h1>
+    <div><strong>{book_title}</strong></div>
     <div>{edition}</div>
     <div>{version}</div>
     <br />

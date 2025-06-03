@@ -12,7 +12,7 @@ def get_abbreviation_page(cur, strings):
         template = f'''<?xml version="1.0" encoding="utf-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" type="text/css" href="Styles/style.css"/>
 </head>
 <body>
     <h1>{strings['abbr_guide']}</h1>

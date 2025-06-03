@@ -1,24 +1,4 @@
-def get_authors_page(cur, strings):
-    cur.execute('''
-        SELECT 
-            a.id, 
-            a.name, 
-            a.description,
-            a.birth_year,
-            a.death_year, 
-            c.abbr
-        FROM authors a
-        CROSS JOIN categories c
-        WHERE c.id = 13
-        ORDER BY a.name
-    ''')
-
-    authors = []
-    for row in cur.fetchall():
-        authors.append(dict(row))
-        
-    title = strings["authors"]
-
+def get_authors_page(title, authors, strings):
     template = f'''<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html 
@@ -36,7 +16,7 @@ def get_authors_page(cur, strings):
 >
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" type="text/css" href="Styles/style.css"/>
     <title>{title}</title>
 </head>
 
@@ -53,8 +33,8 @@ def get_authors_page(cur, strings):
         abbr = entry['abbr']
 
         # Headword
-        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="a-{id}">
-      <a id="a-{id}"></a>
+        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="A-{id}">
+      <a id="A-{id}"></a>
 
       <dt>
         <idx:orth value="{name}">{name} '''

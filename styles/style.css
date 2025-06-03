@@ -64,3 +64,11 @@ dd {
 .abbr-table td {
     vertical-align: top;
 }
+
+body.section {
+    text-align: center;
+}
+
+body.section h1 {
+    margin-top: 40%;
+}

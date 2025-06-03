@@ -1,27 +1,4 @@
-def get_books_page(cur, strings):
-    cur.execute('''
-        SELECT 
-            b.id, 
-            b.title, 
-            b.description, 
-            b.publication_year,
-            c.abbr, 
-            a.name AS author, 
-            s.name AS saga
-        FROM books b
-        JOIN authors a ON b.author_id = a.id
-        CROSS JOIN categories c
-        LEFT JOIN sagas s ON b.saga_id = s.id
-        WHERE c.id = 14
-        ORDER BY b.title;
-    ''')
-
-    books = []
-    for row in cur.fetchall():
-        books.append(dict(row))
-        
-    title = strings["books"]
-
+def get_books_page(title, books, strings):
     template = f'''<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html 
@@ -39,12 +16,11 @@ def get_books_page(cur, strings):
 >
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" type="text/css" href="Styles/style.css"/>
     <title>{title}</title>
 </head>
 
 <body>
-  <h1>{title}</h1>
   <mbp:frameset>\n'''
 
     for entry in books:
@@ -57,8 +33,8 @@ def get_books_page(cur, strings):
         author = entry['author']
 
         # Headword
-        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="b-{id}">
-      <a id="b-{id}"></a>
+        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="B-{id}">
+      <a id="B-{id}"></a>
 
       <dt>
         <idx:orth value="{title}">{title} ({publication_year})</idx:orth>\n'''
