@@ -67,7 +67,7 @@ Then:
 1. Open Kindle Previewer
 1. Load the generated EPUB or `dictionary_files_en/content.opf`
 1. Export to MOBI
-1. Copy to your Kindle’s dictionaries/ folder
+1. Copy to your Kindle’s `dictionaries` folder
 
 You’re ready to go! 🔍📖
 
