@@ -44,13 +44,12 @@ def get_copyright_page(strings, entries):
     <div><strong>{book_title}</strong></div>
     <div>{edition}</div>
     <div>{version}</div>
-    <br />
-    <div>{copyright_desc}</div>
-    <br />
-    <div><strong>{license}</strong></div>
+    <div class="space-10">{copyright_desc}</div>
+
+    <div class="space-10"><strong>{license}</strong></div>
     <div>{copyright}</div>
-    <br />
-    <div>{project}: <a href="https://github.com/cdmoro/literary-dictionary">https://github.com/cdmoro/literary-dictionary</a></div>
+
+    <div class="space-10">{project}: <a href="https://github.com/cdmoro/literary-dictionary">https://github.com/cdmoro/literary-dictionary</a></div>
     <div>{contact}: carlosbonadeo@gmail.com</div>
 </body>
 </html>"""
