@@ -47,14 +47,13 @@ def get_books_by_letter(conn):
 
 def build_book_cross_references(conn):
     books = get_books(conn)
-    # Armamos un índice por libro para saber en qué archivo está
     book_reference_data = {}
+
     for book in books:
         if "id" in book and "title" in book:
             filename = f"{normalize_character(book['title'].strip()[0].upper())}.xhtml"
             book_reference_data[book["id"]] = (book["title"], filename)
 
-    # Agrupamos los libros por saga y por autor
     by_saga = defaultdict(list)
     by_author = defaultdict(list)
 
@@ -64,7 +63,6 @@ def build_book_cross_references(conn):
         else:
             by_author[book["author_id"]].append(book)
 
-    # Creamos el diccionario de cross references
     cross_references = {}
 
     for book in books:
@@ -79,7 +77,6 @@ def build_book_cross_references(conn):
             same_author = sorted(by_author.get(book["author_id"], []), key=lambda b: b["publication_year"] or 0)
             related = [b for b in same_author if b["id"] != book_id]
 
-        # Armamos los links
         related_links = []
         for b in related:
             title, filename = book_reference_data.get(b["id"], (None, None))

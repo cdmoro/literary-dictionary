@@ -49,11 +49,9 @@ def get_sagas_page(lang, title, sagas, strings, cross_reference):
         template += f'<em>{abbr}.</em> '
         template += f'{description}</div>\n'
         
-        template += f'        <div><strong>{strings["author"]}:</strong> <a href="{get_author_cr_link(author, author_id)}">{author}</a></div>\n'
-        
         if cross_reference[id]:
             template += f'''        <div>
-          <strong>{strings["see_also"]}:</strong> \n'''
+          <strong>{strings["books"]}:</strong> \n'''
             
             seeAlsoLinks = []
 
@@ -62,6 +60,8 @@ def get_sagas_page(lang, title, sagas, strings, cross_reference):
 
             template += ', \n'.join(seeAlsoLinks)
             template += '\n        </div>\n'
+            
+        template += f'        <div><strong>{strings["author"]}:</strong> <a href="{get_author_cr_link(author, author_id)}">{author}</a></div>\n'
 
         template += '''      </dd>
     </idx:entry>

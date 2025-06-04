@@ -56,7 +56,7 @@ def get_authors_page(lang, title, authors, strings, cross_reference):
         
         if cross_reference[id]:
             template += f'''        <div>
-          <strong>{strings["see_also"]}:</strong> \n'''
+          <strong>{strings["books"]}:</strong> \n'''
             
             seeAlsoLinks = []
 
