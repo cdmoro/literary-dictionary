@@ -2,6 +2,26 @@ from collections import defaultdict
 
 from src.utils import normalize_character
 
+def get_author_cr_link(name: str, id: int):
+    return get_cross_reference_link(name, id, prefix='A', folder='Authors')
+
+def get_saga_cr_link(name: str, id: int):
+    return get_cross_reference_link(name, id, prefix='S', folder='Sagas')
+
+def get_book_cr_link(name: str, id: int):
+    return get_cross_reference_link(name, id, prefix='B', folder='Books')
+
+def get_cross_reference_link(name: str, id: int, prefix: str, folder: str) -> str:
+    if not name:
+        return
+
+    first_letter = normalize_character(name.strip()[0])
+    filename = f"{prefix}{'_' if prefix else ''}{first_letter}.xhtml"
+    anchor = f"{prefix}{'_' if prefix else ''}{id}"
+    path = f"{folder}/{filename}" if folder else filename
+
+    return f"../{path}#{anchor}"
+
 def build_cross_references(entries):
     cross_reference_data = {}
     for entry in entries:
@@ -59,7 +79,7 @@ def build_cross_references(entries):
                 related_links.append({
                     "id": e["id"],
                     "headword": target_headword,
-                    "link": f"{target_file}#D-{e['id']}"
+                    "link": f"D_{target_file}#D_{e['id']}"
                 })
 
         cross_references[entry_id] = related_links

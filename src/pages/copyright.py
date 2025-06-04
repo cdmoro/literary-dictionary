@@ -10,7 +10,7 @@ def get_copyright_page(strings, entries):
     books = {p['book'] for p in entries if p.get('book')}
 
     data = {
-        "lang": strings["lang"],
+        "lang": strings["lang"].lower(),
         "title": strings["about"],
         "book_title": strings["title"],
         "edition": strings["edition"],
@@ -31,7 +31,9 @@ def get_copyright_page(strings, entries):
     }
 
     template = """<?xml version="1.0" encoding="utf-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{lang}">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="Styles/style.css"/>

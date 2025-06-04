@@ -1,7 +1,12 @@
-def get_sagas_page(title, sagas, strings):
+from src.modules.cross_reference_module import get_author_cr_link
+
+def get_sagas_page(lang, title, sagas, strings, cross_reference):
     template = f'''<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html>
-<html 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xml:lang="{lang}"
     xmlns:math="http://exslt.org/math"
     xmlns:svg="http://www.w3.org/2000/svg"
     xmlns:tl="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
@@ -16,7 +21,7 @@ def get_sagas_page(title, sagas, strings):
 >
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" type="text/css" href="Styles/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../Styles/style.css"/>
     <title>{title}</title>
 </head>
 
@@ -29,15 +34,13 @@ def get_sagas_page(title, sagas, strings):
         description = entry['description']
         abbr = entry['abbr']
         author = entry['author']
+        author_id = entry['author_id']
 
         # Headword
         template += f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="S_{id}">
       <a id="S_{id}"></a>
 
-      <dt>
-        <idx:orth>{name}</idx:orth>\n'''
-        
-        template += '      </dt>\n\n'
+      <idx:orth><dt>{name}</dt></idx:orth>\n\n'''
         
         # Definition
         template += '''      <dd>
@@ -46,7 +49,19 @@ def get_sagas_page(title, sagas, strings):
         template += f'<em>{abbr}.</em> '
         template += f'{description}</div>\n'
         
-        template += f'        <div><strong>{strings["author"]}:</strong> {author}</div>\n'
+        template += f'        <div><strong>{strings["author"]}:</strong> <a href="{get_author_cr_link(author, author_id)}">{author}</a></div>\n'
+        
+        if cross_reference[id]:
+            template += f'''        <div>
+          <strong>{strings["see_also"]}:</strong> \n'''
+            
+            seeAlsoLinks = []
+
+            for ref in cross_reference[id]:
+                seeAlsoLinks.append(f'          <a href="../Books/{ref["link"]}">{ref["title"]}</a>')
+
+            template += ', \n'.join(seeAlsoLinks)
+            template += '\n        </div>\n'
 
         template += '''      </dd>
     </idx:entry>

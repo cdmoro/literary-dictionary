@@ -1,7 +1,10 @@
-def get_authors_page(title, authors, strings):
+def get_authors_page(lang, title, authors, strings, cross_reference):
     template = f'''<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html>
-<html 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html
+    xml:lang="{lang}" 
+    xmlns="http://www.w3.org/1999/xhtml"
     xmlns:math="http://exslt.org/math"
     xmlns:svg="http://www.w3.org/2000/svg"
     xmlns:tl="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
@@ -16,7 +19,7 @@ def get_authors_page(title, authors, strings):
 >
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" type="text/css" href="Styles/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../Styles/style.css"/>
     <title>{title}</title>
 </head>
 
@@ -35,17 +38,14 @@ def get_authors_page(title, authors, strings):
         template += f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="A_{id}">
       <a id="A_{id}"></a>
 
-      <dt>
-        <idx:orth value="{name}">{name} '''
+      <idx:orth value="{name}"><dt>{name} '''
         
         if not death_year:
             template += f'({strings["birth_abbr"]}. {birth_year})'
         else:
             template += f'({birth_year}–{death_year})'
         
-        template += '''</idx:orth>\n'''
-        
-        template += '      </dt>\n\n'
+        template += '</dt></idx:orth>\n\n'
         
         # Definition
         template += '''      <dd>
@@ -53,6 +53,18 @@ def get_authors_page(title, authors, strings):
 
         template += f'<em>{abbr}.</em> '
         template += f'{description}</div>\n'
+        
+        if cross_reference[id]:
+            template += f'''        <div>
+          <strong>{strings["see_also"]}:</strong> \n'''
+            
+            seeAlsoLinks = []
+
+            for ref in cross_reference[id]:
+                seeAlsoLinks.append(f'          <a href="../Books/{ref["link"]}">{ref["title"]}</a>')
+
+            template += ', \n'.join(seeAlsoLinks)
+            template += '\n        </div>\n'
 
         template += '''      </dd>
     </idx:entry>
