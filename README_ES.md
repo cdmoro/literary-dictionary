@@ -1,84 +1,63 @@
 # 📚 Diccionario Literario para Kindle
 
 **Tu compañero de lectura definitivo.**  
-¿Perdiste la cuenta de los nombres en _Cien años de soledad_? ¿No recordás si ese objeto mágico era de Frodo o de Harry? Este **Diccionario Literario** de código abierto te ayuda a seguirle el ritmo a personajes, lugares y conceptos de libros y sagas famosas, directamente desde tu Kindle.
+¿Perdido entre los nombres de _Cien años de soledad_? ¿No recordás si ese objeto mágico era de Frodo o de Harry? Este **Diccionario Literario** de código abierto te ayuda a seguir personajes, lugares y conceptos de libros y sagas icónicas—directamente desde tu Kindle.
 
-El diccionario está disponible actualmente en inglés y en español. Se planean más idiomas para futuras ediciones. Cada versión se diseña de forma independiente para garantizar una lectura fluida y una navegación óptima en Kindle y otros dispositivos de lectura electrónica.
+El diccionario está disponible actualmente en inglés y español. Se planean más idiomas para futuras versiones. Cada versión está diseñada cuidadosamente para asegurar una lectura fluida y una navegación simple en Kindle y otros dispositivos de lectura.
 
-🎯 Descarga la última versión del diccionario [acá](https://github.com/cdmoro/literary-dictionary/releases/latest)
+🎯 Descargá la última versión del diccionario [acá](https://github.com/cdmoro/literary-dictionary/releases/latest)
 
+## ✨ Características
 
-## ✨ Funcionalidades
+El **Diccionario Literario para Kindle** está hecho para que tu lectura sea más inmersiva y menos confusa—accesible directamente desde el diccionario integrado del dispositivo.
 
-El **Diccionario Literario para Kindle** está diseñado para hacer tu lectura más inmersiva y menos confusa, directamente desde el diccionario integrado del dispositivo.
+### ✅ Funcionalidades Clave
 
-### ✅ Características principales
-
-- **Funciona con palabras sueltas y expresiones compuestas**
+- **Funciona con palabras sueltas y expresiones de varias palabras**  
 - **Compatible con libros en cualquier idioma**
-- **Totalmente integrado con el sistema de diccionario de Kindle**
-- **Incluye referencias cruzadas entre personajes, lugares y conceptos de distintos universos literarios**
-- **Muestra múltiples definiciones cuando un nombre coincide con varias entradas (por ejemplo, apellidos familiares)**
+- **Totalmente integrado con el sistema de diccionarios de Kindle**
+- **Referencias cruzadas entre personajes, lugares y conceptos de distintos universos literarios**
+- **Muestra múltiples definiciones si un nombre tiene más de una entrada (por ejemplo, apellidos familiares)**
 - **Entradas claras y concisas, optimizadas para búsquedas rápidas**
-- **Ligero, fácil de instalar y sin distracciones**
+- **Liviano, fácil de instalar y sin distracciones**
 
 ### 📸 Capturas de pantalla
 
-| Búsqueda de palabra | Expresión compuesta | Soporte multilingüe |
-|---------------------|---------------------|----------------------|
-| ![Búsqueda palabra](./screenshots/single-word.png) | ![Expresión compuesta](./screenshots/multi-word.png) | ![Multilingüe](./screenshots/foreign-language.png) |
+| Búsqueda de una sola palabra | Frase de varias palabras | Soporte para otros idiomas |
+|------------------------------|---------------------------|-----------------------------|
+| ![Single Word Screenshot](./screenshots/single-word.png) | ![Multi-word Screenshot](./screenshots/multi-word.png) | ![Foreign Language Screenshot](./screenshots/foreign-language.png) |
 
-| Referencia cruzada | Múltiples definiciones | Guía de abreviaciones |
-|--------------------|------------------------|------------------------|
-| ![Referencia cruzada](./screenshots/cross-reference.png) | ![Múltiples definiciones](./screenshots/multiple-definitions.png) | ![Guía de abreviaciones](./screenshots/abbreviation-guide.png) |
-
----
-
-## ✍️ Cómo funciona
-
-Las entradas están organizadas en archivos YAML por autor. Cada archivo puede cubrir un libro, una saga completa o el universo general del autor.
-
-### ✅ Estructura de cada entrada
-
-Cada entrada incluye:
-- `entry`: Término principal
-- `displayValue` (opcional): Reemplaza visualmente a `entry`
-- `alias` (opcional): Nombres alternativos
-- `description`: Definición del término
-
-Además, podés categorizar las entradas usando:
-- `characters`, `places`, `objects`, `concepts`, `events`, `creatures`, `institutions`, `spells`, `languages`, `quotes`
-
-Desde lenguas élficas hasta frases memorables.  
-Todo se encuentra en `dictionary/*.yaml`.
+| Entrada con referencias cruzadas | Múltiples definiciones | Guía de abreviaciones |
+|----------------------------------|--------------------------|------------------------|
+| ![Cross-reference Screenshot](./screenshots/cross-reference.png) | ![Multiple Definitions Screenshot](./screenshots/multiple-definitions.png) | ![Abbreviation Guide Screenshot](./screenshots/abbreviation-guide.png) |
 
 ---
 
-## 🛠️ Cómo contribuir
+## 🛠️ Cómo Contribuir
 
-¿Te gustan los libros y la tecnología? ¡Sumate!
+¿Te apasionan los libros y la tecnología? ¡Sumate al proyecto!
 
-- Agregá nuevas entradas (formato YAML)
-- Mejorá los scripts en Python
-- Reportá errores o sugerí mejoras
-- Compartí tus universos literarios favoritos
+- Proponé libros para agregar  
+- Mejorá los scripts en Python  
+- Reportá errores o sugerí funciones  
+- Compartí tu universo literario favorito  
 
 También podés:
-- ☕ [Invitarme un café](https://buymeacoffee.com/cdmoro)
-- 🧉 [Convidarme un cafecito](http://cafecito.app/cdmoro)
-- 🎁 [Colaborar en Patreon](https://patreon.com/cdmoro)
+- ☕ [Invitarme un café](https://buymeacoffee.com/cdmoro)  
+- 🧉 [Invitarme un cafecito](http://cafecito.app/cdmoro)  
+- 🎁 [Apoyar en Patreon](https://patreon.com/cdmoro)  
 
 ---
 
-## 🧪 Entorno de desarrollo
+## 🧪 Configuración para Desarrollo
 
-Para compilar y testear el diccionario localmente:
+Para generar y probar el diccionario localmente:
 
 ```bash
-git clone https://github.com/cdmoro/diccionario-literario.git
-cd diccionario-literario
+git clone https://github.com/cdmoro/literary-dictionary.git
+cd literary-dictionary
 pip install -r requirements.txt
-python scripts/build.py
+python ./main.py
 ```
 
 Después:
