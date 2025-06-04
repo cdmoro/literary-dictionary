@@ -26,22 +26,23 @@ def get_ncx_page(lang, pages_by_section, strings):
         ("abbr", strings["abbr_guide"], "Abbreviations.xhtml")
     ]
 
-    for eid, label, src in pages:
-        nav_point = ET.SubElement(navMap, "navPoint", id=eid, playOrder=str(play_order))
+    for pid, label, src in pages:
+        nav_point = ET.SubElement(navMap, "navPoint", id=pid, playOrder=str(play_order))
         ET.SubElement(nav_point, "navLabel").append(ET.Element("text", text=label))
         ET.SubElement(nav_point, "content", src=src)
         play_order += 1
 
     for section, files in pages_by_section.items():
-        section_point = ET.SubElement(navMap, "navPoint", id=section.lower(), playOrder=str(play_order))
+        section_point = ET.SubElement(navMap, "navPoint", id=section[0].upper(), playOrder=str(play_order))
         ET.SubElement(section_point, "navLabel").append(ET.Element("text", text=section))
-        ET.SubElement(section_point, "content", src=f"{section}/{files[0]}")
+        ET.SubElement(section_point, "content", src=f"{section}.xhtml")
         play_order += 1
 
         for file in files:
-            entry_id = f"{section.lower()}-{file}"
+            prefix = section[0].upper()
+            entry_id = f"{file}"
             nav_point = ET.SubElement(section_point, "navPoint", id=entry_id, playOrder=str(play_order))
-            ET.SubElement(nav_point, "navLabel").append(ET.Element("text", text=file.split('.')[0]))
+            ET.SubElement(nav_point, "navLabel").append(ET.Element("text", text=file.split('_')[1]))
             ET.SubElement(nav_point, "content", src=f"{section}/{file}.xhtml")
             play_order += 1
 

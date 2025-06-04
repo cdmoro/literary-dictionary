@@ -32,8 +32,8 @@ def get_authors_page(title, authors, strings):
         abbr = entry['abbr']
 
         # Headword
-        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes">
-      <a id="A-{id}"></a>
+        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="A_{id}">
+      <a id="A_{id}"></a>
 
       <dt>
         <idx:orth value="{name}">{name} '''

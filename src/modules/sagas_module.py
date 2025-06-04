@@ -31,6 +31,6 @@ def get_sagas_by_letter(conn):
         if firstLetter.isalpha():
             sagas_by_letter[firstLetter].append(saga)
         else:
-            sagas_by_letter['Other'].append(saga)
+            sagas_by_letter['S_Other'].append(saga)
 
     return sagas_by_letter

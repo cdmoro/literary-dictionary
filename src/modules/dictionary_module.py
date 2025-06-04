@@ -60,7 +60,7 @@ def generate_dictionary(conn, lang, strings):
         if firstLetter.isalpha():
             entries_by_letter[firstLetter].append(entry)
         else:
-            entries_by_letter['Other'].append(entry)
+            entries_by_letter['D_Other'].append(entry)
 
     cross_references = build_cross_references(entries)
 
@@ -86,10 +86,10 @@ def generate_dictionary(conn, lang, strings):
         f.write(get_section_page(strings["definitions"]))
 
     for letter, group in sorted(entries_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])):
-        filename = f"{letter}.xhtml"
-        dictionary_xhtml_files.append(letter)
+        filename = f"D_{letter}"
+        dictionary_xhtml_files.append(filename)
 
-        with open(os.path.join(dictionary_folder, filename), 'w', encoding='utf-8') as f:
+        with open(os.path.join(dictionary_folder, f'{filename}.xhtml'), 'w', encoding='utf-8') as f:
             f.write(get_dictionary_page(letter, group, strings, cross_references))
 
     # Books
@@ -97,10 +97,10 @@ def generate_dictionary(conn, lang, strings):
         f.write(get_section_page(strings["books"]))
 
     for letter, group in sorted(books_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])):
-        filename = f"{letter}.xhtml"
-        book_xhtml_files.append(letter)
+        filename = f"B_{letter}"
+        book_xhtml_files.append(filename)
 
-        with open(os.path.join(books_folder, filename), 'w', encoding='utf-8') as f:
+        with open(os.path.join(books_folder, f'{filename}.xhtml'), 'w', encoding='utf-8') as f:
             f.write(get_books_page(letter, group, strings))
 
     # Sagas
@@ -108,10 +108,10 @@ def generate_dictionary(conn, lang, strings):
         f.write(get_section_page(strings["sagas"]))
 
     for letter, group in sorted(sagas_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])):
-        filename = f"{letter}.xhtml"
-        sagas_xhtml_files.append(letter)
+        filename = f"S_{letter}"
+        sagas_xhtml_files.append(filename)
 
-        with open(os.path.join(sagas_folder, filename), 'w', encoding='utf-8') as f:
+        with open(os.path.join(sagas_folder, f'{filename}.xhtml'), 'w', encoding='utf-8') as f:
             f.write(get_sagas_page(letter, group, strings))
 
     # Authors
@@ -119,10 +119,10 @@ def generate_dictionary(conn, lang, strings):
         f.write(get_section_page(strings["authors"]))
 
     for letter, group in sorted(authors_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])):
-        filename = f"{letter}.xhtml"
-        authors_xhtml_files.append(letter)
+        filename = f"A_{letter}"
+        authors_xhtml_files.append(filename)
 
-        with open(os.path.join(authors_folder, filename), 'w', encoding='utf-8') as f:
+        with open(os.path.join(authors_folder, f'{filename}.xhtml'), 'w', encoding='utf-8') as f:
             f.write(get_authors_page(letter, group, strings))
 
     # NCX file
@@ -162,19 +162,19 @@ def generate_dictionary(conn, lang, strings):
         
         f.write('    <item id="dictionary" href="Dictionary.xhtml" media-type="application/xhtml+xml"/>\n')   
         for filename in dictionary_xhtml_files:
-            f.write(f'    <item id="D-{filename}" href="Dictionary/{filename}.xhtml" media-type="application/xhtml+xml"/>\n')
+            f.write(f'    <item id="{filename}" href="Dictionary/{filename}.xhtml" media-type="application/xhtml+xml"/>\n')
 
         f.write('    <item id="books" href="Books.xhtml" media-type="application/xhtml+xml"/>\n')
         for filename in book_xhtml_files:
-            f.write(f'    <item id="B-{filename}" href="Books/{filename}.xhtml" media-type="application/xhtml+xml"/>\n')
+            f.write(f'    <item id="{filename}" href="Books/{filename}.xhtml" media-type="application/xhtml+xml"/>\n')
 
         f.write('    <item id="sagas" href="Sagas.xhtml" media-type="application/xhtml+xml"/>\n')
         for filename in sagas_xhtml_files:
-            f.write(f'    <item id="S-{filename}" href="Sagas/{filename}.xhtml" media-type="application/xhtml+xml"/>\n')
+            f.write(f'    <item id="{filename}" href="Sagas/{filename}.xhtml" media-type="application/xhtml+xml"/>\n')
 
         f.write('    <item id="authors" href="Authors.xhtml" media-type="application/xhtml+xml"/>\n')
         for filename in authors_xhtml_files:
-            f.write(f'    <item id="A-{filename}" href="Authors/{filename}.xhtml" media-type="application/xhtml+xml"/>\n')
+            f.write(f'    <item id="{filename}" href="Authors/{filename}.xhtml" media-type="application/xhtml+xml"/>\n')
         f.write('  </manifest>\n')
 
         f.write('  <spine toc="ncx">\n')
@@ -185,19 +185,19 @@ def generate_dictionary(conn, lang, strings):
 
         f.write('    <itemref idref="dictionary"/>\n')
         for filename in dictionary_xhtml_files:
-            f.write(f'    <itemref idref="D-{filename}"/>\n')
+            f.write(f'    <itemref idref="{filename}"/>\n')
 
         f.write('    <itemref idref="books"/>\n')
         for filename in book_xhtml_files:
-            f.write(f'    <itemref idref="B-{filename}"/>\n')
+            f.write(f'    <itemref idref="{filename}"/>\n')
 
         f.write('    <itemref idref="sagas"/>\n')
         for filename in sagas_xhtml_files:
-            f.write(f'    <itemref idref="S-{filename}"/>\n')
+            f.write(f'    <itemref idref="{filename}"/>\n')
 
         f.write('    <itemref idref="authors"/>\n')
         for filename in authors_xhtml_files:
-            f.write(f'    <itemref idref="A-{filename}"/>\n')
+            f.write(f'    <itemref idref="{filename}"/>\n')
 
         f.write('  </spine>\n')
         f.write('  <guide>\n')

@@ -37,8 +37,8 @@ def get_dictionary_page(letter, group, strings, cross_reference):
         saga = entry.get('saga')
 
         # Headword
-        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes">
-      <a id="D-{id}"></a>
+        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="D_{id}">
+      <a id="D_{id}"></a>
 
       <dt>
         <idx:orth value="{headword}">{displayValue}</idx:orth>\n'''

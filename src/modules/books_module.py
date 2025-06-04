@@ -40,6 +40,6 @@ def get_books_by_letter(conn):
         if firstLetter.isalpha():
             books_by_letter[firstLetter].append(book)
         else:
-            books_by_letter['Other'].append(book)
+            books_by_letter['B_Other'].append(book)
 
     return books_by_letter

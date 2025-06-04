@@ -37,6 +37,6 @@ def get_authors_by_letter(conn):
         if firstLetter.isalpha():
             authors_by_letter[firstLetter].append(author)
         else:
-            authors_by_letter['Other'].append(author)
+            authors_by_letter['A_Other'].append(author)
 
     return authors_by_letter

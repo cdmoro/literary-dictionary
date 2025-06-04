@@ -33,8 +33,8 @@ def get_books_page(title, books, strings):
         author = entry['author']
 
         # Headword
-        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes">
-      <a id="B-{id}"></a>
+        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="B_{id}">
+      <a id="B_{id}"></a>
 
       <dt>
         <idx:orth value="{title}">{title} ({publication_year})</idx:orth>\n'''
