@@ -3,7 +3,6 @@ import os
 
 from src.db import get_connection
 from src.utils import get_translations
-# from stats_module import generate_stats
 # from csv_module import generate_csv
 # from json_module import generate_json
 from src.modules.dictionary_module import generate_dictionary
@@ -14,8 +13,6 @@ def get_lang_from_filename(filename):
 
 def main():
     db_files = glob.glob("dictionary/dictionary.*.db")
-
-    # generate_stats()
 
     for db_path in db_files:
         conn = get_connection(db_path)
