@@ -10,8 +10,8 @@ def get_section_page(lang, title):
     <link rel="stylesheet" type="text/css" href="./Styles/style.css"/>
     <title>{title.upper()}</title>
 </head>
-<body class="section">
-    <h1>{title.upper()}</h1>
+<body>
+    <h1 class="section-title">{title.upper()}</h1>
 </body>
 </html>'''
 
@@ -25,12 +25,12 @@ def get_section_toc(lang, title, entries_by_letter, strings, prefix, folder):
     <link rel="stylesheet" type="text/css" href="./Styles/style.css"/>
     <title>{title}</title>
 </head>
-<body class="section-toc">
+<body>
     <h1>{title}</h1>\n'''
 
     for letter, group in sorted(entries_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])):
         letter = letter if letter != "Other" else strings["other_title"]
-        template += f'\n    <h2>{letter}</h2>\n\n'
+        template += f'\n    <h2 class="letter-toc-title">{letter}</h2>\n\n'
 
         for entry in group:
             name = entry.get("name") or entry.get("headword") or entry.get("title")

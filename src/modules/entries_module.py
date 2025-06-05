@@ -49,13 +49,13 @@ def get_entry_markup(id, headword, abbr, description, additional_info, display_n
 
     # Definition
     template += '      <dd>\n'
-    template += f'''        <p class="no-indent"><em>{abbr}.</em> {description}</div>'''
+    template += f'''        <div><em>{abbr}.</em> {description}</div>'''
 
     for title, desc in additional_info.items():
         if len(desc) > 0:
-            template += f'''\n        <p class="no-indent">
+            template += f'''\n        <div>
           <strong>{title}:</strong> {desc}
-        </p>'''
+        </div>'''
 
     template += '''\n      </dd>
     </idx:entry>
