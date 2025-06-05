@@ -1,4 +1,5 @@
-from src.modules.cross_reference_module import get_author_cr_link
+from src.modules.cross_reference_module import get_author_cr_link, cross_reference_markup
+from src.modules.entries_module import get_entry_markup
 
 def get_sagas_page(lang, title, sagas, strings, cross_reference):
     template = f'''<?xml version="1.0" encoding="utf-8"?>
@@ -31,42 +32,22 @@ def get_sagas_page(lang, title, sagas, strings, cross_reference):
     for entry in sagas:
         id = entry["id"]
         name = entry['name']
-        description = entry['description']
-        abbr = entry['abbr']
         author = entry['author']
         author_id = entry['author_id']
+        additional_info = {}
 
-        # Headword
-        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="S_{id}">
-      <a id="S_{id}"></a>
-
-      <idx:orth><dt>{name}</dt></idx:orth>\n\n'''
-        
-        # Definition
-        template += '''      <dd>
-        <div>'''
-
-        template += f'<em>{abbr}.</em> '
-        template += f'{description}</div>\n'
-        
         if cross_reference[id]:
-            template += f'''        <div>
-          <strong>{strings["books"]}:</strong> \n'''
-            
-            seeAlsoLinks = []
+          additional_info[strings['see_also']] = cross_reference_markup(cross_reference[id], "../Books/")
 
-            for ref in cross_reference[id]:
-                seeAlsoLinks.append(f'          <a href="../Books/{ref["link"]}">{ref["title"]}</a>')
+        additional_info[strings["author"]] = f'<a href="{get_author_cr_link(author, author_id)}">{author}</a>'
 
-            template += ', \n'.join(seeAlsoLinks)
-            template += '\n        </div>\n'
-            
-        template += f'        <div><strong>{strings["author"]}:</strong> <a href="{get_author_cr_link(author, author_id)}">{author}</a></div>\n'
-
-        template += '''      </dd>
-    </idx:entry>
-
-    <hr/>\n\n'''
+        template += get_entry_markup(
+            id=f'S_{id}',
+            headword=name,
+            abbr=entry["abbr"],
+            description=entry["description"],
+            additional_info=additional_info
+        )
 
     template += '''  </mbp:frameset>
 </body>

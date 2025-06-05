@@ -83,7 +83,7 @@ def build_book_cross_references(conn):
             if title and filename:
                 related_links.append({
                     "id": b["id"],
-                    "title": title,
+                    "value": title,
                     "link": f"B_{filename}#B_{b['id']}"
                 })
 

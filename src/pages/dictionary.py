@@ -1,4 +1,5 @@
-from src.modules.cross_reference_module import get_author_cr_link, get_saga_cr_link, get_book_cr_link
+from src.modules.cross_reference_module import get_author_cr_link, get_saga_cr_link, get_book_cr_link, cross_reference_markup
+from src.modules.entries_module import get_entry_markup
 
 def get_dictionary_page(lang, letter, group, strings, cross_reference):
     title = letter if letter != "Other" else strings["other_title"]
@@ -32,11 +33,6 @@ def get_dictionary_page(lang, letter, group, strings, cross_reference):
 
     for entry in group:
         id = entry["id"]
-        headword = entry['headword']
-        aliases = entry.get('alias', '')
-        displayValue = entry.get('display_value') or headword
-        description = entry['description']
-        category = entry.get('category')
         author = entry.get('author')
         author_id = entry.get('author_id')
         book = entry.get('book')
@@ -45,68 +41,36 @@ def get_dictionary_page(lang, letter, group, strings, cross_reference):
         saga_id = entry.get('saga_id')
         
         origin_placeholders = {
-            'book': entry.get('book'),
-            'saga': entry.get('saga'),
-            'author':  entry.get('author'),
-            'author_href': get_author_cr_link(author, author_id),
-            'saga_href': get_saga_cr_link(saga, saga_id),
-            'book_href': get_book_cr_link(book, book_id)
+            'book': f'<a href="{get_book_cr_link(book, book_id)}">{entry.get('book')}</a>',
+            'saga': f'<a href="{get_saga_cr_link(saga, saga_id)}">{entry.get('saga')}</a>',
+            'author':  f'<a href="{get_author_cr_link(author, author_id)}">{entry.get('author')}</a>',
         }
 
-        # Headword
-        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="D_{id}">
-      <a id="D_{id}"></a>
-
-      <idx:orth value="{headword}"><dt>{displayValue}</dt></idx:orth>\n'''
-
-        # Alias
-        if aliases:
-            for alias in aliases.split(';'):
-                template += f'        <idx:orth value="{alias}" />\n'
-        
-        template += '\n'
-        
-        # Definition
-        template += '''      <dd>
-        <div>'''
-
-        if (category):
-            template += f'<em>{category}.</em> '
-        template += f'{description}</div>\n'
-        
-        template += '        <div>'
-        
-        # Origin
-        template += f'<strong>{strings["origin"]}:</strong> '
+        origin = strings["origin_author"]
 
         if book and saga:
-            template += strings["origin_book_saga"].format(**origin_placeholders)
+            origin = strings["origin_book_saga"]
         elif book:
-            template += strings["origin_book"].format(**origin_placeholders)
+            origin = strings["origin_book"]
         elif saga:
-            template += strings["origin_saga"].format(**origin_placeholders)
-        else:
-            template += strings["origin_author"].format(**origin_placeholders)
+            origin = strings["origin_saga"]
 
-        template += '</div>\n'
+        additional_info = {
+            strings["origin"]: origin.format(**origin_placeholders)
+        }
 
-        # See also
         if cross_reference[id]:
-            template += f'''        <div>
-          <strong>{strings["see_also"]}:</strong> \n'''
-            
-            seeAlsoLinks = []
+          additional_info[strings['see_also']] = cross_reference_markup(cross_reference[id])
 
-            for ref in cross_reference[id]:
-                seeAlsoLinks.append(f'          <a href="{ref["link"]}">{ref["headword"]}</a>')
-
-            template += ', \n'.join(seeAlsoLinks)
-            template += '\n        </div>\n'
-        
-        template += '''      </dd>
-    </idx:entry>
-
-    <hr/>\n\n'''
+        template += get_entry_markup(
+            id=f'D_{id}',
+            headword=entry['headword'],
+            # display_name=entry['display_value'],
+            aliases=entry['alias'],
+            abbr=entry["category"],
+            description=entry["description"],
+            additional_info=additional_info
+        )
 
     template += '''  </mbp:frameset>
 </body>

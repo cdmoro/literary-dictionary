@@ -25,10 +25,10 @@ def get_sagas_by_letter(conn):
 
     for saga in sagas:
         name = saga['name']
-        firstLetter = normalize_character(name[0])
+        first_letter = normalize_character(name[0])
         
-        if firstLetter.isalpha():
-            sagas_by_letter[firstLetter].append(saga)
+        if first_letter.isalpha():
+            sagas_by_letter[first_letter].append(saga)
         else:
             sagas_by_letter['S_Other'].append(saga)
 
@@ -67,7 +67,7 @@ def build_saga_cross_references(conn):
 
         sagas_cross_references[row["saga_id"]].append({
             "book_id": book_id,
-            "title": title,
+            "value": title,
             "publication_year": row["publication_year"],
             "link": link,
             "author_id": row["author_id"],

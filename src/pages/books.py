@@ -1,4 +1,5 @@
-from src.modules.cross_reference_module import get_author_cr_link, get_saga_cr_link
+from src.modules.cross_reference_module import get_author_cr_link, get_saga_cr_link, cross_reference_markup
+from src.modules.entries_module import get_entry_markup
 
 def get_books_page(lang, title, books, strings, cross_reference):
     template = f'''<?xml version="1.0" encoding="utf-8"?>
@@ -30,48 +31,28 @@ def get_books_page(lang, title, books, strings, cross_reference):
     for entry in books:
         id = entry["id"]
         title = entry['title']
-        description = entry['description']
-        publication_year = entry['publication_year']
-        abbr = entry['abbr']
         saga = entry['saga']
         saga_id = entry['saga_id']
         author = entry['author']
         author_id = entry['author_id']
+        additional_info = {}
 
-        # Headword
-        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="B_{id}">
-      <a id="B_{id}"></a>
+        if saga_id:
+          additional_info[strings["saga"]] = f'<a href="{get_saga_cr_link(saga, saga_id)}"><em>{saga}</em></a>'
 
-      <idx:orth value="{title}"><dt>{title} ({publication_year})</dt></idx:orth>\n\n'''
-        
-        # Definition
-        template += '''      <dd>
-        <div>'''
-
-        template += f'<em>{abbr}.</em> '
-        template += f'{description}</div>\n'
-        
-        if saga:
-            template += f'        <div><strong>{strings["saga"]}:</strong> <a href="{get_saga_cr_link(saga, saga_id)}"><em>{saga}</em></a></div>\n'
-
-        template += f'        <div><strong>{strings["author"]}:</strong> <a href="{get_author_cr_link(author, author_id)}">{author}</a></div>\n'
-        
         if cross_reference[id]:
-            template += f'''        <div>
-          <strong>{strings["see_also"]}:</strong> \n'''
-            
-            seeAlsoLinks = []
+          additional_info[strings['see_also']] = cross_reference_markup(cross_reference[id])
 
-            for ref in cross_reference[id]:
-                seeAlsoLinks.append(f'          <a href="./{ref["link"]}">{ref["title"]}</a>')
+        additional_info[strings["author"]] = f'<a href="{get_author_cr_link(author, author_id)}">{author}</a>'
 
-            template += ', \n'.join(seeAlsoLinks)
-            template += '\n        </div>\n'
-
-        template += '''      </dd>
-    </idx:entry>
-
-    <hr/>\n\n'''
+        template += get_entry_markup(
+            id=f'B_{id}',
+            headword=title,
+            display_name=f'{title} ({entry['publication_year']})',
+            abbr=entry["abbr"],
+            description=entry["description"],
+            additional_info=additional_info
+        )
 
     template += '''  </mbp:frameset>
 </body>

@@ -85,3 +85,7 @@ body.section h1 {
 .space-25 {
     padding-top: 2.5em;
 }
+
+.no-intent {
+    text-indent: 0;
+}

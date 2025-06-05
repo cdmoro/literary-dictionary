@@ -30,3 +30,36 @@ def get_entries(conn):
         entries.append(dict(row))
 
     return entries
+
+def get_entry_markup(id, headword, abbr, description, additional_info, display_name = None, aliases = None):
+    display_name = display_name or headword
+
+    template = f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="{id}">
+      <a id="{id}"></a>
+
+      <dt>
+        <idx:orth value="{headword}">{display_name}</idx:orth>\n'''
+    
+    # Alias
+    if aliases:
+        for alias in aliases.split(';'):
+            template += f'        <idx:orth value="{alias}" />\n'
+
+    template += '      </dt>\n\n'
+
+    # Definition
+    template += '      <dd>\n'
+    template += f'''        <p class="no-indent"><em>{abbr}.</em> {description}</div>'''
+
+    for title, desc in additional_info.items():
+        if len(desc) > 0:
+            template += f'''\n        <p class="no-indent">
+          <strong>{title}:</strong> {desc}
+        </p>'''
+
+    template += '''\n      </dd>
+    </idx:entry>
+        
+    <hr/>\n\n'''
+
+    return template

@@ -32,10 +32,10 @@ def get_authors_by_letter(conn):
 
     for author in authors:
         name = author['name']
-        firstLetter = normalize_character(name[0])
+        first_letter = normalize_character(name[0])
         
-        if firstLetter.isalpha():
-            authors_by_letter[firstLetter].append(author)
+        if first_letter.isalpha():
+            authors_by_letter[first_letter].append(author)
         else:
             authors_by_letter['A_Other'].append(author)
 
@@ -77,7 +77,7 @@ def build_author_cross_references(conn, max_books_per_author=6):
 
         authors_cross_references[author_id].append({
             "book_id": book_id,
-            "title": title,
+            "value": title,
             "publication_year": row["publication_year"],
             "link": link,
             "author_name": row["author_name"]

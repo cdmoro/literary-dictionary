@@ -36,12 +36,11 @@ def get_copyright_page(strings, entries):
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{lang}">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" type="text/css" href="Styles/style.css"/>
+    <link rel="stylesheet" type="text/css" href="./Styles/style.css"/>
     <title>{title}</title>
 </head>
 <body>
-    <h1>{title}</h1>
-    <div><strong>{book_title}</strong></div>
+    <h1>{book_title}</h1>
     <div>{edition}</div>
     <div>{version}</div>
     <div class="space-10">{copyright_desc}</div>

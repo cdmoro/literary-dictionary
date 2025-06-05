@@ -1,3 +1,6 @@
+from src.modules.cross_reference_module import cross_reference_markup
+from src.modules.entries_module import get_entry_markup
+
 def get_authors_page(lang, title, authors, strings, cross_reference):
     template = f'''<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
@@ -29,47 +32,22 @@ def get_authors_page(lang, title, authors, strings, cross_reference):
     for entry in authors:
         id = entry["id"]
         name = entry['name']
-        description = entry['description']
         birth_year = entry['birth_year']
         death_year = entry['death_year']
-        abbr = entry['abbr']
+        display_name = name + (f' ({strings["birth_abbr"]}. {birth_year})' if not death_year else f' ({birth_year}–{death_year})')
+        additional_info = {}
 
-        # Headword
-        template += f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="A_{id}">
-      <a id="A_{id}"></a>
-
-      <idx:orth value="{name}"><dt>{name} '''
-        
-        if not death_year:
-            template += f'({strings["birth_abbr"]}. {birth_year})'
-        else:
-            template += f'({birth_year}–{death_year})'
-        
-        template += '</dt></idx:orth>\n\n'
-        
-        # Definition
-        template += '''      <dd>
-        <div>'''
-
-        template += f'<em>{abbr}.</em> '
-        template += f'{description}</div>\n'
-        
         if cross_reference[id]:
-            template += f'''        <div>
-          <strong>{strings["books"]}:</strong> \n'''
-            
-            seeAlsoLinks = []
+          additional_info[strings['see_also']] = cross_reference_markup(cross_reference[id], "../Books/")
 
-            for ref in cross_reference[id]:
-                seeAlsoLinks.append(f'          <a href="../Books/{ref["link"]}">{ref["title"]}</a>')
-
-            template += ', \n'.join(seeAlsoLinks)
-            template += '\n        </div>\n'
-
-        template += '''      </dd>
-    </idx:entry>
-
-    <hr/>\n\n'''
+        template += get_entry_markup(
+            id=f'A_{id}',
+            headword=name,
+            display_name=display_name,
+            abbr=entry["abbr"],
+            description=entry["description"],
+            additional_info=additional_info
+        )
 
     template += '''  </mbp:frameset>
 </body>

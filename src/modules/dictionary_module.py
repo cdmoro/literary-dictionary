@@ -14,7 +14,7 @@ from src.pages.dictionary import get_dictionary_page
 from src.pages.authors import get_authors_page
 from src.pages.books import get_books_page
 from src.pages.sagas import get_sagas_page
-from src.pages.section import get_section_page
+from src.pages.section import get_section_page, get_section_toc
 from src.pages.ncx import get_ncx_page
 
 from src.modules.cross_reference_module import build_cross_references
@@ -95,6 +95,9 @@ def generate_dictionary(conn, lang, strings):
     with open(os.path.join(output_folder, 'Dictionary.xhtml'), 'w', encoding='utf-8') as f:
         f.write(get_section_page(lang, strings["definitions"]))
 
+    with open(os.path.join(output_folder, 'Dictionary_TOC.xhtml'), 'w', encoding='utf-8') as f:
+        f.write(get_section_toc(lang, strings["definitions"], entries_by_letter, strings, prefix="D", folder="Dictionary"))
+
     for letter, group in sorted(entries_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])):
         filename = f"D_{letter}"
         dictionary_xhtml_files.append(filename)
@@ -105,6 +108,9 @@ def generate_dictionary(conn, lang, strings):
     # Books
     with open(os.path.join(output_folder, 'Books.xhtml'), 'w', encoding='utf-8') as f:
         f.write(get_section_page(lang, strings["books"]))
+
+    with open(os.path.join(output_folder, 'Books_TOC.xhtml'), 'w', encoding='utf-8') as f:
+        f.write(get_section_toc(lang, strings["books"], books_by_letter, strings, prefix="B", folder="Books"))
 
     for letter, group in sorted(books_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])):
         filename = f"B_{letter}"
@@ -117,6 +123,9 @@ def generate_dictionary(conn, lang, strings):
     with open(os.path.join(output_folder, 'Sagas.xhtml'), 'w', encoding='utf-8') as f:
         f.write(get_section_page(lang, strings["sagas"]))
 
+    with open(os.path.join(output_folder, 'Sagas_TOC.xhtml'), 'w', encoding='utf-8') as f:
+        f.write(get_section_toc(lang, strings["sagas"], sagas_by_letter, strings, prefix="S", folder="Sagas"))
+
     for letter, group in sorted(sagas_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])):
         filename = f"S_{letter}"
         sagas_xhtml_files.append(filename)
@@ -127,6 +136,9 @@ def generate_dictionary(conn, lang, strings):
     # Authors
     with open(os.path.join(output_folder, 'Authors.xhtml'), 'w', encoding='utf-8') as f:
         f.write(get_section_page(lang, strings["authors"]))
+
+    with open(os.path.join(output_folder, 'Authors_TOC.xhtml'), 'w', encoding='utf-8') as f:
+        f.write(get_section_toc(lang, strings["authors"], authors_by_letter, strings, prefix="A", folder="Authors"))
 
     for letter, group in sorted(authors_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])):
         filename = f"A_{letter}"
@@ -166,7 +178,7 @@ def generate_dictionary(conn, lang, strings):
         f.write('    <meta name="cover" content="cover-image"/>\n')
         f.write('  </metadata>\n')
         f.write('  <manifest>\n')
-        f.write('    <item id="style" href="Styles/style.css" media-type="text/css"/>\n')
+        f.write('    <item id="style" href="./Styles/style.css" media-type="text/css"/>\n')
         f.write('    <item id="cover-image" href="Assets/cover.jpg" media-type="image/jpeg"/>\n')
         f.write('    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>\n')
         f.write('    <item id="cover" href="Cover.xhtml" media-type="application/xhtml+xml"/>\n')
@@ -174,19 +186,23 @@ def generate_dictionary(conn, lang, strings):
         f.write('    <item id="toc" href="TOC.xhtml" media-type="application/xhtml+xml"/>\n')
         f.write('    <item id="abbreviations" href="Abbreviations.xhtml" media-type="application/xhtml+xml"/>\n')
         
-        f.write('    <item id="dictionary" href="Dictionary.xhtml" media-type="application/xhtml+xml"/>\n')   
+        f.write('    <item id="dictionary" href="Dictionary.xhtml" media-type="application/xhtml+xml"/>\n')
+        f.write('    <item id="dictionary-toc" href="Dictionary_TOC.xhtml" media-type="application/xhtml+xml"/>\n')
         for filename in dictionary_xhtml_files:
             f.write(f'    <item id="{filename}" href="Dictionary/{filename}.xhtml" media-type="application/xhtml+xml"/>\n')
 
         f.write('    <item id="books" href="Books.xhtml" media-type="application/xhtml+xml"/>\n')
+        f.write('    <item id="books-toc" href="Books_TOC.xhtml" media-type="application/xhtml+xml"/>\n')
         for filename in book_xhtml_files:
             f.write(f'    <item id="{filename}" href="Books/{filename}.xhtml" media-type="application/xhtml+xml"/>\n')
 
         f.write('    <item id="sagas" href="Sagas.xhtml" media-type="application/xhtml+xml"/>\n')
+        f.write('    <item id="sagas-toc" href="Sagas_TOC.xhtml" media-type="application/xhtml+xml"/>\n')
         for filename in sagas_xhtml_files:
             f.write(f'    <item id="{filename}" href="Sagas/{filename}.xhtml" media-type="application/xhtml+xml"/>\n')
 
         f.write('    <item id="authors" href="Authors.xhtml" media-type="application/xhtml+xml"/>\n')
+        f.write('    <item id="authors-toc" href="Authors_TOC.xhtml" media-type="application/xhtml+xml"/>\n')
         for filename in authors_xhtml_files:
             f.write(f'    <item id="{filename}" href="Authors/{filename}.xhtml" media-type="application/xhtml+xml"/>\n')
         f.write('  </manifest>\n')
@@ -198,18 +214,22 @@ def generate_dictionary(conn, lang, strings):
         f.write('    <itemref idref="abbreviations"/>\n')
 
         f.write('    <itemref idref="dictionary"/>\n')
+        f.write('    <itemref idref="dictionary-toc"/>\n')
         for filename in dictionary_xhtml_files:
             f.write(f'    <itemref idref="{filename}"/>\n')
 
         f.write('    <itemref idref="books"/>\n')
+        f.write('    <itemref idref="books-toc"/>\n')
         for filename in book_xhtml_files:
             f.write(f'    <itemref idref="{filename}"/>\n')
 
         f.write('    <itemref idref="sagas"/>\n')
+        f.write('    <itemref idref="sagas-toc"/>\n')
         for filename in sagas_xhtml_files:
             f.write(f'    <itemref idref="{filename}"/>\n')
 
         f.write('    <itemref idref="authors"/>\n')
+        f.write('    <itemref idref="authors-toc"/>\n')
         for filename in authors_xhtml_files:
             f.write(f'    <itemref idref="{filename}"/>\n')
 

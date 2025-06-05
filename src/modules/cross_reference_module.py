@@ -22,6 +22,14 @@ def get_cross_reference_link(name: str, id: int, prefix: str, folder: str) -> st
 
     return f"../{path}#{anchor}"
 
+def cross_reference_markup(cross_reference, prefix = "./"):
+    cr_links = []
+
+    for ref in cross_reference:
+        cr_links.append(f'<a href="{prefix}{ref["link"]}">{ref["value"]}</a>')
+
+    return ', '.join(cr_links)
+
 def build_cross_references(entries):
     cross_reference_data = {}
     for entry in entries:
@@ -78,7 +86,7 @@ def build_cross_references(entries):
             if target_headword and target_file:
                 related_links.append({
                     "id": e["id"],
-                    "headword": target_headword,
+                    "value": target_headword,
                     "link": f"D_{target_file}#D_{e['id']}"
                 })
 
