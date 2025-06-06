@@ -1,5 +1,8 @@
 .DS_Store
 *.pyc
 __pycache__/
+
+reports/
 output/
+
 venv/
