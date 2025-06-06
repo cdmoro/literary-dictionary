@@ -178,7 +178,7 @@ def generate_dictionary(conn, lang, strings):
         f.write('    <meta name="cover" content="cover-image"/>\n')
         f.write('  </metadata>\n')
         f.write('  <manifest>\n')
-        f.write('    <item id="style" href="./Styles/style.css" media-type="text/css"/>\n')
+        f.write('    <item id="style" href="Styles/style.css" media-type="text/css"/>\n')
         f.write('    <item id="cover-image" href="Assets/cover.jpg" media-type="image/jpeg"/>\n')
         f.write('    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>\n')
         f.write('    <item id="cover" href="Cover.xhtml" media-type="application/xhtml+xml"/>\n')

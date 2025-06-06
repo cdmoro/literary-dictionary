@@ -15,7 +15,7 @@ def get_abbreviation_page(lang, cur, strings):
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{lang}">
 <head>
     <title>{strings['abbr_guide']}</title>
-    <link rel="stylesheet" type="text/css" href="./Styles/style.css"/>
+    <link rel="stylesheet" type="text/css" href="Styles/style.css"/>
 </head>
 <body>
     <h1>{strings['abbr_guide']}</h1>

@@ -7,7 +7,7 @@ def get_section_page(lang, title):
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{lang}">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" type="text/css" href="./Styles/style.css"/>
+    <link rel="stylesheet" type="text/css" href="Styles/style.css"/>
     <title>{title.upper()}</title>
 </head>
 <body>
@@ -22,7 +22,7 @@ def get_section_toc(lang, title, entries_by_letter, strings, prefix, folder):
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{lang}">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" type="text/css" href="./Styles/style.css"/>
+    <link rel="stylesheet" type="text/css" href="Styles/style.css"/>
     <title>{title}</title>
 </head>
 <body>
@@ -34,7 +34,7 @@ def get_section_toc(lang, title, entries_by_letter, strings, prefix, folder):
 
         for entry in group:
             name = entry.get("name") or entry.get("headword") or entry.get("title")
-            template += f'    <div><a href="./{folder}/{prefix}_{normalize_character(name[0])}.xhtml#{prefix}_{entry["id"]}">{name}</a></div>\n'
+            template += f'    <div><a href="{folder}/{prefix}_{normalize_character(name[0])}.xhtml#{prefix}_{entry["id"]}">{name}</a></div>\n'
 
     template += '''\n</body>
 </html>'''

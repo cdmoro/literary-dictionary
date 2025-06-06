@@ -6,7 +6,8 @@ def get_books_page(lang, title, books, strings, cross_reference):
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html
-    xml:lang="{lang}" 
+    xml:lang="{lang}"
+    xmlns="http://www.w3.org/1999/xhtml"
     xmlns:math="http://exslt.org/math"
     xmlns:svg="http://www.w3.org/2000/svg"
     xmlns:tl="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
