@@ -58,7 +58,7 @@ def build_author_cross_references(conn, max_books_per_author=6):
             a.birth_year,
             a.death_year,
             b.id AS book_id,
-            b.title AS book_title,
+            b.name AS book_title,
             b.publication_year
         FROM authors a
         JOIN books b ON b.author_id = a.id

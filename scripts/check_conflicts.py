@@ -1,10 +1,11 @@
-import sqlite3
-import os
-import glob
-import yaml
 import argparse
+import glob
+import os
+import sqlite3
 from collections import defaultdict
 from pathlib import Path
+
+import yaml
 
 CHECK_FIELDS = {
     "entries": ["saga_id", "author_id", "category_id", "book_id"],
@@ -39,7 +40,8 @@ def load_data():
             )
             for row in cursor.fetchall():
                 global_id, *fields = row
-                data[table][global_id][lang] = dict(zip(CHECK_FIELDS[table], fields))
+                data[table][global_id][lang] = dict(
+                    zip(CHECK_FIELDS[table], fields))
 
         cursor.execute("SELECT global_id FROM categories")
         categories_by_lang[lang] = set(row[0] for row in cursor.fetchall())
@@ -55,7 +57,8 @@ def find_conflicts(data):
         for global_id, lang_map in entries.items():
             values_list = list(lang_map.values())
             if not all(v == values_list[0] for v in values_list):
-                conflicts[table].append({"id": global_id, "conflicts": lang_map})
+                conflicts[table].append(
+                    {"id": global_id, "conflicts": lang_map})
     return conflicts
 
 

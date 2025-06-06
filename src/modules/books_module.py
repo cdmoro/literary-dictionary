@@ -10,7 +10,7 @@ def get_books(conn):
         """
         SELECT 
             b.id, 
-            b.title, 
+            b.name, 
             b.description, 
             b.publication_year,
             c.abbr, 
@@ -23,7 +23,7 @@ def get_books(conn):
         CROSS JOIN categories c
         LEFT JOIN sagas s ON b.saga_id = s.id
         WHERE c.id = 14
-        ORDER BY b.title;
+        ORDER BY b.name;
     """
     )
 
@@ -39,7 +39,7 @@ def get_books_by_letter(conn):
     books_by_letter = defaultdict(list)
 
     for book in books:
-        title = book["title"]
+        title = book["name"]
         firstLetter = normalize_character(title[0])
 
         if firstLetter.isalpha():
@@ -56,8 +56,8 @@ def build_book_cross_references(conn):
 
     for book in books:
         if "id" in book and "title" in book:
-            filename = f"{normalize_character(book['title'].strip()[0].upper())}.xhtml"
-            book_reference_data[book["id"]] = (book["title"], filename)
+            filename = f"{normalize_character(book['name'].strip()[0].upper())}.xhtml"
+            book_reference_data[book["id"]] = (book["name"], filename)
 
     by_saga = defaultdict(list)
     by_author = defaultdict(list)
@@ -93,7 +93,8 @@ def build_book_cross_references(conn):
             title, filename = book_reference_data.get(b["id"], (None, None))
             if title and filename:
                 related_links.append(
-                    {"id": b["id"], "value": title, "link": f"B_{filename}#B_{b['id']}"}
+                    {"id": b["id"], "value": title,
+                        "link": f"B_{filename}#B_{b['id']}"}
                 )
 
         cross_references[book_id] = related_links

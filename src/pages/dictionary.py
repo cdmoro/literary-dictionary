@@ -1,9 +1,7 @@
-from src.modules.cross_reference_module import (
-    get_author_cr_link,
-    get_saga_cr_link,
-    get_book_cr_link,
-    cross_reference_markup,
-)
+from src.modules.cross_reference_module import (cross_reference_markup,
+                                                get_author_cr_link,
+                                                get_book_cr_link,
+                                                get_saga_cr_link)
 from src.modules.entries_module import get_entry_markup
 
 
@@ -70,8 +68,8 @@ def get_dictionary_page(lang, letter, group, strings, cross_reference):
 
         template += get_entry_markup(
             id=f"D_{id}",
-            headword=entry["headword"],
-            # display_name=entry['display_value'],
+            headword=entry["name"],
+            display_name=entry.get('display_value'),
             aliases=entry["alias"],
             abbr=entry["category"],
             description=entry["description"],

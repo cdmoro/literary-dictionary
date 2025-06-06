@@ -5,7 +5,7 @@ def get_entries(conn):
         """
         SELECT
         e.id,
-        e.headword,
+        e.name,
         e.display_name,
         e.alias,
         e.description,
@@ -14,7 +14,7 @@ def get_entries(conn):
         s.id           AS saga_id,
         s.name         AS saga,
         b.id           AS book_id,
-        b.title        AS book,
+        b.name        AS book,
         c.abbr         AS category,
         c.id           AS category_id,
         e.draft
@@ -23,7 +23,7 @@ def get_entries(conn):
         LEFT JOIN sagas s   ON e.saga_id = s.id
         LEFT JOIN books b   ON e.book_id = b.id
         LEFT JOIN categories c ON e.category_id = c.id
-        ORDER BY e.headword COLLATE NOCASE
+        ORDER BY e.name COLLATE NOCASE
     """
     )
 

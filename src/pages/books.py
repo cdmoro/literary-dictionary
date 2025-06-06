@@ -1,8 +1,6 @@
-from src.modules.cross_reference_module import (
-    get_author_cr_link,
-    get_saga_cr_link,
-    cross_reference_markup,
-)
+from src.modules.cross_reference_module import (cross_reference_markup,
+                                                get_author_cr_link,
+                                                get_saga_cr_link)
 from src.modules.entries_module import get_entry_markup
 
 
@@ -36,7 +34,7 @@ def get_books_page(lang, title, books, strings, cross_reference):
 
     for entry in books:
         id = entry["id"]
-        title = entry["title"]
+        title = entry["name"]
         saga = entry["saga"]
         saga_id = entry["saga_id"]
         author = entry["author"]

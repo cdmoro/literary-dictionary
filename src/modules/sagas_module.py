@@ -49,7 +49,7 @@ def build_saga_cross_references(conn):
             s.name AS saga_name,
             s.description AS saga_description,
             b.id AS book_id,
-            b.title AS book_title,
+            b.name AS book_title,
             b.publication_year,
             a.id AS author_id,
             a.name AS author_name

@@ -6,4 +6,4 @@ repos:
         entry: python scripts/check_conflicts.py --precommit
         language: system
         pass_filenames: false
-        always_run: true
+        files: ^dictionary/.*\.db$

@@ -39,11 +39,11 @@ def cross_reference_markup(cross_reference, prefix="./"):
 def build_cross_references(entries):
     cross_reference_data = {}
     for entry in entries:
-        if "id" in entry and "headword" in entry:
+        if "id" in entry and "name" in entry:
             filename = (
-                f"{normalize_character(entry['headword'].strip()[0].upper())}.xhtml"
+                f"{normalize_character(entry['name'].strip()[0].upper())}.xhtml"
             )
-            cross_reference_data[entry["id"]] = (entry["headword"], filename)
+            cross_reference_data[entry["id"]] = (entry["name"], filename)
 
     # Group entries
     by_saga = defaultdict(list)

@@ -56,7 +56,8 @@ def get_related(entry):
         group = by_author_cat.get((entry["author_id"], cat), [])
 
     # Excluir la misma entry
-    related = [(e["id"], e["headword"]) for e in group if e["id"] != entry["id"]]
+    related = [(e["id"], e["headword"])
+               for e in group if e["id"] != entry["id"]]
     return related
 
 

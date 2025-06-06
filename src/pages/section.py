@@ -37,7 +37,8 @@ def get_section_toc(lang, title, entries_by_letter, strings, prefix, folder):
         template += f'\n    <h2 class="letter-toc-title">{letter}</h2>\n\n'
 
         for entry in group:
-            name = entry.get("name") or entry.get("headword") or entry.get("title")
+            name = entry.get("name") or entry.get(
+                "headword") or entry.get("title")
             template += f'    <div><a href="{folder}/{prefix}_{normalize_character(name[0])}.xhtml#{prefix}_{entry["id"]}">{name}</a></div>\n'
 
     template += """\n</body>

@@ -1,8 +1,9 @@
+import csv
 import os
 import sys
-import yaml
-import csv
 from collections import defaultdict
+
+import yaml
 
 # Root path where dictionary folders are stored
 ROOT_DIR = "dictionary"
@@ -58,7 +59,8 @@ if len(sys.argv) > 1:
     sys.exit(0)
 
 # Collect all languages used
-all_languages = sorted({lang for lang_dict in entries.values() for lang in lang_dict})
+all_languages = sorted({lang for lang_dict in entries.values()
+                       for lang in lang_dict})
 
 # Generate CSV file
 with open("output/headwords.csv", "w", encoding="utf-8", newline="") as f:

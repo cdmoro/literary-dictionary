@@ -1,5 +1,6 @@
-import petname
 import sys
+
+import petname
 import pyperclip
 
 

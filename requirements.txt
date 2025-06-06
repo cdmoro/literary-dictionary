@@ -8,3 +8,6 @@ petname
 pyperclip
 pre-commit
 black
+isort
+flake8
+autopep8

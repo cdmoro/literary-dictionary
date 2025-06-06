@@ -1,6 +1,7 @@
 import csv
-from dotenv import load_dotenv
 import os
+
+from dotenv import load_dotenv
 
 from utils import get_entries
 

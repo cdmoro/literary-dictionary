@@ -2,11 +2,10 @@ import glob
 import os
 
 from src.db import get_connection
-from src.utils import get_translations
-
 # from csv_module import generate_csv
 # from json_module import generate_json
 from src.modules.dictionary_module import generate_dictionary
+from src.utils import get_translations
 
 
 def get_lang_from_filename(filename):

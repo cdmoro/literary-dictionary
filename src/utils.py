@@ -1,6 +1,6 @@
-from pathlib import Path
-import unicodedata
 import json
+import unicodedata
+from pathlib import Path
 
 
 def get_translations(lang):

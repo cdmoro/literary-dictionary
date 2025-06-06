@@ -5,7 +5,8 @@ from xml.dom import minidom
 def get_ncx_page(lang, pages_by_section, strings):
     ET.register_namespace("", "http://www.daisy.org/z3986/2005/ncx/")
     ncx = ET.Element(
-        "ncx", {"xmlns": "http://www.daisy.org/z3986/2005/ncx/", "version": "2005-1"}
+        "ncx", {"xmlns": "http://www.daisy.org/z3986/2005/ncx/",
+                "version": "2005-1"}
     )
 
     head = ET.SubElement(ncx, "head")
@@ -32,7 +33,8 @@ def get_ncx_page(lang, pages_by_section, strings):
     ]
 
     for pid, label, src in pages:
-        nav_point = ET.SubElement(navMap, "navPoint", id=pid, playOrder=str(play_order))
+        nav_point = ET.SubElement(
+            navMap, "navPoint", id=pid, playOrder=str(play_order))
         text = ET.Element("text")
         text.text = label
         ET.SubElement(nav_point, "navLabel").append(text)

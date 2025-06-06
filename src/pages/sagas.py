@@ -1,7 +1,5 @@
-from src.modules.cross_reference_module import (
-    get_author_cr_link,
-    cross_reference_markup,
-)
+from src.modules.cross_reference_module import (cross_reference_markup,
+                                                get_author_cr_link)
 from src.modules.entries_module import get_entry_markup
 
 
