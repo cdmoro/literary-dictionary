@@ -46,14 +46,14 @@ def get_books_page(lang, title, books, strings, cross_reference):
                 f'<a href="{get_saga_cr_link(saga, saga_id)}"><em>{saga}</em></a>'
             )
 
+        additional_info[strings["author"]] = (
+            f'<a href="{get_author_cr_link(author, author_id)}">{author}</a>'
+        )
+        
         if cross_reference[id]:
             additional_info[strings["see_also"]] = cross_reference_markup(
                 cross_reference[id]
             )
-
-        additional_info[strings["author"]] = (
-            f'<a href="{get_author_cr_link(author, author_id)}">{author}</a>'
-        )
 
         template += get_entry_markup(
             id=f"B_{id}",

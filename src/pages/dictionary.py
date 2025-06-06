@@ -37,17 +37,17 @@ def get_dictionary_page(lang, letter, group, strings, cross_reference):
 
     for entry in group:
         id = entry["id"]
-        author = entry.get("author")
-        author_id = entry.get("author_id")
+        author = entry["author"]
+        author_id = entry["author_id"]
         book = entry.get("book")
         book_id = entry.get("book_id")
         saga = entry.get("saga")
         saga_id = entry.get("saga_id")
 
         origin_placeholders = {
-            "book": f'<a href="{get_book_cr_link(book, book_id)}">{entry.get('book')}</a>',
-            "saga": f'<a href="{get_saga_cr_link(saga, saga_id)}">{entry.get('saga')}</a>',
-            "author": f'<a href="{get_author_cr_link(author, author_id)}">{entry.get('author')}</a>',
+            "book": f'<a href="{get_book_cr_link(book, book_id)}">{book}</a>',
+            "saga": f'<a href="{get_saga_cr_link(saga, saga_id)}">{saga}</a>',
+            "author": f'<a href="{get_author_cr_link(author, author_id)}">{author}</a>',
         }
 
         origin = strings["origin_author"]

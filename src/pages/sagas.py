@@ -39,7 +39,7 @@ def get_sagas_page(lang, title, sagas, strings, cross_reference):
         additional_info = {}
 
         if cross_reference[id]:
-            additional_info[strings["see_also"]] = cross_reference_markup(
+            additional_info[strings["books"]] = cross_reference_markup(
                 cross_reference[id], "../Books/"
             )
 

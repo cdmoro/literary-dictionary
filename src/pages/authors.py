@@ -2,7 +2,7 @@ from src.modules.cross_reference_module import cross_reference_markup
 from src.modules.entries_module import get_entry_markup
 
 
-def get_authors_page(lang, title, authors, strings, cross_reference):
+def get_authors_page(lang, title, authors, strings, book_cross_reference, saga_cross_reference):
     template = f"""<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -42,9 +42,14 @@ def get_authors_page(lang, title, authors, strings, cross_reference):
         )
         additional_info = {}
 
-        if cross_reference[id]:
-            additional_info[strings["see_also"]] = cross_reference_markup(
-                cross_reference[id], "../Books/"
+        if saga_cross_reference[id]:
+            additional_info[strings["sagas"]] = cross_reference_markup(
+                saga_cross_reference[id], "../Sagas/"
+            )
+        
+        if book_cross_reference[id]:
+            additional_info[strings["books"]] = cross_reference_markup(
+                book_cross_reference[id], "../Books/"
             )
 
         template += get_entry_markup(

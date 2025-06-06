@@ -30,7 +30,6 @@ def get_authors(conn):
 
 
 def get_authors_by_letter(conn):
-    cur = conn.cursor()
     authors = get_authors(conn)
     authors_by_letter = defaultdict(list)
 
@@ -46,7 +45,7 @@ def get_authors_by_letter(conn):
     return authors_by_letter
 
 
-def build_author_cross_references(conn, max_books_per_author=6):
+def build_author_book_cross_references(conn):
     cur = conn.cursor()
 
     cur.execute(
@@ -72,9 +71,6 @@ def build_author_cross_references(conn, max_books_per_author=6):
 
     for row in rows:
         author_id = row["author_id"]
-        if len(authors_cross_references[author_id]) >= max_books_per_author:
-            continue
-
         book_id = row["book_id"]
         title = row["book_title"].strip()
         first_letter = normalize_character(title[0])
@@ -93,3 +89,42 @@ def build_author_cross_references(conn, max_books_per_author=6):
         )
 
     return authors_cross_references
+
+def build_author_saga_cross_references(conn):
+    cur = conn.cursor()
+
+    cur.execute(
+        """
+        SELECT 
+            a.id AS author_id,
+            a.name AS author_name,
+            s.id AS saga_id,
+            s.name AS saga_name
+        FROM authors a
+        JOIN sagas s ON s.author_id = a.id
+        ORDER BY a.id, s.name
+        """
+    )
+
+    rows = cur.fetchall()
+
+    author_saga_refs = defaultdict(list)
+
+    for row in rows:
+        saga_id = row["saga_id"]
+        saga_name = row["saga_name"].strip()
+        first_letter = normalize_character(saga_name[0])
+        filename = f"S_{first_letter}.xhtml"
+        anchor = f"S_{saga_id}"
+        link = f"{filename}#{anchor}"
+
+        author_saga_refs[row["author_id"]].append(
+            {
+                "saga_id": saga_id,
+                "name": saga_name,
+                "link": link,
+                "author_name": row["author_name"],
+            }
+        )
+
+    return author_saga_refs

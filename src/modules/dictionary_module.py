@@ -5,7 +5,8 @@ from collections import defaultdict
 
 from dotenv import load_dotenv
 
-from src.modules.authors_module import (build_author_cross_references,
+from src.modules.authors_module import (build_author_book_cross_references,
+                                        build_author_saga_cross_references,
                                         get_authors_by_letter)
 from src.modules.books_module import (build_book_cross_references,
                                       get_books_by_letter)
@@ -62,7 +63,8 @@ def generate_dictionary(conn, lang, strings):
 
     books_cross_references = build_book_cross_references(conn)
     sagas_cross_references = build_saga_cross_references(conn)
-    authors_cross_references = build_author_cross_references(conn)
+    authors_book_cross_references = build_author_book_cross_references(conn)
+    authors_saga_cross_references = build_author_saga_cross_references(conn)
 
     entries_by_letter = defaultdict(list)
     for entry in entries:
@@ -226,7 +228,7 @@ def generate_dictionary(conn, lang, strings):
         ) as f:
             f.write(
                 get_authors_page(lang, letter, group, strings,
-                                 authors_cross_references)
+                                 authors_book_cross_references, authors_saga_cross_references)
             )
 
     # NCX file
