@@ -1,6 +1,6 @@
 # 📚 Diccionario Literario para Kindle
 
-[[English](README.md)]
+Documento disponible en [[English](README.md)]
 
 **Tu compañero de lectura definitivo.**  
 ¿Perdido entre los nombres de _Cien años de soledad_? ¿No recordás si ese objeto mágico era de Frodo o de Harry? Este **Diccionario Literario** de código abierto te ayuda a seguir personajes, lugares y conceptos de libros y sagas icónicas—directamente desde tu Kindle.
