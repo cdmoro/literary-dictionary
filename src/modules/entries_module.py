@@ -35,15 +35,15 @@ def get_entries(conn):
 
 
 def get_entry_markup(
-    id, headword, abbr, description, additional_info, display_name=None, aliases=None
+    id, name, abbr, description, additional_info, display_name=None, aliases=None
 ):
-    display_name = display_name or headword
+    display_name = display_name or name
 
     template = f"""    <idx:entry name="default" scriptable="yes" spell="yes" id="{id}">
       <a id="{id}"></a>
 
       <dt>
-        <idx:orth value="{headword}">{display_name}</idx:orth>\n"""
+        <idx:orth value="{name}">{display_name}</idx:orth>\n"""
 
     # Alias
     if aliases:

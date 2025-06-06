@@ -68,8 +68,8 @@ def get_dictionary_page(lang, letter, group, strings, cross_reference):
 
         template += get_entry_markup(
             id=f"D_{id}",
-            headword=entry["name"],
-            display_name=entry.get('display_value'),
+            name=entry["name"],
+            display_name=entry.get('display_name'),
             aliases=entry["alias"],
             abbr=entry["category"],
             description=entry["description"],

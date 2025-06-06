@@ -49,7 +49,7 @@ def get_sagas_page(lang, title, sagas, strings, cross_reference):
 
         template += get_entry_markup(
             id=f"S_{id}",
-            headword=name,
+            name=name,
             abbr=entry["abbr"],
             description=entry["description"],
             additional_info=additional_info,

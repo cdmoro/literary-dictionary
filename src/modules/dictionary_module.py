@@ -66,8 +66,8 @@ def generate_dictionary(conn, lang, strings):
 
     entries_by_letter = defaultdict(list)
     for entry in entries:
-        headword = entry["name"]
-        firstLetter = normalize_character(headword[0])
+        name = entry["name"]
+        firstLetter = normalize_character(name[0])
         if firstLetter.isalpha():
             entries_by_letter[firstLetter].append(entry)
         else:

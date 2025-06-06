@@ -85,7 +85,7 @@ def build_author_cross_references(conn, max_books_per_author=6):
         authors_cross_references[author_id].append(
             {
                 "book_id": book_id,
-                "value": title,
+                "name": title,
                 "publication_year": row["publication_year"],
                 "link": link,
                 "author_name": row["author_name"],

@@ -49,7 +49,7 @@ def get_authors_page(lang, title, authors, strings, cross_reference):
 
         template += get_entry_markup(
             id=f"A_{id}",
-            headword=name,
+            name=name,
             display_name=display_name,
             abbr=entry["abbr"],
             description=entry["description"],

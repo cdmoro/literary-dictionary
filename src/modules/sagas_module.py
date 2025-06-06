@@ -75,7 +75,7 @@ def build_saga_cross_references(conn):
         sagas_cross_references[row["saga_id"]].append(
             {
                 "book_id": book_id,
-                "value": title,
+                "name": title,
                 "publication_year": row["publication_year"],
                 "link": link,
                 "author_id": row["author_id"],

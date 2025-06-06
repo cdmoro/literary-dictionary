@@ -3,7 +3,7 @@ repos:
     hooks:
       - id: check-conflicts
         name: Check translation conflicts
-        entry: python scripts/check_conflicts.py --precommit
+        entry: python src/scripts/check_conflicts.py --precommit
         language: system
         pass_filenames: false
         files: ^dictionary/.*\.db$

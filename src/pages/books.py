@@ -57,7 +57,7 @@ def get_books_page(lang, title, books, strings, cross_reference):
 
         template += get_entry_markup(
             id=f"B_{id}",
-            headword=title,
+            name=title,
             display_name=f"{title} ({entry['publication_year']})",
             abbr=entry["abbr"],
             description=entry["description"],

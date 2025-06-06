@@ -31,7 +31,7 @@ def cross_reference_markup(cross_reference, prefix="./"):
     cr_links = []
 
     for ref in cross_reference:
-        cr_links.append(f'<a href="{prefix}{ref["link"]}">{ref["value"]}</a>')
+        cr_links.append(f'<a href="{prefix}{ref["link"]}">{ref["name"]}</a>')
 
     return ", ".join(cr_links)
 
@@ -90,14 +90,14 @@ def build_cross_references(entries):
         # Build links
         related_links = []
         for e in related_filtered:
-            target_headword, target_file = cross_reference_data.get(
+            target_name, target_file = cross_reference_data.get(
                 e["id"], (None, None)
             )
-            if target_headword and target_file:
+            if target_name and target_file:
                 related_links.append(
                     {
                         "id": e["id"],
-                        "value": target_headword,
+                        "name": target_name,
                         "link": f"D_{target_file}#D_{e['id']}",
                     }
                 )
