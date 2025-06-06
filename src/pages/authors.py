@@ -1,8 +1,9 @@
 from src.modules.cross_reference_module import cross_reference_markup
 from src.modules.entries_module import get_entry_markup
 
+
 def get_authors_page(lang, title, authors, strings, cross_reference):
-    template = f'''<?xml version="1.0" encoding="utf-8"?>
+    template = f"""<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html
@@ -27,30 +28,36 @@ def get_authors_page(lang, title, authors, strings, cross_reference):
 </head>
 
 <body>
-  <mbp:frameset>\n'''
+  <mbp:frameset>\n"""
 
     for entry in authors:
         id = entry["id"]
-        name = entry['name']
-        birth_year = entry['birth_year']
-        death_year = entry['death_year']
-        display_name = name + (f' ({strings["birth_abbr"]}. {birth_year})' if not death_year else f' ({birth_year}–{death_year})')
+        name = entry["name"]
+        birth_year = entry["birth_year"]
+        death_year = entry["death_year"]
+        display_name = name + (
+            f' ({strings["birth_abbr"]}. {birth_year})'
+            if not death_year
+            else f" ({birth_year}–{death_year})"
+        )
         additional_info = {}
 
         if cross_reference[id]:
-          additional_info[strings['see_also']] = cross_reference_markup(cross_reference[id], "../Books/")
+            additional_info[strings["see_also"]] = cross_reference_markup(
+                cross_reference[id], "../Books/"
+            )
 
         template += get_entry_markup(
-            id=f'A_{id}',
+            id=f"A_{id}",
             headword=name,
             display_name=display_name,
             abbr=entry["abbr"],
             description=entry["description"],
-            additional_info=additional_info
+            additional_info=additional_info,
         )
 
-    template += '''  </mbp:frameset>
+    template += """  </mbp:frameset>
 </body>
-</html>'''
+</html>"""
 
     return template

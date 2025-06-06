@@ -2,10 +2,12 @@ from collections import defaultdict
 
 from src.utils import normalize_character
 
+
 def get_books(conn):
     cur = conn.cursor()
 
-    cur.execute('''
+    cur.execute(
+        """
         SELECT 
             b.id, 
             b.title, 
@@ -22,7 +24,8 @@ def get_books(conn):
         LEFT JOIN sagas s ON b.saga_id = s.id
         WHERE c.id = 14
         ORDER BY b.title;
-    ''')
+    """
+    )
 
     books = []
     for row in cur.fetchall():
@@ -30,20 +33,22 @@ def get_books(conn):
 
     return books
 
+
 def get_books_by_letter(conn):
     books = get_books(conn)
     books_by_letter = defaultdict(list)
 
     for book in books:
-        title = book['title']
+        title = book["title"]
         firstLetter = normalize_character(title[0])
-        
+
         if firstLetter.isalpha():
             books_by_letter[firstLetter].append(book)
         else:
-            books_by_letter['B_Other'].append(book)
+            books_by_letter["B_Other"].append(book)
 
     return books_by_letter
+
 
 def build_book_cross_references(conn):
     books = get_books(conn)
@@ -70,22 +75,26 @@ def build_book_cross_references(conn):
         related = []
 
         if book["saga_id"]:
-            same_saga = sorted(by_saga.get(book["saga_id"], []), key=lambda b: b["publication_year"] or 0)
+            same_saga = sorted(
+                by_saga.get(book["saga_id"], []),
+                key=lambda b: b["publication_year"] or 0,
+            )
             related = [b for b in same_saga if b["id"] != book_id]
 
         if not related:
-            same_author = sorted(by_author.get(book["author_id"], []), key=lambda b: b["publication_year"] or 0)
+            same_author = sorted(
+                by_author.get(book["author_id"], []),
+                key=lambda b: b["publication_year"] or 0,
+            )
             related = [b for b in same_author if b["id"] != book_id]
 
         related_links = []
         for b in related:
             title, filename = book_reference_data.get(b["id"], (None, None))
             if title and filename:
-                related_links.append({
-                    "id": b["id"],
-                    "value": title,
-                    "link": f"B_{filename}#B_{b['id']}"
-                })
+                related_links.append(
+                    {"id": b["id"], "value": title, "link": f"B_{filename}#B_{b['id']}"}
+                )
 
         cross_references[book_id] = related_links
 

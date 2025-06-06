@@ -1,8 +1,12 @@
-from src.modules.cross_reference_module import get_author_cr_link, cross_reference_markup
+from src.modules.cross_reference_module import (
+    get_author_cr_link,
+    cross_reference_markup,
+)
 from src.modules.entries_module import get_entry_markup
 
+
 def get_sagas_page(lang, title, sagas, strings, cross_reference):
-    template = f'''<?xml version="1.0" encoding="utf-8"?>
+    template = f"""<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html
@@ -27,30 +31,34 @@ def get_sagas_page(lang, title, sagas, strings, cross_reference):
 </head>
 
 <body>
-  <mbp:frameset>\n'''
+  <mbp:frameset>\n"""
 
     for entry in sagas:
         id = entry["id"]
-        name = entry['name']
-        author = entry['author']
-        author_id = entry['author_id']
+        name = entry["name"]
+        author = entry["author"]
+        author_id = entry["author_id"]
         additional_info = {}
 
         if cross_reference[id]:
-          additional_info[strings['see_also']] = cross_reference_markup(cross_reference[id], "../Books/")
+            additional_info[strings["see_also"]] = cross_reference_markup(
+                cross_reference[id], "../Books/"
+            )
 
-        additional_info[strings["author"]] = f'<a href="{get_author_cr_link(author, author_id)}">{author}</a>'
+        additional_info[strings["author"]] = (
+            f'<a href="{get_author_cr_link(author, author_id)}">{author}</a>'
+        )
 
         template += get_entry_markup(
-            id=f'S_{id}',
+            id=f"S_{id}",
             headword=name,
             abbr=entry["abbr"],
             description=entry["description"],
-            additional_info=additional_info
+            additional_info=additional_info,
         )
 
-    template += '''  </mbp:frameset>
+    template += """  </mbp:frameset>
 </body>
-</html>'''
+</html>"""
 
     return template

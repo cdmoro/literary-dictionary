@@ -2,14 +2,18 @@ from collections import defaultdict
 
 from src.utils import normalize_character
 
+
 def get_author_cr_link(name: str, id: int):
-    return get_cross_reference_link(name, id, prefix='A', folder='Authors')
+    return get_cross_reference_link(name, id, prefix="A", folder="Authors")
+
 
 def get_saga_cr_link(name: str, id: int):
-    return get_cross_reference_link(name, id, prefix='S', folder='Sagas')
+    return get_cross_reference_link(name, id, prefix="S", folder="Sagas")
+
 
 def get_book_cr_link(name: str, id: int):
-    return get_cross_reference_link(name, id, prefix='B', folder='Books')
+    return get_cross_reference_link(name, id, prefix="B", folder="Books")
+
 
 def get_cross_reference_link(name: str, id: int, prefix: str, folder: str) -> str:
     if not name:
@@ -22,19 +26,23 @@ def get_cross_reference_link(name: str, id: int, prefix: str, folder: str) -> st
 
     return f"../{path}#{anchor}"
 
-def cross_reference_markup(cross_reference, prefix = "./"):
+
+def cross_reference_markup(cross_reference, prefix="./"):
     cr_links = []
 
     for ref in cross_reference:
         cr_links.append(f'<a href="{prefix}{ref["link"]}">{ref["value"]}</a>')
 
-    return ', '.join(cr_links)
+    return ", ".join(cr_links)
+
 
 def build_cross_references(entries):
     cross_reference_data = {}
     for entry in entries:
         if "id" in entry and "headword" in entry:
-            filename = f'{normalize_character(entry['headword'].strip()[0].upper())}.xhtml'
+            filename = (
+                f"{normalize_character(entry['headword'].strip()[0].upper())}.xhtml"
+            )
             cross_reference_data[entry["id"]] = (entry["headword"], filename)
 
     # Group entries
@@ -82,13 +90,17 @@ def build_cross_references(entries):
         # Build links
         related_links = []
         for e in related_filtered:
-            target_headword, target_file = cross_reference_data.get(e["id"], (None, None))
+            target_headword, target_file = cross_reference_data.get(
+                e["id"], (None, None)
+            )
             if target_headword and target_file:
-                related_links.append({
-                    "id": e["id"],
-                    "value": target_headword,
-                    "link": f"D_{target_file}#D_{e['id']}"
-                })
+                related_links.append(
+                    {
+                        "id": e["id"],
+                        "value": target_headword,
+                        "link": f"D_{target_file}#D_{e['id']}",
+                    }
+                )
 
         cross_references[entry_id] = related_links
 

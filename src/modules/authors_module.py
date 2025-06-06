@@ -2,10 +2,12 @@ from collections import defaultdict
 
 from src.utils import normalize_character
 
+
 def get_authors(conn):
     cur = conn.cursor()
 
-    cur.execute('''
+    cur.execute(
+        """
         SELECT 
             a.id, 
             a.name, 
@@ -17,7 +19,8 @@ def get_authors(conn):
         CROSS JOIN categories c
         WHERE c.id = 13
         ORDER BY a.name
-    ''')
+    """
+    )
 
     authors = []
     for row in cur.fetchall():
@@ -25,26 +28,29 @@ def get_authors(conn):
 
     return authors
 
+
 def get_authors_by_letter(conn):
     cur = conn.cursor()
     authors = get_authors(conn)
     authors_by_letter = defaultdict(list)
 
     for author in authors:
-        name = author['name']
+        name = author["name"]
         first_letter = normalize_character(name[0])
-        
+
         if first_letter.isalpha():
             authors_by_letter[first_letter].append(author)
         else:
-            authors_by_letter['A_Other'].append(author)
+            authors_by_letter["A_Other"].append(author)
 
     return authors_by_letter
 
+
 def build_author_cross_references(conn, max_books_per_author=6):
     cur = conn.cursor()
-    
-    cur.execute(f'''
+
+    cur.execute(
+        f"""
         SELECT 
             a.id AS author_id,
             a.name AS author_name,
@@ -57,7 +63,8 @@ def build_author_cross_references(conn, max_books_per_author=6):
         FROM authors a
         JOIN books b ON b.author_id = a.id
         ORDER BY a.id, b.publication_year
-    ''')
+    """
+    )
 
     rows = cur.fetchall()
 
@@ -75,12 +82,14 @@ def build_author_cross_references(conn, max_books_per_author=6):
         anchor = f"B_{book_id}"
         link = f"{filename}#{anchor}"
 
-        authors_cross_references[author_id].append({
-            "book_id": book_id,
-            "value": title,
-            "publication_year": row["publication_year"],
-            "link": link,
-            "author_name": row["author_name"]
-        })
+        authors_cross_references[author_id].append(
+            {
+                "book_id": book_id,
+                "value": title,
+                "publication_year": row["publication_year"],
+                "link": link,
+                "author_name": row["author_name"],
+            }
+        )
 
     return authors_cross_references

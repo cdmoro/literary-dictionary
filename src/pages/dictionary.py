@@ -1,10 +1,16 @@
-from src.modules.cross_reference_module import get_author_cr_link, get_saga_cr_link, get_book_cr_link, cross_reference_markup
+from src.modules.cross_reference_module import (
+    get_author_cr_link,
+    get_saga_cr_link,
+    get_book_cr_link,
+    cross_reference_markup,
+)
 from src.modules.entries_module import get_entry_markup
+
 
 def get_dictionary_page(lang, letter, group, strings, cross_reference):
     title = letter if letter != "Other" else strings["other_title"]
 
-    template = f'''<?xml version="1.0" encoding="utf-8"?>
+    template = f"""<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html
@@ -29,21 +35,21 @@ def get_dictionary_page(lang, letter, group, strings, cross_reference):
 </head>
 
 <body>
-  <mbp:frameset>\n'''
+  <mbp:frameset>\n"""
 
     for entry in group:
         id = entry["id"]
-        author = entry.get('author')
-        author_id = entry.get('author_id')
-        book = entry.get('book')
-        book_id = entry.get('book_id')
-        saga = entry.get('saga')
-        saga_id = entry.get('saga_id')
-        
+        author = entry.get("author")
+        author_id = entry.get("author_id")
+        book = entry.get("book")
+        book_id = entry.get("book_id")
+        saga = entry.get("saga")
+        saga_id = entry.get("saga_id")
+
         origin_placeholders = {
-            'book': f'<a href="{get_book_cr_link(book, book_id)}">{entry.get('book')}</a>',
-            'saga': f'<a href="{get_saga_cr_link(saga, saga_id)}">{entry.get('saga')}</a>',
-            'author':  f'<a href="{get_author_cr_link(author, author_id)}">{entry.get('author')}</a>',
+            "book": f'<a href="{get_book_cr_link(book, book_id)}">{entry.get('book')}</a>',
+            "saga": f'<a href="{get_saga_cr_link(saga, saga_id)}">{entry.get('saga')}</a>',
+            "author": f'<a href="{get_author_cr_link(author, author_id)}">{entry.get('author')}</a>',
         }
 
         origin = strings["origin_author"]
@@ -55,25 +61,25 @@ def get_dictionary_page(lang, letter, group, strings, cross_reference):
         elif saga:
             origin = strings["origin_saga"]
 
-        additional_info = {
-            strings["origin"]: origin.format(**origin_placeholders)
-        }
+        additional_info = {strings["origin"]: origin.format(**origin_placeholders)}
 
         if cross_reference[id]:
-          additional_info[strings['see_also']] = cross_reference_markup(cross_reference[id])
+            additional_info[strings["see_also"]] = cross_reference_markup(
+                cross_reference[id]
+            )
 
         template += get_entry_markup(
-            id=f'D_{id}',
-            headword=entry['headword'],
+            id=f"D_{id}",
+            headword=entry["headword"],
             # display_name=entry['display_value'],
-            aliases=entry['alias'],
+            aliases=entry["alias"],
             abbr=entry["category"],
             description=entry["description"],
-            additional_info=additional_info
+            additional_info=additional_info,
         )
 
-    template += '''  </mbp:frameset>
+    template += """  </mbp:frameset>
 </body>
-</html>'''
+</html>"""
 
     return template

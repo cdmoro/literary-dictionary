@@ -1,5 +1,5 @@
 def get_contents_page(lang, strings):
-    return f'''<?xml version="1.0" encoding="utf-8"?>
+    return f"""<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{lang}">
@@ -20,4 +20,4 @@ def get_contents_page(lang, strings):
     <div><a href="Authors.xhtml">{strings["authors"]}</a></div>
 </body>
 </html>
-'''
+"""

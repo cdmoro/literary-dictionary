@@ -3,23 +3,31 @@ import os
 
 load_dotenv()
 
+
 def get_copyright_page(strings, entries):
     total_entries = len(entries)
-    authors = {p['author'] for p in entries if p.get('author')}
-    sagas = {p['saga'] for p in entries if p.get('saga')}
-    books = {p['book'] for p in entries if p.get('book')}
+    authors = {p["author"] for p in entries if p.get("author")}
+    sagas = {p["saga"] for p in entries if p.get("saga")}
+    books = {p["book"] for p in entries if p.get("book")}
 
     data = {
         "lang": strings["lang"].lower(),
         "title": strings["about"],
         "book_title": strings["title"],
         "edition": strings["edition"],
-        "copyright_desc": strings["copyright_desc"].format(authors=len(authors), entries=total_entries, books=len(books), sagas=len(sagas)),
+        "copyright_desc": strings["copyright_desc"].format(
+            authors=len(authors),
+            entries=total_entries,
+            books=len(books),
+            sagas=len(sagas),
+        ),
         "license": strings["license"],
         "project": strings["project"],
         "contact": strings["contact"],
         "copyright": strings["copyright"],
-        "version": strings["copyright_version"].format(version=os.getenv("DICT_VERSION")),
+        "version": strings["copyright_version"].format(
+            version=os.getenv("DICT_VERSION")
+        ),
         "entries": total_entries,
         "authors": len(authors),
         "sagas": len(sagas),

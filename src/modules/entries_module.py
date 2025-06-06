@@ -1,7 +1,8 @@
 def get_entries(conn):
     cur = conn.cursor()
 
-    cur.execute("""
+    cur.execute(
+        """
         SELECT
         e.id,
         e.headword,
@@ -23,7 +24,8 @@ def get_entries(conn):
         LEFT JOIN books b   ON e.book_id = b.id
         LEFT JOIN categories c ON e.category_id = c.id
         ORDER BY e.headword COLLATE NOCASE
-    """)
+    """
+    )
 
     entries = []
     for row in cur.fetchall():
@@ -31,35 +33,38 @@ def get_entries(conn):
 
     return entries
 
-def get_entry_markup(id, headword, abbr, description, additional_info, display_name = None, aliases = None):
+
+def get_entry_markup(
+    id, headword, abbr, description, additional_info, display_name=None, aliases=None
+):
     display_name = display_name or headword
 
-    template = f'''    <idx:entry name="default" scriptable="yes" spell="yes" id="{id}">
+    template = f"""    <idx:entry name="default" scriptable="yes" spell="yes" id="{id}">
       <a id="{id}"></a>
 
       <dt>
-        <idx:orth value="{headword}">{display_name}</idx:orth>\n'''
-    
+        <idx:orth value="{headword}">{display_name}</idx:orth>\n"""
+
     # Alias
     if aliases:
-        for alias in aliases.split(';'):
+        for alias in aliases.split(";"):
             template += f'        <idx:orth value="{alias}" />\n'
 
-    template += '      </dt>\n\n'
+    template += "      </dt>\n\n"
 
     # Definition
-    template += '      <dd>\n'
-    template += f'''        <div><em>{abbr}.</em> {description}</div>'''
+    template += "      <dd>\n"
+    template += f"""        <div><em>{abbr}.</em> {description}</div>"""
 
     for title, desc in additional_info.items():
         if len(desc) > 0:
-            template += f'''\n        <div>
+            template += f"""\n        <div>
           <strong>{title}:</strong> {desc}
-        </div>'''
+        </div>"""
 
-    template += '''\n      </dd>
+    template += """\n      </dd>
     </idx:entry>
         
-    <hr/>\n\n'''
+    <hr/>\n\n"""
 
     return template

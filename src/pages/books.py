@@ -1,8 +1,13 @@
-from src.modules.cross_reference_module import get_author_cr_link, get_saga_cr_link, cross_reference_markup
+from src.modules.cross_reference_module import (
+    get_author_cr_link,
+    get_saga_cr_link,
+    cross_reference_markup,
+)
 from src.modules.entries_module import get_entry_markup
 
+
 def get_books_page(lang, title, books, strings, cross_reference):
-    template = f'''<?xml version="1.0" encoding="utf-8"?>
+    template = f"""<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html
@@ -27,36 +32,42 @@ def get_books_page(lang, title, books, strings, cross_reference):
 </head>
 
 <body>
-  <mbp:frameset>\n'''
+  <mbp:frameset>\n"""
 
     for entry in books:
         id = entry["id"]
-        title = entry['title']
-        saga = entry['saga']
-        saga_id = entry['saga_id']
-        author = entry['author']
-        author_id = entry['author_id']
+        title = entry["title"]
+        saga = entry["saga"]
+        saga_id = entry["saga_id"]
+        author = entry["author"]
+        author_id = entry["author_id"]
         additional_info = {}
 
         if saga_id:
-          additional_info[strings["saga"]] = f'<a href="{get_saga_cr_link(saga, saga_id)}"><em>{saga}</em></a>'
+            additional_info[strings["saga"]] = (
+                f'<a href="{get_saga_cr_link(saga, saga_id)}"><em>{saga}</em></a>'
+            )
 
         if cross_reference[id]:
-          additional_info[strings['see_also']] = cross_reference_markup(cross_reference[id])
+            additional_info[strings["see_also"]] = cross_reference_markup(
+                cross_reference[id]
+            )
 
-        additional_info[strings["author"]] = f'<a href="{get_author_cr_link(author, author_id)}">{author}</a>'
-
-        template += get_entry_markup(
-            id=f'B_{id}',
-            headword=title,
-            display_name=f'{title} ({entry['publication_year']})',
-            abbr=entry["abbr"],
-            description=entry["description"],
-            additional_info=additional_info
+        additional_info[strings["author"]] = (
+            f'<a href="{get_author_cr_link(author, author_id)}">{author}</a>'
         )
 
-    template += '''  </mbp:frameset>
+        template += get_entry_markup(
+            id=f"B_{id}",
+            headword=title,
+            display_name=f"{title} ({entry['publication_year']})",
+            abbr=entry["abbr"],
+            description=entry["description"],
+            additional_info=additional_info,
+        )
+
+    template += """  </mbp:frameset>
 </body>
-</html>'''
+</html>"""
 
     return template

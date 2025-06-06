@@ -39,7 +39,11 @@ for lang in os.listdir(ROOT_DIR):
             for section in data:
                 if isinstance(data[section], list):
                     for item in data[section]:
-                        if isinstance(item, dict) and "id" in item and "headword" in item:
+                        if (
+                            isinstance(item, dict)
+                            and "id" in item
+                            and "headword" in item
+                        ):
                             entries[item["id"]][lang] = item["headword"]
 
 # If an ID is passed as argument, show only that entry

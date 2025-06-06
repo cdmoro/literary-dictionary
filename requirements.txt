@@ -7,3 +7,4 @@ fuzzywuzzy==0.18.0
 petname
 pyperclip
 pre-commit
+black
