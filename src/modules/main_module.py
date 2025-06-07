@@ -210,12 +210,12 @@ def generate_dictionary(conn, lang, strings):
     )
 
     print(f"✅ Diccionary files created successfully")
-    create_epub(lang, strings)
+    create_epub(lang, strings["file_name"])
 
 
-def create_epub(lang, strings):
+def create_epub(lang, file_name):
     output_folder = f"output/dictionary_files_{lang}"
-    epub_path = f'output/{strings["file_name"].format(ebook_author=os.getenv("AUTHOR"), lang=lang.upper(), version=os.getenv('DICT_VERSION'))}.epub'
+    epub_path = f'output/{file_name.format(ebook_author=os.getenv("AUTHOR"), lang=lang.upper(), version=os.getenv('DICT_VERSION'))}.epub'
     mimetype_path = os.path.join(output_folder, "mimetype")
     with open(mimetype_path, "w", encoding="utf-8") as f:
         f.write("application/epub+zip")

@@ -34,9 +34,9 @@ def get_ncx_page(lang, pages_by_section, strings):
 
     for pid, label, src in pages:
         nav_point = ET.SubElement(navMap, "navPoint", id=pid, playOrder=str(play_order))
-        text = ET.Element("text")
-        text.text = label
-        ET.SubElement(nav_point, "navLabel").append(text)
+        textEl = ET.Element("text")
+        textEl.text = label
+        ET.SubElement(nav_point, "navLabel").append(textEl)
         ET.SubElement(nav_point, "content", src=src)
         play_order += 1
 
@@ -44,9 +44,9 @@ def get_ncx_page(lang, pages_by_section, strings):
         section_point = ET.SubElement(
             navMap, "navPoint", id=section[0].upper(), playOrder=str(play_order)
         )
-        text = ET.Element("text")
-        text.text = section
-        ET.SubElement(section_point, "navLabel").append(text)
+        textEl = ET.Element("text")
+        textEl.text = strings[section.lower()]
+        ET.SubElement(section_point, "navLabel").append(textEl)
         ET.SubElement(section_point, "content", src=f"{section}.xhtml")
         play_order += 1
 
@@ -56,9 +56,9 @@ def get_ncx_page(lang, pages_by_section, strings):
             nav_point = ET.SubElement(
                 section_point, "navPoint", id=entry_id, playOrder=str(play_order)
             )
-            text = ET.Element("text")
-            text.text = file.split("_")[1]
-            ET.SubElement(nav_point, "navLabel").append(text)
+            textEl = ET.Element("text")
+            textEl.text = file.split("_")[1]
+            ET.SubElement(nav_point, "navLabel").append(textEl)
             ET.SubElement(nav_point, "content", src=f"{section}/{file}.xhtml")
             play_order += 1
 

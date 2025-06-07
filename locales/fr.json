@@ -11,7 +11,7 @@
     "copyright_desc": "Ce dictionnaire rassemble des personnages, des concepts et des objets issus de la littérature mondiale, dans plusieurs langues. Il s’agit d’un projet libre et en constante évolution, créé pour les lecteurs curieux.",
     "copyright_version": "Version {version}",
     "cover": "Couverture",
-    "definitions": "Dictionnaire",
+    "dictionary": "Dictionnaire",
     "edition": "Édition française",
     "entries": "Entrées",
     "file_name": "{ebook_author} - Dictionnaire Littéraire [{lang}] (v{version})",

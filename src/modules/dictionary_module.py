@@ -130,7 +130,7 @@ def create_dictionary_files(output_folder, lang, strings, conn):
     with open(
         os.path.join(output_folder, "Dictionary.xhtml"), "w", encoding="utf-8"
     ) as f:
-        f.write(get_section_page(lang, strings["definitions"]))
+        f.write(get_section_page(lang, strings["dictionary"]))
 
     with open(
         os.path.join(output_folder, "Dictionary_TOC.xhtml"), "w", encoding="utf-8"
@@ -138,7 +138,7 @@ def create_dictionary_files(output_folder, lang, strings, conn):
         f.write(
             get_section_toc(
                 lang,
-                strings["definitions"],
+                strings["dictionary"],
                 entries_by_letter,
                 strings,
                 prefix="D",

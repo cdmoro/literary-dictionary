@@ -14,7 +14,7 @@ def get_toc_page(lang, strings):
     <div><a href="Copyright.xhtml">{strings["about"]}</a></div>
     <div><a href="TOC.xhtml">{strings["contents"]}</a></div>
     <div><a href="Abbreviations.xhtml">{strings["abbr_guide"]}</a></div>
-    <div><a href="Dictionary.xhtml">{strings["definitions"]}</a></div>
+    <div><a href="Dictionary.xhtml">{strings["dictionary"]}</a></div>
     <div><a href="Books.xhtml">{strings["books"]}</a></div>
     <div><a href="Sagas.xhtml">{strings["sagas"]}</a></div>
     <div><a href="Authors.xhtml">{strings["authors"]}</a></div>

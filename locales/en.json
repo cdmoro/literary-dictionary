@@ -11,7 +11,7 @@
     "copyright_desc": "This dictionary brings together characters, concepts, and objects from world literature in multiple languages. It is a free and evolving project created for curious readers.",
     "copyright_version": "Version {version}",
     "cover": "Cover",
-    "definitions": "Dictionary",
+    "dictionary": "Dictionary",
     "edition": "English edition",
     "entries": "Entries",
     "file_name": "{ebook_author} - Literary Dictionary [{lang}] (v{version})",
