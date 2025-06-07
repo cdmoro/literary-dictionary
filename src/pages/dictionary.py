@@ -1,7 +1,9 @@
-from src.modules.cross_reference_module import (cross_reference_markup,
-                                                get_author_cr_link,
-                                                get_book_cr_link,
-                                                get_saga_cr_link)
+from src.modules.cross_reference_module import (
+    cross_reference_markup,
+    get_author_cr_link,
+    get_book_cr_link,
+    get_saga_cr_link,
+)
 from src.modules.entries_module import get_entry_markup
 
 
@@ -37,29 +39,32 @@ def get_dictionary_page(lang, letter, group, strings, cross_reference):
 
     for entry in group:
         id = entry["id"]
-        author = entry["author"]
-        author_id = entry["author_id"]
+        author = entry.get("author")
+        author_id = entry.get("author_id")
         book = entry.get("book")
         book_id = entry.get("book_id")
         saga = entry.get("saga")
         saga_id = entry.get("saga_id")
 
-        origin_placeholders = {
-            "book": f'<a href="{get_book_cr_link(book, book_id)}">{book}</a>',
-            "saga": f'<a href="{get_saga_cr_link(saga, saga_id)}">{saga}</a>',
-            "author": f'<a href="{get_author_cr_link(author, author_id)}">{author}</a>',
-        }
+        additional_info = {}
 
-        origin = strings["origin_author"]
+        if author:
+            origin_placeholders = {
+                "book": f'<a href="{get_book_cr_link(book, book_id)}">{book}</a>',
+                "saga": f'<a href="{get_saga_cr_link(saga, saga_id)}">{saga}</a>',
+                "author": f'<a href="{get_author_cr_link(author, author_id)}">{author}</a>',
+            }
 
-        if book and saga:
-            origin = strings["origin_book_saga"]
-        elif book:
-            origin = strings["origin_book"]
-        elif saga:
-            origin = strings["origin_saga"]
+            origin = strings["origin_author"]
 
-        additional_info = {strings["origin"]: origin.format(**origin_placeholders)}
+            if book and saga:
+                origin = strings["origin_book_saga"]
+            elif book:
+                origin = strings["origin_book"]
+            elif saga:
+                origin = strings["origin_saga"]
+
+            additional_info[strings["origin"]] = origin.format(**origin_placeholders)
 
         if cross_reference[id]:
             additional_info[strings["see_also"]] = cross_reference_markup(
@@ -69,7 +74,7 @@ def get_dictionary_page(lang, letter, group, strings, cross_reference):
         template += get_entry_markup(
             id=f"D_{id}",
             name=entry["name"],
-            display_name=entry.get('display_name'),
+            display_name=entry.get("display_name"),
             aliases=entry["alias"],
             abbr=entry["category"],
             description=entry["description"],

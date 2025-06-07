@@ -8,25 +8,25 @@ def get_entries(conn):
     cur.execute(
         """
         SELECT
-        e.id,
-        e.name,
-        e.display_name,
-        e.alias,
-        e.description,
-        a.id           AS author_id,
-        a.name         AS author,
-        s.id           AS saga_id,
-        s.name         AS saga,
-        b.id           AS book_id,
-        b.name        AS book,
-        c.abbr         AS category,
-        c.id           AS category_id,
-        e.draft
+            e.id,
+            e.name,
+            e.display_name,
+            e.alias,
+            e.description,
+            a.id           AS author_id,
+            a.name         AS author,
+            s.id           AS saga_id,
+            s.name         AS saga,
+            b.id           AS book_id,
+            b.name         AS book,
+            c.abbr         AS category,
+            c.id           AS category_id
         FROM entries e
         LEFT JOIN authors a ON e.author_id = a.id
         LEFT JOIN sagas s   ON e.saga_id = s.id
         LEFT JOIN books b   ON e.book_id = b.id
         LEFT JOIN categories c ON e.category_id = c.id
+        WHERE e.draft = 0
         ORDER BY e.name COLLATE NOCASE
     """
     )

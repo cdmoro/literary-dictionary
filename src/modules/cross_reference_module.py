@@ -49,8 +49,6 @@ def build_cross_references(entries):
     by_author = defaultdict(list)
 
     for entry in entries:
-        if entry["draft"]:
-            continue
         category_id = entry["category_id"]
         if entry["saga_id"]:
             key = (category_id, entry["saga_id"])
@@ -65,9 +63,6 @@ def build_cross_references(entries):
     cross_references = {}
 
     for entry in entries:
-        if entry["draft"]:
-            continue
-
         entry_id = entry["id"]
         category_id = entry["category_id"]
         related = []

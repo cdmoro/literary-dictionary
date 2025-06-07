@@ -8,7 +8,7 @@ from pathlib import Path
 import yaml
 
 CHECK_FIELDS = {
-    "entries": ["saga_id", "author_id", "category_id", "book_id"],
+    "entries": ["saga_id", "author_id", "category_id", "book_id", "draft"],
     "books": ["author_id", "saga_id", "publication_year"],
     "authors": ["birth_year", "death_year"],
     "sagas": ["author_id"],
@@ -29,7 +29,7 @@ def load_data():
     for filepath in glob.glob("dictionary/dictionary.*.db"):
         lang = extract_lang_from_filename(filepath)
         if lang in IGNORE_LANGS:
-            print(f"⚠️  Skipping language: {lang}")
+            print(f"Skipping language: {lang}")
             continue
         conn = sqlite3.connect(filepath)
         cursor = conn.cursor()
@@ -40,8 +40,7 @@ def load_data():
             )
             for row in cursor.fetchall():
                 global_id, *fields = row
-                data[table][global_id][lang] = dict(
-                    zip(CHECK_FIELDS[table], fields))
+                data[table][global_id][lang] = dict(zip(CHECK_FIELDS[table], fields))
 
         cursor.execute("SELECT global_id FROM categories")
         categories_by_lang[lang] = set(row[0] for row in cursor.fetchall())
@@ -57,8 +56,7 @@ def find_conflicts(data):
         for global_id, lang_map in entries.items():
             values_list = list(lang_map.values())
             if not all(v == values_list[0] for v in values_list):
-                conflicts[table].append(
-                    {"id": global_id, "conflicts": lang_map})
+                conflicts[table].append({"id": global_id, "conflicts": lang_map})
     return conflicts
 
 
@@ -105,19 +103,49 @@ def check_categories_consistency(categories_by_lang):
     return issues
 
 
+def to_dict_clean(value):
+    """Recursively convert defaultdicts to dicts and clean empty values."""
+    if isinstance(value, defaultdict):
+        value = dict(value)
+    if isinstance(value, dict):
+        return {k: to_dict_clean(v) for k, v in value.items() if v}
+    elif isinstance(value, list):
+        return [to_dict_clean(v) for v in value if v != ""]
+    return value
+
+
 def write_report(conflicts, missing, categories_issues):
     report_data = {}
+
     if any(conflicts.values()):
-        report_data["conflicts"] = conflicts
+        # Clean up conflicts to keep only useful data
+        cleaned_conflicts = {}
+        for table, rows in conflicts.items():
+            if not rows:
+                continue
+            cleaned_conflicts[table] = []
+            for entry in rows:
+                entry_id = entry["id"]
+                cleaned_lang_map = {
+                    lang: val for lang, val in entry["conflicts"].items() if val
+                }
+                cleaned_conflicts[table].append(
+                    {"id": entry_id, "conflicts": cleaned_lang_map}
+                )
+        report_data["conflicts"] = cleaned_conflicts
+
     if any(missing[table] for table in missing):
-        report_data["missing_global_ids"] = missing
+        report_data["missing_global_ids"] = to_dict_clean(missing)
+
     if categories_issues:
-        report_data["categories_consistency_issues"] = categories_issues
+        report_data["categories_consistency_issues"] = to_dict_clean(categories_issues)
 
     if report_data:
         Path("reports").mkdir(exist_ok=True)
         with open("reports/report.yaml", "w", encoding="utf-8") as f:
-            yaml.dump(report_data, f, allow_unicode=True, sort_keys=False)
+            yaml.dump(
+                to_dict_clean(report_data), f, allow_unicode=True, sort_keys=False
+            )
         print("Inconsistencies found. Report saved to reports/report.yaml")
         return True
     else:
@@ -136,6 +164,11 @@ def main():
     args = parser.parse_args()
 
     data, categories_by_lang = load_data()
+
+    if len(categories_by_lang) == 1:
+        print("Only one database found. Skipping checks.")
+        return
+
     langs = list(categories_by_lang.keys())
 
     conflicts = find_conflicts(data)
@@ -146,7 +179,7 @@ def main():
 
     if args.precommit and has_issues:
         answer = input(
-            "⚠ Conflicts detected. Do you want to continue with commit? [y/N]: "
+            "Conflicts detected. Do you want to continue with commit? [y/N]: "
         ).lower()
         if answer != "y":
             print("Commit aborted.")
