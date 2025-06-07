@@ -71,7 +71,7 @@ def generate_dictionary(conn, lang, strings):
     with open(
         os.path.join(meta_inf_folder, "container.xml"), "w", encoding="utf-8"
     ) as f:
-        f.write(get_container_page("content.opf"))
+        f.write(get_container_page())
 
     for file, content in common_files.items():
         with open(os.path.join(output_folder, file), "w", encoding="utf-8") as f:
@@ -167,7 +167,7 @@ def generate_dictionary(conn, lang, strings):
 
         f.write('  <spine toc="ncx">\n')
 
-        for id, href in spine.items():
+        for id in spine.keys():
             f.write(f'    <itemref idref="{id}"/>\n')
 
         f.write('    <itemref idref="dictionary"/>\n')

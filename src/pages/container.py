@@ -1,8 +1,8 @@
-def get_container_page(opfpath):
+def get_container_page():
     return f"""<?xml version="1.0" encoding="UTF-8"?>
 <container version="1.0"
   xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
   <rootfiles>
-    <rootfile full-path="{opfpath}" media-type="application/oebps-package+xml"/>
+    <rootfile full-path="content.opf" media-type="application/oebps-package+xml"/>
   </rootfiles>
 </container>"""
