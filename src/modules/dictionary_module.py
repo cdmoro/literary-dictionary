@@ -1,96 +1,130 @@
 import os
-import shutil
-import zipfile
-
-from dotenv import load_dotenv
-
-from src.modules.authors_module import (
-    build_author_book_cross_references,
-    build_author_saga_cross_references,
-    get_authors_by_letter,
-)
-from src.modules.books_module import build_book_cross_references, get_books_by_letter
-from src.modules.cross_reference_module import build_cross_references
-from src.modules.entries_module import get_entries, get_entries_by_letter
-from src.modules.sagas_module import build_saga_cross_references, get_sagas_by_letter
-from src.pages.abbreviations import get_abbreviation_page
-from src.pages.authors import get_authors_page
-from src.pages.books import get_books_page
-from src.pages.container import get_container_page
-from src.pages.contents import get_contents_page
-from src.pages.copyright import get_copyright_page
-from src.pages.cover import get_cover_page
+from collections import defaultdict
 from src.pages.dictionary import get_dictionary_page
-from src.pages.ncx import get_ncx_page
-from src.pages.sagas import get_sagas_page
+from src.utils import normalize_character
 from src.pages.section import get_section_page, get_section_toc
 
-load_dotenv()
 
-
-def generate_dictionary(conn, lang, strings):
-    print(f"\nGenerating dictionary ({lang.upper()})...")
-
+def get_entries(conn):
     cur = conn.cursor()
-    output_folder = f"output/dictionary_files_{lang}"
 
-    if os.path.exists(output_folder):
-        shutil.rmtree(output_folder)
-    os.makedirs(output_folder, exist_ok=True)
+    cur.execute(
+        """
+        SELECT
+            e.id,
+            e.name,
+            e.display_name,
+            e.alias,
+            e.description,
+            a.id           AS author_id,
+            a.name         AS author,
+            s.id           AS saga_id,
+            s.name         AS saga,
+            b.id           AS book_id,
+            b.name         AS book,
+            c.abbr         AS category,
+            c.id           AS category_id
+        FROM entries e
+        LEFT JOIN authors a ON e.author_id = a.id
+        LEFT JOIN sagas s   ON e.saga_id = s.id
+        LEFT JOIN books b   ON e.book_id = b.id
+        LEFT JOIN categories c ON e.category_id = c.id
+        WHERE e.draft = 0
+        ORDER BY e.name COLLATE NOCASE
+    """
+    )
 
-    meta_inf_folder = os.path.join(output_folder, "META-INF")
-    dictionary_folder = os.path.join(output_folder, "Dictionary")
-    authors_folder = os.path.join(output_folder, "Authors")
-    books_folder = os.path.join(output_folder, "Books")
-    sagas_folder = os.path.join(output_folder, "Sagas")
-    assets_folder = os.path.join(output_folder, "Assets")
-    styles_folder = os.path.join(output_folder, "Styles")
+    entries = []
+    for row in cur.fetchall():
+        entries.append(dict(row))
 
-    os.makedirs(meta_inf_folder)
-    os.makedirs(dictionary_folder)
-    os.makedirs(authors_folder)
-    os.makedirs(books_folder)
-    os.makedirs(sagas_folder)
-    os.makedirs(assets_folder)
-    os.makedirs(styles_folder)
+    return entries
 
+
+def get_entries_by_letter(entries):
+    entries_by_letter = defaultdict(list)
+
+    for entry in entries:
+        name = entry["name"]
+        firstLetter = normalize_character(name[0])
+        if firstLetter.isalpha():
+            entries_by_letter[firstLetter].append(entry)
+        else:
+            entries_by_letter["Other"].append(entry)
+
+    return entries_by_letter
+
+
+def build_cross_references(entries):
+    cross_reference_data = {}
+    for entry in entries:
+        if "id" in entry and "name" in entry:
+            filename = f"{normalize_character(entry['name'].strip()[0].upper())}.xhtml"
+            cross_reference_data[entry["id"]] = (entry["name"], filename)
+
+    # Group entries
+    by_saga = defaultdict(list)
+    by_book = defaultdict(list)
+    by_author = defaultdict(list)
+
+    for entry in entries:
+        category_id = entry["category_id"]
+        if entry["saga_id"]:
+            key = (category_id, entry["saga_id"])
+            by_saga[key].append(entry)
+        elif entry["book_id"]:
+            key = (category_id, entry["book_id"])
+            by_book[key].append(entry)
+        elif entry["author_id"]:
+            key = (category_id, entry["author_id"])
+            by_author[key].append(entry)
+
+    cross_references = {}
+
+    for entry in entries:
+        entry_id = entry["id"]
+        category_id = entry["category_id"]
+        related = []
+
+        if entry["saga_id"]:
+            key = (category_id, entry["saga_id"])
+            related = by_saga.get(key, [])
+        elif entry["book_id"]:
+            key = (category_id, entry["book_id"])
+            related = by_book.get(key, [])
+        elif entry["author_id"]:
+            key = (category_id, entry["author_id"])
+            related = by_author.get(key, [])
+
+        # Avoid self-reference
+        related_filtered = [e for e in related if e["id"] != entry_id]
+
+        # Build links
+        related_links = []
+        for e in related_filtered:
+            target_name, target_file = cross_reference_data.get(e["id"], (None, None))
+            if target_name and target_file:
+                related_links.append(
+                    {
+                        "id": e["id"],
+                        "name": target_name,
+                        "link": f"D_{target_file}#D_{e['id']}",
+                    }
+                )
+
+        cross_references[entry_id] = related_links
+
+    return cross_references
+
+
+def create_dictionary_files(output_folder, lang, strings, conn):
+    folder = os.path.join(output_folder, "Dictionary")
     entries = get_entries(conn)
     entries_by_letter = get_entries_by_letter(entries)
-    books_by_letter = get_books_by_letter(conn)
-    sagas_by_letter = get_sagas_by_letter(conn)
-    authors_by_letter = get_authors_by_letter(conn)
-
     cross_references = build_cross_references(entries)
-    books_cross_references = build_book_cross_references(conn)
-    sagas_cross_references = build_saga_cross_references(conn)
-    authors_book_cross_references = build_author_book_cross_references(conn)
-    authors_saga_cross_references = build_author_saga_cross_references(conn)
+    files = []
 
-    dictionary_xhtml_files = []
-    book_xhtml_files = []
-    sagas_xhtml_files = []
-    authors_xhtml_files = []
-
-    with open(
-        os.path.join(meta_inf_folder, "container.xml"), "w", encoding="utf-8"
-    ) as f:
-        f.write(get_container_page("content.opf"))
-
-    with open(os.path.join(output_folder, "Cover.xhtml"), "w", encoding="utf-8") as f:
-        f.write(get_cover_page(lang))
-
-    with open(
-        os.path.join(output_folder, "Copyright.xhtml"), "w", encoding="utf-8"
-    ) as f:
-        f.write(get_copyright_page(strings, entries))
-
-    with open(os.path.join(output_folder, "TOC.xhtml"), "w", encoding="utf-8") as f:
-        f.write(get_contents_page(lang, strings))
-
-    with open(
-        os.path.join(output_folder, "Abbreviations.xhtml"), "w", encoding="utf-8"
-    ) as f:
-        f.write(get_abbreviation_page(lang, cur, strings))
+    os.makedirs(folder)
 
     # Dictionary
     with open(
@@ -116,279 +150,11 @@ def generate_dictionary(conn, lang, strings):
         entries_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])
     ):
         filename = f"D_{letter}"
-        dictionary_xhtml_files.append(filename)
+        files.append(filename)
 
         with open(
-            os.path.join(dictionary_folder, f"{filename}.xhtml"), "w", encoding="utf-8"
+            os.path.join(folder, f"{filename}.xhtml"), "w", encoding="utf-8"
         ) as f:
             f.write(get_dictionary_page(lang, letter, group, strings, cross_references))
 
-    # Books
-    with open(os.path.join(output_folder, "Books.xhtml"), "w", encoding="utf-8") as f:
-        f.write(get_section_page(lang, strings["books"]))
-
-    with open(
-        os.path.join(output_folder, "Books_TOC.xhtml"), "w", encoding="utf-8"
-    ) as f:
-        f.write(
-            get_section_toc(
-                lang,
-                strings["books"],
-                books_by_letter,
-                strings,
-                prefix="B",
-                folder="Books",
-            )
-        )
-
-    for letter, group in sorted(
-        books_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])
-    ):
-        filename = f"B_{letter}"
-        book_xhtml_files.append(filename)
-
-        with open(
-            os.path.join(books_folder, f"{filename}.xhtml"), "w", encoding="utf-8"
-        ) as f:
-            f.write(
-                get_books_page(lang, letter, group, strings, books_cross_references)
-            )
-
-    # Sagas
-    with open(os.path.join(output_folder, "Sagas.xhtml"), "w", encoding="utf-8") as f:
-        f.write(get_section_page(lang, strings["sagas"]))
-
-    with open(
-        os.path.join(output_folder, "Sagas_TOC.xhtml"), "w", encoding="utf-8"
-    ) as f:
-        f.write(
-            get_section_toc(
-                lang,
-                strings["sagas"],
-                sagas_by_letter,
-                strings,
-                prefix="S",
-                folder="Sagas",
-            )
-        )
-
-    for letter, group in sorted(
-        sagas_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])
-    ):
-        filename = f"S_{letter}"
-        sagas_xhtml_files.append(filename)
-
-        with open(
-            os.path.join(sagas_folder, f"{filename}.xhtml"), "w", encoding="utf-8"
-        ) as f:
-            f.write(
-                get_sagas_page(lang, letter, group, strings, sagas_cross_references)
-            )
-
-    # Authors
-    with open(os.path.join(output_folder, "Authors.xhtml"), "w", encoding="utf-8") as f:
-        f.write(get_section_page(lang, strings["authors"]))
-
-    with open(
-        os.path.join(output_folder, "Authors_TOC.xhtml"), "w", encoding="utf-8"
-    ) as f:
-        f.write(
-            get_section_toc(
-                lang,
-                strings["authors"],
-                authors_by_letter,
-                strings,
-                prefix="A",
-                folder="Authors",
-            )
-        )
-
-    for letter, group in sorted(
-        authors_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])
-    ):
-        filename = f"A_{letter}"
-        authors_xhtml_files.append(filename)
-
-        with open(
-            os.path.join(authors_folder, f"{filename}.xhtml"), "w", encoding="utf-8"
-        ) as f:
-            f.write(
-                get_authors_page(
-                    lang,
-                    letter,
-                    group,
-                    strings,
-                    authors_book_cross_references,
-                    authors_saga_cross_references,
-                )
-            )
-
-    # NCX file
-    ncx_structure = {
-        "Dictionary": dictionary_xhtml_files,
-        "Books": book_xhtml_files,
-        "Authors": authors_xhtml_files,
-        "Sagas": sagas_xhtml_files,
-    }
-    with open(os.path.join(output_folder, "toc.ncx"), "w", encoding="utf-8") as f:
-        f.write(get_ncx_page(lang, ncx_structure, strings))
-
-    # OPF file
-    with open(os.path.join(output_folder, "content.opf"), "w", encoding="utf-8") as f:
-        f.write('<?xml version="1.0" encoding="utf-8"?>\n')
-        f.write(
-            f"""<package
-  version="2.0"
-  xmlns="http://www.idpf.org/2007/opf"
-  unique-identifier="BookId"
->\n"""
-        )
-        f.write(
-            '  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">\n'
-        )
-        f.write(f'    <dc:title>{strings["title"]} ({lang.upper()})</dc:title>\n')
-        f.write(f"    <dc:language>{lang}</dc:language>\n")
-        f.write(f"    <dc:creator>Carlos Bonadeo</dc:creator>\n")
-        f.write(
-            f'    <dc:identifier id="BookId" opf:scheme="UUID">urn:uuid:a46ba639-014f-44de-a6af-de509e96798d</dc:identifier>\n'
-        )
-        f.write("    <x-metadata>\n")
-        f.write(f"      <DictionaryInLanguage>{lang}</DictionaryInLanguage>\n")
-        f.write(f"      <DictionaryOutLanguage>{lang}</DictionaryOutLanguage>\n")
-        f.write("      <DefaultLookupIndex>headword</DefaultLookupIndex>\n")
-        f.write("    </x-metadata>\n")
-        f.write('    <meta name="cover" content="cover-image"/>\n')
-        f.write("  </metadata>\n")
-        f.write("  <manifest>\n")
-        f.write(
-            '    <item id="style" href="Styles/style.css" media-type="text/css"/>\n'
-        )
-        f.write(
-            '    <item id="cover-image" href="Assets/cover.jpg" media-type="image/jpeg"/>\n'
-        )
-        f.write(
-            '    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>\n'
-        )
-        f.write(
-            '    <item id="cover" href="Cover.xhtml" media-type="application/xhtml+xml"/>\n'
-        )
-        f.write(
-            '    <item id="copyright" href="Copyright.xhtml" media-type="application/xhtml+xml"/>\n'
-        )
-        f.write(
-            '    <item id="toc" href="TOC.xhtml" media-type="application/xhtml+xml"/>\n'
-        )
-        f.write(
-            '    <item id="abbreviations" href="Abbreviations.xhtml" media-type="application/xhtml+xml"/>\n'
-        )
-
-        f.write(
-            '    <item id="dictionary" href="Dictionary.xhtml" media-type="application/xhtml+xml"/>\n'
-        )
-        f.write(
-            '    <item id="dictionary-toc" href="Dictionary_TOC.xhtml" media-type="application/xhtml+xml"/>\n'
-        )
-        for filename in dictionary_xhtml_files:
-            f.write(
-                f'    <item id="{filename}" href="Dictionary/{filename}.xhtml" media-type="application/xhtml+xml"/>\n'
-            )
-
-        f.write(
-            '    <item id="books" href="Books.xhtml" media-type="application/xhtml+xml"/>\n'
-        )
-        f.write(
-            '    <item id="books-toc" href="Books_TOC.xhtml" media-type="application/xhtml+xml"/>\n'
-        )
-        for filename in book_xhtml_files:
-            f.write(
-                f'    <item id="{filename}" href="Books/{filename}.xhtml" media-type="application/xhtml+xml"/>\n'
-            )
-
-        f.write(
-            '    <item id="sagas" href="Sagas.xhtml" media-type="application/xhtml+xml"/>\n'
-        )
-        f.write(
-            '    <item id="sagas-toc" href="Sagas_TOC.xhtml" media-type="application/xhtml+xml"/>\n'
-        )
-        for filename in sagas_xhtml_files:
-            f.write(
-                f'    <item id="{filename}" href="Sagas/{filename}.xhtml" media-type="application/xhtml+xml"/>\n'
-            )
-
-        f.write(
-            '    <item id="authors" href="Authors.xhtml" media-type="application/xhtml+xml"/>\n'
-        )
-        f.write(
-            '    <item id="authors-toc" href="Authors_TOC.xhtml" media-type="application/xhtml+xml"/>\n'
-        )
-        for filename in authors_xhtml_files:
-            f.write(
-                f'    <item id="{filename}" href="Authors/{filename}.xhtml" media-type="application/xhtml+xml"/>\n'
-            )
-        f.write("  </manifest>\n")
-
-        f.write('  <spine toc="ncx">\n')
-        f.write('    <itemref idref="cover"/>\n')
-        f.write('    <itemref idref="copyright"/>\n')
-        f.write('    <itemref idref="toc"/>\n')
-        f.write('    <itemref idref="abbreviations"/>\n')
-
-        f.write('    <itemref idref="dictionary"/>\n')
-        f.write('    <itemref idref="dictionary-toc"/>\n')
-        for filename in dictionary_xhtml_files:
-            f.write(f'    <itemref idref="{filename}"/>\n')
-
-        f.write('    <itemref idref="books"/>\n')
-        f.write('    <itemref idref="books-toc"/>\n')
-        for filename in book_xhtml_files:
-            f.write(f'    <itemref idref="{filename}"/>\n')
-
-        f.write('    <itemref idref="sagas"/>\n')
-        f.write('    <itemref idref="sagas-toc"/>\n')
-        for filename in sagas_xhtml_files:
-            f.write(f'    <itemref idref="{filename}"/>\n')
-
-        f.write('    <itemref idref="authors"/>\n')
-        f.write('    <itemref idref="authors-toc"/>\n')
-        for filename in authors_xhtml_files:
-            f.write(f'    <itemref idref="{filename}"/>\n')
-
-        f.write("  </spine>\n")
-        f.write("  <guide>\n")
-        f.write('    <reference type="cover" title="Cover" href="Cover.xhtml"/>\n')
-        f.write(
-            '    <reference type="toc" title="Table of Contents" href="TOC.xhtml"/>\n'
-        )
-        f.write('    <reference type="text" title="Start" href="Copyright.xhtml"/>\n')
-        f.write("  </guide>\n")
-        f.write("</package>\n")
-
-    # Copy static files
-    shutil.copyfile("styles/style.css", os.path.join(styles_folder, "style.css"))
-    shutil.copyfile(
-        f"assets/cover_{lang}.jpg", os.path.join(assets_folder, "cover.jpg")
-    )
-
-    print(f"✅ Diccionary files created successfully")
-    crear_epub(lang, strings)
-
-
-def crear_epub(lang, strings):
-    output_folder = f"output/dictionary_files_{lang}"
-    epub_path = f'output/{strings["file_name"].format(lang=lang.upper(), version=os.getenv('DICT_VERSION'))}.epub'
-    mimetype_path = os.path.join(output_folder, "mimetype")
-    with open(mimetype_path, "w", encoding="utf-8") as f:
-        f.write("application/epub+zip")
-
-    with zipfile.ZipFile(epub_path, "w", compression=zipfile.ZIP_DEFLATED) as epub:
-        epub.write(mimetype_path, "mimetype", compress_type=zipfile.ZIP_STORED)
-
-        for root, _, files in os.walk(output_folder):
-            for file in files:
-                if file == "mimetype":
-                    continue
-                full_path = os.path.join(root, file)
-                arcname = os.path.relpath(full_path, output_folder)
-                epub.write(full_path, arcname)
-
-    print(f"✅ EPUB created successfully")
+    return files

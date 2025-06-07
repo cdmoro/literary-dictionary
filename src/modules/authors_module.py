@@ -1,6 +1,9 @@
+import os
 from collections import defaultdict
 
+from src.pages.section import get_section_page, get_section_toc
 from src.utils import normalize_character
+from src.pages.authors import get_authors_page
 
 
 def get_authors(conn):
@@ -40,7 +43,7 @@ def get_authors_by_letter(conn):
         if first_letter.isalpha():
             authors_by_letter[first_letter].append(author)
         else:
-            authors_by_letter["A_Other"].append(author)
+            authors_by_letter["Other"].append(author)
 
     return authors_by_letter
 
@@ -90,6 +93,7 @@ def build_author_book_cross_references(conn):
 
     return authors_cross_references
 
+
 def build_author_saga_cross_references(conn):
     cur = conn.cursor()
 
@@ -128,3 +132,52 @@ def build_author_saga_cross_references(conn):
         )
 
     return author_saga_refs
+
+
+def create_authors_files(output_folder, lang, strings, conn):
+    folder = os.path.join(output_folder, "Authors")
+    authors_by_letter = get_authors_by_letter(conn)
+    authors_book_cross_references = build_author_book_cross_references(conn)
+    authors_saga_cross_references = build_author_saga_cross_references(conn)
+    files = []
+
+    os.makedirs(folder)
+
+    with open(os.path.join(output_folder, "Authors.xhtml"), "w", encoding="utf-8") as f:
+        f.write(get_section_page(lang, strings["authors"]))
+
+    with open(
+        os.path.join(output_folder, "Authors_TOC.xhtml"), "w", encoding="utf-8"
+    ) as f:
+        f.write(
+            get_section_toc(
+                lang,
+                strings["authors"],
+                authors_by_letter,
+                strings,
+                prefix="A",
+                folder="Authors",
+            )
+        )
+
+    for letter, group in sorted(
+        authors_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])
+    ):
+        filename = f"A_{letter}"
+        files.append(filename)
+
+        with open(
+            os.path.join(folder, f"{filename}.xhtml"), "w", encoding="utf-8"
+        ) as f:
+            f.write(
+                get_authors_page(
+                    lang,
+                    letter,
+                    group,
+                    strings,
+                    authors_book_cross_references,
+                    authors_saga_cross_references,
+                )
+            )
+
+    return files

@@ -1,19 +1,19 @@
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
+from src.utils import uuid
 
 
 def get_ncx_page(lang, pages_by_section, strings):
     ET.register_namespace("", "http://www.daisy.org/z3986/2005/ncx/")
     ncx = ET.Element(
-        "ncx", {"xmlns": "http://www.daisy.org/z3986/2005/ncx/",
-                "version": "2005-1"}
+        "ncx", {"xmlns": "http://www.daisy.org/z3986/2005/ncx/", "version": "2005-1"}
     )
 
     head = ET.SubElement(ncx, "head")
     ET.SubElement(
         head,
         "meta",
-        {"name": "dtb:uid", "content": "urn:uuid:a46ba639-014f-44de-a6af-de509e96798d"},
+        {"name": "dtb:uid", "content": f"urn:uuid:{uuid[lang]}"},
     )
     ET.SubElement(head, "meta", {"name": "dtb:depth", "content": "2"})
     ET.SubElement(head, "meta", {"name": "dtb:totalPageCount", "content": "0"})
@@ -33,8 +33,7 @@ def get_ncx_page(lang, pages_by_section, strings):
     ]
 
     for pid, label, src in pages:
-        nav_point = ET.SubElement(
-            navMap, "navPoint", id=pid, playOrder=str(play_order))
+        nav_point = ET.SubElement(navMap, "navPoint", id=pid, playOrder=str(play_order))
         text = ET.Element("text")
         text.text = label
         ET.SubElement(nav_point, "navLabel").append(text)
