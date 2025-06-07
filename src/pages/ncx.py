@@ -41,6 +41,9 @@ def get_ncx_page(lang, pages_by_section, strings):
         play_order += 1
 
     for section, files in pages_by_section.items():
+        if len(files) == 0:
+            continue
+
         section_point = ET.SubElement(
             navMap, "navPoint", id=section[0].upper(), playOrder=str(play_order)
         )
@@ -51,7 +54,6 @@ def get_ncx_page(lang, pages_by_section, strings):
         play_order += 1
 
         for file in files:
-            prefix = section[0].upper()
             entry_id = f"{file}"
             nav_point = ET.SubElement(
                 section_point, "navPoint", id=entry_id, playOrder=str(play_order)
