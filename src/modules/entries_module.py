@@ -1,3 +1,7 @@
+from collections import defaultdict
+from src.utils import normalize_character
+
+
 def get_entries(conn):
     cur = conn.cursor()
 
@@ -32,6 +36,20 @@ def get_entries(conn):
         entries.append(dict(row))
 
     return entries
+
+
+def get_entries_by_letter(entries):
+    entries_by_letter = defaultdict(list)
+
+    for entry in entries:
+        name = entry["name"]
+        firstLetter = normalize_character(name[0])
+        if firstLetter.isalpha():
+            entries_by_letter[firstLetter].append(entry)
+        else:
+            entries_by_letter["D_Other"].append(entry)
+
+    return entries_by_letter
 
 
 def get_entry_markup(

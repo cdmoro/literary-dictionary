@@ -1,19 +1,18 @@
 import os
 import shutil
 import zipfile
-from collections import defaultdict
 
 from dotenv import load_dotenv
 
-from src.modules.authors_module import (build_author_book_cross_references,
-                                        build_author_saga_cross_references,
-                                        get_authors_by_letter)
-from src.modules.books_module import (build_book_cross_references,
-                                      get_books_by_letter)
+from src.modules.authors_module import (
+    build_author_book_cross_references,
+    build_author_saga_cross_references,
+    get_authors_by_letter,
+)
+from src.modules.books_module import build_book_cross_references, get_books_by_letter
 from src.modules.cross_reference_module import build_cross_references
-from src.modules.entries_module import get_entries
-from src.modules.sagas_module import (build_saga_cross_references,
-                                      get_sagas_by_letter)
+from src.modules.entries_module import get_entries, get_entries_by_letter
+from src.modules.sagas_module import build_saga_cross_references, get_sagas_by_letter
 from src.pages.abbreviations import get_abbreviation_page
 from src.pages.authors import get_authors_page
 from src.pages.books import get_books_page
@@ -25,7 +24,6 @@ from src.pages.dictionary import get_dictionary_page
 from src.pages.ncx import get_ncx_page
 from src.pages.sagas import get_sagas_page
 from src.pages.section import get_section_page, get_section_toc
-from src.utils import normalize_character
 
 load_dotenv()
 
@@ -57,25 +55,16 @@ def generate_dictionary(conn, lang, strings):
     os.makedirs(styles_folder)
 
     entries = get_entries(conn)
+    entries_by_letter = get_entries_by_letter(entries)
     books_by_letter = get_books_by_letter(conn)
     sagas_by_letter = get_sagas_by_letter(conn)
     authors_by_letter = get_authors_by_letter(conn)
 
+    cross_references = build_cross_references(entries)
     books_cross_references = build_book_cross_references(conn)
     sagas_cross_references = build_saga_cross_references(conn)
     authors_book_cross_references = build_author_book_cross_references(conn)
     authors_saga_cross_references = build_author_saga_cross_references(conn)
-
-    entries_by_letter = defaultdict(list)
-    for entry in entries:
-        name = entry["name"]
-        firstLetter = normalize_character(name[0])
-        if firstLetter.isalpha():
-            entries_by_letter[firstLetter].append(entry)
-        else:
-            entries_by_letter["D_Other"].append(entry)
-
-    cross_references = build_cross_references(entries)
 
     dictionary_xhtml_files = []
     book_xhtml_files = []
@@ -132,8 +121,7 @@ def generate_dictionary(conn, lang, strings):
         with open(
             os.path.join(dictionary_folder, f"{filename}.xhtml"), "w", encoding="utf-8"
         ) as f:
-            f.write(get_dictionary_page(lang, letter,
-                    group, strings, cross_references))
+            f.write(get_dictionary_page(lang, letter, group, strings, cross_references))
 
     # Books
     with open(os.path.join(output_folder, "Books.xhtml"), "w", encoding="utf-8") as f:
@@ -163,8 +151,7 @@ def generate_dictionary(conn, lang, strings):
             os.path.join(books_folder, f"{filename}.xhtml"), "w", encoding="utf-8"
         ) as f:
             f.write(
-                get_books_page(lang, letter, group, strings,
-                               books_cross_references)
+                get_books_page(lang, letter, group, strings, books_cross_references)
             )
 
     # Sagas
@@ -195,8 +182,7 @@ def generate_dictionary(conn, lang, strings):
             os.path.join(sagas_folder, f"{filename}.xhtml"), "w", encoding="utf-8"
         ) as f:
             f.write(
-                get_sagas_page(lang, letter, group, strings,
-                               sagas_cross_references)
+                get_sagas_page(lang, letter, group, strings, sagas_cross_references)
             )
 
     # Authors
@@ -227,8 +213,14 @@ def generate_dictionary(conn, lang, strings):
             os.path.join(authors_folder, f"{filename}.xhtml"), "w", encoding="utf-8"
         ) as f:
             f.write(
-                get_authors_page(lang, letter, group, strings,
-                                 authors_book_cross_references, authors_saga_cross_references)
+                get_authors_page(
+                    lang,
+                    letter,
+                    group,
+                    strings,
+                    authors_book_cross_references,
+                    authors_saga_cross_references,
+                )
             )
 
     # NCX file
@@ -254,8 +246,7 @@ def generate_dictionary(conn, lang, strings):
         f.write(
             '  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">\n'
         )
-        f.write(
-            f'    <dc:title>{strings["title"]} ({lang.upper()})</dc:title>\n')
+        f.write(f'    <dc:title>{strings["title"]} ({lang.upper()})</dc:title>\n')
         f.write(f"    <dc:language>{lang}</dc:language>\n")
         f.write(f"    <dc:creator>Carlos Bonadeo</dc:creator>\n")
         f.write(
@@ -263,8 +254,7 @@ def generate_dictionary(conn, lang, strings):
         )
         f.write("    <x-metadata>\n")
         f.write(f"      <DictionaryInLanguage>{lang}</DictionaryInLanguage>\n")
-        f.write(
-            f"      <DictionaryOutLanguage>{lang}</DictionaryOutLanguage>\n")
+        f.write(f"      <DictionaryOutLanguage>{lang}</DictionaryOutLanguage>\n")
         f.write("      <DefaultLookupIndex>headword</DefaultLookupIndex>\n")
         f.write("    </x-metadata>\n")
         f.write('    <meta name="cover" content="cover-image"/>\n')
@@ -374,8 +364,7 @@ def generate_dictionary(conn, lang, strings):
         f.write("</package>\n")
 
     # Copy static files
-    shutil.copyfile("styles/style.css",
-                    os.path.join(styles_folder, "style.css"))
+    shutil.copyfile("styles/style.css", os.path.join(styles_folder, "style.css"))
     shutil.copyfile(
         f"assets/cover_{lang}.jpg", os.path.join(assets_folder, "cover.jpg")
     )

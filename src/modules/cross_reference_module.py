@@ -15,7 +15,7 @@ def get_book_cr_link(name: str, id: int):
     return get_cross_reference_link(name, id, prefix="B", folder="Books")
 
 
-def get_cross_reference_link(name: str, id: int, prefix: str, folder: str) -> str:
+def get_cross_reference_link(name: str, id: int, prefix: str, folder: str):
     if not name:
         return
 
@@ -40,9 +40,7 @@ def build_cross_references(entries):
     cross_reference_data = {}
     for entry in entries:
         if "id" in entry and "name" in entry:
-            filename = (
-                f"{normalize_character(entry['name'].strip()[0].upper())}.xhtml"
-            )
+            filename = f"{normalize_character(entry['name'].strip()[0].upper())}.xhtml"
             cross_reference_data[entry["id"]] = (entry["name"], filename)
 
     # Group entries
@@ -90,9 +88,7 @@ def build_cross_references(entries):
         # Build links
         related_links = []
         for e in related_filtered:
-            target_name, target_file = cross_reference_data.get(
-                e["id"], (None, None)
-            )
+            target_name, target_file = cross_reference_data.get(e["id"], (None, None))
             if target_name and target_file:
                 related_links.append(
                     {
