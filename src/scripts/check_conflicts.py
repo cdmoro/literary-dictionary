@@ -179,14 +179,7 @@ def main():
 
     if args.precommit and has_issues:
         print("Inconsistencies found. Report saved to reports/report.yaml")
-        # answer = input(
-        #     "Conflicts detected. Do you want to continue with commit? [y/N]: "
-        # ).lower()
-        # if answer != "y":
-        #     print("Commit aborted.")
-        #     exit(2)
-        # else:
-        #     print("Continuing with commit.")
+        print("Continuing with commit.")
 
 
 if __name__ == "__main__":
