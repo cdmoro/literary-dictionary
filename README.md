@@ -26,12 +26,10 @@ The **Literary Dictionary for Kindle** is built to make your reading experience 
 ### 📸 Screenshots
 
 | Single Word Lookup | Multi-word Phrase | Multiple Definitions Support | Cross-reference entries |
-|--------------------|-------------------|---------------------------|---------|
-|![Single Word Screenshot](./screenshots/en/01_definition.png)|![Multi-word Screenshot](./screenshots/en/02_definition_group_of_words.png)|![Multiple Definitions Screenshot](./screenshots/en/03_multiple_definitions.png)|![Cross-reference Screenshot](./screenshots/en/04_dict.png)|
-
-| Abbreviation Guide | Entry Index per Section | Authors Section | Sagas Section |
-|------------------------|------------------------|------------------------|------|
-|![Abbreviation Guide Screenshot](./screenshots/en/05_abbr_guide.png)|![Entry index Screenshot](./screenshots/en/06_entry_index.png)|![Authors Section Screenshot](./screenshots/en/07_authors.png)|![Sagas Section Screenshot](./screenshots/en/08_sagas.png)|
+|:--------------------:|:-------------------:|:---------------------------:|:---------:|
+|<img src="./screenshots/en/01_definition.png" height="100px">|<img src="./screenshots/en/02_definition_group_of_words.png" height="100px">|<img src="./screenshots/en/03_multiple_definitions.png" height="100px">|<img src="./screenshots/en/04_dict.png" height="100px">|
+| **Abbreviation Guide** | **Entry Index per Section** | **Authors Section** | **Sagas Section** |
+|<img src="./screenshots/en/05_abbr_guide.png" height="100px">|<img src="./screenshots/en/06_entry_index.png" height="100px">|<img src="./screenshots/en/07_authors.png" height="100px">|<img src="./screenshots/en/08_sagas.png" height="100px">|
 
 ---
 

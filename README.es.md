@@ -26,12 +26,10 @@ El **Diccionario Literario para Kindle** está hecho para que tu lectura sea má
 ### 📸 Capturas de pantalla
 
 | Búsqueda por una palabra | Búsqueda por grupos de palabra | Múltiples resultados | Referencias cruzadas |
-|--------------------|-------------------|---------------------------|---------|
-|![Búsqueda por una palabra](./screenshots/es/01_definition.png)|![Búsqueda por grupos de palabra](./screenshots/es/02_definition_group_of_words.png)|![Múltiples resultados](./screenshots/es/03_multiple_definitions.png)|![Referencias cruzadas](./screenshots/es/04_dict.png)|
-
-| Guía de abreviaturas | Índice por sección | Sección de autores | Sección de sagas |
-|------------------------|------------------------|------------------------|------|
-|![Guía de abreviaturas](./screenshots/es/05_abbr_guide.png)|![Índice por seccion](./screenshots/es/06_entry_index.png)|![Sección de autores](./screenshots/es/07_authors.png)|![Sección de sagas](./screenshots/es/08_sagas.png)|
+|:--------------------:|:-------------------:|:---------------------------|:---------:|
+|<img src="./screenshots/es/01_definition.png" height="100px">|<img src="./screenshots/es/02_definition_group_of_words.png" height="100px">|<img src="./screenshots/es/03_multiple_definitions.png" height="100px">|<img src="./screenshots/es/04_dict.png" height="100px">|
+| **Guía de abreviaturas** | **Índice por sección** | **Sección de autores** | **Sección de sagas** |
+|<img src="./screenshots/es/05_abbr_guide.png" height="100px">|<img src="./screenshots/es/06_entry_index.png" height="100px">|<img src="./screenshots/es/07_authors.png" height="100px">|<img src="./screenshots/es/08_sagas.png" height="100px">|
 
 ---
 
