@@ -3,9 +3,10 @@ import glob
 import sqlite3
 from collections import defaultdict
 from pathlib import Path
-from src.constants import encoding
 
 import yaml
+
+encoding = "utf-8"
 
 CHECK_FIELDS = {
     "entries": ["saga_id", "author_id", "category_id", "book_id", "draft"],

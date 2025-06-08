@@ -14,7 +14,7 @@ def get_opf_file(lang, strings, pages_by_section):
         "Cover.xhtml",
         "Copyright.xhtml",
         "TOC.xhtml",
-        "Abbreviations.xhtml",
+        # "Abbreviations.xhtml",
     ]
     spine = [v for v in manifest if v.endswith(".xhtml")]
 

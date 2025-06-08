@@ -1,5 +1,6 @@
 import glob
 import os
+import shutil
 
 from src.db import get_connection
 
@@ -16,6 +17,9 @@ def get_lang_from_filename(filename):
 
 def main():
     db_files = glob.glob("dictionary/dictionary.*.db")
+
+    if os.path.exists("output"):
+        shutil.rmtree("output")
 
     for db_path in db_files:
         conn = get_connection(db_path)

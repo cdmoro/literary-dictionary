@@ -30,7 +30,7 @@ def get_ncx_page(lang, pages_by_section, strings):
         ("cover", strings["cover"], "Cover.xhtml"),
         ("about", strings["about"], "Copyright.xhtml"),
         ("toc", strings["contents"], "TOC.xhtml"),
-        ("abbr", strings["abbr_guide"], "Abbreviations.xhtml"),
+        # ("abbr", strings["abbr_guide"], "Abbreviations.xhtml"),
     ]
 
     for pid, label, src in pages:
