@@ -27,9 +27,9 @@ El **Diccionario Literario para Kindle** está hecho para que tu lectura sea má
 
 | Búsqueda por una palabra | Búsqueda por grupos de palabra | Múltiples resultados | Referencias cruzadas |
 |:--------------------:|:-------------------:|:---------------------------|:---------:|
-|<img src="./screenshots/es/01_definition.png" height="100px">|<img src="./screenshots/es/02_definition_group_of_words.png" height="100px">|<img src="./screenshots/es/03_multiple_definitions.png" height="100px">|<img src="./screenshots/es/04_dict.png" height="100px">|
+|<img src="./screenshots/es/01_definition.png" height="200px">|<img src="./screenshots/es/02_definition_group_of_words.png" height="200px">|<img src="./screenshots/es/03_multiple_definitions.png" height="200px">|<img src="./screenshots/es/04_dict.png" height="200px">|
 | **Guía de abreviaturas** | **Índice por sección** | **Sección de autores** | **Sección de sagas** |
-|<img src="./screenshots/es/05_abbr_guide.png" height="100px">|<img src="./screenshots/es/06_entry_index.png" height="100px">|<img src="./screenshots/es/07_authors.png" height="100px">|<img src="./screenshots/es/08_sagas.png" height="100px">|
+|<img src="./screenshots/es/05_abbr_guide.png" height="200px">|<img src="./screenshots/es/06_entry_index.png" height="200px">|<img src="./screenshots/es/07_authors.png" height="200px">|<img src="./screenshots/es/08_sagas.png" height="200px">|
 
 ---
 
