@@ -25,13 +25,13 @@ El **Diccionario Literario para Kindle** está hecho para que tu lectura sea má
 
 ### 📸 Capturas de pantalla
 
-| Búsqueda de una sola palabra | Frase de varias palabras | Soporte para otros idiomas |
-|------------------------------|---------------------------|-----------------------------|
-| ![Single Word Screenshot](./screenshots/single-word.png) | ![Multi-word Screenshot](./screenshots/multi-word.png) | ![Foreign Language Screenshot](./screenshots/foreign-language.png) |
+| Búsqueda por una palabra | Búsqueda por grupos de palabra | Múltiples resultados | Referencias cruzadas |
+|--------------------|-------------------|---------------------------|---------|
+|![Búsqueda por una palabra](./screenshots/es/01_definition.png)|![Búsqueda por grupos de palabra](./screenshots/es/02_definition_group_of_words.png)|![Múltiples resultados](./screenshots/es/03_multiple_definitions.png)|![Referencias cruzadas](./screenshots/es/04_dict.png)|
 
-| Entrada con referencias cruzadas | Múltiples definiciones | Guía de abreviaciones |
-|----------------------------------|--------------------------|------------------------|
-| ![Cross-reference Screenshot](./screenshots/cross-reference.png) | ![Multiple Definitions Screenshot](./screenshots/multiple-definitions.png) | ![Abbreviation Guide Screenshot](./screenshots/abbreviation-guide.png) |
+| Guía de abreviaturas | Índice por sección | Sección de autores | Sección de sagas |
+|------------------------|------------------------|------------------------|------|
+|![Guía de abreviaturas](./screenshots/es/05_abbr_guide.png)|![Índice por seccion](./screenshots/es/06_entry_index.png)|![Sección de autores](./screenshots/es/07_authors.png)|![Sección de sagas](./screenshots/es/08_sagas.png)|
 
 ---
 
