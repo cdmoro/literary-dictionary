@@ -1,45 +1,44 @@
 import os
+from datetime import datetime
 
 from dotenv import load_dotenv
+
+from src.constants import encoding
 
 load_dotenv()
 
 
-def get_copyright_page(strings, entries):
-    total_entries = len(entries)
-    authors = {p["author"] for p in entries if p.get("author")}
-    sagas = {p["saga"] for p in entries if p.get("saga")}
-    books = {p["book"] for p in entries if p.get("book")}
+def get_copyright_page(strings):
+    current_year = datetime.now().year
 
     data = {
         "lang": strings["lang"].lower(),
         "title": strings["about"],
         "book_title": strings["title"],
         "edition": strings["edition"],
-        "copyright_desc": strings["copyright_desc"].format(
-            authors=len(authors),
-            entries=total_entries,
-            books=len(books),
-            sagas=len(sagas),
-        ),
+        "copyright_desc": strings["copyright_desc"],
         "license": strings["license"],
         "project": strings["project"],
         "contact": strings["contact"],
-        "copyright": strings["copyright"],
+        "copyright": strings["copyright"].format(
+            current_year=current_year,
+            ebook_author=os.getenv("AUTHOR"),
+            cc_license=f'<a href="https://creativecommons.org/licenses/by/4.0/deed.{strings["lang"].lower()}">Creative Commons Attribution 4.0 International (CC BY 4.0)</a>',
+        ),
         "version": strings["copyright_version"].format(
             version=os.getenv("DICT_VERSION")
         ),
-        "entries": total_entries,
-        "authors": len(authors),
-        "sagas": len(sagas),
-        "books": len(books),
         "entries_label": strings["entries"],
         "authors_label": strings["authors"],
         "sagas_label": strings["sagas"],
         "books_label": strings["books"],
+        "repo": os.getenv("PROJECT"),
+        "email": os.getenv("EMAIL"),
+        "cc_link": f'https://creativecommons.org/licenses/by/4.0/deed.{strings["lang"].lower()}',
+        "encoding": encoding,
     }
 
-    template = """<?xml version="1.0" encoding="utf-8"?>
+    template = """<?xml version="1.0" encoding="{encoding}"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{lang}">
@@ -55,11 +54,16 @@ def get_copyright_page(strings, entries):
     <br/>
     <div>{copyright_desc}</div>
     <br/>
+    <div><strong>{project}</strong>: <a href="{repo}">{repo}</a></div>
+    <div><strong>{contact}</strong>: <a href="mailto:{email}">{email}</a></div>
+    <br/>
     <div><strong>{license}</strong></div>
     <div>{copyright}</div>
-    <br/>
-    <div>{project}: <a href="https://github.com/cdmoro/literary-dictionary">https://github.com/cdmoro/literary-dictionary</a></div>
-    <div>{contact}: carlosbonadeo@gmail.com</div>
+    <div>
+        <a href="{cc_link}" target="_blank" rel="noopener noreferrer">
+            <img src="Assets/cc_banner.png" alt="Creative Commons Attribution 4.0 International" />
+        </a>
+    </div>
 </body>
 </html>"""
 

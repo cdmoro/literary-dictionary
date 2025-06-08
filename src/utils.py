@@ -1,10 +1,10 @@
 import json
 import unicodedata
-from pathlib import Path
+from src.constants import encoding
 
 
 def get_translations(lang):
-    with open(f"locales/{lang}.json", "r", encoding="utf-8") as f:
+    with open(f"locales/{lang}.json", "r", encoding=encoding) as f:
         return json.load(f)
 
 

@@ -1,6 +1,10 @@
+import os
 from collections import defaultdict
 
+from src.pages.section import get_section_page, get_section_toc
 from src.utils import normalize_character
+from src.pages.sagas import get_sagas_page
+from src.constants import encoding
 
 
 def get_sagas(conn):
@@ -34,7 +38,7 @@ def get_sagas_by_letter(conn):
         if first_letter.isalpha():
             sagas_by_letter[first_letter].append(saga)
         else:
-            sagas_by_letter["S_Other"].append(saga)
+            sagas_by_letter["Other"].append(saga)
 
     return sagas_by_letter
 
@@ -84,3 +88,49 @@ def build_saga_cross_references(conn):
         )
 
     return sagas_cross_references
+
+
+def create_sagas_files(output_folder, lang, strings, conn):
+    folder = os.path.join(output_folder, "Sagas")
+    sagas_by_letter = get_sagas_by_letter(conn)
+    cross_references = build_saga_cross_references(conn)
+    files = []
+
+    if len(sagas_by_letter) > 0:
+        os.makedirs(folder)
+
+        files.append("Sagas")
+        files.append("Sagas_TOC")
+
+        with open(
+            os.path.join(output_folder, "Sagas", "Sagas.xhtml"), "w", encoding=encoding
+        ) as f:
+            f.write(get_section_page(lang, strings["sagas"]))
+
+        with open(
+            os.path.join(output_folder, "Sagas", "Sagas_TOC.xhtml"),
+            "w",
+            encoding=encoding,
+        ) as f:
+            f.write(
+                get_section_toc(
+                    lang,
+                    strings["sagas"],
+                    sagas_by_letter,
+                    strings,
+                    prefix="S",
+                )
+            )
+
+        for letter, group in sorted(
+            sagas_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])
+        ):
+            filename = f"S_{letter}"
+            files.append(filename)
+
+            with open(
+                os.path.join(folder, f"{filename}.xhtml"), "w", encoding=encoding
+            ) as f:
+                f.write(get_sagas_page(lang, letter, group, strings, cross_references))
+
+    return files

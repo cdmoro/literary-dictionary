@@ -1,19 +1,20 @@
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
+from src.constants import uuid_ids, encoding
+import re
 
 
 def get_ncx_page(lang, pages_by_section, strings):
     ET.register_namespace("", "http://www.daisy.org/z3986/2005/ncx/")
     ncx = ET.Element(
-        "ncx", {"xmlns": "http://www.daisy.org/z3986/2005/ncx/",
-                "version": "2005-1"}
+        "ncx", {"xmlns": "http://www.daisy.org/z3986/2005/ncx/", "version": "2005-1"}
     )
 
     head = ET.SubElement(ncx, "head")
     ET.SubElement(
         head,
         "meta",
-        {"name": "dtb:uid", "content": "urn:uuid:a46ba639-014f-44de-a6af-de509e96798d"},
+        {"name": "dtb:uid", "content": f"urn:uuid:{uuid_ids[lang]}"},
     )
     ET.SubElement(head, "meta", {"name": "dtb:depth", "content": "2"})
     ET.SubElement(head, "meta", {"name": "dtb:totalPageCount", "content": "0"})
@@ -33,37 +34,39 @@ def get_ncx_page(lang, pages_by_section, strings):
     ]
 
     for pid, label, src in pages:
-        nav_point = ET.SubElement(
-            navMap, "navPoint", id=pid, playOrder=str(play_order))
-        text = ET.Element("text")
-        text.text = label
-        ET.SubElement(nav_point, "navLabel").append(text)
+        nav_point = ET.SubElement(navMap, "navPoint", id=pid, playOrder=str(play_order))
+        textEl = ET.Element("text")
+        textEl.text = label
+        ET.SubElement(nav_point, "navLabel").append(textEl)
         ET.SubElement(nav_point, "content", src=src)
         play_order += 1
 
     for section, files in pages_by_section.items():
+        if len(files) == 0:
+            continue
+
         section_point = ET.SubElement(
             navMap, "navPoint", id=section[0].upper(), playOrder=str(play_order)
         )
-        text = ET.Element("text")
-        text.text = section
-        ET.SubElement(section_point, "navLabel").append(text)
-        ET.SubElement(section_point, "content", src=f"{section}.xhtml")
+        textEl = ET.Element("text")
+        textEl.text = strings[section.lower()]
+        ET.SubElement(section_point, "navLabel").append(textEl)
+        ET.SubElement(section_point, "content", src=f"{section}/{section}.xhtml")
         play_order += 1
 
-        for file in files:
-            prefix = section[0].upper()
-            entry_id = f"{file}"
+        letter_links = [file for file in files if re.fullmatch(r"[A-Z]_[A-Z]", file)]
+
+        for file in letter_links:
             nav_point = ET.SubElement(
-                section_point, "navPoint", id=entry_id, playOrder=str(play_order)
+                section_point, "navPoint", id=file, playOrder=str(play_order)
             )
-            text = ET.Element("text")
-            text.text = file.split("_")[1]
-            ET.SubElement(nav_point, "navLabel").append(text)
+            textEl = ET.Element("text")
+            textEl.text = file.split("_")[1]
+            ET.SubElement(nav_point, "navLabel").append(textEl)
             ET.SubElement(nav_point, "content", src=f"{section}/{file}.xhtml")
             play_order += 1
 
-    xml_declaration = '<?xml version="1.0" encoding="utf-8"?>\n'
+    xml_declaration = f'<?xml version="1.0" encoding="{encoding}"?>\n'
     doctype = '<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN" "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">\n'
 
     output = minidom.parseString(ET.tostring(ncx, encoding="unicode")).toprettyxml(

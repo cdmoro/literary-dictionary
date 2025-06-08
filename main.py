@@ -2,9 +2,10 @@ import glob
 import os
 
 from src.db import get_connection
+
 # from csv_module import generate_csv
 # from json_module import generate_json
-from src.modules.dictionary_module import generate_dictionary
+from src.modules.main_module import generate_dictionary
 from src.utils import get_translations
 
 

@@ -1,3 +1,6 @@
+from src.constants import encoding
+
+
 def get_abbreviation_page(lang, cur, strings):
     cur.execute(
         """
@@ -11,7 +14,7 @@ def get_abbreviation_page(lang, cur, strings):
     for row in cur.fetchall():
         categories.append(dict(row))
 
-        template = f"""<?xml version="1.0" encoding="utf-8"?>
+        template = f"""<?xml version="1.0" encoding="{encoding}"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{lang}">

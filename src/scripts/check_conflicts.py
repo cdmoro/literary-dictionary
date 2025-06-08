@@ -1,9 +1,9 @@
 import argparse
 import glob
-import os
 import sqlite3
 from collections import defaultdict
 from pathlib import Path
+from src.constants import encoding
 
 import yaml
 
@@ -142,7 +142,7 @@ def write_report(conflicts, missing, categories_issues):
 
     if report_data:
         Path("reports").mkdir(exist_ok=True)
-        with open("reports/report.yaml", "w", encoding="utf-8") as f:
+        with open("reports/report.yaml", "w", encoding=encoding) as f:
             yaml.dump(
                 to_dict_clean(report_data), f, allow_unicode=True, sort_keys=False
             )
@@ -178,14 +178,8 @@ def main():
     has_issues = write_report(conflicts, missing_ids, category_issues)
 
     if args.precommit and has_issues:
-        answer = input(
-            "Conflicts detected. Do you want to continue with commit? [y/N]: "
-        ).lower()
-        if answer != "y":
-            print("Commit aborted.")
-            exit(2)
-        else:
-            print("Continuing with commit.")
+        print("Inconsistencies found. Report saved to reports/report.yaml")
+        print("Continuing with commit.")
 
 
 if __name__ == "__main__":

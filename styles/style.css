@@ -33,7 +33,7 @@ h1, h2, h3, h4, h5, h6 {
     margin: 1em 0;
 }
 
-h1, h2, h3, h4, h5, h6, dt, hr {
+h1, h2, h3, h4, h5, h6, dt {
     page-break-inside: avoid;
     break-inside: avoid;
     page-break-after: avoid;
@@ -107,4 +107,22 @@ dd {
 
 .no-intent {
     text-indent: 0;
+}
+
+.toc-letters {
+    margin: 0 1em;
+    white-space: normal;
+}
+
+.toc-letter {
+    display: inline-block;
+    margin: 0 .5em;
+}
+
+.toc-title {
+    margin: 0 0 0em;
+}
+
+.toc-subtitle {
+    margin: 0 0 2em;
 }
