@@ -39,16 +39,16 @@ def generate_dictionary(conn, lang, strings):
         "Abbreviations.xhtml": get_abbreviation_page(lang, cur, strings),
         "TOC.xhtml": get_toc_page(lang, strings),
     }
-    manifest = {
-        "style": "Styles/style.css",
-        "cover-image": "Assets/cover.jpg",
-        "ncx": "toc.ncx",
-        "cover": "Cover.xhtml",
-        "copyright": "Copyright.xhtml",
-        "toc": "TOC.xhtml",
-        "abbreviations": "Abbreviations.xhtml",
-    }
-    spine = {k: v for k, v in manifest.items() if v.endswith(".xhtml")}
+    manifest = [
+        "Styles/style.css",
+        "Assets/cover.jpg",
+        "toc.ncx",
+        "Cover.xhtml",
+        "Copyright.xhtml",
+        "TOC.xhtml",
+        "Abbreviations.xhtml",
+    ]
+    spine = [v for v in manifest if v.endswith(".xhtml")]
 
     if os.path.exists(output_folder):
         shutil.rmtree(output_folder)
@@ -89,35 +89,32 @@ def generate_dictionary(conn, lang, strings):
 
     # OPF file
     with open(os.path.join(output_folder, "content.opf"), "w", encoding="utf-8") as f:
-        f.write('<?xml version="1.0" encoding="utf-8"?>\n')
         f.write(
-            f"""<package
+            f"""<?xml version="1.0" encoding="utf-8"?>
+        
+<package
   version="2.0"
   xmlns="http://www.idpf.org/2007/opf"
   unique-identifier="BookId"
->\n"""
+>
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+    <dc:title>{strings["title"]} ({lang.upper()})</dc:title>
+    <dc:language>{lang}</dc:language>
+    <dc:creator>Carlos Bonadeo</dc:creator>
+    <dc:identifier id="BookId" opf:scheme="UUID">urn:uuid:{uuid[lang]}</dc:identifier>
+    <x-metadata>
+      <DictionaryInLanguage>{lang}</DictionaryInLanguage>
+      <DictionaryOutLanguage>{lang}</DictionaryOutLanguage>
+      <DefaultLookupIndex>headword</DefaultLookupIndex>
+    </x-metadata>
+    <meta name="cover" content="cover-image"/>
+  </metadata>
+  <manifest>\n"""
         )
-        f.write(
-            '  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">\n'
-        )
-        f.write(f'    <dc:title>{strings["title"]} ({lang.upper()})</dc:title>\n')
-        f.write(f"    <dc:language>{lang}</dc:language>\n")
-        f.write(f"    <dc:creator>Carlos Bonadeo</dc:creator>\n")
-        f.write(
-            f'    <dc:identifier id="BookId" opf:scheme="UUID">urn:uuid:{uuid[lang]}</dc:identifier>\n'
-        )
-        f.write("    <x-metadata>\n")
-        f.write(f"      <DictionaryInLanguage>{lang}</DictionaryInLanguage>\n")
-        f.write(f"      <DictionaryOutLanguage>{lang}</DictionaryOutLanguage>\n")
-        f.write("      <DefaultLookupIndex>headword</DefaultLookupIndex>\n")
-        f.write("    </x-metadata>\n")
-        f.write('    <meta name="cover" content="cover-image"/>\n')
-        f.write("  </metadata>\n")
-        f.write("  <manifest>\n")
 
-        for id, href in manifest.items():
+        for file in manifest:
             f.write(
-                f'    <item id="{id}" href="{href}" media-type="{media_type[href.split(".")[1]]}"/>\n'
+                f'    <item id="{file.replace("/", "_")}" href="{file}" media-type="{media_type[file.split(".")[1]]}"/>\n'
             )
 
         f.write(
@@ -167,8 +164,8 @@ def generate_dictionary(conn, lang, strings):
 
         f.write('  <spine toc="ncx">\n')
 
-        for id in spine.keys():
-            f.write(f'    <itemref idref="{id}"/>\n')
+        for idref in spine:
+            f.write(f'    <itemref idref="{idref.replace("/", "_")}"/>\n')
 
         f.write('    <itemref idref="dictionary"/>\n')
         f.write('    <itemref idref="dictionary-toc"/>\n')
