@@ -4,8 +4,6 @@ import shutil
 
 from src.db import get_connection
 
-# from csv_module import generate_csv
-# from json_module import generate_json
 from src.modules.main_module import generate_dictionary
 from src.utils import get_translations
 
@@ -26,8 +24,6 @@ def main():
         lang = get_lang_from_filename(db_path)
         strings = get_translations(lang)
 
-        # generate_csv(subdir.name, strings)
-        # generate_json(subdir.name, strings)
         generate_dictionary(conn, lang, strings)
         conn.close()
 
