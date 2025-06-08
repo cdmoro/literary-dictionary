@@ -7,15 +7,7 @@ media_type = {
 }
 
 
-def get_opf_file(lang, strings, pages_by_section):
-    manifest = [
-        "Styles/style.css",
-        "Assets/cover.jpg",
-        "Cover.xhtml",
-        "Copyright.xhtml",
-        "TOC.xhtml",
-        "Abbreviations.xhtml",
-    ]
+def get_opf_file(lang, strings, pages_by_section, manifest):
     spine = [v for v in manifest if v.endswith(".xhtml")]
 
     template = f"""<?xml version="1.0" encoding="{encoding}"?>

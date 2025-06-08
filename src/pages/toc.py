@@ -2,7 +2,7 @@ import re
 from src.constants import encoding
 
 
-def get_toc_page(lang, strings, pages_by_section):
+def get_toc_page(lang, strings, pages_by_section, toc):
     template = f"""<?xml version="1.0" encoding="{encoding}"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -13,11 +13,11 @@ def get_toc_page(lang, strings, pages_by_section):
     <title>{strings["contents"]}</title>
 </head>
 <body>
-  <h1>{strings["contents"]}</h1>
-  <div><a href="Cover.xhtml">{strings["cover"]}</a></div>
-  <div><a href="Copyright.xhtml">{strings["about"]}</a></div>
-  <div><a href="TOC.xhtml">{strings["contents"]}</a></div>
-  <div><a href="Abbreviations.xhtml">{strings["abbr_guide"]}</a></div>\n"""
+  <h1>{strings["contents"]}</h1>\n\n"""
+  
+    for page, label in toc.items():
+        template += f'  <div><a href="{page}">{label}</a></div>\n'
+  
 
     for section, files in pages_by_section.items():
         if len(files) == 0:

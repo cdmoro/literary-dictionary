@@ -4,7 +4,7 @@ from src.constants import uuid_ids, encoding
 import re
 
 
-def get_ncx_page(lang, pages_by_section, strings):
+def get_ncx_page(lang, pages_by_section, strings, common_pages):
     ET.register_namespace("", "http://www.daisy.org/z3986/2005/ncx/")
     ncx = ET.Element(
         "ncx", {"xmlns": "http://www.daisy.org/z3986/2005/ncx/", "version": "2005-1"}
@@ -26,14 +26,7 @@ def get_ncx_page(lang, pages_by_section, strings):
     navMap = ET.SubElement(ncx, "navMap")
     play_order = 1
 
-    pages = [
-        ("cover", strings["cover"], "Cover.xhtml"),
-        ("about", strings["about"], "Copyright.xhtml"),
-        ("toc", strings["contents"], "TOC.xhtml"),
-        ("abbr", strings["abbr_guide"], "Abbreviations.xhtml"),
-    ]
-
-    for pid, label, src in pages:
+    for pid, label, src in common_pages:
         nav_point = ET.SubElement(navMap, "navPoint", id=pid, playOrder=str(play_order))
         textEl = ET.Element("text")
         textEl.text = label

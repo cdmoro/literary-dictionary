@@ -46,28 +46,53 @@ def generate_dictionary(conn, lang, strings):
         os.path.join(meta_inf_folder, "container.xml"), "w", encoding=encoding
     ) as f:
         f.write(get_container_page())
+        
+    manifest = [
+        "Styles/style.css",
+        "Assets/cover.jpg",
+        "Cover.xhtml",
+        "Copyright.xhtml",
+        "TOC.xhtml",
+    ]
+    
+    toc = {
+        "Cover.xhtml": strings["cover"],
+        "Copyright.xhtml": strings["about"],
+        "TOC.xhtml": strings["contents"],
+    }
+    
+    ncx_common_pages = [
+        ("cover", strings["cover"], "Cover.xhtml"),
+        ("about", strings["about"], "Copyright.xhtml"),
+        ("toc", strings["contents"], "TOC.xhtml"),
+    ]
 
-    # NCX file
     ncx_structure = {
         "Dictionary": dictionary_xhtml_files,
         "Books": book_xhtml_files,
         "Sagas": sagas_xhtml_files,
         "Authors": authors_xhtml_files,
     }
-    with open(os.path.join(output_folder, "toc.ncx"), "w", encoding=encoding) as f:
-        f.write(get_ncx_page(lang, ncx_structure, strings))
 
     # Common files
     common_files = {
         "Cover.xhtml": get_cover_page(lang),
         "Copyright.xhtml": get_copyright_page(strings),
-        "TOC.xhtml": get_toc_page(lang, strings, ncx_structure),
     }
 
     abbreviation_page = get_abbreviation_page(lang, cur, strings)
 
     if abbreviation_page:
         common_files["Abbreviations.xhtml"] = get_abbreviation_page(lang, cur, strings)
+        manifest.append("Abbreviations.xhtml")
+        toc["Abbreviations.xhtml"] = strings["abbr_guide"]
+        ncx_common_pages.append(("abbr", strings["abbr_guide"], "Abbreviations.xhtml")),
+        
+    common_files["TOC.xhtml"] = get_toc_page(lang, strings, ncx_structure, toc)
+    
+    # NCX file
+    with open(os.path.join(output_folder, "toc.ncx"), "w", encoding=encoding) as f:
+        f.write(get_ncx_page(lang, ncx_structure, strings, ncx_common_pages))
 
     for file, content in common_files.items():
         with open(os.path.join(output_folder, file), "w", encoding=encoding) as f:
@@ -75,7 +100,7 @@ def generate_dictionary(conn, lang, strings):
 
     # OPF file
     with open(os.path.join(output_folder, "content.opf"), "w", encoding=encoding) as f:
-        f.write(get_opf_file(lang, strings, ncx_structure))
+        f.write(get_opf_file(lang, strings, ncx_structure, manifest))
 
     # Static files
     shutil.copyfile("styles/style.css", os.path.join(styles_folder, "style.css"))
