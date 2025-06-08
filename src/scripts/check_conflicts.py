@@ -1,9 +1,9 @@
 import argparse
 import glob
-import os
 import sqlite3
 from collections import defaultdict
 from pathlib import Path
+from src.constants import encoding
 
 import yaml
 
@@ -142,7 +142,7 @@ def write_report(conflicts, missing, categories_issues):
 
     if report_data:
         Path("reports").mkdir(exist_ok=True)
-        with open("reports/report.yaml", "w", encoding="utf-8") as f:
+        with open("reports/report.yaml", "w", encoding=encoding) as f:
             yaml.dump(
                 to_dict_clean(report_data), f, allow_unicode=True, sort_keys=False
             )

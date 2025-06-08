@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
-from src.utils import uuid
+from src.constants import uuid_ids, encoding
 import re
 
 
@@ -14,7 +14,7 @@ def get_ncx_page(lang, pages_by_section, strings):
     ET.SubElement(
         head,
         "meta",
-        {"name": "dtb:uid", "content": f"urn:uuid:{uuid[lang]}"},
+        {"name": "dtb:uid", "content": f"urn:uuid:{uuid_ids[lang]}"},
     )
     ET.SubElement(head, "meta", {"name": "dtb:depth", "content": "2"})
     ET.SubElement(head, "meta", {"name": "dtb:totalPageCount", "content": "0"})
@@ -66,7 +66,7 @@ def get_ncx_page(lang, pages_by_section, strings):
             ET.SubElement(nav_point, "content", src=f"{section}/{file}.xhtml")
             play_order += 1
 
-    xml_declaration = '<?xml version="1.0" encoding="utf-8"?>\n'
+    xml_declaration = f'<?xml version="1.0" encoding="{encoding}"?>\n'
     doctype = '<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN" "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">\n'
 
     output = minidom.parseString(ET.tostring(ncx, encoding="unicode")).toprettyxml(

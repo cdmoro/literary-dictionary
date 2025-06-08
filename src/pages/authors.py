@@ -1,9 +1,12 @@
 from src.modules.cross_reference_module import cross_reference_markup
 from src.modules.entries_module import get_entry_markup
+from src.constants import encoding
 
 
-def get_authors_page(lang, title, authors, strings, book_cross_reference, saga_cross_reference):
-    template = f"""<?xml version="1.0" encoding="utf-8"?>
+def get_authors_page(
+    lang, title, authors, strings, book_cross_reference, saga_cross_reference
+):
+    template = f"""<?xml version="1.0" encoding="{encoding}"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html
@@ -46,7 +49,7 @@ def get_authors_page(lang, title, authors, strings, book_cross_reference, saga_c
             additional_info[strings["sagas"]] = cross_reference_markup(
                 saga_cross_reference[id], "../Sagas/"
             )
-        
+
         if book_cross_reference[id]:
             additional_info[strings["books"]] = cross_reference_markup(
                 book_cross_reference[id], "../Books/"

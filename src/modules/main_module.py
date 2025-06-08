@@ -4,6 +4,7 @@ import zipfile
 
 from dotenv import load_dotenv
 
+from src.pages.opf import get_opf_file
 from src.modules.books_module import create_books_files
 from src.modules.dictionary_module import create_dictionary_files
 from src.modules.sagas_module import create_sagas_files
@@ -14,7 +15,7 @@ from src.pages.toc import get_toc_page
 from src.pages.copyright import get_copyright_page
 from src.pages.cover import get_cover_page
 from src.pages.ncx import get_ncx_page
-from src.utils import uuid
+from src.constants import encoding
 
 load_dotenv()
 
@@ -32,15 +33,6 @@ def generate_dictionary(conn, lang, strings):
 
     cur = conn.cursor()
     output_folder = f"output/dictionary_files_{lang}"
-    manifest = [
-        "Styles/style.css",
-        "Assets/cover.jpg",
-        "Cover.xhtml",
-        "Copyright.xhtml",
-        "TOC.xhtml",
-        "Abbreviations.xhtml",
-    ]
-    spine = [v for v in manifest if v.endswith(".xhtml")]
 
     if os.path.exists(output_folder):
         shutil.rmtree(output_folder)
@@ -61,7 +53,7 @@ def generate_dictionary(conn, lang, strings):
 
     # Container
     with open(
-        os.path.join(meta_inf_folder, "container.xml"), "w", encoding="utf-8"
+        os.path.join(meta_inf_folder, "container.xml"), "w", encoding=encoding
     ) as f:
         f.write(get_container_page())
 
@@ -72,7 +64,7 @@ def generate_dictionary(conn, lang, strings):
         "Sagas": sagas_xhtml_files,
         "Authors": authors_xhtml_files,
     }
-    with open(os.path.join(output_folder, "toc.ncx"), "w", encoding="utf-8") as f:
+    with open(os.path.join(output_folder, "toc.ncx"), "w", encoding=encoding) as f:
         f.write(get_ncx_page(lang, ncx_structure, strings))
 
     # Common files
@@ -84,68 +76,12 @@ def generate_dictionary(conn, lang, strings):
     }
 
     for file, content in common_files.items():
-        with open(os.path.join(output_folder, file), "w", encoding="utf-8") as f:
+        with open(os.path.join(output_folder, file), "w", encoding=encoding) as f:
             f.write(content)
 
     # OPF file
-    with open(os.path.join(output_folder, "content.opf"), "w", encoding="utf-8") as f:
-        f.write(
-            f"""<?xml version="1.0" encoding="utf-8"?>
-        
-<package
-  version="2.0"
-  xmlns="http://www.idpf.org/2007/opf"
-  unique-identifier="BookId"
->
-  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
-    <dc:title>{strings["title"]} ({lang.upper()})</dc:title>
-    <dc:language>{lang}</dc:language>
-    <dc:creator>Carlos Bonadeo</dc:creator>
-    <dc:identifier id="BookId" opf:scheme="UUID">urn:uuid:{uuid[lang]}</dc:identifier>
-    <x-metadata>
-      <DictionaryInLanguage>{lang}</DictionaryInLanguage>
-      <DictionaryOutLanguage>{lang}</DictionaryOutLanguage>
-      <DefaultLookupIndex>headword</DefaultLookupIndex>
-    </x-metadata>
-    <meta name="cover" content="cover-image"/>
-  </metadata>
-  <manifest>\n"""
-        )
-
-        f.write(
-            '    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>'
-        )
-
-        for file in manifest:
-            f.write(
-                f'    <item id="{file.replace("/", "_")}" href="{file}" media-type="{media_type[file.split(".")[1]]}"/>\n'
-            )
-
-        for folder, files in ncx_structure.items():
-            for file in files:
-                f.write(
-                    f'    <item id="{file}" href="{folder}/{file}.xhtml" media-type="application/xhtml+xml"/>\n'
-                )
-
-        f.write("  </manifest>\n")
-        f.write('  <spine toc="ncx">\n')
-
-        for idref in spine:
-            f.write(f'    <itemref idref="{idref.replace("/", "_")}"/>\n')
-
-        for folder, files in ncx_structure.items():
-            for file in files:
-                f.write(f'    <itemref idref="{file}"/>\n')
-
-        f.write("  </spine>\n")
-        f.write("  <guide>\n")
-        f.write('    <reference type="cover" title="Cover" href="Cover.xhtml"/>\n')
-        f.write(
-            '    <reference type="toc" title="Table of Contents" href="TOC.xhtml"/>\n'
-        )
-        f.write('    <reference type="text" title="Start" href="Copyright.xhtml"/>\n')
-        f.write("  </guide>\n")
-        f.write("</package>\n")
+    with open(os.path.join(output_folder, "content.opf"), "w", encoding=encoding) as f:
+        f.write(get_opf_file(lang, strings, ncx_structure))
 
     # Static files
     shutil.copyfile("styles/style.css", os.path.join(styles_folder, "style.css"))
@@ -164,7 +100,7 @@ def create_epub(lang, file_name):
     output_folder = f"output/dictionary_files_{lang}"
     epub_path = f'output/{file_name.format(ebook_author=os.getenv("AUTHOR"), lang=lang.upper(), version=os.getenv('DICT_VERSION'))}.epub'
     mimetype_path = os.path.join(output_folder, "mimetype")
-    with open(mimetype_path, "w", encoding="utf-8") as f:
+    with open(mimetype_path, "w", encoding=encoding) as f:
         f.write("application/epub+zip")
 
     with zipfile.ZipFile(epub_path, "w", compression=zipfile.ZIP_DEFLATED) as epub:

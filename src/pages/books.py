@@ -1,11 +1,14 @@
-from src.modules.cross_reference_module import (cross_reference_markup,
-                                                get_author_cr_link,
-                                                get_saga_cr_link)
+from src.modules.cross_reference_module import (
+    cross_reference_markup,
+    get_author_cr_link,
+    get_saga_cr_link,
+)
 from src.modules.entries_module import get_entry_markup
+from src.constants import encoding
 
 
 def get_books_page(lang, title, books, strings, cross_reference):
-    template = f"""<?xml version="1.0" encoding="utf-8"?>
+    template = f"""<?xml version="1.0" encoding="{encoding}"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html
@@ -49,7 +52,7 @@ def get_books_page(lang, title, books, strings, cross_reference):
         additional_info[strings["author"]] = (
             f'<a href="{get_author_cr_link(author, author_id)}">{author}</a>'
         )
-        
+
         if cross_reference[id]:
             additional_info[strings["see_also"]] = cross_reference_markup(
                 cross_reference[id]

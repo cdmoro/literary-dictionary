@@ -3,6 +3,8 @@ from datetime import datetime
 
 from dotenv import load_dotenv
 
+from src.constants import encoding
+
 load_dotenv()
 
 
@@ -33,9 +35,10 @@ def get_copyright_page(strings):
         "repo": os.getenv("PROJECT"),
         "email": os.getenv("EMAIL"),
         "cc_link": f'https://creativecommons.org/licenses/by/4.0/deed.{strings["lang"].lower()}',
+        "encoding": encoding,
     }
 
-    template = """<?xml version="1.0" encoding="utf-8"?>
+    template = """<?xml version="1.0" encoding="{encoding}"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{lang}">

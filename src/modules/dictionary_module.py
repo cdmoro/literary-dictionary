@@ -3,6 +3,7 @@ from collections import defaultdict
 from src.pages.dictionary import get_dictionary_page
 from src.utils import normalize_character
 from src.pages.section import get_section_page, get_section_toc
+from src.constants import encoding
 
 
 def get_entries(conn):
@@ -134,14 +135,14 @@ def create_dictionary_files(output_folder, lang, strings, conn):
         with open(
             os.path.join(output_folder, "Dictionary", "Dictionary.xhtml"),
             "w",
-            encoding="utf-8",
+            encoding=encoding,
         ) as f:
             f.write(get_section_page(lang, strings["dictionary"]))
 
         with open(
             os.path.join(output_folder, "Dictionary", "Dictionary_TOC.xhtml"),
             "w",
-            encoding="utf-8",
+            encoding=encoding,
         ) as f:
             f.write(
                 get_section_toc(
@@ -160,7 +161,7 @@ def create_dictionary_files(output_folder, lang, strings, conn):
             files.append(filename)
 
             with open(
-                os.path.join(folder, f"{filename}.xhtml"), "w", encoding="utf-8"
+                os.path.join(folder, f"{filename}.xhtml"), "w", encoding=encoding
             ) as f:
                 f.write(
                     get_dictionary_page(lang, letter, group, strings, cross_references)

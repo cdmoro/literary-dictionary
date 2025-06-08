@@ -4,6 +4,7 @@ from collections import defaultdict
 from src.pages.section import get_section_page, get_section_toc
 from src.utils import normalize_character
 from src.pages.sagas import get_sagas_page
+from src.constants import encoding
 
 
 def get_sagas(conn):
@@ -102,14 +103,14 @@ def create_sagas_files(output_folder, lang, strings, conn):
         files.append("Sagas_TOC")
 
         with open(
-            os.path.join(output_folder, "Sagas", "Sagas.xhtml"), "w", encoding="utf-8"
+            os.path.join(output_folder, "Sagas", "Sagas.xhtml"), "w", encoding=encoding
         ) as f:
             f.write(get_section_page(lang, strings["sagas"]))
 
         with open(
             os.path.join(output_folder, "Sagas", "Sagas_TOC.xhtml"),
             "w",
-            encoding="utf-8",
+            encoding=encoding,
         ) as f:
             f.write(
                 get_section_toc(
@@ -128,7 +129,7 @@ def create_sagas_files(output_folder, lang, strings, conn):
             files.append(filename)
 
             with open(
-                os.path.join(folder, f"{filename}.xhtml"), "w", encoding="utf-8"
+                os.path.join(folder, f"{filename}.xhtml"), "w", encoding=encoding
             ) as f:
                 f.write(get_sagas_page(lang, letter, group, strings, cross_references))
 
