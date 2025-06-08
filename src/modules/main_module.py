@@ -19,14 +19,6 @@ from src.constants import encoding
 
 load_dotenv()
 
-media_type = {
-    "css": "text/css",
-    "jpg": "image/jpeg",
-    "ncx": "application/x-dtbncx+xml",
-    "xhtml": "application/xhtml+xml",
-}
-# encoding = 'utf-8'
-
 
 def generate_dictionary(conn, lang, strings):
     print(f"\nGenerating dictionary ({lang.upper()})...")
@@ -34,8 +26,6 @@ def generate_dictionary(conn, lang, strings):
     cur = conn.cursor()
     output_folder = f"output/dictionary_files_{lang}"
 
-    if os.path.exists(output_folder):
-        shutil.rmtree(output_folder)
     os.makedirs(output_folder, exist_ok=True)
 
     meta_inf_folder = os.path.join(output_folder, "META-INF")
@@ -71,9 +61,13 @@ def generate_dictionary(conn, lang, strings):
     common_files = {
         "Cover.xhtml": get_cover_page(lang),
         "Copyright.xhtml": get_copyright_page(strings),
-        "Abbreviations.xhtml": get_abbreviation_page(lang, cur, strings),
         "TOC.xhtml": get_toc_page(lang, strings, ncx_structure),
     }
+
+    abbreviation_page = get_abbreviation_page(lang, cur, strings)
+
+    if abbreviation_page:
+        common_files["Abbreviations.xhtml"] = get_abbreviation_page(lang, cur, strings)
 
     for file, content in common_files.items():
         with open(os.path.join(output_folder, file), "w", encoding=encoding) as f:

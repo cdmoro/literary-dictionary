@@ -14,7 +14,10 @@ def get_abbreviation_page(lang, cur, strings):
     for row in cur.fetchall():
         categories.append(dict(row))
 
-        template = f"""<?xml version="1.0" encoding="{encoding}"?>
+    if len(categories) == 0:
+        return None
+
+    template = f"""<?xml version="1.0" encoding="{encoding}"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{lang}">
@@ -26,14 +29,14 @@ def get_abbreviation_page(lang, cur, strings):
     <h1>{strings['abbr_guide']}</h1>
     <table class="abbr-table">"""
 
-        for category in categories:
-            template += f"""
+    for category in categories:
+        template += f"""
         <tr>
             <td>{category.get('abbr')}.</td>
             <td>{category.get('name')} — {category.get('description')}</td>
         </tr>"""
 
-        template += """\n    </table>
+    template += """\n    </table>
 </body>
 </html>
 """

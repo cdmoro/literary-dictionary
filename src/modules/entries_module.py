@@ -18,7 +18,9 @@ def get_entry_markup(
 
     # Definition
     template += "      <dd>\n"
-    template += f"""        <div><em>{abbr}.</em> {description}</div>"""
+    template += (
+        f"""        <div>{f"<em>{abbr}.</em> " if abbr else ""}{description}</div>"""
+    )
 
     for title, desc in additional_info.items():
         if len(desc) > 0:
