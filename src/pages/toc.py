@@ -12,31 +12,31 @@ def get_toc_page(lang, strings, pages_by_section):
     <title>{strings["contents"]}</title>
 </head>
 <body>
-    <h1>{strings["contents"]}</h1>
-    <div><a href="Cover.xhtml">{strings["cover"]}</a></div>
-    <div><a href="Copyright.xhtml">{strings["about"]}</a></div>
-    <div><a href="TOC.xhtml">{strings["contents"]}</a></div>
-    <div><a href="Abbreviations.xhtml">{strings["abbr_guide"]}</a></div>"""
+  <h1>{strings["contents"]}</h1>
+  <div><a href="Cover.xhtml">{strings["cover"]}</a></div>
+  <div><a href="Copyright.xhtml">{strings["about"]}</a></div>
+  <div><a href="TOC.xhtml">{strings["contents"]}</a></div>
+  <div><a href="Abbreviations.xhtml">{strings["abbr_guide"]}</a></div>\n"""
 
     for section, files in pages_by_section.items():
         if len(files) == 0:
             continue
 
-        template += f'<div><a href="{section}/{section}.xhtml">{strings[section.lower()]}</a></div>'
+        template += f'  <div><a href="{section}/{section}.xhtml">{strings[section.lower()]}</a></div>\n'
 
-        template += '<div class="toc-letters">'
+        template += '  <div class="toc-letters">\n'
 
         letter_links = [file for file in files if re.fullmatch(r"[A-Z]_[A-Z]", file)]
 
         for index, file in enumerate(letter_links):
             if index % 10 == 0 and index != 0:
-                template += "<br/>"
+                template += "    <br/>\n"
 
-            template += f'<a class="toc-letter" href="{section}/{file}.xhtml">{file.split("_")[1]}</a>'
+            template += f'    <a class="toc-letter" href="{section}/{file}.xhtml">{file.split("_")[1]}</a>\n'
 
-        template += "</div>"
+        template += "  </div>\n"
 
-    template += """  </body>
+    template += """</body>
 </html>
 """
 

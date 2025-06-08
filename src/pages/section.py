@@ -25,10 +25,11 @@ def get_section_toc(lang, title, entries_by_letter, strings, prefix):
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="../Styles/style.css"/>
-    <title>{title}</title>
+    <title>{title}: {strings["section_toc_subtitle"]}</title>
 </head>
 <body>
-    <h1>{title}: {strings["entries"].lower()}</h1>\n"""
+    <h1 class="toc-title">{title}:</h1>
+    <h2 class="toc-subtitle">{strings["section_toc_subtitle"]}</h2>\n"""
 
     for letter, group in sorted(
         entries_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])

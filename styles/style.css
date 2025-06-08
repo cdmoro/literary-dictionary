@@ -118,3 +118,11 @@ dd {
     display: inline-block;
     margin: 0 .5em;
 }
+
+.toc-title {
+    margin: 0 0 0em;
+}
+
+.toc-subtitle {
+    margin: 0 0 2em;
+}

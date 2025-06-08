@@ -54,10 +54,9 @@ def get_ncx_page(lang, pages_by_section, strings):
         ET.SubElement(section_point, "content", src=f"{section}/{section}.xhtml")
         play_order += 1
 
-        for file in files:
-            if not re.fullmatch(r"[A-Z]_[A-Z]", file):
-                continue
+        letter_links = [file for file in files if re.fullmatch(r"[A-Z]_[A-Z]", file)]
 
+        for file in letter_links:
             nav_point = ET.SubElement(
                 section_point, "navPoint", id=file, playOrder=str(play_order)
             )
