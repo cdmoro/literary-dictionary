@@ -16,8 +16,8 @@ def get_toc_page(lang, strings, pages_by_section):
   <h1>{strings["contents"]}</h1>
   <div><a href="Cover.xhtml">{strings["cover"]}</a></div>
   <div><a href="Copyright.xhtml">{strings["about"]}</a></div>
-  <div><a href="TOC.xhtml">{strings["contents"]}</a></div>
-  <div><a href="Abbreviations.xhtml">{strings["abbr_guide"]}</a></div>\n"""
+  <div><a href="TOC.xhtml">{strings["contents"]}</a></div>\n"""
+    #   <div><a href="Abbreviations.xhtml">{strings["abbr_guide"]}</a></div>\n"""
 
     for section, files in pages_by_section.items():
         if len(files) == 0:
