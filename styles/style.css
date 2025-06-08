@@ -111,12 +111,6 @@ dd {
 
 .toc-letters {
     margin: 0 1em;
-    white-space: normal;
-}
-
-.toc-letter {
-    display: inline-block;
-    margin: 0 .5em;
 }
 
 .toc-title {
