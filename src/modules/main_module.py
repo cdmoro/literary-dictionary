@@ -32,17 +32,9 @@ def generate_dictionary(conn, lang, strings):
 
     cur = conn.cursor()
     output_folder = f"output/dictionary_files_{lang}"
-    # Common files
-    common_files = {
-        "Cover.xhtml": get_cover_page(lang),
-        "Copyright.xhtml": get_copyright_page(strings),
-        "Abbreviations.xhtml": get_abbreviation_page(lang, cur, strings),
-        "TOC.xhtml": get_toc_page(lang, strings),
-    }
     manifest = [
         "Styles/style.css",
         "Assets/cover.jpg",
-        "toc.ncx",
         "Cover.xhtml",
         "Copyright.xhtml",
         "TOC.xhtml",
@@ -73,10 +65,6 @@ def generate_dictionary(conn, lang, strings):
     ) as f:
         f.write(get_container_page())
 
-    for file, content in common_files.items():
-        with open(os.path.join(output_folder, file), "w", encoding="utf-8") as f:
-            f.write(content)
-
     # NCX file
     ncx_structure = {
         "Dictionary": dictionary_xhtml_files,
@@ -86,6 +74,18 @@ def generate_dictionary(conn, lang, strings):
     }
     with open(os.path.join(output_folder, "toc.ncx"), "w", encoding="utf-8") as f:
         f.write(get_ncx_page(lang, ncx_structure, strings))
+
+    # Common files
+    common_files = {
+        "Cover.xhtml": get_cover_page(lang),
+        "Copyright.xhtml": get_copyright_page(strings),
+        "Abbreviations.xhtml": get_abbreviation_page(lang, cur, strings),
+        "TOC.xhtml": get_toc_page(lang, strings, ncx_structure),
+    }
+
+    for file, content in common_files.items():
+        with open(os.path.join(output_folder, file), "w", encoding="utf-8") as f:
+            f.write(content)
 
     # OPF file
     with open(os.path.join(output_folder, "content.opf"), "w", encoding="utf-8") as f:
@@ -112,80 +112,30 @@ def generate_dictionary(conn, lang, strings):
   <manifest>\n"""
         )
 
+        f.write(
+            '    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>'
+        )
+
         for file in manifest:
             f.write(
                 f'    <item id="{file.replace("/", "_")}" href="{file}" media-type="{media_type[file.split(".")[1]]}"/>\n'
             )
 
-        f.write(
-            '    <item id="dictionary" href="Dictionary.xhtml" media-type="application/xhtml+xml"/>\n'
-        )
-        f.write(
-            '    <item id="dictionary-toc" href="Dictionary_TOC.xhtml" media-type="application/xhtml+xml"/>\n'
-        )
-        for filename in dictionary_xhtml_files:
-            f.write(
-                f'    <item id="{filename}" href="Dictionary/{filename}.xhtml" media-type="application/xhtml+xml"/>\n'
-            )
+        for folder, files in ncx_structure.items():
+            for file in files:
+                f.write(
+                    f'    <item id="{file}" href="{folder}/{file}.xhtml" media-type="application/xhtml+xml"/>\n'
+                )
 
-        f.write(
-            '    <item id="books" href="Books.xhtml" media-type="application/xhtml+xml"/>\n'
-        )
-        f.write(
-            '    <item id="books-toc" href="Books_TOC.xhtml" media-type="application/xhtml+xml"/>\n'
-        )
-        for filename in book_xhtml_files:
-            f.write(
-                f'    <item id="{filename}" href="Books/{filename}.xhtml" media-type="application/xhtml+xml"/>\n'
-            )
-
-        f.write(
-            '    <item id="sagas" href="Sagas.xhtml" media-type="application/xhtml+xml"/>\n'
-        )
-        f.write(
-            '    <item id="sagas-toc" href="Sagas_TOC.xhtml" media-type="application/xhtml+xml"/>\n'
-        )
-        for filename in sagas_xhtml_files:
-            f.write(
-                f'    <item id="{filename}" href="Sagas/{filename}.xhtml" media-type="application/xhtml+xml"/>\n'
-            )
-
-        f.write(
-            '    <item id="authors" href="Authors.xhtml" media-type="application/xhtml+xml"/>\n'
-        )
-        f.write(
-            '    <item id="authors-toc" href="Authors_TOC.xhtml" media-type="application/xhtml+xml"/>\n'
-        )
-        for filename in authors_xhtml_files:
-            f.write(
-                f'    <item id="{filename}" href="Authors/{filename}.xhtml" media-type="application/xhtml+xml"/>\n'
-            )
         f.write("  </manifest>\n")
-
         f.write('  <spine toc="ncx">\n')
 
         for idref in spine:
             f.write(f'    <itemref idref="{idref.replace("/", "_")}"/>\n')
 
-        f.write('    <itemref idref="dictionary"/>\n')
-        f.write('    <itemref idref="dictionary-toc"/>\n')
-        for filename in dictionary_xhtml_files:
-            f.write(f'    <itemref idref="{filename}"/>\n')
-
-        f.write('    <itemref idref="books"/>\n')
-        f.write('    <itemref idref="books-toc"/>\n')
-        for filename in book_xhtml_files:
-            f.write(f'    <itemref idref="{filename}"/>\n')
-
-        f.write('    <itemref idref="sagas"/>\n')
-        f.write('    <itemref idref="sagas-toc"/>\n')
-        for filename in sagas_xhtml_files:
-            f.write(f'    <itemref idref="{filename}"/>\n')
-
-        f.write('    <itemref idref="authors"/>\n')
-        f.write('    <itemref idref="authors-toc"/>\n')
-        for filename in authors_xhtml_files:
-            f.write(f'    <itemref idref="{filename}"/>\n')
+        for folder, files in ncx_structure.items():
+            for file in files:
+                f.write(f'    <itemref idref="{file}"/>\n')
 
         f.write("  </spine>\n")
         f.write("  <guide>\n")

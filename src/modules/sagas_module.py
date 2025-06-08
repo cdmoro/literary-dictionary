@@ -95,34 +95,41 @@ def create_sagas_files(output_folder, lang, strings, conn):
     cross_references = build_saga_cross_references(conn)
     files = []
 
-    os.makedirs(folder)
+    if len(sagas_by_letter) > 0:
+        os.makedirs(folder)
 
-    with open(os.path.join(output_folder, "Sagas.xhtml"), "w", encoding="utf-8") as f:
-        f.write(get_section_page(lang, strings["sagas"]))
-
-    with open(
-        os.path.join(output_folder, "Sagas_TOC.xhtml"), "w", encoding="utf-8"
-    ) as f:
-        f.write(
-            get_section_toc(
-                lang,
-                strings["sagas"],
-                sagas_by_letter,
-                strings,
-                prefix="S",
-                folder="Sagas",
-            )
-        )
-
-    for letter, group in sorted(
-        sagas_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])
-    ):
-        filename = f"S_{letter}"
-        files.append(filename)
+        files.append("Sagas")
+        files.append("Sagas_TOC")
 
         with open(
-            os.path.join(folder, f"{filename}.xhtml"), "w", encoding="utf-8"
+            os.path.join(output_folder, "Sagas", "Sagas.xhtml"), "w", encoding="utf-8"
         ) as f:
-            f.write(get_sagas_page(lang, letter, group, strings, cross_references))
+            f.write(get_section_page(lang, strings["sagas"]))
+
+        with open(
+            os.path.join(output_folder, "Sagas", "Sagas_TOC.xhtml"),
+            "w",
+            encoding="utf-8",
+        ) as f:
+            f.write(
+                get_section_toc(
+                    lang,
+                    strings["sagas"],
+                    sagas_by_letter,
+                    strings,
+                    prefix="S",
+                )
+            )
+
+        for letter, group in sorted(
+            sagas_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])
+        ):
+            filename = f"S_{letter}"
+            files.append(filename)
+
+            with open(
+                os.path.join(folder, f"{filename}.xhtml"), "w", encoding="utf-8"
+            ) as f:
+                f.write(get_sagas_page(lang, letter, group, strings, cross_references))
 
     return files

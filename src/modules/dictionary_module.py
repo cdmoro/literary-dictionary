@@ -124,37 +124,46 @@ def create_dictionary_files(output_folder, lang, strings, conn):
     cross_references = build_cross_references(entries)
     files = []
 
-    os.makedirs(folder)
+    if len(entries) > 0:
+        os.makedirs(folder)
 
-    # Dictionary
-    with open(
-        os.path.join(output_folder, "Dictionary.xhtml"), "w", encoding="utf-8"
-    ) as f:
-        f.write(get_section_page(lang, strings["dictionary"]))
+        files.append("Dictionary")
+        files.append("Dictionary_TOC")
 
-    with open(
-        os.path.join(output_folder, "Dictionary_TOC.xhtml"), "w", encoding="utf-8"
-    ) as f:
-        f.write(
-            get_section_toc(
-                lang,
-                strings["dictionary"],
-                entries_by_letter,
-                strings,
-                prefix="D",
-                folder="Dictionary",
-            )
-        )
-
-    for letter, group in sorted(
-        entries_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])
-    ):
-        filename = f"D_{letter}"
-        files.append(filename)
+        # Dictionary
+        with open(
+            os.path.join(output_folder, "Dictionary", "Dictionary.xhtml"),
+            "w",
+            encoding="utf-8",
+        ) as f:
+            f.write(get_section_page(lang, strings["dictionary"]))
 
         with open(
-            os.path.join(folder, f"{filename}.xhtml"), "w", encoding="utf-8"
+            os.path.join(output_folder, "Dictionary", "Dictionary_TOC.xhtml"),
+            "w",
+            encoding="utf-8",
         ) as f:
-            f.write(get_dictionary_page(lang, letter, group, strings, cross_references))
+            f.write(
+                get_section_toc(
+                    lang,
+                    strings["dictionary"],
+                    entries_by_letter,
+                    strings,
+                    prefix="D",
+                )
+            )
+
+        for letter, group in sorted(
+            entries_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])
+        ):
+            filename = f"D_{letter}"
+            files.append(filename)
+
+            with open(
+                os.path.join(folder, f"{filename}.xhtml"), "w", encoding="utf-8"
+            ) as f:
+                f.write(
+                    get_dictionary_page(lang, letter, group, strings, cross_references)
+                )
 
     return files

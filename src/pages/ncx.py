@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
 from src.utils import uuid
+import re
 
 
 def get_ncx_page(lang, pages_by_section, strings):
@@ -50,13 +51,15 @@ def get_ncx_page(lang, pages_by_section, strings):
         textEl = ET.Element("text")
         textEl.text = strings[section.lower()]
         ET.SubElement(section_point, "navLabel").append(textEl)
-        ET.SubElement(section_point, "content", src=f"{section}.xhtml")
+        ET.SubElement(section_point, "content", src=f"{section}/{section}.xhtml")
         play_order += 1
 
         for file in files:
-            entry_id = f"{file}"
+            if not re.fullmatch(r"[A-Z]_[A-Z]", file):
+                continue
+
             nav_point = ET.SubElement(
-                section_point, "navPoint", id=entry_id, playOrder=str(play_order)
+                section_point, "navPoint", id=file, playOrder=str(play_order)
             )
             textEl = ET.Element("text")
             textEl.text = file.split("_")[1]

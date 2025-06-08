@@ -141,43 +141,52 @@ def create_authors_files(output_folder, lang, strings, conn):
     authors_saga_cross_references = build_author_saga_cross_references(conn)
     files = []
 
-    os.makedirs(folder)
+    if len(authors_by_letter) > 0:
+        os.makedirs(folder)
 
-    with open(os.path.join(output_folder, "Authors.xhtml"), "w", encoding="utf-8") as f:
-        f.write(get_section_page(lang, strings["authors"]))
-
-    with open(
-        os.path.join(output_folder, "Authors_TOC.xhtml"), "w", encoding="utf-8"
-    ) as f:
-        f.write(
-            get_section_toc(
-                lang,
-                strings["authors"],
-                authors_by_letter,
-                strings,
-                prefix="A",
-                folder="Authors",
-            )
-        )
-
-    for letter, group in sorted(
-        authors_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])
-    ):
-        filename = f"A_{letter}"
-        files.append(filename)
+        files.append("Authors")
+        files.append("Authors_TOC")
 
         with open(
-            os.path.join(folder, f"{filename}.xhtml"), "w", encoding="utf-8"
+            os.path.join(output_folder, "Authors", "Authors.xhtml"),
+            "w",
+            encoding="utf-8",
+        ) as f:
+            f.write(get_section_page(lang, strings["authors"]))
+
+        with open(
+            os.path.join(output_folder, "Authors", "Authors_TOC.xhtml"),
+            "w",
+            encoding="utf-8",
         ) as f:
             f.write(
-                get_authors_page(
+                get_section_toc(
                     lang,
-                    letter,
-                    group,
+                    strings["authors"],
+                    authors_by_letter,
                     strings,
-                    authors_book_cross_references,
-                    authors_saga_cross_references,
+                    prefix="A",
                 )
             )
+
+        for letter, group in sorted(
+            authors_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])
+        ):
+            filename = f"A_{letter}"
+            files.append(filename)
+
+            with open(
+                os.path.join(folder, f"{filename}.xhtml"), "w", encoding="utf-8"
+            ) as f:
+                f.write(
+                    get_authors_page(
+                        lang,
+                        letter,
+                        group,
+                        strings,
+                        authors_book_cross_references,
+                        authors_saga_cross_references,
+                    )
+                )
 
     return files
