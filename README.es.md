@@ -63,10 +63,10 @@ python ./main.py
 
 Después:
 
-1. Abrí Kindle Previewer
+1. Abrí Kindle Previewer 3
 1. Cargá el archivo EPUB generado o dictionary_files/Dictionary.opf
 1. Exportalo como MOBI
-1. Copialo a la carpeta `dictionaries` de tu Kindle
+1. Copialo a la carpeta `documents/dictionaries` de tu Kindle
 
 ¡Listo! 🔍📖
 

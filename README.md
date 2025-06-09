@@ -41,7 +41,7 @@ Love books and tech? Join the mission!
 - Suggest new books to include
 - Improve the Python scripts
 - Report bugs or request features
-- Share your favorite literary universe!
+- Share your favourite literary universe!
 
 You can also:
 - ☕ [Buy me a coffee](https://buymeacoffee.com/cdmoro)
@@ -65,10 +65,10 @@ It will generate several one dictionary per language in `output` folder.
 
 Then:
 
-1. Open Kindle Previewer
+1. Open Kindle Previewer 3
 1. Load the generated EPUB or `dictionary_files_en/content.opf`
 1. Export to MOBI
-1. Copy to your Kindle’s `dictionaries` folder
+1. Copy to your Kindle’s `documents/dictionaries` folder
 
 You’re ready to go! 🔍📖
 
