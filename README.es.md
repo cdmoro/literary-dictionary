@@ -11,6 +11,7 @@ El diccionario está disponible actualmente en los siguientes idiomas, cada uno 
 
 - 🇬🇧 Inglés — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.EN.v1.0.0.mobi)
 - 🇪🇸 Español — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.0.0.mobi)
+- 🇮🇹 Italiano — Próximamente!
 
 Cada versión está cuidadosamente diseñada para garantizar una lectura fluida y una navegación cómoda en Kindle y otros lectores electrónicos. Hay más idiomas previstos para futuras versiones.
 
