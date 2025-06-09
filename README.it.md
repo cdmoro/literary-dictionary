@@ -29,9 +29,9 @@ Il **Dizionario Letterario per Kindle** è costruito per rendere la tua esperien
 
 | Ricerca di parola singola | Frase multi-parola | Supporto a definizioni multiple | Voci con riferimenti incrociati |
 |:--------------------------:|:------------------:|:------------------------------:|:------------------------------:|
-|<img src="./screenshots/en/01_definition.png" height="200px">|<img src="./screenshots/en/02_definition_group_of_words.png" height="200px">|<img src="./screenshots/en/03_multiple_definitions.png" height="200px">|<img src="./screenshots/en/04_dict.png" height="200px">|
+|<img src="./screenshots/it/01_definition.png" height="200px">|<img src="./screenshots/it/02_definition_group_of_words.png" height="200px">|<img src="./screenshots/it/03_multiple_definitions.png" height="200px">|<img src="./screenshots/it/04_dict.png" height="200px">|
 | **Guida alle abbreviazioni** | **Indice delle voci per sezione** | **Sezione Autori** | **Sezione Saghe** |
-|<img src="./screenshots/en/05_abbr_guide.png" height="200px">|<img src="./screenshots/en/06_entry_index.png" height="200px">|<img src="./screenshots/en/07_authors.png" height="200px">|<img src="./screenshots/en/08_sagas.png" height="200px">|
+|<img src="./screenshots/it/05_abbr_guide.png" height="200px">|<img src="./screenshots/it/06_entry_index.png" height="200px">|<img src="./screenshots/it/07_authors.png" height="200px">|<img src="./screenshots/it/08_sagas.png" height="200px">|
 
 ---
 
