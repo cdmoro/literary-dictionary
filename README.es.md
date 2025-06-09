@@ -1,7 +1,8 @@
 # 📚 Diccionario Literario para Kindle
 
-[![Traducción: English](https://img.shields.io/badge/traducción-en-blue.svg)](README.md)
-[![Traducción: Spanish](https://img.shields.io/badge/traducción-es-red.svg)](README.es.md)
+[![Traducción: Inglés](https://img.shields.io/badge/traducción-en-blue.svg)](README.md)
+[![Traducción: Español](https://img.shields.io/badge/traducción-es-red.svg)](README.es.md)
+[![Traducción: Italiano](https://img.shields.io/badge/traducción-it-green.svg)](README.it.md)
 
 **Tu compañero de lectura definitivo.**  
 ¿Perdido entre los nombres de _Cien años de soledad_? ¿No recordás si ese objeto mágico era de Frodo o de Harry? Este **Diccionario Literario** de código abierto te ayuda a seguir personajes, lugares y conceptos de libros y sagas icónicas—directamente desde tu Kindle.
@@ -64,7 +65,7 @@ python ./main.py
 Después:
 
 1. Abrí Kindle Previewer 3
-1. Cargá el archivo EPUB generado o dictionary_files/Dictionary.opf
+1. Cargá el archivo EPUB generado o `dictionary_files_es/content.opf`
 1. Exportalo como MOBI
 1. Copialo a la carpeta `documents/dictionaries` de tu Kindle
 
