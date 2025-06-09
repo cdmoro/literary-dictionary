@@ -1,5 +1,5 @@
 {
-    "abbr_guide": "Guida alle Abbreviazioni",
+    "abbr_guide": "Elenco delle abbreviazioni   ",
     "about": "Su questo libro",
     "author": "Autor",
     "authors": "Autori",
@@ -7,7 +7,7 @@
     "books": "Libri",
     "contact": "Contatto",
     "contents": "Indice",
-    "copyright": "© {current_year} {ebook_author}. Questo contenuto è concesso in licenza sotto una <a href=\"https://creativecommons.org/licenses/by/4.0/deed.it\">Creative Commons Attribuzione 4.0 Internazionale (CC BY 4.0)</a>. È permesso copiare, ridistribuire e modificare, anche a fini commerciali, purché venga attribuito il credito appropriato.",
+    "copyright": "© {current_year} {ebook_author}. Questo contenuto è concesso in licenza con una <a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.it\">Creative Commons Attribuzione - Non Commerciale 4.0 Internazionale (CC BY-NC 4.0)</a>. È consentito copiare, ridistribuire e modificare il contenuto purché venga attribuito correttamente e non sia utilizzato a fini commerciali.",
     "copyright_desc": "Questo dizionario raccoglie personaggi, concetti e oggetti dalla letteratura mondiale in diverse lingue. È un progetto libero e in continua evoluzione, creato per lettori curiosi.",
     "copyright_version": "Versione {version}",
     "cover": "Copertina",

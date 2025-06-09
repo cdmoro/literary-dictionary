@@ -1,5 +1,5 @@
 {
-    "abbr_guide": "Guia de Abreviações",
+    "abbr_guide": "Lista de Abreviaturas",
     "about": "Sobre este livro",
     "author": "Autor",
     "authors": "Autores",
@@ -7,7 +7,7 @@
     "books": "Livros",
     "contact": "Contato",
     "contents": "Conteúdo",
-    "copyright": "© {current_year} {ebook_author}. Este conteúdo está licenciado sob uma <a href=\"https://creativecommons.org/licenses/by/4.0/deed.pt\">Licença Creative Commons Atribuição 4.0 Internacional (CC BY 4.0)</a>. Você tem permissão para copiar, redistribuir e modificar, inclusive para fins comerciais, desde que o crédito apropriado seja dado.",
+    "copyright": "© {current_year} {ebook_author}. Este conteúdo está licenciado sob uma <a href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.pt\">Licença Creative Commons Atribuição-NãoComercial 4.0 Internacional (CC BY-NC 4.0)</a>. É permitido copiar, redistribuir e modificar o conteúdo, desde que seja dado o devido crédito e não seja utilizado para fins comerciais.",
     "copyright_desc": "Este dicionário reúne personagens, conceitos e objetos da literatura mundial em vários idiomas. É um projeto livre e em constante evolução, criado para leitores curiosos.",
     "copyright_version": "Versão {version}",
     "cover": "Capa",

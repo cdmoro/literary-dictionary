@@ -1,5 +1,5 @@
 {
-    "abbr_guide": "Abbreviation Guide",
+    "abbr_guide": "List of Abbreviations",
     "about": "About this book",
     "author": "Author",
     "authors": "Authors",
@@ -7,7 +7,7 @@
     "books": "Books",
     "contact": "Contact",
     "contents": "Contents",
-    "copyright": "© {current_year} {ebook_author}. This content is licensed under a <a href=\"https://creativecommons.org/licenses/by/4.0/deed.en\">Creative Commons Attribution 4.0 International (CC BY 4.0)</a> license. You are free to copy, redistribute, and modify it, even for commercial purposes, as long as appropriate credit is given.",
+    "copyright": "<p>© {current_year} {ebook_author}. This content is licensed under a <a href=\"https://creativecommons.org/licenses/by-nc/4.0/\">Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)</a> license. You are allowed to copy, redistribute, and modify the content as long as proper credit is given and it is not used for commercial purposes.",
     "copyright_desc": "This dictionary brings together characters, concepts, and objects from world literature in multiple languages. It is a free and evolving project created for curious readers.",
     "copyright_version": "Version {version}",
     "cover": "Cover",

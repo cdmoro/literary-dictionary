@@ -1,6 +1,7 @@
 # 📚 Diccionario Literario para Kindle
 
-Documento disponible en [[English](README.md)]
+[![Traducción: English](https://img.shields.io/badge/traducción-en-blue.svg)](README.md)
+[![Traducción: Spanish](https://img.shields.io/badge/traducción-es-red.svg)](README.es.md)
 
 **Tu compañero de lectura definitivo.**  
 ¿Perdido entre los nombres de _Cien años de soledad_? ¿No recordás si ese objeto mágico era de Frodo o de Harry? Este **Diccionario Literario** de código abierto te ayuda a seguir personajes, lugares y conceptos de libros y sagas icónicas—directamente desde tu Kindle.
@@ -77,3 +78,9 @@ Hola, soy Carlos — lector empedernido, programador y hacker de Kindle.
 - 💼 [LinkedIn](https://www.linkedin.com/in/cdbonadeo/)
 
 Llevemos la literatura al siguiente nivel, una búsqueda a la vez.
+
+## Licencia
+
+![CC BY-NC-SA](assets/cc_banner.png)
+
+Este contenido está licenciado bajo una [Creative Commons Atribución-NoComercial 4.0 Internacional (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/deed.es). Se permite copiar, redistribuir y modificar siempre que se otorgue el crédito correspondiente y no se use con fines comerciales.

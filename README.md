@@ -1,6 +1,7 @@
 # 📚 Literary Dictionary for Kindle
 
-Document available in [[Español](README.es.md)]
+[![Translation: English](https://img.shields.io/badge/translation-en-blue.svg)](README.md)
+[![Translation: Spanish](https://img.shields.io/badge/translation-es-red.svg)](README.es.md)
 
 **Your ultimate reading companion.**  
 Lost in the maze of names from _One Hundred Years of Solitude_? Can’t remember if that magical object belonged to Frodo or Harry? This open-source **Literary Dictionary** helps you keep track of characters, places, and concepts from iconic books and sagas—right from your Kindle.
@@ -75,7 +76,13 @@ You’re ready to go! 🔍📖
 
 Hi! I’m Carlos — book lover, coder, and Kindle hacker.
 
-- 🐦 [Twitter](https://twitter.com/CarlosBonadeo)
+- <img height="20" src="https://cdn.simpleicons.org/github?viewbox=auto" /> [Twitter](https://twitter.com/CarlosBonadeo)
 - 💼 [LinkedIn](https://www.linkedin.com/in/cdbonadeo/)
 
 Let’s bring literature to life, one lookup at a time.
+
+## License
+
+![CC BY-NC-SA](assets/cc_banner.png)
+
+This content is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/) license. You are allowed to copy, redistribute, and modify the content as long as proper credit is given and it is not used for commercial purposes.

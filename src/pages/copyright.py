@@ -58,12 +58,14 @@ def get_copyright_page(strings):
     <div><strong>{contact}</strong>: <a href="mailto:{email}">{email}</a></div>
     <br/>
     <div><strong>{license}</strong></div>
-    <div>{copyright}</div>
+    <br/>
     <div>
         <a href="{cc_link}" target="_blank" rel="noopener noreferrer">
             <img src="Assets/cc_banner.png" alt="Creative Commons Attribution 4.0 International" />
         </a>
     </div>
+    <br/>
+    <div>{copyright}</div>
 </body>
 </html>"""
 

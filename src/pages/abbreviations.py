@@ -32,8 +32,8 @@ def get_abbreviation_page(lang, cur, strings):
     for category in categories:
         template += f"""
         <tr>
-            <td>{category.get('abbr')}.</td>
-            <td>{category.get('name')} — {category.get('description')}</td>
+            <td class="abbr-td">{category.get('abbr')}.</td>
+            <td class="abbr-td-decription">{category.get('name')} — {category.get('description')}</td>
         </tr>"""
 
     template += """\n    </table>

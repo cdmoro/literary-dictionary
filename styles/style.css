@@ -33,14 +33,14 @@ h1, h2, h3, h4, h5, h6 {
     margin: 1em 0;
 }
 
-h1, h2, h3, h4, h5, h6, dt {
+h1, h2, h3, h4, h5, h6, dl, dt {
     page-break-inside: avoid;
     break-inside: avoid;
     page-break-after: avoid;
     break-after: avoid;
 }
 
-h1, h2, h3, h4, h5, h6, abbr, dt, pre, address, table, caption, th, td {
+h1, h2, h3, h4, h5, h6, abbr, dl, pre, address, table, caption, th, td {
     -ms-hyphens: none;
     -moz-hyphens: none;
     -webkit-hyphens: none;
@@ -91,6 +91,7 @@ dd {
 
 .letter-toc-title {
     margin: 0;
+    font-size: 1em;
 }
 
 .space-start {
@@ -119,4 +120,12 @@ dd {
 
 .toc-subtitle {
     margin: 0 0 2em;
+}
+
+.abbr-td {
+    padding: 0 .3em .2em 0
+}
+
+.abbr-td-decription {
+    padding: 0 0 .2em 0
 }
