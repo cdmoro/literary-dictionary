@@ -7,7 +7,7 @@
 **Il tuo compagno di lettura definitivo.**  
 Perso nel labirinto di nomi de _Cent'anni di solitudine_? Non ricordi se quell'oggetto magico appartenesse a Frodo o a Harry? Questo **Dizionario Letterario** open-source ti aiuta a tenere traccia di personaggi, luoghi e concetti di libri e saghe iconiche—direttamente dal tuo Kindle.
 
-Il dizionario è attualmente disponibile in inglese e spagnolo, con altri lingue previste per future versioni. Ogni versione è progettata con cura per garantire una lettura e una navigazione fluida su Kindle e altri dispositivi di lettura.
+Il dizionario è attualmente disponibile in inglese, spagnolo e italiano, con altri lingue previste per future versioni. Ogni versione è progettata con cura per garantire una lettura e una navigazione fluida su Kindle e altri dispositivi di lettura.
 
 🎯 Scarica l'ultima versione del dizionario [qui](https://github.com/cdmoro/literary-dictionary/releases/latest)
 

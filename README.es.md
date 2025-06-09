@@ -7,7 +7,7 @@
 **Tu compañero de lectura definitivo.**  
 ¿Perdido entre los nombres de _Cien años de soledad_? ¿No recordás si ese objeto mágico era de Frodo o de Harry? Este **Diccionario Literario** de código abierto te ayuda a seguir personajes, lugares y conceptos de libros y sagas icónicas—directamente desde tu Kindle.
 
-El diccionario está disponible actualmente en inglés y español. Se planean más idiomas para futuras versiones. Cada versión está diseñada cuidadosamente para asegurar una lectura fluida y una navegación simple en Kindle y otros dispositivos de lectura.
+El diccionario está disponible actualmente en inglés, español e italiano. Se planean más idiomas para futuras versiones. Cada versión está diseñada cuidadosamente para asegurar una lectura fluida y una navegación simple en Kindle y otros dispositivos de lectura.
 
 🎯 Descargá la última versión del diccionario [acá](https://github.com/cdmoro/literary-dictionary/releases/latest)
 
