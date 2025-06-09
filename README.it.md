@@ -7,9 +7,15 @@
 **Il tuo compagno di lettura definitivo.**  
 Perso nel labirinto di nomi de _Cent'anni di solitudine_? Non ricordi se quell'oggetto magico appartenesse a Frodo o a Harry? Questo **Dizionario Letterario** open-source ti aiuta a tenere traccia di personaggi, luoghi e concetti di libri e saghe iconiche—direttamente dal tuo Kindle.
 
-Il dizionario è attualmente disponibile in inglese, spagnolo e italiano, con altri lingue previste per future versioni. Ogni versione è progettata con cura per garantire una lettura e una navigazione fluida su Kindle e altri dispositivi di lettura.
+Il dizionario è attualmente disponibile nelle seguenti lingue, ognuna offerta come file separato:
 
-🎯 Scarica l'ultima versione del dizionario [qui](https://github.com/cdmoro/literary-dictionary/releases/latest)
+- 🇬🇧 Inglese — [Scarica](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.EN.v1.0.0.mobi)
+- 🇪🇸 Spagnolo — [Scarica](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.0.0.mobi)
+- 🇮🇹 Italiano — Prossimamente!
+
+Ogni versione è progettata con cura per garantire una lettura fluida e una navigazione agevole su Kindle e altri e-reader. Altre lingue sono previste per le prossime versioni.
+
+🗒️ Puoi anche visitare la sezione [Releases](https://github.com/cdmoro/literary-dictionary/releases) per vedere il registro delle modifiche e le versioni precedenti.
 
 ## ✨ Caratteristiche
 
