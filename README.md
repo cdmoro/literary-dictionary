@@ -76,7 +76,7 @@ You’re ready to go! 🔍📖
 
 Hi! I’m Carlos — book lover, coder, and Kindle hacker.
 
-- <img height="20" src="https://cdn.simpleicons.org/github?viewbox=auto" /> [Twitter](https://twitter.com/CarlosBonadeo)
+- 🐦 [Twitter](https://twitter.com/CarlosBonadeo)
 - 💼 [LinkedIn](https://www.linkedin.com/in/cdbonadeo/)
 
 Let’s bring literature to life, one lookup at a time.
