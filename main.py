@@ -1,6 +1,7 @@
 import glob
 import os
 import shutil
+import argparse
 
 from src.db import get_connection
 
@@ -14,6 +15,11 @@ def get_lang_from_filename(filename):
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--commercial", action="store_true", help="Commercial build")
+
+    args = parser.parse_args()
+
     db_files = glob.glob("dictionary/dictionary.*.db")
 
     if os.path.exists("output"):
@@ -24,7 +30,7 @@ def main():
         lang = get_lang_from_filename(db_path)
         strings = get_translations(lang)
 
-        generate_dictionary(conn, lang, strings)
+        generate_dictionary(conn, lang, strings, args)
         conn.close()
 
 
