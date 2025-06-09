@@ -20,7 +20,7 @@ from src.constants import encoding
 load_dotenv()
 
 
-def generate_dictionary(conn, lang, strings):
+def generate_dictionary(conn, lang, strings, args):
     print(f"\nGenerating dictionary ({lang.upper()})...")
 
     cur = conn.cursor()
@@ -60,7 +60,7 @@ def generate_dictionary(conn, lang, strings):
     # Common files
     common_files = {
         "Cover.xhtml": get_cover_page(lang),
-        "Copyright.xhtml": get_copyright_page(strings),
+        "Copyright.xhtml": get_copyright_page(strings, args),
         "TOC.xhtml": get_toc_page(lang, strings, ncx_structure),
     }
 
