@@ -8,16 +8,32 @@
 **Tu compañero de lectura definitivo.**  
 ¿Perdido entre los nombres de _Cien años de soledad_? ¿No recordás si ese objeto mágico era de Frodo o de Harry? Este **Diccionario Literario** de código abierto te ayuda a seguir personajes, lugares y conceptos de libros y sagas icónicas—directamente desde tu Kindle.
 
-El diccionario está disponible actualmente en los siguientes idiomas, cada uno con su propio archivo independiente:
+El diccionario está disponible actualmente en los siguientes idiomas:
 
 - 🇬🇧 Inglés — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.EN.v1.0.0.mobi)
 - 🇪🇸 Español — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.0.0.mobi)
 - 🇮🇹 Italiano — Próximamente!
 - 🇧🇷 Portugués — Próximamente!
 
-Cada versión está cuidadosamente diseñada para garantizar una lectura fluida y una navegación cómoda en Kindle y otros lectores electrónicos. Hay más idiomas previstos para futuras versiones.
+## 🛠️ Instalación
 
-🗒️ También podés visitar la sección de [Releases](https://github.com/cdmoro/literary-dictionary/releases) para ver el historial de cambios y otras versiones disponibles.
+Instalar el Diccionario Literario para Kindle es fácil y rápido:
+
+1. Descargá el archivo `.mobi` en el idioma que prefieras desde los enlaces de arriba.
+1. Conectá tu Kindle a la computadora mediante un cable USB.
+1. Copiá el archivo `.mobi` en la carpeta `documents/dictionaries` de tu Kindle. Si la carpeta no existe, podés crearla manualmente.
+1. Expulsá tu Kindle de forma segura y desconectalo.
+
+## 🧭 Cómo usarlo
+
+El Kindle no permite elegir un diccionario personalizado desde la configuración general. En su lugar:
+
+1. Abrí un libro.
+1. Seleccioná una palabra dejando el dedo presionado sobre ella.
+1. Cuando aparezca la definición, tocá el nombre del diccionario en la parte inferior de la ventana.
+1. Elegí el **Diccionario Literario** de la lista.
+
+Tu Kindle recordará esa elección para futuras lecturas en ese idioma.
 
 ## ✨ Características
 
