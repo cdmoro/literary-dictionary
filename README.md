@@ -3,6 +3,7 @@
 [![Translation: English](https://img.shields.io/badge/translation-en-blue.svg)](README.md)
 [![Translation: Spanish](https://img.shields.io/badge/translation-es-red.svg)](README.es.md)
 [![Translation: Italian](https://img.shields.io/badge/translation-it-green.svg)](README.it.md)
+[![Translation: Portuguese](https://img.shields.io/badge/translation-pt-yellow.svg)](README.pt.md)
 
 **Your ultimate reading companion.**  
 Lost in the maze of names from _One Hundred Years of Solitude_? Can’t remember if that magical object belonged to Frodo or Harry? This open-source **Literary Dictionary** helps you keep track of characters, places, and concepts from iconic books and sagas—right from your Kindle.
@@ -12,6 +13,7 @@ The dictionary is currently available in the following languages, each provided 
 - 🇬🇧 English — [Download](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.EN.v1.0.0.mobi)
 - 🇪🇸 Spanish — [Download](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.0.0.mobi)
 - 🇮🇹 Italian — Soon!
+- 🇧🇷 Portuguese — Soon!
 
 Each version is carefully designed to ensure smooth reading and navigation on Kindle and other e-readers. More languages are planned for future releases.
 
