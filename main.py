@@ -20,17 +20,19 @@ def main():
 
     args = parser.parse_args()
 
+    base_folder = "output_commercial" if args.commercial else "output"
+
     db_files = glob.glob("dictionary/dictionary.*.db")
 
-    if os.path.exists("output"):
-        shutil.rmtree("output")
+    if os.path.exists(base_folder):
+        shutil.rmtree(base_folder)
 
     for db_path in db_files:
         conn = get_connection(db_path)
         lang = get_lang_from_filename(db_path)
         strings = get_translations(lang)
 
-        generate_dictionary(conn, lang, strings, args)
+        generate_dictionary(base_folder, conn, lang, strings, args)
         conn.close()
 
 

@@ -20,11 +20,11 @@ from src.constants import encoding
 load_dotenv()
 
 
-def generate_dictionary(conn, lang, strings, args):
+def generate_dictionary(base_folder, conn, lang, strings, args):
     print(f"\nGenerating dictionary ({lang.upper()})...")
 
     cur = conn.cursor()
-    output_folder = f"output/dictionary_files_{lang}"
+    output_folder = f"{base_folder}/dictionary_files_{lang}"
 
     os.makedirs(output_folder, exist_ok=True)
 
@@ -87,11 +87,10 @@ def generate_dictionary(conn, lang, strings, args):
     )
 
     print(f"✅ Diccionary files created successfully")
-    create_epub(lang, strings["file_name"])
+    create_epub(output_folder, lang, strings["file_name"])
 
 
-def create_epub(lang, file_name):
-    output_folder = f"output/dictionary_files_{lang}"
+def create_epub(output_folder, lang, file_name):
     epub_path = f'output/{file_name.format(ebook_author=os.getenv("AUTHOR"), lang=lang.upper(), version=os.getenv('DICT_VERSION'))}.epub'
     mimetype_path = os.path.join(output_folder, "mimetype")
     with open(mimetype_path, "w", encoding=encoding) as f:
