@@ -8,14 +8,32 @@
 **Seu melhor companheiro de leitura.**  
 Perdeu-se no labirinto de nomes de _Cem Anos de Solidão_? Não consegue lembrar se aquele objeto mágico pertencia a Frodo ou Harry? Este **Dicionário Literário** de código aberto ajuda você a acompanhar personagens, lugares e conceitos de livros e sagas icônicos — diretamente do seu Kindle.
 
-O dicionário está disponível atualmente nos seguintes idiomas, cada um fornecido como um arquivo separado:
+O dicionário está disponível atualmente nos seguintes idiomas:
 
 - 🇬🇧 Inglês — [Baixar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.EN.v1.0.0.mobi)
 - 🇪🇸 Espanhol — [Baixar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.0.0.mobi)
 - 🇮🇹 Italiano — Em breve!
 - 🇧🇷 Português — Em breve!
 
-🗒️ Você também pode visitar a seção [Lançamentos](https://github.com/cdmoro/literary-dictionary/releases) para ver o histórico de alterações e versões anteriores.
+## 🛠️ Instalação
+
+Instalar o Dicionário Literário para Kindle é rápido e fácil:
+
+1. Baixe o arquivo .mobi no idioma desejado usando os links acima.
+1. Conecte seu Kindle ao computador via cabo USB.
+1. Copie o arquivo .mobi para a pasta documents/dictionaries/ do seu Kindle. Se essa pasta não existir, você pode criá-la manualmente.
+1. Ejetar com segurança e desconectar o Kindle.
+
+## 🧭 Como usar
+
+O Kindle não permite escolher dicionários personalizados nas configurações gerais. Em vez disso:
+
+1. Abra um livro.
+1. Selecione uma palavra tocando e segurando sobre ela.
+1. Quando a definição aparecer, toque o nome do dicionário no topo da janela.
+1. Escolha o Dicionário Literário da lista.
+
+O Kindle vai lembrar essa escolha nas próximas leituras nesse idioma.
 
 ## ✨ Recursos
 
