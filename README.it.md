@@ -7,15 +7,31 @@
 **Il tuo compagno di lettura definitivo.**  
 Perso nel labirinto di nomi de _Cent'anni di solitudine_? Non ricordi se quell'oggetto magico appartenesse a Frodo o a Harry? Questo **Dizionario Letterario** open-source ti aiuta a tenere traccia di personaggi, luoghi e concetti di libri e saghe iconiche—direttamente dal tuo Kindle.
 
-Il dizionario è attualmente disponibile nelle seguenti lingue, ognuna offerta come file separato:
+Il dizionario è attualmente disponibile nelle seguenti lingue:
 
 - 🇬🇧 Inglese — [Scarica](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.EN.v1.0.0.mobi)
 - 🇪🇸 Spagnolo — [Scarica](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.0.0.mobi)
 - 🇮🇹 Italiano — Prossimamente!
 
-Ogni versione è progettata con cura per garantire una lettura fluida e una navigazione agevole su Kindle e altri e-reader. Altre lingue sono previste per le prossime versioni.
+## 🛠️ Installazione
 
-🗒️ Puoi anche visitare la sezione [Releases](https://github.com/cdmoro/literary-dictionary/releases) per vedere il registro delle modifiche e le versioni precedenti.
+Installare il Dizionario Letterario per Kindle è semplice e veloce:
+
+1. Scarica il file `.mobi` nella lingua desiderata dai link sopra.
+1. Collega il Kindle al computer tramite cavo USB.
+1. Copia il file `.mobi` nella cartella `documents/dictionaries` del tuo Kindle. Se la cartella non esiste, puoi crearla manualmente.
+1. Espelli in sicurezza il Kindle e scollegalo dal computer.
+
+## 🧭 Come si usa
+
+Il Kindle non consente di selezionare dizionari personalizzati dalle impostazioni generali. Invece:
+
+1. Apri un libro.
+1. Seleziona una parola tenendo premuto su di essa.
+1. Quando compare la definizione, tocca il nome del dizionario nella parte inferiore della finestra.
+1. Scegli il **Dizionario Letterario** dall'elenco.
+
+Il Kindle ricorderà questa scelta per le prossime letture in quella lingua.
 
 ## ✨ Caratteristiche
 
