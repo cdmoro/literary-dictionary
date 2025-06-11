@@ -10,7 +10,7 @@ Vous vous perdez dans le dédale des noms de Cent ans de solitude ? Vous ne vous
 
 Le dictionnaire est actuellement disponible dans les langues suivantes :
 
-- 🇬🇧 Anglais — [Télécharger](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.EN.v1.0.0.mobi)
+- 🇬🇧 Anglais — [Télécharger](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.0.0.mobi)
 - 🇪🇸 Espagnol — [Télécharger](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.0.0.mobi)
 - 🇮🇹 Italien — Bientôt disponible !
 - 🇫🇷 Français — Bientôt disponible !

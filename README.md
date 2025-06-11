@@ -10,7 +10,7 @@ Lost in the maze of names from _One Hundred Years of Solitude_? Can’t remember
 
 The dictionary is currently available in the following languages:
 
-- 🇬🇧 English — [Download](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.EN.v1.0.0.mobi)
+- 🇬🇧 English — [Download](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.0.0.mobi)
 - 🇪🇸 Spanish — [Download](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.0.0.mobi)
 - 🇮🇹 Italian — Soon!
 - 🇮🇹 French — Soon!

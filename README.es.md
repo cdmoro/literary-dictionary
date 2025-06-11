@@ -10,7 +10,7 @@
 
 El diccionario está disponible actualmente en los siguientes idiomas:
 
-- 🇬🇧 Inglés — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.EN.v1.0.0.mobi)
+- 🇬🇧 Inglés — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.0.0.mobi)
 - 🇪🇸 Español — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.0.0.mobi)
 - 🇮🇹 Italiano — Próximamente!
 - 🇫🇷 Francés — Próximamente!

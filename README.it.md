@@ -10,7 +10,7 @@ Perso nel labirinto di nomi de _Cent'anni di solitudine_? Non ricordi se quell'o
 
 Il dizionario è attualmente disponibile nelle seguenti lingue:
 
-- 🇬🇧 Inglese — [Scarica](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.EN.v1.0.0.mobi)
+- 🇬🇧 Inglese — [Scarica](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.0.0.mobi)
 - 🇪🇸 Spagnolo — [Scarica](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.0.0.mobi)
 - 🇮🇹 Italiano — Prossimamente!
 - 🇫🇷 Francese — Prossimamente!
