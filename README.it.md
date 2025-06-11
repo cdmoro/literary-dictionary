@@ -1,9 +1,9 @@
 # 📚 Dizionario Letterario per Kindle
 
-[![Traduzione: Inglese](https://img.shields.io/badge/translation-en-blue.svg)](README.md)
-[![Traduzione: Spagnolo](https://img.shields.io/badge/translation-es-red.svg)](README.es.md)
-[![Traduzione: Italiano](https://img.shields.io/badge/translation-it-green.svg)](README.it.md)
-[![Traduzione: Francese](https://img.shields.io/badge/translation-fr-darkblue.svg)](README.fr.md)
+[![Traduzione: Inglese](https://img.shields.io/badge/traduzione-en-blue.svg)](README.md)
+[![Traduzione: Spagnolo](https://img.shields.io/badge/traduzione-es-red.svg)](README.es.md)
+[![Traduzione: Italiano](https://img.shields.io/badge/traduzione-it-green.svg)](README.it.md)
+[![Traduzione: Francese](https://img.shields.io/badge/traduzione-fr-darkblue.svg)](README.fr.md)
 
 **Il tuo compagno di lettura definitivo.**
 Perso nel labirinto di nomi de _Cent'anni di solitudine_? Non ricordi se quell'oggetto magico appartenesse a Frodo o a Harry? Questo **Dizionario Letterario** open-source ti aiuta a tenere traccia di personaggi, luoghi e concetti di libri e saghe iconiche—direttamente dal tuo Kindle.
