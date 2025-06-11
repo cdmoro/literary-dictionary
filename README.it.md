@@ -1,8 +1,10 @@
 # 📚 Dizionario Letterario per Kindle
 
-[![Traduzione: Inglese](https://img.shields.io/badge/translation-en-blue.svg)](README.md)
-[![Traduzione: Spagnolo](https://img.shields.io/badge/translation-es-red.svg)](README.es.md)
-[![Traduzione: Italiano](https://img.shields.io/badge/translation-it-green.svg)](README.it.md)
+[![Traduzione: Inglese](https://img.shields.io/badge/traduzione-en-blue.svg)](README.md)
+[![Traduzione: Spagnolo](https://img.shields.io/badge/traduzione-es-red.svg)](README.es.md)
+[![Traduzione: Italiano](https://img.shields.io/badge/traduzione-it-green.svg)](README.it.md)
+[![Traduzione: Francese](https://img.shields.io/badge/traduzione-fr-darkblue.svg)](README.fr.md)
+[![Traduzione: Portoghese](https://img.shields.io/badge/traduzione-pt-yellow.svg)](README.pt.md)
 
 **Il tuo compagno di lettura definitivo.**
 Perso nel labirinto di nomi de _Cent'anni di solitudine_? Non ricordi se quell'oggetto magico appartenesse a Frodo o a Harry? Questo **Dizionario Letterario** open-source ti aiuta a tenere traccia di personaggi, luoghi e concetti di libri e saghe iconiche—direttamente dal tuo Kindle.
@@ -12,6 +14,7 @@ Il dizionario è attualmente disponibile nelle seguenti lingue:
 - 🇬🇧 Inglese — [Scarica](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.0.0.mobi)
 - 🇪🇸 Spagnolo — [Scarica](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.0.0.mobi)
 - 🇮🇹 Italiano — Prossimamente!
+- 🇫🇷 Francese — Prossimamente!
 - 🇧🇷 Portoghese — Prossimamente!
 
 ## 🛠️ Installazione

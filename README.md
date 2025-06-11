@@ -3,6 +3,7 @@
 [![Translation: English](https://img.shields.io/badge/translation-en-blue.svg)](README.md)
 [![Translation: Spanish](https://img.shields.io/badge/translation-es-red.svg)](README.es.md)
 [![Translation: Italian](https://img.shields.io/badge/translation-it-green.svg)](README.it.md)
+[![Translation: French](https://img.shields.io/badge/translation-fr-darkblue.svg)](README.fr.md)
 [![Translation: Portuguese](https://img.shields.io/badge/translation-pt-yellow.svg)](README.pt.md)
 
 **Your ultimate reading companion.**
@@ -14,6 +15,7 @@ The dictionary is currently available in the following languages:
 - 🇪🇸 Spanish — [Download](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.0.0.mobi)
 - 🇮🇹 Italian — Soon!
 - 🇧🇷 Portuguese — Soon!
+- 🇮🇹 French — Soon!
 
 ## 🛠️ Installation
 
