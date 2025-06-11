@@ -4,12 +4,12 @@
 [![Traducción: Español](https://img.shields.io/badge/traducción-es-red.svg)](README.es.md)
 [![Traducción: Italiano](https://img.shields.io/badge/traducción-it-green.svg)](README.it.md)
 
-**Tu compañero de lectura definitivo.**  
+**Tu compañero de lectura definitivo.**
 ¿Perdido entre los nombres de _Cien años de soledad_? ¿No recordás si ese objeto mágico era de Frodo o de Harry? Este **Diccionario Literario** de código abierto te ayuda a seguir personajes, lugares y conceptos de libros y sagas icónicas—directamente desde tu Kindle.
 
 El diccionario está disponible actualmente en los siguientes idiomas:
 
-- 🇬🇧 Inglés — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.EN.v1.0.0.mobi)
+- 🇬🇧 Inglés — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.0.0.mobi)
 - 🇪🇸 Español — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.0.0.mobi)
 - 🇮🇹 Italiano — Próximamente!
 
@@ -39,7 +39,7 @@ El **Diccionario Literario para Kindle** está hecho para que tu lectura sea má
 
 ### ✅ Funcionalidades Clave
 
-- **Funciona con palabras sueltas y expresiones de varias palabras**  
+- **Funciona con palabras sueltas y expresiones de varias palabras**
 - **Compatible con libros en cualquier idioma**
 - **Totalmente integrado con el sistema de diccionarios de Kindle**
 - **Referencias cruzadas entre personajes, lugares y conceptos de distintos universos literarios**
@@ -61,15 +61,15 @@ El **Diccionario Literario para Kindle** está hecho para que tu lectura sea má
 
 ¿Te apasionan los libros y la tecnología? ¡Sumate al proyecto!
 
-- Proponé libros para agregar  
-- Mejorá los scripts en Python  
-- Reportá errores o sugerí funciones  
-- Compartí tu universo literario favorito  
+- Proponé libros para agregar
+- Mejorá los scripts en Python
+- Reportá errores o sugerí funciones
+- Compartí tu universo literario favorito
 
 También podés:
-- ☕ [Invitarme un café](https://buymeacoffee.com/cdmoro)  
-- 🧉 [Invitarme un cafecito](http://cafecito.app/cdmoro)  
-- 🎁 [Apoyar en Patreon](https://patreon.com/cdmoro)  
+- ☕ [Invitarme un café](https://buymeacoffee.com/cdmoro)
+- 🧉 [Invitarme un cafecito](http://cafecito.app/cdmoro)
+- 🎁 [Apoyar en Patreon](https://patreon.com/cdmoro)
 
 ---
 
