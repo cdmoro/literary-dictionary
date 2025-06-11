@@ -3,6 +3,7 @@
 [![Traducción: Inglés](https://img.shields.io/badge/traducción-en-blue.svg)](README.md)
 [![Traducción: Español](https://img.shields.io/badge/traducción-es-red.svg)](README.es.md)
 [![Traducción: Italiano](https://img.shields.io/badge/traducción-it-green.svg)](README.it.md)
+[![Traducción: Francés](https://img.shields.io/badge/traducción-fr-darkblue.svg)](README.fr.md)
 
 **Tu compañero de lectura definitivo.**
 ¿Perdido entre los nombres de _Cien años de soledad_? ¿No recordás si ese objeto mágico era de Frodo o de Harry? Este **Diccionario Literario** de código abierto te ayuda a seguir personajes, lugares y conceptos de libros y sagas icónicas—directamente desde tu Kindle.
@@ -12,6 +13,7 @@ El diccionario está disponible actualmente en los siguientes idiomas:
 - 🇬🇧 Inglés — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.0.0.mobi)
 - 🇪🇸 Español — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.0.0.mobi)
 - 🇮🇹 Italiano — Próximamente!
+- 🇫🇷 Francés — Próximamente!
 
 ## 🛠️ Instalación
 
