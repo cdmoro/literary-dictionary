@@ -11,11 +11,11 @@
 
 El diccionario está disponible actualmente en los siguientes idiomas:
 
-- 🇬🇧 Inglés — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.0.0.mobi)
-- 🇪🇸 Español — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.0.0.mobi)
-- 🇮🇹 Italiano — Próximamente!
-- 🇫🇷 Francés — Próximamente!
-- 🇧🇷 Portugués — Próximamente!
+- 🇬🇧 Inglés — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.1.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.1.0.mobi)
+- 🇪🇸 Español — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.1.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.1.0.mobi)
+- 🇮🇹 Italiano — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.1.0/Bonadeo.Carlos.-.Dizionario.Letterario.IT.v1.1.0.mobi)
+- 🇫🇷 Francés — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.1.0/Bonadeo.Carlos.-.Dictionnaire.Litteraire.FR.v1.1.0.mobi)
+- 🇧🇷 Portugués — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.1.0/Bonadeo.Carlos.-.Dicionario.Literario.PT.v1.1.0.mobi)
 
 ## 🛠️ Instalación
 

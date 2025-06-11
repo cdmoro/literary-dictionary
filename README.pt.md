@@ -11,11 +11,11 @@ Perdeu-se no labirinto de nomes de _Cem Anos de Solidão_? Não consegue lembrar
 
 O dicionário está disponível atualmente nos seguintes idiomas:
 
-- 🇬🇧 Inglês — [Baixar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.EN.v1.0.0.mobi)
-- 🇪🇸 Espanhol — [Baixar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.0.0.mobi)
-- 🇮🇹 Italiano — Em breve!
-- 🇫🇷 Francês — Em breve!
-- 🇧🇷 Português — Em breve!
+- 🇬🇧 Inglês — [Baixar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.1.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.1.0.mobi)
+- 🇪🇸 Espanhol — [Baixar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.1.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.1.0.mobi)
+- 🇮🇹 Italiano — [Baixar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.1.0/Bonadeo.Carlos.-.Dizionario.Letterario.IT.v1.1.0.mobi)
+- 🇫🇷 Francês — [Baixar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.1.0/Bonadeo.Carlos.-.Dictionnaire.Litteraire.FR.v1.1.0.mobi)
+- 🇧🇷 Português — [Baixar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.1.0/Bonadeo.Carlos.-.Dicionario.Literario.PT.v1.1.0.mobi)
 
 ## 🛠️ Instalação
 
