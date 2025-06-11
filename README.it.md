@@ -5,7 +5,7 @@
 [![Traduzione: Italiano](https://img.shields.io/badge/translation-it-green.svg)](README.it.md)
 [![Traduzione: Francese](https://img.shields.io/badge/translation-fr-darkblue.svg)](README.fr.md)
 
-**Il tuo compagno di lettura definitivo.**  
+**Il tuo compagno di lettura definitivo.**
 Perso nel labirinto di nomi de _Cent'anni di solitudine_? Non ricordi se quell'oggetto magico appartenesse a Frodo o a Harry? Questo **Dizionario Letterario** open-source ti aiuta a tenere traccia di personaggi, luoghi e concetti di libri e saghe iconiche—direttamente dal tuo Kindle.
 
 Il dizionario è attualmente disponibile nelle seguenti lingue:
@@ -41,7 +41,7 @@ Il **Dizionario Letterario per Kindle** è costruito per rendere la tua esperien
 
 ### ✅ Funzionalità principali
 
-- **Supporta sia parole singole che espressioni multi-parola**  
+- **Supporta sia parole singole che espressioni multi-parola**
 - **Funziona con libri in qualsiasi lingua**
 - **Pienamente compatibile con il sistema di dizionario nativo di Kindle**
 - **Collega personaggi, luoghi e concetti tra universi letterari**
@@ -90,10 +90,10 @@ Genererà un dizionario per ogni lingua nella cartella `output`.
 
 Poi:
 
-1. Apri Kindle Previewer  
-2. Carica l'EPUB generato o `dictionary_files_it/content.opf`  
-3. Esporta in formato MOBI  
-4. Copialo nella cartella `dictionaries` del tuo Kindle  
+1. Apri Kindle Previewer
+2. Carica l'EPUB generato o `dictionary_files_it/content.opf`
+3. Esporta in formato MOBI
+4. Copialo nella cartella `dictionaries` del tuo Kindle
 
 Sei pronto per iniziare! 🔍📖
 

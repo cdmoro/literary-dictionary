@@ -5,7 +5,7 @@
 [![Translation: Italian](https://img.shields.io/badge/translation-it-green.svg)](README.it.md)
 [![Translation: French](https://img.shields.io/badge/translation-fr-darkblue.svg)](README.fr.md)
 
-**Your ultimate reading companion.**  
+**Your ultimate reading companion.**
 Lost in the maze of names from _One Hundred Years of Solitude_? Can’t remember if that magical object belonged to Frodo or Harry? This open-source **Literary Dictionary** helps you keep track of characters, places, and concepts from iconic books and sagas—right from your Kindle.
 
 The dictionary is currently available in the following languages:
@@ -41,7 +41,7 @@ The **Literary Dictionary for Kindle** is built to make your reading experience 
 
 ### ✅ Key Features
 
-- **Supports both single words and multi-word expressions**  
+- **Supports both single words and multi-word expressions**
 - **Works with books in any language**
 - **Fully compatible with Kindle’s native dictionary system**
 - **Cross-references characters, places, and concepts across literary universes**

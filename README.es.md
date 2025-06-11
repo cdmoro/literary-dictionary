@@ -41,7 +41,7 @@ El **Diccionario Literario para Kindle** está hecho para que tu lectura sea má
 
 ### ✅ Funcionalidades Clave
 
-- **Funciona con palabras sueltas y expresiones de varias palabras**  
+- **Funciona con palabras sueltas y expresiones de varias palabras**
 - **Compatible con libros en cualquier idioma**
 - **Totalmente integrado con el sistema de diccionarios de Kindle**
 - **Referencias cruzadas entre personajes, lugares y conceptos de distintos universos literarios**
@@ -63,15 +63,15 @@ El **Diccionario Literario para Kindle** está hecho para que tu lectura sea má
 
 ¿Te apasionan los libros y la tecnología? ¡Sumate al proyecto!
 
-- Proponé libros para agregar  
-- Mejorá los scripts en Python  
-- Reportá errores o sugerí funciones  
-- Compartí tu universo literario favorito  
+- Proponé libros para agregar
+- Mejorá los scripts en Python
+- Reportá errores o sugerí funciones
+- Compartí tu universo literario favorito
 
 También podés:
-- ☕ [Invitarme un café](https://buymeacoffee.com/cdmoro)  
-- 🧉 [Invitarme un cafecito](http://cafecito.app/cdmoro)  
-- 🎁 [Apoyar en Patreon](https://patreon.com/cdmoro)  
+- ☕ [Invitarme un café](https://buymeacoffee.com/cdmoro)
+- 🧉 [Invitarme un cafecito](http://cafecito.app/cdmoro)
+- 🎁 [Apoyar en Patreon](https://patreon.com/cdmoro)
 
 ---
 
