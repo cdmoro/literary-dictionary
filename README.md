@@ -14,8 +14,8 @@ The dictionary is currently available in the following languages:
 - 🇬🇧 English — [Download](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.0.0.mobi)
 - 🇪🇸 Spanish — [Download](https://github.com/cdmoro/literary-dictionary/releases/download/v1.0.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.0.0.mobi)
 - 🇮🇹 Italian — Soon!
+- 🇫🇷 French — Soon!
 - 🇧🇷 Portuguese — Soon!
-- 🇮🇹 French — Soon!
 
 ## 🛠️ Installation
 
