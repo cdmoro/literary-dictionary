@@ -20,6 +20,10 @@ def get_entry_markup(
 
     # Definition
     template += "      <dd>\n"
+
+    if aliases:
+        template += f'        <div>&#11049; {", ".join([html.escape(a.strip()) for a in aliases.split(';')])}</div>\n'
+
     template += f"""        <div>{f"<em>{html.escape(abbr)}.</em> " if abbr else ""}{html.escape(description)}</div>"""
 
     for title, desc in additional_info.items():
