@@ -1,6 +1,6 @@
 import os
 from collections import defaultdict
-from src.pages.dictionary import get_dictionary_page
+from src.pages.dictionary import get_dictionary_by_book_page, get_dictionary_page
 from src.utils import normalize_character
 from src.pages.section import get_section_page, get_section_toc
 from src.constants import encoding
@@ -54,6 +54,19 @@ def get_entries_by_letter(entries):
             entries_by_letter["Other"].append(entry)
 
     return entries_by_letter
+
+
+def get_entries_by_book(entries):
+    entries_by_book = defaultdict(list)
+    book_data = {}
+
+    for entry in entries:
+        book = entry["book"]
+        if book:
+            entries_by_book[book].append(entry)
+            book_data[book] = entry["book_id"]
+
+    return entries_by_book, book_data
 
 
 def build_cross_references(entries):
@@ -122,6 +135,7 @@ def create_dictionary_files(output_folder, lang, strings, conn):
     folder = os.path.join(output_folder, "Dictionary")
     entries = get_entries(conn)
     entries_by_letter = get_entries_by_letter(entries)
+    entries_by_book, book_data = get_entries_by_book(entries)
     cross_references = build_cross_references(entries)
     files = []
 
@@ -130,6 +144,7 @@ def create_dictionary_files(output_folder, lang, strings, conn):
 
         files.append("Dictionary")
         files.append("Dictionary_TOC")
+        files.append("Dictionary_TOC_by_book")
 
         # Dictionary
         with open(
@@ -152,6 +167,15 @@ def create_dictionary_files(output_folder, lang, strings, conn):
                     strings,
                     prefix="D",
                 )
+            )
+
+        with open(
+            os.path.join(output_folder, "Dictionary", "Dictionary_TOC_by_book.xhtml"),
+            "w",
+            encoding=encoding,
+        ) as f:
+            f.write(
+                get_dictionary_by_book_page(lang, entries_by_book, book_data, strings)
             )
 
         for letter, group in sorted(

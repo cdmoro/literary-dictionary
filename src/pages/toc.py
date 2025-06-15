@@ -25,6 +25,13 @@ def get_toc_page(lang, strings, pages_by_section):
 
         template += f'  <div><a href="{section}/{section}.xhtml">{strings[section.lower()]}</a></div>\n'
 
+        toc_files = [file for file in files if not re.fullmatch(r"[A-Z]_[A-Z]", file)]
+
+        for toc_file in toc_files:
+            if section == toc_file:
+                continue
+            template += f'<div class="toc-subsection"><a href="{section}/{toc_file}.xhtml">{strings[f'ncx_{toc_file.lower()}']}</a></div>'
+
         template += '  <div class="toc-letters">'
 
         letter_links = [file for file in files if re.fullmatch(r"[A-Z]_[A-Z]", file)]

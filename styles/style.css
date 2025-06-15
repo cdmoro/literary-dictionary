@@ -33,7 +33,7 @@ h1, h2, h3, h4, h5, h6 {
     margin: 1em 0;
 }
 
-h1, h2, h3, h4, h5, h6, dl, dt {
+h1, h2, h3, h4, h5, h6, dl, dt, .entries-by-book-container {
     page-break-inside: avoid;
     break-inside: avoid;
     page-break-after: avoid;
@@ -110,6 +110,10 @@ dd {
     text-indent: 0;
 }
 
+.toc-subsection {
+    margin: 0 1em;
+}
+
 .toc-letters {
     margin: 0 1em;
 }
@@ -128,4 +132,9 @@ dd {
 
 .abbr-td-decription {
     padding: 0 0 .2em 0
+}
+
+.entries-by-book-entries {
+    padding: 0 0 0 1em;
+    margin: 0 0 2em 0;
 }

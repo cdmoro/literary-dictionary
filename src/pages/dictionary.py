@@ -8,6 +8,7 @@ from src.modules.cross_reference_module import (
 )
 from src.modules.entries_module import get_entry_markup
 from src.constants import encoding
+from src.utils import normalize_character
 
 
 def get_dictionary_page(lang, letter, group, strings, cross_reference):
@@ -86,6 +87,40 @@ def get_dictionary_page(lang, letter, group, strings, cross_reference):
 
     template += """  </mbp:frameset>
 </body>
+</html>"""
+
+    return template
+
+
+def get_dictionary_by_book_page(lang, entries_by_book, book_data, strings):
+    template = f"""<?xml version="1.0" encoding="{encoding}"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{lang}">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="../Styles/style.css"/>
+    <title>{strings["dictionary"]}: {strings["section_toc_subtitle"]}</title>
+</head>
+<body>
+    <h1 class="toc-title">{strings["dictionary"]}:</h1>
+    <h2 class="toc-subtitle">{strings["section_toc_subtitle_by_book"]}</h2>\n"""
+
+    for book, entries in sorted(entries_by_book.items()):
+        book_file_letter = normalize_character(book[0])
+
+        template += '<div class="entries-by-book-container">'
+        template += f'  <h3><a href="../Books/B_{book_file_letter}.xhtml#{book_data[book]}">{html.escape(book)}</a></h3>\n'
+
+        template += "  <div class='entries-by-book-entries'>"
+        for entry in entries:
+            entry_file_letter = normalize_character(entry["name"][0])
+            template += f'  <div><a href="D_{entry_file_letter}.xhtml#D_{entry["id"]}">{html.escape(entry["name"])}</a></div>\n'
+        template += "  </div>"
+        template += "</div>"
+        template += "<hr/>"
+
+    template += """\n</body>
 </html>"""
 
     return template
