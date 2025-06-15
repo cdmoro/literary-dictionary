@@ -1,12 +1,12 @@
 import glob
 import os
 import shutil
-import argparse
 
 from src.db import get_connection
 
 from src.modules.main_module import generate_dictionary
 from src.utils import get_translations
+from src.config import ARGS
 
 
 def get_lang_from_filename(filename):
@@ -15,12 +15,12 @@ def get_lang_from_filename(filename):
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--commercial", action="store_true", help="Commercial build")
+    base_folder = "output"
 
-    args = parser.parse_args()
-
-    base_folder = "output_commercial" if args.commercial else "output"
+    if ARGS.commercial:
+        base_folder = "output_commercial"
+    elif ARGS.epub:
+        base_folder = "output_epub"
 
     db_files = glob.glob("dictionary/dictionary.*.db")
 
@@ -32,7 +32,7 @@ def main():
         lang = get_lang_from_filename(db_path)
         strings = get_translations(lang)
 
-        generate_dictionary(base_folder, conn, lang, strings, args)
+        generate_dictionary(base_folder, conn, lang, strings)
         conn.close()
 
 

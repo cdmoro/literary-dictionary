@@ -1,20 +1,29 @@
 import html
+from src.config import ARGS
 
 
 def get_entry_markup(
     id, name, abbr, description, additional_info, display_name=None, aliases=None
 ):
     display_name = display_name or name
+    template = ""
 
-    template = f"""    <idx:entry name="default" scriptable="yes" spell="yes" id="{id}">
-      <a id="{id}"></a>
-      <dt>
-        <idx:orth value="{html.escape(name)}">{html.escape(display_name)}</idx:orth>\n"""
+    if not ARGS.epub:
+        template += (
+            f'    <idx:entry name="default" scriptable="yes" spell="yes" id="{id}">\n'
+        )
 
-    # Alias
-    if aliases:
-        for alias in aliases.split(";"):
-            template += f'        <idx:orth value="{html.escape(alias)}" />\n'
+    template += f"""<dt><a id="{id}"></a>"""
+
+    if ARGS.epub:
+        template += html.escape(display_name)
+    else:
+        template += f"""<idx:orth value="{html.escape(name)}">{html.escape(display_name)}</idx:orth>\n"""
+
+        # Alias
+        if aliases:
+            for alias in aliases.split(";"):
+                template += f'        <idx:orth value="{html.escape(alias)}" />\n'
 
     template += "      </dt>\n"
 
@@ -32,9 +41,10 @@ def get_entry_markup(
           <strong>{title}:</strong> {desc}
         </div>"""
 
-    template += """\n      </dd>
-    </idx:entry>
-        
-    <hr/>\n\n"""
+    template += """\n      <hr/>
+    </dd>"""
+
+    if not ARGS.epub:
+        template += "</idx:entry>"
 
     return template

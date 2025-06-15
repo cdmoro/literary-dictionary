@@ -4,10 +4,12 @@ from dotenv import load_dotenv
 
 from src.constants import encoding
 
+from src.config import ARGS
+
 load_dotenv()
 
 
-def get_copyright_page(strings, args):
+def get_copyright_page(strings):
     data = {
         "lang": strings["lang"].lower(),
         "title": strings["about"],
@@ -46,25 +48,21 @@ def get_copyright_page(strings, args):
 <body>
     <h1>{book_title}</h1>
     <div>{edition}</div>
-    <div>{version}</div>
-    <br/>
-    <div>{copyright_desc}</div>
-    <br/>
+    <div>{version}<br/></div>
+    <div>{copyright_desc}<br/></div>
     <div><strong>{project}</strong>: <a href="{repo}">{repo}</a></div>
-    <div><strong>{contact}</strong>: <a href="mailto:{email}">{email}</a></div>
-    <br/>
-    <div><strong>{license}</strong></div>
-    <br/>"""
+    <div><strong>{contact}</strong>: <a href="mailto:{email}">{email}</a><br/></div>
+    <div><strong>{license}</strong><br/></div>"""
 
-    if args.commercial:
+    if ARGS.commercial:
         template += "<div>{copyright_commercial}</div>"
     else:
         template += """<div>
         <a href="{cc_link}" target="_blank" rel="noopener noreferrer">
             <img src="Assets/cc_banner.png" alt="Creative Commons Attribution 4.0 International" />
         </a>
+        <br/>
     </div>
-    <br/>
     <div>{copyright}</div>"""
 
     template += """</body>
