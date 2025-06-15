@@ -1,3 +1,5 @@
+import html
+
 from src.modules.cross_reference_module import (
     cross_reference_markup,
     get_author_cr_link,
@@ -51,9 +53,9 @@ def get_dictionary_page(lang, letter, group, strings, cross_reference):
 
         if author:
             origin_placeholders = {
-                "book": f'<a href="{get_book_cr_link(book, book_id)}">{book}</a>',
-                "saga": f'<a href="{get_saga_cr_link(saga, saga_id)}">{saga}</a>',
-                "author": f'<a href="{get_author_cr_link(author, author_id)}">{author}</a>',
+                "book": f'<a href="{get_book_cr_link(book, book_id)}">{html.escape(book or "")}</a>',
+                "saga": f'<a href="{get_saga_cr_link(saga, saga_id)}">{html.escape(saga or "")}</a>',
+                "author": f'<a href="{get_author_cr_link(author, author_id)}">{html.escape(author)}</a>',
             }
 
             origin = strings["origin_author"]

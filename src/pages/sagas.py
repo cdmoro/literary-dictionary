@@ -1,3 +1,5 @@
+import html
+
 from src.modules.cross_reference_module import (
     cross_reference_markup,
     get_author_cr_link,
@@ -47,7 +49,7 @@ def get_sagas_page(lang, title, sagas, strings, cross_reference):
             )
 
         additional_info[strings["author"]] = (
-            f'<a href="{get_author_cr_link(author, author_id)}">{author}</a>'
+            f'<a href="{get_author_cr_link(author, author_id)}">{html.escape(author)}</a>'
         )
 
         template += get_entry_markup(

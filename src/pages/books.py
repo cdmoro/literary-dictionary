@@ -1,3 +1,5 @@
+import html
+
 from src.modules.cross_reference_module import (
     cross_reference_markup,
     get_author_cr_link,
@@ -46,11 +48,11 @@ def get_books_page(lang, title, books, strings, cross_reference):
 
         if saga_id:
             additional_info[strings["saga"]] = (
-                f'<a href="{get_saga_cr_link(saga, saga_id)}"><em>{saga}</em></a>'
+                f'<a href="{get_saga_cr_link(saga, saga_id)}"><em>{html.escape(saga)}</em></a>'
             )
 
         additional_info[strings["author"]] = (
-            f'<a href="{get_author_cr_link(author, author_id)}">{author}</a>'
+            f'<a href="{get_author_cr_link(author, author_id)}">{html.escape(author)}</a>'
         )
 
         if cross_reference[id]:

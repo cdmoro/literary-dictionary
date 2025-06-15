@@ -1,3 +1,6 @@
+import html
+
+
 def get_entry_markup(
     id, name, abbr, description, additional_info, display_name=None, aliases=None
 ):
@@ -6,20 +9,18 @@ def get_entry_markup(
     template = f"""    <idx:entry name="default" scriptable="yes" spell="yes" id="{id}">
       <a id="{id}"></a>
       <dt>
-        <idx:orth value="{name}">{display_name}</idx:orth>\n"""
+        <idx:orth value="{html.escape(name)}">{html.escape(display_name)}</idx:orth>\n"""
 
     # Alias
     if aliases:
         for alias in aliases.split(";"):
-            template += f'        <idx:orth value="{alias}" />\n'
+            template += f'        <idx:orth value="{html.escape(alias)}" />\n'
 
     template += "      </dt>\n"
 
     # Definition
     template += "      <dd>\n"
-    template += (
-        f"""        <div>{f"<em>{abbr}.</em> " if abbr else ""}{description}</div>"""
-    )
+    template += f"""        <div>{f"<em>{html.escape(abbr)}.</em> " if abbr else ""}{html.escape(description)}</div>"""
 
     for title, desc in additional_info.items():
         if len(desc) > 0:

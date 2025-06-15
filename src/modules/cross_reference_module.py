@@ -1,4 +1,5 @@
 from collections import defaultdict
+import html
 
 from src.utils import normalize_character
 
@@ -31,6 +32,8 @@ def cross_reference_markup(cross_reference, prefix="./"):
     cr_links = []
 
     for ref in cross_reference:
-        cr_links.append(f'<a href="{prefix}{ref["link"]}">{ref["name"]}</a>')
+        cr_links.append(
+            f'<a href="{prefix}{ref["link"]}">{html.escape(ref["name"])}</a>'
+        )
 
     return ", ".join(cr_links)
