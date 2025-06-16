@@ -1,8 +1,10 @@
 from src.constants import uuid_ids, encoding
+from src.config import ARGS
 
 media_type = {
     "css": "text/css",
     "jpg": "image/jpeg",
+    "png": "image/png",
     "xhtml": "application/xhtml+xml",
 }
 
@@ -11,6 +13,7 @@ def get_opf_file(lang, strings, pages_by_section):
     manifest = [
         "Styles/style.css",
         "Assets/cover.jpg",
+        "Assets/cc_banner.png",
         "Cover.xhtml",
         "Copyright.xhtml",
         "TOC.xhtml",
@@ -29,13 +32,16 @@ def get_opf_file(lang, strings, pages_by_section):
     <dc:title>{strings["title"]} ({lang.upper()})</dc:title>
     <dc:language>{lang}</dc:language>
     <dc:creator>Carlos Bonadeo</dc:creator>
-    <dc:identifier id="BookId" opf:scheme="UUID">urn:uuid:{uuid_ids[lang]}</dc:identifier>
-    <x-metadata>
-      <DictionaryInLanguage>{lang}</DictionaryInLanguage>
-      <DictionaryOutLanguage>{lang}</DictionaryOutLanguage>
-      <DefaultLookupIndex>headword</DefaultLookupIndex>
-    </x-metadata>
-    <meta name="cover" content="cover-image"/>
+    <dc:identifier id="BookId" opf:scheme="UUID">urn:uuid:{uuid_ids[lang]}</dc:identifier>"""
+
+    if not ARGS.epub:
+        template += """<x-metadata>
+        <DictionaryInLanguage>{lang}</DictionaryInLanguage>
+        <DictionaryOutLanguage>{lang}</DictionaryOutLanguage>
+        <DefaultLookupIndex>headword</DefaultLookupIndex>
+        </x-metadata>"""
+
+    template += """<meta name="cover" content="cover-image"/>
   </metadata>
   <manifest>\n"""
 

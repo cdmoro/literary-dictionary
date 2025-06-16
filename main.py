@@ -6,6 +6,7 @@ from src.db import get_connection
 
 from src.modules.main_module import generate_dictionary
 from src.utils import get_translations
+from src.config import ARGS
 
 
 def get_lang_from_filename(filename):

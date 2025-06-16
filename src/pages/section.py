@@ -1,5 +1,6 @@
 from src.utils import normalize_character
 from src.constants import encoding
+import html
 
 
 def get_section_page(lang, title):
@@ -40,7 +41,7 @@ def get_section_toc(lang, title, entries_by_letter, strings, prefix):
 
         for entry in group:
             name = entry["name"]
-            template += f'    <div><a href="{prefix}_{normalize_character(name[0])}.xhtml#{prefix}_{entry["id"]}">{name}</a></div>\n'
+            template += f'    <div><a href="{prefix}_{normalize_character(name[0])}.xhtml#{prefix}_{entry["id"]}">{html.escape(name)}</a></div>\n'
 
     template += """\n</body>
 </html>"""

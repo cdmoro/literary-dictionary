@@ -4,6 +4,8 @@ from dotenv import load_dotenv
 
 from src.constants import encoding
 
+from src.config import ARGS
+
 load_dotenv()
 
 
@@ -42,10 +44,8 @@ def get_copyright_page(strings):
 <body>
     <h1>{book_title}</h1>
     <div>{edition}</div>
-    <div>{version}</div>
-    <br/>
-    <div>{copyright_desc}</div>
-    <br/>
+    <div>{version}<br/></div>
+    <div>{copyright_desc}<br/></div>
     <div><strong>{project}</strong>: <a href="{repo}">{repo}</a></div>
     <div><strong>{contact}</strong>: <a href="mailto:{email}">{email}</a></div>
     <br/>

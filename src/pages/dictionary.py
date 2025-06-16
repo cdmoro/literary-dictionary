@@ -9,6 +9,7 @@ from src.modules.cross_reference_module import (
 from src.modules.entries_module import get_entry_markup
 from src.constants import encoding
 from src.utils import normalize_character
+from src.config import ARGS
 
 
 def get_dictionary_page(lang, letter, group, strings, cross_reference):
@@ -20,18 +21,23 @@ def get_dictionary_page(lang, letter, group, strings, cross_reference):
 <html
     xml:lang="{lang}"
     xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:math="http://exslt.org/math"
-    xmlns:svg="http://www.w3.org/2000/svg"
-    xmlns:tl="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
-    xmlns:saxon="http://saxon.sf.net/"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:cx="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
-    xmlns:dc="http://purl.org/dc/elements/1.1/"
-    xmlns:mbp="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
-    xmlns:mmc="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
-    xmlns:idx="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
->
+    """
+
+    if not ARGS.epub:
+        template += """xmlns:math="http://exslt.org/math"
+        xmlns:svg="http://www.w3.org/2000/svg"
+        xmlns:tl="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
+        xmlns:saxon="http://saxon.sf.net/"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:cx="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
+        xmlns:dc="http://purl.org/dc/elements/1.1/"
+        xmlns:mbp="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
+        xmlns:mmc="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
+        xmlns:idx="https://kindlegen.s3.amazonaws.com/AmazonKindlePublishingGuidelines.pdf"
+        """
+
+    template += f""">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="../Styles/style.css"/>
@@ -39,7 +45,10 @@ def get_dictionary_page(lang, letter, group, strings, cross_reference):
 </head>
 
 <body>
-  <mbp:frameset>\n"""
+  <dl>\n"""
+
+    if not ARGS.epub:
+        template += "<mbp:frameset>\n"
 
     for entry in group:
         id = entry["id"]
@@ -85,7 +94,10 @@ def get_dictionary_page(lang, letter, group, strings, cross_reference):
             additional_info=additional_info,
         )
 
-    template += """  </mbp:frameset>
+    if not ARGS.epub:
+        template += "  </mbp:frameset>"
+
+    template += """  </dl>
 </body>
 </html>"""
 
@@ -110,9 +122,9 @@ def get_dictionary_by_book_page(lang, entries_by_book, book_data, strings):
         book_file_letter = normalize_character(book[0])
 
         template += '<div class="entries-by-book-container">'
-        template += f'  <h3><a href="../Books/B_{book_file_letter}.xhtml#{book_data[book]}">{html.escape(book)}</a></h3>\n'
+        template += f'  <h3><a href="../Books/B_{book_file_letter}.xhtml#B_{book_data[book]}">{html.escape(book)}</a></h3>\n'
 
-        template += "  <div class='entries-by-book-entries'>"
+        template += '  <div class="entries-by-book-entries">'
         for entry in entries:
             entry_file_letter = normalize_character(entry["name"][0])
             template += f'  <p class="p-spacing"><a href="D_{entry_file_letter}.xhtml#D_{entry["id"]}">{html.escape(entry["name"])}</a> {entry["description"][0:30]}...</p>\n'
