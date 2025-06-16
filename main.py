@@ -17,11 +17,6 @@ def get_lang_from_filename(filename):
 def main():
     base_folder = "output"
 
-    if ARGS.commercial:
-        base_folder = "output_commercial"
-    elif ARGS.epub:
-        base_folder = "output_epub"
-
     db_files = glob.glob("dictionary/dictionary.*.db")
 
     if os.path.exists(base_folder):

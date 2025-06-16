@@ -82,9 +82,6 @@ def generate_dictionary(base_folder, conn, lang, strings):
     shutil.copyfile(
         f"assets/cover_{lang}.jpg", os.path.join(assets_folder, "cover.jpg")
     )
-    shutil.copyfile(
-        "assets/cc_banner.png", os.path.join(assets_folder, "cc_banner.png")
-    )
 
     print(f"✅ Diccionary files created successfully")
     create_epub(base_folder, output_folder, lang, strings["file_name"])

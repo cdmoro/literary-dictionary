@@ -20,9 +20,6 @@ def get_copyright_page(strings):
         "project": strings["project"],
         "contact": strings["contact"],
         "copyright": strings["copyright"].format(ebook_author=os.getenv("AUTHOR")),
-        "copyright_commercial": strings["copyright_commercial"].format(
-            ebook_author=os.getenv("AUTHOR")
-        ),
         "version": strings["copyright_version"].format(
             version=os.getenv("DICT_VERSION")
         ),
@@ -32,7 +29,6 @@ def get_copyright_page(strings):
         "books_label": strings["books"],
         "repo": os.getenv("PROJECT"),
         "email": os.getenv("EMAIL"),
-        "cc_link": f'https://creativecommons.org/licenses/by/4.0/deed.{strings["lang"].lower()}',
         "encoding": encoding,
     }
 
@@ -51,21 +47,11 @@ def get_copyright_page(strings):
     <div>{version}<br/></div>
     <div>{copyright_desc}<br/></div>
     <div><strong>{project}</strong>: <a href="{repo}">{repo}</a></div>
-    <div><strong>{contact}</strong>: <a href="mailto:{email}">{email}</a><br/></div>
-    <div><strong>{license}</strong><br/></div>"""
-
-    if ARGS.commercial:
-        template += "<div>{copyright_commercial}</div>"
-    else:
-        template += """<div>
-        <a href="{cc_link}" target="_blank" rel="noopener noreferrer">
-            <img src="Assets/cc_banner.png" alt="Creative Commons Attribution 4.0 International" />
-        </a>
-        <br/>
-    </div>
-    <div>{copyright}</div>"""
-
-    template += """</body>
+    <div><strong>{contact}</strong>: <a href="mailto:{email}">{email}</a></div>
+    <br/>
+    <div><strong>{license}</strong></div>
+    <div>{copyright}</div>
+</body>
 </html>"""
 
     return template.format(**data)

@@ -127,10 +127,45 @@ def get_dictionary_by_book_page(lang, entries_by_book, book_data, strings):
         template += '  <div class="entries-by-book-entries">'
         for entry in entries:
             entry_file_letter = normalize_character(entry["name"][0])
-            template += f'  <div><a href="D_{entry_file_letter}.xhtml#D_{entry["id"]}">{html.escape(entry["name"])}</a></div>\n'
+            template += f'  <p class="p-spacing"><a href="D_{entry_file_letter}.xhtml#D_{entry["id"]}">{html.escape(entry["name"])}</a> {entry["description"][0:30]}...</p>\n'
         template += "  </div>"
         template += "</div>"
         template += "<hr/>"
+
+    template += """\n</body>
+</html>"""
+
+    return template
+
+
+def get_dictionary_by_alias_page(lang, entries_by_alias, strings):
+    template = f"""<?xml version="1.0" encoding="{encoding}"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{lang}">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="../Styles/style.css"/>
+    <title>{strings["dictionary"]}: {strings["section_toc_subtitle"]}</title>
+</head>
+<body>
+    <h1 class="toc-title">{strings["dictionary"]}:</h1>
+    <h2 class="toc-subtitle">{strings["section_toc_subtitle_by_book"]}</h2>\n"""
+
+    for alias, entries in sorted(entries_by_alias.items()):
+
+        template += "<div>"
+        template += f'  <strong>{html.escape(alias)}</strong>: {strings["see"]} '
+
+        aliases = []
+        for entry in entries:
+            entry_file_letter = normalize_character(entry["name"][0])
+            aliases.append(
+                f'<a href="D_{entry_file_letter}.xhtml#D_{entry["id"]}">{html.escape(entry["name"])}</a>'
+            )
+
+        template += ", ".join(aliases)
+        template += ".</div>"
 
     template += """\n</body>
 </html>"""
