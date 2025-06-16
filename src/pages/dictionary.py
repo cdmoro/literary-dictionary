@@ -10,6 +10,7 @@ from src.modules.entries_module import get_entry_markup
 from src.constants import encoding
 from src.utils import normalize_character
 from src.config import ARGS
+import re
 
 
 def get_dictionary_page(lang, letter, group, strings, cross_reference):
@@ -121,16 +122,16 @@ def get_dictionary_by_book_page(lang, entries_by_book, book_data, strings):
     for book, entries in sorted(entries_by_book.items()):
         book_file_letter = normalize_character(book[0])
 
-        template += '<div class="entries-by-book-container">'
-        template += f'  <h3><a href="../Books/B_{book_file_letter}.xhtml#B_{book_data[book]}">{html.escape(book)}</a></h3>\n'
+        template += '<div class="entries-by-book">'
+        template += f'  <h3 class="entries-by-book-title"><a href="../Books/B_{book_file_letter}.xhtml#B_{book_data[book]}">{html.escape(book)}</a></h3>\n'
 
         template += '  <div class="entries-by-book-entries">'
         for entry in entries:
             entry_file_letter = normalize_character(entry["name"][0])
-            template += f'  <p class="p-spacing"><a href="D_{entry_file_letter}.xhtml#D_{entry["id"]}">{html.escape(entry["name"])}</a> {entry["description"][0:30]}...</p>\n'
+            description = re.sub("<[^<]+?>", "", entry["description"][0:30])
+            template += f'  <p class="p-spacing"><a href="D_{entry_file_letter}.xhtml#D_{entry["id"]}">{html.escape(entry["name"])}</a>: <em>{html.escape(description)}...</em></p>\n'
         template += "  </div>"
         template += "</div>"
-        template += "<hr/>"
 
     template += """\n</body>
 </html>"""

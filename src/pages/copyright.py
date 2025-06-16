@@ -42,15 +42,16 @@ def get_copyright_page(strings):
     <title>{title}</title>
 </head>
 <body>
-    <h1>{book_title}</h1>
+    <h1 class="copyright-title">{book_title}</h1>
     <div>{edition}</div>
-    <div>{version}<br/></div>
-    <div>{copyright_desc}<br/></div>
-    <div><strong>{project}</strong>: <a href="{repo}">{repo}</a></div>
+    <div>{version}</div>
+    
+    <div class="space-25">{copyright_desc}</div>
+    
+    <div class="space-10"><strong>{project}</strong>: <a href="{repo}">{repo}</a></div>
     <div><strong>{contact}</strong>: <a href="mailto:{email}">{email}</a></div>
-    <br/>
-    <div><strong>{license}</strong></div>
-    <div>{copyright}</div>
+    
+    <div class="space-10">{copyright}</div>
 </body>
 </html>"""
 

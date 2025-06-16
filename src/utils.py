@@ -1,6 +1,8 @@
 import json
 import unicodedata
 from src.constants import encoding
+from bs4 import BeautifulSoup
+import html
 
 
 def get_translations(lang):
@@ -15,3 +17,12 @@ def normalize_character(letra):
         .decode("utf-8")
         .upper()
     )
+
+
+def escape_text_nodes(s):
+    soup = BeautifulSoup(s, "html.parser")
+
+    for text_node in soup.find_all(text=True):
+        text_node.replace_with(html.escape(text_node, quote=False))
+
+    return str(soup)

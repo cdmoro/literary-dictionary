@@ -13,7 +13,6 @@ def get_opf_file(lang, strings, pages_by_section):
     manifest = [
         "Styles/style.css",
         "Assets/cover.jpg",
-        "Assets/cc_banner.png",
         "Cover.xhtml",
         "Copyright.xhtml",
         "TOC.xhtml",
