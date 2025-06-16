@@ -20,7 +20,7 @@ from src.constants import encoding
 load_dotenv()
 
 
-def generate_dictionary(base_folder, conn, lang, strings, args):
+def generate_dictionary(base_folder, conn, lang, strings):
     print(f"\nGenerating dictionary ({lang.upper()})...")
 
     cur = conn.cursor()
@@ -60,7 +60,7 @@ def generate_dictionary(base_folder, conn, lang, strings, args):
     # Common files
     common_files = {
         "Cover.xhtml": get_cover_page(lang),
-        "Copyright.xhtml": get_copyright_page(strings, args),
+        "Copyright.xhtml": get_copyright_page(strings),
         "TOC.xhtml": get_toc_page(lang, strings, ncx_structure),
     }
 
@@ -81,9 +81,6 @@ def generate_dictionary(base_folder, conn, lang, strings, args):
     shutil.copyfile("styles/style.css", os.path.join(styles_folder, "style.css"))
     shutil.copyfile(
         f"assets/cover_{lang}.jpg", os.path.join(assets_folder, "cover.jpg")
-    )
-    shutil.copyfile(
-        "assets/cc_banner.png", os.path.join(assets_folder, "cc_banner.png")
     )
 
     print(f"✅ Diccionary files created successfully")

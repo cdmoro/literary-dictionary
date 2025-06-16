@@ -7,7 +7,7 @@ from src.constants import encoding
 load_dotenv()
 
 
-def get_copyright_page(strings, args):
+def get_copyright_page(strings):
     data = {
         "lang": strings["lang"].lower(),
         "title": strings["about"],
@@ -18,9 +18,6 @@ def get_copyright_page(strings, args):
         "project": strings["project"],
         "contact": strings["contact"],
         "copyright": strings["copyright"].format(ebook_author=os.getenv("AUTHOR")),
-        "copyright_commercial": strings["copyright_commercial"].format(
-            ebook_author=os.getenv("AUTHOR")
-        ),
         "version": strings["copyright_version"].format(
             version=os.getenv("DICT_VERSION")
         ),
@@ -30,7 +27,6 @@ def get_copyright_page(strings, args):
         "books_label": strings["books"],
         "repo": os.getenv("PROJECT"),
         "email": os.getenv("EMAIL"),
-        "cc_link": f'https://creativecommons.org/licenses/by/4.0/deed.{strings["lang"].lower()}',
         "encoding": encoding,
     }
 
@@ -54,20 +50,8 @@ def get_copyright_page(strings, args):
     <div><strong>{contact}</strong>: <a href="mailto:{email}">{email}</a></div>
     <br/>
     <div><strong>{license}</strong></div>
-    <br/>"""
-
-    if args.commercial:
-        template += "<div>{copyright_commercial}</div>"
-    else:
-        template += """<div>
-        <a href="{cc_link}" target="_blank" rel="noopener noreferrer">
-            <img src="Assets/cc_banner.png" alt="Creative Commons Attribution 4.0 International" />
-        </a>
-    </div>
-    <br/>
-    <div>{copyright}</div>"""
-
-    template += """</body>
+    <div>{copyright}</div>
+</body>
 </html>"""
 
     return template.format(**data)

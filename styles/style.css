@@ -135,6 +135,10 @@ dd {
 }
 
 .entries-by-book-entries {
-    padding: 0 0 0 1em;
     margin: 0 0 2em 0;
+}
+
+.p-spacing {
+    text-indent: -1em;
+    padding: 0 0 0 1em;
 }

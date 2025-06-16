@@ -1,9 +1,15 @@
 import os
 from collections import defaultdict
-from src.pages.dictionary import get_dictionary_by_book_page, get_dictionary_page
+from src.modules.books_module import get_books
+from src.pages.dictionary import (
+    get_dictionary_by_alias_page,
+    get_dictionary_by_book_page,
+    get_dictionary_page,
+)
 from src.utils import normalize_character
 from src.pages.section import get_section_page, get_section_toc
 from src.constants import encoding
+from collections import defaultdict
 
 
 def get_entries(conn):
@@ -56,17 +62,43 @@ def get_entries_by_letter(entries):
     return entries_by_letter
 
 
-def get_entries_by_book(entries):
+def get_entries_by_book(entries, conn):
     entries_by_book = defaultdict(list)
+    books = get_books(conn)
+
+    books_by_saga = defaultdict(list)
     book_data = {}
+
+    for book in books:
+        if book["saga_id"]:
+            books_by_saga[book["saga_id"]].append(book)
 
     for entry in entries:
         book = entry["book"]
+        saga_id = entry["saga_id"]
+
         if book:
             entries_by_book[book].append(entry)
             book_data[book] = entry["book_id"]
+        elif saga_id:
+            for b in books_by_saga[saga_id]:
+                entries_by_book[b["name"]].append(entry)
+                book_data[b["name"]] = b["id"]
 
     return entries_by_book, book_data
+
+
+def get_entries_by_alias(entries):
+    entries_by_alias = defaultdict(list)
+
+    for entry in entries:
+        aliases = entry["alias"]
+
+        if aliases:
+            for alias in aliases.split(";"):
+                entries_by_alias[alias].append(entry)
+
+    return entries_by_alias
 
 
 def build_cross_references(entries):
@@ -135,7 +167,8 @@ def create_dictionary_files(output_folder, lang, strings, conn):
     folder = os.path.join(output_folder, "Dictionary")
     entries = get_entries(conn)
     entries_by_letter = get_entries_by_letter(entries)
-    entries_by_book, book_data = get_entries_by_book(entries)
+    entries_by_book, book_data = get_entries_by_book(entries, conn)
+    entries_by_alias = get_entries_by_alias(entries)
     cross_references = build_cross_references(entries)
     files = []
 
@@ -145,6 +178,7 @@ def create_dictionary_files(output_folder, lang, strings, conn):
         files.append("Dictionary")
         files.append("Dictionary_TOC")
         files.append("Dictionary_TOC_by_book")
+        files.append("Dictionary_TOC_by_alias")
 
         # Dictionary
         with open(
@@ -177,6 +211,13 @@ def create_dictionary_files(output_folder, lang, strings, conn):
             f.write(
                 get_dictionary_by_book_page(lang, entries_by_book, book_data, strings)
             )
+
+        with open(
+            os.path.join(output_folder, "Dictionary", "Dictionary_TOC_by_alias.xhtml"),
+            "w",
+            encoding=encoding,
+        ) as f:
+            f.write(get_dictionary_by_alias_page(lang, entries_by_alias, strings))
 
         for letter, group in sorted(
             entries_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])
