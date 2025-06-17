@@ -8,7 +8,7 @@ from src.modules.entries_module import get_entry_markup
 from src.constants import encoding
 
 
-def get_sagas_page(lang, title, sagas, strings, cross_reference):
+def get_sagas_page(lang, letter, sagas, strings, cross_reference):
     template = f"""<?xml version="1.0" encoding="{encoding}"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -16,7 +16,7 @@ def get_sagas_page(lang, title, sagas, strings, cross_reference):
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="../Styles/style.css"/>
-    <title>{title}</title>
+    <title>{strings["sagas"]} - {letter}</title>
 </head>
 
 <body>

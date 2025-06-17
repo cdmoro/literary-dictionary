@@ -153,7 +153,7 @@ def create_authors_files(output_folder, lang, strings, conn):
             "w",
             encoding=encoding,
         ) as f:
-            f.write(get_section_page(lang, strings["authors"]))
+            f.write(get_section_page(lang, strings["appendix"], strings["authors"]))
 
         with open(
             os.path.join(output_folder, "Authors", "Authors_TOC.xhtml"),

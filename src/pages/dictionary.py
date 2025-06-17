@@ -93,7 +93,7 @@ def get_dictionary_page(lang, letter, group, strings, cross_reference):
             abbr=entry["category"],
             description=entry["description"],
             additional_info=additional_info,
-            dict_markup=not ARGS.epub
+            dict_markup=not ARGS.epub,
         )
 
     if not ARGS.epub:
@@ -122,15 +122,22 @@ def get_dictionary_by_book_page(lang, entries_by_book, book_data, strings):
 
     for book, entries in sorted(entries_by_book.items()):
         book_file_letter = normalize_character(book[0])
+        author_file_letter = normalize_character(book_data[book]["author"][0])
 
         template += '<div class="entries-by-book">'
-        template += f'  <h3 class="entries-by-book-title"><a href="../Books/B_{book_file_letter}.xhtml#B_{book_data[book]}">{html.escape(book)}</a></h3>\n'
-
+        template += f'  <h3 class="entries-by-book-title"><a href="../Books/B_{book_file_letter}.xhtml#B_{book_data[book]["id"]}">{html.escape(book)}</a></h3>\n'
+        template += f'  <div class="entries-by-book-author"><a href="../Authors/A_{author_file_letter}.xhtml#A_{book_data[book]["author_id"]}">{book_data[book]["author"]}</a></div>'
         template += '  <div class="entries-by-book-entries">'
+
+        entries_link = []
         for entry in entries:
             entry_file_letter = normalize_character(entry["name"][0])
-            description = re.sub("<[^<]+?>", "", entry["description"][0:30])
-            template += f'  <p class="p-spacing"><a href="D_{entry_file_letter}.xhtml#D_{entry["id"]}">{html.escape(entry["name"])}</a>: <em>{html.escape(description)}...</em></p>\n'
+            # description = re.sub("<[^<]+?>", "", entry["description"][0:30])
+            # template += f'  <p class="p-spacing"><a href="D_{entry_file_letter}.xhtml#D_{entry["id"]}">{html.escape(entry["name"])}</a>: <em>{html.escape(description)}...</em></p>\n'
+            entries_link.append(
+                f'<a href="D_{entry_file_letter}.xhtml#D_{entry["id"]}">{html.escape(entry["name"])}</a>'
+            )
+        template += ", ".join(entries_link)
         template += "  </div>"
         template += "</div>"
 

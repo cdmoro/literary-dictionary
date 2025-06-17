@@ -11,11 +11,11 @@ def get_section_page(lang, title, subtitle=None):
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="../Styles/style.css"/>
-    <title>{title.upper()}</title>
+    <title>{title}{ f": {subtitle}" if subtitle else ''}</title>
 </head>
 <body>
     <h1 class="section-title">{title.upper()}</h1>
-    { f'<h2 class="section-subtitle">{subtitle}</h2>' if subtitle else ''}
+    { f'<h2 class="section-subtitle">{subtitle.upper()}</h2>' if subtitle else ''}
 </body>
 </html>"""
 

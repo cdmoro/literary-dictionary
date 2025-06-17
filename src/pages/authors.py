@@ -4,7 +4,7 @@ from src.constants import encoding
 
 
 def get_authors_page(
-    lang, title, authors, strings, book_cross_reference, saga_cross_reference
+    lang, letter, authors, strings, book_cross_reference, saga_cross_reference
 ):
     template = f"""<?xml version="1.0" encoding="{encoding}"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
@@ -13,7 +13,7 @@ def get_authors_page(
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="../Styles/style.css"/>
-    <title>{title}</title>
+    <title>{strings["authors"]} - {letter}</title>
 </head>
 
 <body>

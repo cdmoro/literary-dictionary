@@ -4,7 +4,7 @@ from src.constants import uuid_ids, encoding
 import re
 
 
-def get_ncx_page(lang, pages_by_section, strings):
+def get_ncx_page(lang, dictionary, appendixes, strings):
     ET.register_namespace("", "http://www.daisy.org/z3986/2005/ncx/")
     ncx = ET.Element(
         "ncx", {"xmlns": "http://www.daisy.org/z3986/2005/ncx/", "version": "2005-1"}
@@ -41,7 +41,33 @@ def get_ncx_page(lang, pages_by_section, strings):
         ET.SubElement(nav_point, "content", src=src)
         play_order += 1
 
-    for section, files in pages_by_section.items():
+    dictionary_point = ET.SubElement(
+        navMap, "navPoint", id="D", playOrder=str(play_order)
+    )
+    dictionaryEl = ET.Element("text")
+    dictionaryEl.text = strings["dictionary"]
+    ET.SubElement(dictionary_point, "navLabel").append(dictionaryEl)
+    ET.SubElement(dictionary_point, "content", src="Dictionary/Dictionary.xhtml")
+    play_order += 1
+
+    for file in dictionary:
+        if file == "Dictionary":
+            continue
+
+        nav_point = ET.SubElement(
+            dictionary_point, "navPoint", id=file, playOrder=str(play_order)
+        )
+        textEl = ET.Element("text")
+        textEl.text = (
+            file.split("_")[1]
+            if re.fullmatch(r"[A-Z]_[A-Z]", file)
+            else strings[f"ncx_{file.lower()}"]
+        )
+        ET.SubElement(nav_point, "navLabel").append(textEl)
+        ET.SubElement(nav_point, "content", src=f"Dictionary/{file}.xhtml")
+        play_order += 1
+
+    for section, files in appendixes.items():
         if len(files) == 0:
             continue
 
@@ -49,27 +75,10 @@ def get_ncx_page(lang, pages_by_section, strings):
             navMap, "navPoint", id=section[0].upper(), playOrder=str(play_order)
         )
         textEl = ET.Element("text")
-        textEl.text = strings[section.lower()]
+        textEl.text = strings["appendix"] + ": " + strings[section.lower()]
         ET.SubElement(section_point, "navLabel").append(textEl)
         ET.SubElement(section_point, "content", src=f"{section}/{section}.xhtml")
         play_order += 1
-
-        for file in files:
-            if section == file:
-                continue
-
-            nav_point = ET.SubElement(
-                section_point, "navPoint", id=file, playOrder=str(play_order)
-            )
-            textEl = ET.Element("text")
-            textEl.text = (
-                file.split("_")[1]
-                if re.fullmatch(r"[A-Z]_[A-Z]", file)
-                else strings[f"ncx_{file.lower()}"]
-            )
-            ET.SubElement(nav_point, "navLabel").append(textEl)
-            ET.SubElement(nav_point, "content", src=f"{section}/{file}.xhtml")
-            play_order += 1
 
     xml_declaration = f'<?xml version="1.0" encoding="{encoding}"?>\n'
     doctype = '<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN" "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">\n'

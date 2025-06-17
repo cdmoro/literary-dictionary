@@ -154,5 +154,11 @@ dd {
 }
 
 .entries-by-book-title {
-    margin: 0 0 .5em 0;    
+    font-size: 1.2em;
+    margin: 0;    
+}
+
+.entries-by-book-author {
+    font-weight: bold;
+    margin: 0 0 .5em 0;
 }

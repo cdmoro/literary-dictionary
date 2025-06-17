@@ -47,21 +47,21 @@ def generate_dictionary(base_folder, conn, lang, strings):
     ) as f:
         f.write(get_container_page())
 
-    # NCX file
-    ncx_structure = {
-        "Dictionary": dictionary_xhtml_files,
+    # Appendixes
+    appendixes = {
+        # "Dictionary": dictionary_xhtml_files,
         "Books": book_xhtml_files,
         "Sagas": sagas_xhtml_files,
         "Authors": authors_xhtml_files,
     }
     with open(os.path.join(output_folder, "toc.ncx"), "w", encoding=encoding) as f:
-        f.write(get_ncx_page(lang, ncx_structure, strings))
+        f.write(get_ncx_page(lang, dictionary_xhtml_files, appendixes, strings))
 
     # Common files
     common_files = {
         "Cover.xhtml": get_cover_page(lang),
         "Copyright.xhtml": get_copyright_page(strings),
-        "TOC.xhtml": get_toc_page(lang, strings, ncx_structure),
+        "TOC.xhtml": get_toc_page(lang, strings, dictionary_xhtml_files, appendixes),
     }
 
     abbreviation_page = get_abbreviation_page(lang, cur, strings)
@@ -75,7 +75,7 @@ def generate_dictionary(base_folder, conn, lang, strings):
 
     # OPF file
     with open(os.path.join(output_folder, "content.opf"), "w", encoding=encoding) as f:
-        f.write(get_opf_file(lang, strings, ncx_structure))
+        f.write(get_opf_file(lang, strings, dictionary_xhtml_files, appendixes))
 
     # Static files
     shutil.copyfile("styles/style.css", os.path.join(styles_folder, "style.css"))

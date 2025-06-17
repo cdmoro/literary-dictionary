@@ -79,11 +79,19 @@ def get_entries_by_book(entries, conn):
 
         if book:
             entries_by_book[book].append(entry)
-            book_data[book] = entry["book_id"]
+            book_data[book] = {
+                "id": entry["book_id"],
+                "author_id": entry["author_id"],
+                "author": entry["author"],
+            }
         elif saga_id:
             for b in books_by_saga[saga_id]:
                 entries_by_book[b["name"]].append(entry)
-                book_data[b["name"]] = b["id"]
+                book_data[b["name"]] = {
+                    "id": b["id"],
+                    "author_id": b["author_id"],
+                    "author": b["author"],
+                }
 
     return entries_by_book, book_data
 

@@ -105,7 +105,7 @@ def create_sagas_files(output_folder, lang, strings, conn):
         with open(
             os.path.join(output_folder, "Sagas", "Sagas.xhtml"), "w", encoding=encoding
         ) as f:
-            f.write(get_section_page(lang, strings["sagas"]))
+            f.write(get_section_page(lang, strings["appendix"], strings["sagas"]))
 
         with open(
             os.path.join(output_folder, "Sagas", "Sagas_TOC.xhtml"),

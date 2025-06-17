@@ -9,7 +9,7 @@ from src.modules.entries_module import get_entry_markup
 from src.constants import encoding
 
 
-def get_books_page(lang, title, books, strings, cross_reference):
+def get_books_page(lang, letter, books, strings, cross_reference):
     template = f"""<?xml version="1.0" encoding="{encoding}"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -17,7 +17,7 @@ def get_books_page(lang, title, books, strings, cross_reference):
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="../Styles/style.css"/>
-    <title>{title}</title>
+    <title>{strings["books"]} - {letter}</title>
 </head>
 
 <body>
@@ -25,7 +25,7 @@ def get_books_page(lang, title, books, strings, cross_reference):
 
     for entry in books:
         id = entry["id"]
-        title = entry["name"]
+        name = entry["name"]
         saga = entry["saga"]
         saga_id = entry["saga_id"]
         author = entry["author"]
@@ -48,8 +48,8 @@ def get_books_page(lang, title, books, strings, cross_reference):
 
         template += get_entry_markup(
             id=f"B_{id}",
-            name=title,
-            display_name=f"{title} ({entry['publication_year']})",
+            name=name,
+            display_name=f"{name} ({entry['publication_year']})",
             abbr=entry["abbr"],
             description=entry["description"],
             additional_info=additional_info,

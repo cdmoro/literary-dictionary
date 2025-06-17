@@ -9,7 +9,7 @@ media_type = {
 }
 
 
-def get_opf_file(lang, strings, pages_by_section):
+def get_opf_file(lang, strings, dictionary, appendixes):
     manifest = [
         "Styles/style.css",
         "Assets/cover.jpg",
@@ -51,7 +51,10 @@ def get_opf_file(lang, strings, pages_by_section):
     for file in manifest:
         template += f'    <item id="{file.replace("/", "_")}" href="{file}" media-type="{media_type[file.split(".")[1]]}"/>\n'
 
-    for folder, files in pages_by_section.items():
+    for file in dictionary:
+        template += f'    <item id="{file}" href="Dictionary/{file}.xhtml" media-type="application/xhtml+xml"/>\n'
+
+    for folder, files in appendixes.items():
         for file in files:
             template += f'    <item id="{file}" href="{folder}/{file}.xhtml" media-type="application/xhtml+xml"/>\n'
 
@@ -61,13 +64,18 @@ def get_opf_file(lang, strings, pages_by_section):
     for idref in spine:
         template += f'    <itemref idref="{idref.replace("/", "_")}"/>\n'
 
-    for folder, files in pages_by_section.items():
+    for file in dictionary:
+        template += f'    <itemref idref="{file}"/>\n'
+
+    for folder, files in appendixes.items():
         for file in files:
             template += f'    <itemref idref="{file}"/>\n'
 
     template += "  </spine>\n"
     template += "  <guide>\n"
-    template += f'    <reference type="cover" title="{strings["cover"]}" href="Cover.xhtml"/>\n'
+    template += (
+        f'    <reference type="cover" title="{strings["cover"]}" href="Cover.xhtml"/>\n'
+    )
     template += (
         f'    <reference type="toc" title="{strings["contents"]}" href="TOC.xhtml"/>\n'
     )
