@@ -93,6 +93,7 @@ def get_dictionary_page(lang, letter, group, strings, cross_reference):
             abbr=entry["category"],
             description=entry["description"],
             additional_info=additional_info,
+            dict_markup=not ARGS.epub
         )
 
     if not ARGS.epub:

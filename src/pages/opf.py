@@ -28,24 +28,24 @@ def get_opf_file(lang, strings, pages_by_section):
   unique-identifier="BookId"
 >
   <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
-    <dc:title>{strings["title"]} ({lang.upper()})</dc:title>
+    <dc:title>{strings["title"]} ({strings["edition"]})</dc:title>
+    <dc:creator opf:role="aut">Carlos Bonadeo</dc:creator>
     <dc:language>{lang}</dc:language>
-    <dc:creator>Carlos Bonadeo</dc:creator>
-    <dc:identifier id="BookId" opf:scheme="UUID">urn:uuid:{uuid_ids[lang]}</dc:identifier>"""
+    <dc:identifier id="BookId" opf:scheme="UUID">urn:uuid:{uuid_ids[lang]}</dc:identifier>
+    <meta name="cover" content="Assets_cover.jpg"/>"""
 
     if not ARGS.epub:
-        template += """<x-metadata>
-        <DictionaryInLanguage>{lang}</DictionaryInLanguage>
-        <DictionaryOutLanguage>{lang}</DictionaryOutLanguage>
-        <DefaultLookupIndex>headword</DefaultLookupIndex>
-        </x-metadata>"""
+        template += f"""\n    <x-metadata>
+      <DictionaryInLanguage>{lang}</DictionaryInLanguage>
+      <DictionaryOutLanguage>{lang}</DictionaryOutLanguage>
+      <DefaultLookupIndex>default</DefaultLookupIndex>
+    </x-metadata>\n"""
 
-    template += """<meta name="cover" content="cover-image"/>
-  </metadata>
+    template += """  </metadata>
   <manifest>\n"""
 
     template += (
-        '    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>'
+        '    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>\n'
     )
 
     for file in manifest:
@@ -67,11 +67,11 @@ def get_opf_file(lang, strings, pages_by_section):
 
     template += "  </spine>\n"
     template += "  <guide>\n"
-    template += '    <reference type="cover" title="Cover" href="Cover.xhtml"/>\n'
+    template += f'    <reference type="cover" title="{strings["cover"]}" href="Cover.xhtml"/>\n'
     template += (
-        '    <reference type="toc" title="Table of Contents" href="TOC.xhtml"/>\n'
+        f'    <reference type="toc" title="{strings["contents"]}" href="TOC.xhtml"/>\n'
     )
-    template += '    <reference type="text" title="Start" href="Copyright.xhtml"/>\n'
+    template += f'    <reference type="text" title="{strings["about"]}" href="Copyright.xhtml"/>\n'
     template += "  </guide>\n"
     template += "</package>\n"
 

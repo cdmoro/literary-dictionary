@@ -1,32 +1,30 @@
 import html
-from src.config import ARGS
 from src.utils import escape_text_nodes
 
 
 def get_entry_markup(
-    id, name, abbr, description, additional_info, display_name=None, aliases=None
+    id, name, abbr, description, additional_info, display_name=None, aliases=None, dict_markup=False
 ):
     display_name = display_name or name
     template = ""
 
-    if not ARGS.epub:
+    if dict_markup:
         template += (
             f'    <idx:entry name="default" scriptable="yes" spell="yes" id="{id}">\n'
         )
 
-    template += f"""<dt><a id="{id}"></a>"""
+    template += f'    <dt><a id="{id}"></a>'
 
-    if ARGS.epub:
-        template += html.escape(display_name)
-    else:
+    if dict_markup:
         template += f"""<idx:orth value="{html.escape(name)}">{escape_text_nodes(display_name)}</idx:orth>\n"""
 
-        # Alias
         if aliases:
             for alias in aliases.split(";"):
                 template += f'        <idx:orth value="{html.escape(alias)}" />\n'
-
-    template += "      </dt>\n"
+        template += "      </dt>\n"
+    else:
+        template += html.escape(display_name)
+        template += "</dt>\n"
 
     # Definition
     template += "      <dd>\n"
@@ -43,9 +41,9 @@ def get_entry_markup(
         </div>"""
 
     template += """\n      <hr/>
-    </dd>"""
+    </dd>\n"""
 
-    if not ARGS.epub:
-        template += "</idx:entry>"
+    if dict_markup:
+        template += "</idx:entry>\n"
 
     return template
