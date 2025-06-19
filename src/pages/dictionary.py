@@ -118,11 +118,10 @@ def get_dictionary_by_book_page(lang, entries_by_book, book_data, strings):
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="../Styles/style.css"/>
-    <title>{strings["dictionary"]}: {strings["section_toc_subtitle"]}</title>
+    <title>{strings["ncx_dictionary_toc_by_book"]}</title>
 </head>
 <body>
-    <h1 class="toc-title">{strings["dictionary"]}:</h1>
-    <h2 class="toc-subtitle">{strings["section_toc_subtitle_by_book"]}</h2>\n"""
+    <h1>{strings["ncx_dictionary_toc_by_book"]}</h1>\n"""
 
     for book, entries in sorted(entries_by_book.items()):
         book_file_letter = normalize_character(book[0])
@@ -136,12 +135,12 @@ def get_dictionary_by_book_page(lang, entries_by_book, book_data, strings):
         entries_link = []
         for entry in entries:
             entry_file_letter = normalize_character(entry["name"][0])
-            # description = re.sub("<[^<]+?>", "", entry["description"][0:30])
-            # template += f'  <p class="p-spacing"><a href="D_{entry_file_letter}.xhtml#D_{entry["id"]}">{html.escape(entry["name"])}</a>: <em>{html.escape(description)}...</em></p>\n'
-            entries_link.append(
-                f'<a href="D_{entry_file_letter}.xhtml#D_{entry["id"]}">{html.escape(entry["name"])}</a>'
-            )
-        template += ", ".join(entries_link)
+            description = re.sub("<[^<]+?>", "", entry["description"][0:25])
+            template += f'  <p class="p-spacing"><a href="D_{entry_file_letter}.xhtml#D_{entry["id"]}">{html.escape(entry["name"])}</a>: <em>{html.escape(description)}...</em></p>\n'
+        #     entries_link.append(
+        #         f'<a href="D_{entry_file_letter}.xhtml#D_{entry["id"]}">{html.escape(entry["name"])}</a>'
+        #     )
+        # template += ", ".join(entries_link)
         template += "  </div>"
         template += "</div>"
 
@@ -159,11 +158,10 @@ def get_dictionary_by_alias_page(lang, entries_by_alias, strings):
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="../Styles/style.css"/>
-    <title>{strings["dictionary"]}: {strings["section_toc_subtitle"]}</title>
+    <title>{strings["ncx_dictionary_toc_by_alias"]}</title>
 </head>
 <body>
-    <h1 class="toc-title">{strings["dictionary"]}:</h1>
-    <h2 class="toc-subtitle">{strings["section_toc_subtitle_by_book"]}</h2>\n"""
+    <h1>{strings["ncx_dictionary_toc_by_alias"]}</h1>\n"""
 
     for alias, entries in sorted(entries_by_alias.items()):
 
