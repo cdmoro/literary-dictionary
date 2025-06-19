@@ -45,10 +45,11 @@ def get_dictionary_page(lang, letter, group, strings, cross_reference):
     <title>{title}</title>
 </head>
 
-<body>
-  <dl>\n"""
+<body>\n"""
 
-    if not ARGS.epub:
+    if ARGS.epub:
+        template += "<div>\n"
+    else:
         template += "<mbp:frameset>\n"
 
     for entry in group:
@@ -61,6 +62,7 @@ def get_dictionary_page(lang, letter, group, strings, cross_reference):
         saga_id = entry.get("saga_id")
 
         additional_info = {}
+        additional_info_extended = {}
 
         if author:
             origin_placeholders = {
@@ -81,7 +83,7 @@ def get_dictionary_page(lang, letter, group, strings, cross_reference):
             additional_info[strings["origin"]] = origin.format(**origin_placeholders)
 
         if cross_reference[id]:
-            additional_info[strings["see_also"]] = cross_reference_markup(
+            additional_info_extended[strings["see_also"]] = cross_reference_markup(
                 cross_reference[id]
             )
 
@@ -93,14 +95,16 @@ def get_dictionary_page(lang, letter, group, strings, cross_reference):
             abbr=entry["category"],
             description=entry["description"],
             additional_info=additional_info,
+            additional_info_extended=additional_info_extended,
             dict_markup=not ARGS.epub,
         )
 
-    if not ARGS.epub:
+    if ARGS.epub:
+        template += "</div>"
+    else:
         template += "  </mbp:frameset>"
 
-    template += """  </dl>
-</body>
+    template += """</body>
 </html>"""
 
     return template

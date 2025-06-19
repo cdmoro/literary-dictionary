@@ -21,7 +21,7 @@ def get_books_page(lang, letter, books, strings, cross_reference):
 </head>
 
 <body>
-  <dl>\n"""
+  <div>\n"""
 
     for entry in books:
         id = entry["id"]
@@ -55,7 +55,7 @@ def get_books_page(lang, letter, books, strings, cross_reference):
             additional_info=additional_info,
         )
 
-    template += """  </dl>
+    template += """  </div>
 </body>
 </html>"""
 

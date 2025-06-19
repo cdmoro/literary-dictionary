@@ -3,34 +3,41 @@ from src.utils import escape_text_nodes
 
 
 def get_entry_markup(
-    id, name, abbr, description, additional_info, display_name=None, aliases=None, dict_markup=False
+    id,
+    name,
+    abbr,
+    description,
+    additional_info,
+    additional_info_extended=None,
+    display_name=None,
+    aliases=None,
+    dict_markup=False,
 ):
     display_name = display_name or name
     template = ""
 
     if dict_markup:
-        template += (
-            f'    <idx:entry name="default" scriptable="yes" spell="yes" id="{id}">\n'
-        )
+        template += f"""    <idx:entry name="default" scriptable="yes" spell="yes" id="{id}">
+      <idx:short>\n"""
+    else:
+        template += "<div>"
 
-    template += f'    <dt><a id="{id}"></a>'
+    template += f'    <a id="{id}"></a>'
 
     if dict_markup:
-        template += f"""<idx:orth value="{html.escape(name)}">{escape_text_nodes(display_name)}</idx:orth>\n"""
+        template += f"""<idx:orth value="{html.escape(name)}"><strong>{escape_text_nodes(display_name)}</strong></idx:orth>\n"""
 
         if aliases:
             for alias in aliases.split(";"):
                 template += f'        <idx:orth value="{html.escape(alias)}" />\n'
-        template += "      </dt>\n"
+        template += "\n"
     else:
-        template += html.escape(display_name)
-        template += "</dt>\n"
+        template += f"<strong>{html.escape(display_name)}</strong>"
+        template += "</div>\n"
 
     # Definition
-    template += "      <dd>\n"
-
-    if aliases:
-        template += f'        <div>&#11049; {", ".join([html.escape(a.strip()) for a in aliases.split(';')])}</div>\n'
+    template += "      \n"
+    template += "<div class='definition'>"
 
     template += f"""        <div>{f"<em>{html.escape(abbr)}.</em> " if abbr else ""}{escape_text_nodes(description)}</div>"""
 
@@ -40,10 +47,26 @@ def get_entry_markup(
           <strong>{title}:</strong> {desc}
         </div>"""
 
-    template += """\n      <hr/>
-    </dd>\n"""
+    template += "</div>"
 
     if dict_markup:
-        template += "</idx:entry>\n"
+        template += "</idx:short>\n"
+
+    if additional_info_extended:
+        template += '<div class="extended-definition">'
+
+        for title, desc in additional_info_extended.items():
+            if len(desc) > 0:
+                template += f"""\n        <div>
+            <strong>{title}:</strong> {desc}
+            </div>"""
+
+        template += "</div>"
+
+    if dict_markup:
+        template += "  </idx:entry>\n\n"
+        template += "  <hr/>\n\n"
+    else:
+        template += "  <hr/>\n\n"
 
     return template

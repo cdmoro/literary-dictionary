@@ -20,7 +20,7 @@ def get_sagas_page(lang, letter, sagas, strings, cross_reference):
 </head>
 
 <body>
-  <dl>\n"""
+  <div>\n"""
 
     for entry in sagas:
         id = entry["id"]
@@ -46,7 +46,7 @@ def get_sagas_page(lang, letter, sagas, strings, cross_reference):
             additional_info=additional_info,
         )
 
-    template += """  </dl>
+    template += """  </div>
 </body>
 </html>"""
 

@@ -14,7 +14,6 @@ def get_toc_page(lang, strings, dictionary, appendixes):
 </head>
 <body>
   <h1>{strings["contents"]}</h1>
-  <div><a href="Cover.xhtml">{strings["cover"]}</a></div>
   <div><a href="Copyright.xhtml">{strings["about"]}</a></div>
   <div><a href="TOC.xhtml">{strings["contents"]}</a></div>
   <div><a href="Abbreviations.xhtml">{strings["abbr_guide"]}</a></div>\n"""

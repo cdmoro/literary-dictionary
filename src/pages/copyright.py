@@ -27,7 +27,8 @@ def get_copyright_page(strings):
         "authors_label": strings["authors"],
         "sagas_label": strings["sagas"],
         "books_label": strings["books"],
-        "repo": os.getenv("PROJECT"),
+        "repo": os.getenv("PROJECT").removeprefix("https://"),
+        "repo_url": os.getenv("PROJECT"),
         "email": os.getenv("EMAIL"),
         "encoding": encoding,
     }
@@ -46,12 +47,17 @@ def get_copyright_page(strings):
     <div>{edition}</div>
     <div>{version}</div>
     
-    <div class="space-25">{copyright_desc}</div>
+    <p class="space-25 no-intent">{copyright_desc}</p>
     
-    <div class="space-10"><strong>{project}</strong>: <a href="{repo}">{repo}</a></div>
-    <div><strong>{contact}</strong>: <a href="mailto:{email}">{email}</a></div>
+    <p class="space-10 no-indent">
+        <strong>{project}</strong>: <a href="{repo_url}">{repo}</a>
+    </p>
     
-    <div class="space-10">{copyright}</div>
+    <p class="no-indent">
+        <strong>{contact}</strong>: <a href="mailto:{email}">{email}</a>
+    </p>
+    
+    <p class="space-10 no-intent">{copyright}</p>
 </body>
 </html>"""
 

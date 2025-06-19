@@ -17,7 +17,7 @@ def get_authors_page(
 </head>
 
 <body>
-  <dl>\n"""
+  <div>\n"""
 
     for entry in authors:
         id = entry["id"]
@@ -50,7 +50,7 @@ def get_authors_page(
             additional_info=additional_info,
         )
 
-    template += """ </dl>
+    template += """  </div>
 </body>
 </html>"""
 
