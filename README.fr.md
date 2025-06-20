@@ -11,7 +11,7 @@ Perdu dans le labyrinthe des noms de Cent ans de solitude ? Vous ne vous souvene
 
 Initialement conçu pour Kindle, le dictionnaire est désormais disponible en format EPUB — parfait pour l’utiliser sur votre téléphone, tablette, ou en lisant un livre papier.
 
-> 📖 Ici, vous pouvez consulter tous les livres, séries et auteurs inclus jusqu'à présent : [Couverture du Dictionnaire](./Dictionary_Coverage.md).
+> 📖 Ici, vous pouvez consulter tous les livres, séries et auteurs inclus jusqu'à présent : [Couverture du Dictionnaire](./Dictionary_Coverage.md)
 
 |Langue| Dictionnaire pour Kindle ([plus d’infos](#️-kindle-version-installation)) | EPUB ([plus d’infos](#-dont-have-a-kindle-or-reading-a-physical-book)) |
 |---|---|---|
@@ -46,7 +46,7 @@ Votre Kindle mémorisera désormais ce choix pour les futures recherches dans le
 Pas de souci !
 Téléchargez simplement la version **EPUB**, ouvrez-la avec des applications comme Apple Books ou Google Play Books, et voilà — vous pouvez consulter le dictionnaire tout en lisant, sans tracas.
 
-📌 Bonus : La version **EPUB** inclut aussi une section pratique de Fiches de lecture — un résumé rapide de tous les personnages classés par livre. Parfait pour s’y référer au fil de la lecture.
+📌 Bonus : La version **EPUB** inclut aussi une section pratique de `Fiches de lecture` — un résumé rapide de tous les personnages classés par livre. Parfait pour s’y référer au fil de la lecture.
 
 ## ✨ Caractéristiques
 

@@ -11,7 +11,7 @@ Perde-se nos nomes de Cem anos de solidão? Não lembra se aquele objeto mágico
 
 Originalmente criado para o Kindle, o dicionário agora também está disponível em formato EPUB — ideal para usar no celular, tablet ou ao ler um livro físico.
 
-> 📖 Aqui você pode consultar todos os livros, séries e autores incluídos até o momento: [Cobertura do Dicionário](./Dictionary_Coverage.md).
+> 📖 Aqui você pode consultar todos os livros, séries e autores incluídos até o momento: [Cobertura do Dicionário](./Dictionary_Coverage.md)
 
 |Idioma| Dicionário para Kindle ([mais informações](#️-instalação)) | EPUB ([mais informações](#-não-tem-um-kindle-ou-está-lendo-um-livro-físico)) |
 |---|---|---|
@@ -46,7 +46,7 @@ O Kindle vai lembrar essa escolha nas próximas leituras nesse idioma.
 Sem problemas!
 Basta baixar a versão em **EPUB**, abri-la no celular com apps como Apple Books ou Google Play Livros, e pronto — você poderá consultar o dicionário enquanto lê, sem dificuldade.
 
-📌 Bônus: O **EPUB** também inclui uma prática seção de Notas de leitura — um resumo rápido de todos os personagens, agrupados por livro. Perfeito para consulta rápida.
+📌 Bônus: O **EPUB** também inclui uma prática seção de `Fichas de leitura` — um resumo rápido de todos os personagens, agrupados por livro. Perfeito para consulta rápida.
 
 ## ✨ Recursos
 

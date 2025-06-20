@@ -11,7 +11,7 @@ Ti perdi tra i nomi di Cent'anni di solitudine? Non ricordi se quell’oggetto m
 
 Originariamente pensato per Kindle, ora il dizionario è disponibile anche in formato EPUB — perfetto da usare sul telefono, sul tablet o mentre leggi un libro cartaceo.
 
-> 📖 Qui puoi trovare tutti i libri, le serie e gli autori inclusi fino ad ora: [Copertura del Dizionario](./Dictionary_Coverage.md).
+> 📖 Qui puoi trovare tutti i libri, le serie e gli autori inclusi fino ad ora: [Copertura del Dizionario](./Dictionary_Coverage.md)
 
 |Lingua| Dizionario para Kindle ([maggiori info](#️-installazione)) | EPUB ([maggiori info](#-non-hai-un-kindle-o-stai-leggendo-un-libro-cartaceo)) |
 |---|---|---|
@@ -46,7 +46,7 @@ Il Kindle ricorderà questa scelta per le prossime letture in quella lingua.
 Nessun problema!
 Scarica la versione **EPUB**, aprila con app come Apple Books o Google Play Books sul tuo telefono e il gioco è fatto — potrai consultare il dizionario mentre leggi, senza difficoltà.
 
-📌 Extra: L’**EPUB** include anche una comoda sezione di Schede di lettura — un riassunto veloce di tutti i personaggi, organizzati per libro. Perfetta per un rapido riferimento.
+📌 Extra: L’**EPUB** include anche una comoda sezione di `Schede di lettura` — un riassunto veloce di tutti i personaggi, organizzati per libro. Perfetta per un rapido riferimento.
 
 ## ✨ Caratteristiche
 

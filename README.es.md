@@ -11,7 +11,7 @@
 
 Originalmente diseñado para Kindle, el diccionario ahora también está disponible en formato EPUB — ideal para usar en el celular, la tablet o mientras leés un libro en papel.
 
-> 📖 Acá podés buscar todos los libros, series y autores incluidos hasta el momento: [Cobertura del Diccionario](./Dictionary_Coverage.md).
+> 📖 Acá podés buscar todos los libros, series y autores incluidos hasta el momento: [Cobertura del Diccionario](./Dictionary_Coverage.md)
 
 |Idioma| Diccionario para Kindle ([más info](#️-instalación)) | EPUB ([más info](#-no-tenés-un-kindle-o-estás-leyendo-en-papel)) |
 |---|---|---|
@@ -46,7 +46,7 @@ Tu Kindle recordará esa elección para futuras lecturas en ese idioma.
 ¡No hay problema!
 Descargá la versión en **EPUB**, abrila con apps como Apple Books o Google Play Books en tu celular, ¡y listo! Vas a poder consultar el diccionario mientras leés, sin complicaciones.
 
-📌 Extra: El **EPUB** incluye una útil sección de Fichas de lectura — un resumen rápido de todos los personajes, agrupados por libro. Ideal para tener a mano mientras leés.
+📌 Extra: El **EPUB** incluye una útil sección de `Fichas de lectura` — un resumen rápido de todos los personajes, agrupados por libro. Ideal para tener a mano mientras leés.
 
 ## ✨ Características
 

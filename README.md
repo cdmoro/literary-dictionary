@@ -46,7 +46,7 @@ Your Kindle will now remember that choice for future lookups in books of that la
 No worries!
 Just download the __EPUB__ version, open it on your phone using apps like Apple Books or Google Play Books, and that’s it — you’ll be able to browse the dictionary while you read, hassle-free.
 
-📌 Bonus: The __EPUB__ also includes a handy __Reading Notes__ section — a quick summary of all characters grouped by books, perfect for reference as you go.
+📌 Bonus: The __EPUB__ also includes a handy `Reading Notes` section — a quick summary of all characters grouped by books, perfect for reference as you go.
 
 ## ✨ Features
 
