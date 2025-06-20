@@ -7,15 +7,17 @@
 [![Traducción: Portugués](https://img.shields.io/badge/traducción-pt-yellow.svg)](README.pt.md)
 
 **Tu compañero de lectura definitivo.**
-¿Perdido entre los nombres de _Cien años de soledad_? ¿No recordás si ese objeto mágico era de Frodo o de Harry? Este **Diccionario Literario** de código abierto te ayuda a seguir personajes, lugares y conceptos de libros y sagas icónicas—directamente desde tu Kindle.
+¿Te perdés entre los nombres de Cien años de soledad? ¿No recordás si ese objeto mágico era de Frodo o de Harry? Este **Diccionario Literario** de código abierto te ayuda a seguir personajes, lugares y conceptos de libros y sagas icónicas.
 
-El diccionario está disponible actualmente en los siguientes idiomas:
+Originalmente diseñado para Kindle, el diccionario ahora también está disponible en formato EPUB — ideal para usar en el celular, la tablet o mientras leés un libro en papel.
 
-- 🇬🇧 Inglés — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.1.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.1.0.mobi)
-- 🇪🇸 Español — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.1.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.1.0.mobi)
-- 🇮🇹 Italiano — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.1.0/Bonadeo.Carlos.-.Dizionario.Letterario.IT.v1.1.0.mobi)
-- 🇫🇷 Francés — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.1.0/Bonadeo.Carlos.-.Dictionnaire.Litteraire.FR.v1.1.0.mobi)
-- 🇧🇷 Portugués — [Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.1.0/Bonadeo.Carlos.-.Dicionario.Literario.PT.v1.1.0.mobi)
+|Idioma| Diccionario para Kindle ([más info](#️-instalación)) | EPUB ([más info](#-no-tenés-un-kindle-o-estás-leyendo-en-papel)) |
+|---|---|---|
+|🇬🇧 Inglés|[Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.2.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.2.0.mobi)|[Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.2.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.2.0.epub)|
+|🇪🇸 Español|[Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.2.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.2.0.mobi)|[Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.2.0/Bonadeo.Carlos.-.Diccionario.Literario.ES.v1.2.0.epub)|
+|🇮🇹 Italiano|[Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.2.0/Bonadeo.Carlos.-.Dizionario.Letterario.IT.v1.2.0.mobi)|[Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.2.0/Bonadeo.Carlos.-.Dizionario.Letterario.IT.v1.2.0.epub)|
+|🇫🇷 Francés|[Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.2.0/Bonadeo.Carlos.-.Dictionnaire.Litteraire.FR.v1.2.0.mobi)|[Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.2.0/Bonadeo.Carlos.-.Dictionnaire.Litteraire.FR.v1.2.0.epub)|
+|🇧🇷 Portugués|[Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.2.0/Bonadeo.Carlos.-.Dicionario.Literario.PT.v1.2.0.mobi)|[Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.2.0/Bonadeo.Carlos.-.Dicionario.Literario.PT.v1.2.0.epub)|
 
 ## 🛠️ Instalación
 
@@ -37,6 +39,13 @@ El Kindle no permite elegir un diccionario personalizado desde la configuración
 
 Tu Kindle recordará esa elección para futuras lecturas en ese idioma.
 
+## 📱 ¿No tenés un Kindle o estás leyendo en papel?
+
+¡No hay problema!
+Descargá la versión en **EPUB**, abrila con apps como Apple Books o Google Play Books en tu celular, ¡y listo! Vas a poder consultar el diccionario mientras leés, sin complicaciones.
+
+📌 Extra: El **EPUB** incluye una útil sección de Fichas de lectura — un resumen rápido de todos los personajes, agrupados por libro. Ideal para tener a mano mientras leés.
+
 ## ✨ Características
 
 El **Diccionario Literario para Kindle** está hecho para que tu lectura sea más inmersiva y menos confusa—accesible directamente desde el diccionario integrado del dispositivo.
@@ -56,8 +65,6 @@ El **Diccionario Literario para Kindle** está hecho para que tu lectura sea má
 | Búsqueda por una palabra | Búsqueda por grupos de palabra | Múltiples resultados | Referencias cruzadas |
 |:--------------------:|:-------------------:|:---------------------------|:---------:|
 |<img src="./screenshots/es/01_definition.png" height="200px">|<img src="./screenshots/es/02_definition_group_of_words.png" height="200px">|<img src="./screenshots/es/03_multiple_definitions.png" height="200px">|<img src="./screenshots/es/04_dict.png" height="200px">|
-| **Guía de abreviaturas** | **Índice por sección** | **Sección de autores** | **Sección de sagas** |
-|<img src="./screenshots/es/05_abbr_guide.png" height="200px">|<img src="./screenshots/es/06_entry_index.png" height="200px">|<img src="./screenshots/es/07_authors.png" height="200px">|<img src="./screenshots/es/08_sagas.png" height="200px">|
 
 ---
 
