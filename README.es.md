@@ -11,6 +11,8 @@
 
 Originalmente diseñado para Kindle, el diccionario ahora también está disponible en formato EPUB — ideal para usar en el celular, la tablet o mientras leés un libro en papel.
 
+> 📖 Acá podés buscar todos los libros, series y autores incluidos hasta el momento: [Cobertura del Diccionario](./Dictionary_Coverage.md).
+
 |Idioma| Diccionario para Kindle ([más info](#️-instalación)) | EPUB ([más info](#-no-tenés-un-kindle-o-estás-leyendo-en-papel)) |
 |---|---|---|
 |🇬🇧 Inglés|[Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.2.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.2.0.mobi)|[Descargar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.2.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.2.0.epub)|

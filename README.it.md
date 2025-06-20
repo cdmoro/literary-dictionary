@@ -11,6 +11,8 @@ Ti perdi tra i nomi di Cent'anni di solitudine? Non ricordi se quell’oggetto m
 
 Originariamente pensato per Kindle, ora il dizionario è disponibile anche in formato EPUB — perfetto da usare sul telefono, sul tablet o mentre leggi un libro cartaceo.
 
+> 📖 Qui puoi trovare tutti i libri, le serie e gli autori inclusi fino ad ora: [Copertura del Dizionario](./Dictionary_Coverage.md).
+
 |Lingua| Dizionario para Kindle ([maggiori info](#️-installazione)) | EPUB ([maggiori info](#-non-hai-un-kindle-o-stai-leggendo-un-libro-cartaceo)) |
 |---|---|---|
 |🇬🇧 Inglese|[Scarica](https://github.com/cdmoro/literary-dictionary/releases/download/v1.2.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.2.0.mobi)|[Scarica](https://github.com/cdmoro/literary-dictionary/releases/download/v1.2.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.2.0.epub)|

@@ -11,6 +11,8 @@ Perdu dans le labyrinthe des noms de Cent ans de solitude ? Vous ne vous souvene
 
 Initialement conçu pour Kindle, le dictionnaire est désormais disponible en format EPUB — parfait pour l’utiliser sur votre téléphone, tablette, ou en lisant un livre papier.
 
+> 📖 Ici, vous pouvez consulter tous les livres, séries et auteurs inclus jusqu'à présent : [Couverture du Dictionnaire](./Dictionary_Coverage.md).
+
 |Langue| Dictionnaire pour Kindle ([plus d’infos](#️-kindle-version-installation)) | EPUB ([plus d’infos](#-dont-have-a-kindle-or-reading-a-physical-book)) |
 |---|---|---|
 |🇬🇧 Anglais|[Télécharger](https://github.com/cdmoro/literary-dictionary/releases/download/v1.2.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.2.0.mobi)|[Télécharger](https://github.com/cdmoro/literary-dictionary/releases/download/v1.2.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.2.0.epub)|

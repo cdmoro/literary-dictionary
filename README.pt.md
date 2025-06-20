@@ -11,6 +11,8 @@ Perde-se nos nomes de Cem anos de solidão? Não lembra se aquele objeto mágico
 
 Originalmente criado para o Kindle, o dicionário agora também está disponível em formato EPUB — ideal para usar no celular, tablet ou ao ler um livro físico.
 
+> 📖 Aqui você pode consultar todos os livros, séries e autores incluídos até o momento: [Cobertura do Dicionário](./Dictionary_Coverage.md).
+
 |Idioma| Dicionário para Kindle ([mais informações](#️-instalação)) | EPUB ([mais informações](#-não-tem-um-kindle-ou-está-lendo-um-livro-físico)) |
 |---|---|---|
 |🇬🇧 Inglês|[Baixar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.2.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.2.0.mobi)|[Baixar](https://github.com/cdmoro/literary-dictionary/releases/download/v1.2.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.2.0.epub)|

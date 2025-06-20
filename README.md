@@ -11,6 +11,8 @@ Lost in the maze of names from _One Hundred Years of Solitude_? Can’t remember
 
 Originally designed for Kindle, the dictionary is now also available in **EPUB format** — for anyone who wants to use it on their phone, tablet, or while reading a physical book.
 
+> 📖 Here you can find all the books, series, and authors included so far: [Dictionary Coverage](./Dictionary_Coverage.md)
+
 |Language| Dictionary for Kindle ([more info](#️-kindle-version-installation)) | EPUB ([more info](#-dont-have-a-kindle-or-reading-a-physical-book)) |
 |---|---|---|
 |🇬🇧 English|[Download](https://github.com/cdmoro/literary-dictionary/releases/download/v1.2.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.2.0.mobi)|[Download](https://github.com/cdmoro/literary-dictionary/releases/download/v1.2.0/Bonadeo.Carlos.-.Literary.Dictionary.EN.v1.2.0.epub)|
