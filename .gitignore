@@ -6,4 +6,7 @@ reports/
 output/
 output_epub/
 
+src/scripts/*.csv
+src/scripts/*.sql
+
 venv/
