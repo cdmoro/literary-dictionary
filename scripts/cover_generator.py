@@ -147,13 +147,32 @@ def generate_cover_svg(
     safe_lang = html.escape(lang_label)
     safe_created = html.escape(f"{created_by_label} {author}")
 
+    has_image = bool(base_cover_path and os.path.exists(base_cover_path))
+
     # --- background image (optional) ---
     image_element = ""
-    if base_cover_path and os.path.exists(base_cover_path):
+    image_overlay = ""
+    if has_image:
         safe_path = html.escape(base_cover_path)
+        # Show image more prominently when available.
         image_element = (
             f'<image href="{safe_path}" width="600" height="900" x="0" y="0"'
-            ' preserveAspectRatio="xMidYMid slice" opacity="0.35"/>'
+            ' preserveAspectRatio="xMidYMid slice" opacity="0.75"/>'
+        )
+        # Neutral dark scrim to keep text legible (not coloured).
+        image_overlay = (
+            '<rect width="600" height="900" fill="#000000" opacity="0.35"/>'
+        )
+
+    # --- border colour: entity colour when image is present, muted otherwise ---
+    border_colour = resolved_bg if has_image else _BORDER_COLOUR
+    border_width = "3" if has_image else "2"
+
+    # --- coloured accent band at the bottom (image path only) ---
+    accent_band = ""
+    if has_image:
+        accent_band = (
+            f'<rect x="0" y="820" width="600" height="80" fill="{resolved_bg}" opacity="0.85"/>'
         )
 
     # --- title: wrapped, centred in upper ~55 % of the card ---
@@ -185,9 +204,11 @@ def generate_cover_svg(
   <!-- Solid background -->
   <rect width="600" height="900" fill="{resolved_bg}"/>
   {image_element}
-  <!-- Border -->
+  {image_overlay}
+  {accent_band}
+  <!-- Border: entity colour when image present, muted otherwise -->
   <rect x="24" y="24" width="552" height="852" fill="none"
-        stroke="{_BORDER_COLOUR}" stroke-width="1.5" rx="2"/>
+        stroke="{border_colour}" stroke-width="{border_width}" rx="2"/>
   <!-- Title -->
   {title_elements}
   <!-- Horizontal rule -->
@@ -261,17 +282,28 @@ def _create_pil_cover(
     """Create a JPEG cover using Pillow, matching the reference design."""
     width, height = 600, 900
     bg_rgb = _hex_to_rgb(bg_colour or _BG_COLOUR)
-    img = Image.new("RGB", (width, height), color=bg_rgb)
+    has_image = bool(base_cover_path and os.path.exists(base_cover_path))
 
-    if base_cover_path and os.path.exists(base_cover_path):
+    if has_image:
+        # Show the background image prominently.
         bg = Image.open(base_cover_path).convert("RGB").resize((width, height))
-        overlay = Image.new("RGBA", (width, height), (*bg_rgb, 180))
-        bg_rgba = bg.convert("RGBA")
-        img = Image.alpha_composite(bg_rgba, overlay).convert("RGB")
+        # Neutral dark scrim at ~35 % to keep text legible.
+        scrim = Image.new("RGBA", (width, height), (0, 0, 0, 90))
+        img = Image.alpha_composite(bg.convert("RGBA"), scrim).convert("RGB")
+
+        # Coloured accent band at the bottom for the footer area.
+        band = Image.new("RGBA", (width, 80), (*bg_rgb, 217))  # ~85 % opacity
+        img_rgba = img.convert("RGBA")
+        img_rgba.paste(band, (0, 820), band)
+        img = img_rgba.convert("RGB")
+    else:
+        img = Image.new("RGB", (width, height), color=bg_rgb)
 
     draw = ImageDraw.Draw(img)
 
-    border_col = _hex_to_rgb(_BORDER_COLOUR)
+    # Border: entity colour when image is present, muted steel-blue otherwise.
+    border_col = bg_rgb if has_image else _hex_to_rgb(_BORDER_COLOUR)
+    border_width = 3 if has_image else 2
     title_col = _hex_to_rgb(_TITLE_COLOUR)
     muted_col = _hex_to_rgb(_SUBTITLE_COLOUR)
 
@@ -281,7 +313,7 @@ def _create_pil_cover(
     footer_font = _find_font(_FONT_PATHS_REGULAR, 15)
 
     # Border
-    draw.rectangle([24, 24, 575, 875], outline=border_col, width=2)
+    draw.rectangle([24, 24, 575, 875], outline=border_col, width=border_width)
 
     # Title block centred in upper 55 % of the image
     title_block_h = _pil_draw_wrapped(
