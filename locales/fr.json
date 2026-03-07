@@ -19,6 +19,7 @@
     "entries": "Entrées",
     "file_name": "{ebook_author} - Dictionnaire Littéraire [{lang}] (v{version})",
     "lang": "FR",
+    "lang_name": "Français",
     "license": "Licence",
     "ncx_authors_toc": "Index des enregistrements",
     "ncx_dictionary_toc": "Glossaire",

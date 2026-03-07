@@ -116,7 +116,7 @@ def generate_cover_svg(
     """
     safe_title = html.escape(title)
     safe_companion = html.escape(companion_label)
-    safe_lang = html.escape(lang_label.upper())
+    safe_lang = html.escape(lang_label)
     safe_created = html.escape(f"{created_by_label} {author}")
 
     # --- background image (optional) ---
@@ -274,7 +274,7 @@ def _create_pil_cover(
 
     # Language code
     draw.text(
-        (width // 2, lang_y), lang_label.upper(), font=small_font,
+        (width // 2, lang_y), lang_label, font=small_font,
         fill=muted_col, anchor="mm",
     )
 

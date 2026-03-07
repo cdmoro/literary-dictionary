@@ -85,7 +85,7 @@ def generate_book_companions(
         return
 
     companion_label = strings.get("companion_reading", "Reading Companion")
-    lang_label = strings.get("lang", lang.upper())
+    lang_label = strings.get("lang_name", strings.get("lang", lang.upper()))
     created_by_label = strings.get("companion_created_by", "Created by")
 
     for book in books:
@@ -151,7 +151,7 @@ def generate_saga_companions(
         return
 
     companion_label = strings.get("companion_reading", "Reading Companion")
-    lang_label = strings.get("lang", lang.upper())
+    lang_label = strings.get("lang_name", strings.get("lang", lang.upper()))
     created_by_label = strings.get("companion_created_by", "Created by")
 
     for saga in sagas:

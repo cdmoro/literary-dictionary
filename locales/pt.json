@@ -19,6 +19,7 @@
     "entries": "Verbetes",
     "file_name": "{ebook_author} - Dicionário Literário [{lang}] (v{version})",
     "lang": "PT",
+    "lang_name": "Português",
     "license": "Licença",
     "ncx_authors_toc": "Índice de registros",
     "ncx_dictionary_toc": "Glossário",

@@ -19,6 +19,7 @@
     "entries": "Voci",
     "file_name": "{ebook_author} - Dizionario Letterario [{lang}] (v{version})",
     "lang": "IT",
+    "lang_name": "Italiano",
     "license": "Licenza",
     "ncx_authors_toc": "Indice dei registri",
     "ncx_dictionary_toc": "Glossario",

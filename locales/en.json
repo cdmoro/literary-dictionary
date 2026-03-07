@@ -19,6 +19,7 @@
     "entries": "Entries",
     "file_name": "{ebook_author} - Literary Dictionary [{lang}] (v{version})",
     "lang": "EN",
+    "lang_name": "English",
     "license": "License",
     "ncx_authors_toc": "Index of entries",
     "ncx_dictionary_toc": "Glossary",
