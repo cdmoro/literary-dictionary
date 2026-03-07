@@ -18,7 +18,7 @@ import os
 import uuid
 from typing import Optional
 
-from scripts.cover_generator import create_cover
+from scripts.cover_generator import create_cover, pick_cover_colour
 from scripts.db_reader import (
     get_all_books,
     get_all_sagas,
@@ -109,6 +109,10 @@ def generate_book_companions(
         cover_dir = os.path.join(base_output, lang, "books", ".covers")
 
         base_cover = _base_cover_path(lang, book.get("saga_global_id"))
+        # Books in a saga share the saga's colour; standalone books use their own.
+        # saga_global_id is None (SQL NULL via LEFT JOIN) when the book has no saga.
+        saga_gid = book.get("saga_global_id")
+        colour_id = saga_gid if saga_gid is not None else book_gid
         cover_file = create_cover(
             output_dir=cover_dir,
             title=title,
@@ -117,6 +121,7 @@ def generate_book_companions(
             lang_label=lang_label,
             created_by_label=created_by_label,
             base_cover_path=base_cover,
+            bg_colour=pick_cover_colour(colour_id),
         )
         cover_src = os.path.join(cover_dir, cover_file)
         uid = _make_uid("book", f"{book_gid}-{lang}")
@@ -183,6 +188,7 @@ def generate_saga_companions(
             lang_label=lang_label,
             created_by_label=created_by_label,
             base_cover_path=base_cover,
+            bg_colour=pick_cover_colour(saga_gid),
         )
         cover_src = os.path.join(cover_dir, cover_file)
         uid = _make_uid("saga", f"{saga_gid}-{lang}")

@@ -25,6 +25,7 @@ Cover layout (matching the reference design):
     └─────────────────────────┘
 """
 
+import hashlib
 import html
 import os
 
@@ -54,12 +55,37 @@ _FONT_PATHS_REGULAR = [
 # ---------------------------------------------------------------------------
 # Colour palette (matches the reference image)
 # ---------------------------------------------------------------------------
-_BG_COLOUR = "#1c2e42"          # dark navy blue
+_BG_COLOUR = "#1c2e42"          # dark navy blue (default fallback)
 _BORDER_COLOUR = "#8a9bb0"      # muted steel-blue border
 _TITLE_COLOUR = "#c8a96e"       # warm gold
 _SUBTITLE_COLOUR = "#8a9bb0"    # muted blue-grey (Reading Companion + LANG)
 _FOOTER_COLOUR = "#8a9bb0"      # same muted colour for "Created by …"
 _RULE_COLOUR = "#8a9bb0"        # divider line
+
+# Palette of rich, book-cover-worthy background colours.
+# Each entity gets a deterministic colour derived from its global_id.
+_COVER_COLOUR_PALETTE = [
+    "#1c2e42",  # dark navy
+    "#2c1a3e",  # deep purple
+    "#1a2e2c",  # dark teal
+    "#2e1a1a",  # dark burgundy
+    "#1a2c1a",  # dark forest green
+    "#2e2a14",  # dark olive
+    "#1e1a2e",  # midnight indigo
+    "#2a1c1e",  # dark crimson
+]
+
+
+def pick_cover_colour(entity_global_id: str) -> str:
+    """Return a deterministic background colour for the given entity.
+
+    The colour is chosen from :data:`_COVER_COLOUR_PALETTE` using the entity's
+    ``global_id`` so that the same entity always gets the same colour,
+    regardless of process or environment (uses MD5 for stability).
+    """
+    digest = hashlib.md5(entity_global_id.encode(), usedforsecurity=False).digest()
+    idx = digest[0] % len(_COVER_COLOUR_PALETTE)
+    return _COVER_COLOUR_PALETTE[idx]
 
 
 def _hex_to_rgb(hex_colour: str) -> tuple:
@@ -106,6 +132,7 @@ def generate_cover_svg(
     created_by_label: str = "Created by",
     author: str = "Carlos Bonadeo",
     base_cover_path: str = None,
+    bg_colour: str = None,
 ) -> str:
     """Generate an SVG cover that matches the reference design.
 
@@ -114,6 +141,7 @@ def generate_cover_svg(
     it as the background.  Without a background image a flat solid fill is used
     (matching the "generic" variant in the reference).
     """
+    resolved_bg = bg_colour or _BG_COLOUR
     safe_title = html.escape(title)
     safe_companion = html.escape(companion_label)
     safe_lang = html.escape(lang_label)
@@ -155,7 +183,7 @@ def generate_cover_svg(
      xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
      width="600" height="900">
   <!-- Solid background -->
-  <rect width="600" height="900" fill="{_BG_COLOUR}"/>
+  <rect width="600" height="900" fill="{resolved_bg}"/>
   {image_element}
   <!-- Border -->
   <rect x="24" y="24" width="552" height="852" fill="none"
@@ -228,10 +256,11 @@ def _create_pil_cover(
     created_by_label: str,
     author: str,
     base_cover_path: str = None,
+    bg_colour: str = None,
 ) -> str:
     """Create a JPEG cover using Pillow, matching the reference design."""
     width, height = 600, 900
-    bg_rgb = _hex_to_rgb(_BG_COLOUR)
+    bg_rgb = _hex_to_rgb(bg_colour or _BG_COLOUR)
     img = Image.new("RGB", (width, height), color=bg_rgb)
 
     if base_cover_path and os.path.exists(base_cover_path):
@@ -304,6 +333,7 @@ def create_cover(
     created_by_label: str = "Created by",
     author: str = "Carlos Bonadeo",
     base_cover_path: str = None,
+    bg_colour: str = None,
 ) -> str:
     """Create a cover image for a companion EPUB.
 
@@ -320,6 +350,11 @@ def create_cover(
         base_cover_path:   Optional path to a base/background image for
                            image-composite covers.  Pass ``None`` for a flat
                            colour background.
+        bg_colour:         Optional hex background colour (e.g. ``"#2c1a3e"``).
+                           When ``None`` and *base_cover_path* is also ``None``
+                           the default navy :data:`_BG_COLOUR` is used.  Use
+                           :func:`pick_cover_colour` to derive a deterministic
+                           colour from an entity ``global_id``.
 
     Returns:
         Filename (not full path) of the generated cover asset.
@@ -337,6 +372,7 @@ def create_cover(
                 created_by_label,
                 author,
                 base_cover_path,
+                bg_colour,
             )
         except Exception as exc:  # noqa: BLE001
             print(f"  ℹ️  Cover image generation skipped ({exc}); using SVG.")
@@ -348,6 +384,7 @@ def create_cover(
         created_by_label,
         author,
         base_cover_path,
+        bg_colour,
     )
     cover_filename = "cover.svg"
     with open(os.path.join(output_dir, cover_filename), "w", encoding="utf-8") as fh:

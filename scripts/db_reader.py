@@ -54,7 +54,12 @@ def get_all_books(conn) -> List[dict]:
 
 
 def get_all_sagas(conn) -> List[dict]:
-    """Fetch all sagas with author info."""
+    """Fetch all sagas that have no associated books, with author info.
+
+    Sagas that already have book entries are excluded because each book gets
+    its own companion; a top-level saga companion is only useful when the saga
+    has no individual book records.
+    """
     cur = conn.cursor()
     cur.execute(
         """
@@ -67,6 +72,9 @@ def get_all_sagas(conn) -> List[dict]:
             a.name AS author_name
         FROM sagas s
         JOIN authors a ON s.author_id = a.id
+        WHERE NOT EXISTS (
+            SELECT 1 FROM books b WHERE b.saga_id = s.id
+        )
         ORDER BY s.name
         """
     )
