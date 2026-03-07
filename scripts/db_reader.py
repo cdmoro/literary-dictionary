@@ -29,7 +29,13 @@ def get_lang_from_db_path(db_path: str) -> str:
 
 
 def get_all_books(conn) -> List[dict]:
-    """Fetch all books with author and saga info."""
+    """Fetch all books with author and saga info, including cover image paths.
+
+    ``book_cover`` is the book-specific override (may be NULL).
+    ``saga_cover`` is the saga-level cover inherited by all books in the saga
+    (may be NULL).  The orchestrator resolves the effective cover from these
+    two values.
+    """
     cur = conn.cursor()
     cur.execute(
         """
@@ -40,10 +46,12 @@ def get_all_books(conn) -> List[dict]:
             b.description,
             b.publication_year,
             b.saga_id,
+            b.cover AS book_cover,
             a.id AS author_id,
             a.name AS author_name,
             s.name AS saga_name,
-            s.global_id AS saga_global_id
+            s.global_id AS saga_global_id,
+            s.cover AS saga_cover
         FROM books b
         JOIN authors a ON b.author_id = a.id
         LEFT JOIN sagas s ON b.saga_id = s.id
@@ -59,6 +67,8 @@ def get_all_sagas(conn) -> List[dict]:
     Sagas that already have book entries are excluded because each book gets
     its own companion; a top-level saga companion is only useful when the saga
     has no individual book records.
+
+    ``cover`` holds the optional cover image path stored in the database.
     """
     cur = conn.cursor()
     cur.execute(
@@ -68,6 +78,7 @@ def get_all_sagas(conn) -> List[dict]:
             s.global_id,
             s.name,
             s.description,
+            s.cover,
             a.id AS author_id,
             a.name AS author_name
         FROM sagas s

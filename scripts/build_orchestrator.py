@@ -37,15 +37,25 @@ from src.utils import get_translations
 # ---------------------------------------------------------------------------
 
 
-def _base_cover_path(lang: str, saga_global_id: Optional[str] = None) -> Optional[str]:
-    """Return the path to the best available base cover image.
+def _resolve_cover_path(
+    db_cover: Optional[str],
+    saga_global_id: Optional[str] = None,
+    lang: str = "en",
+) -> Optional[str]:
+    """Return the best available base cover image path.
 
-    Search order:
-    1. A saga-/franchise-specific image  ``assets/cover_<saga_global_id>.<ext>``
-    2. A language-default image          ``assets/cover_<lang>.<ext>``
-    3. ``None`` when nothing is found (the cover generator falls back to SVG).
+    Resolution order (first existing path wins):
+    1. Path stored in the database ``cover`` column (book or saga record).
+    2. Saga-scoped filesystem image ``assets/cover_<saga_global_id>.<ext>``.
+    3. Language-default filesystem image ``assets/cover_<lang>.<ext>``.
+    4. ``None`` — the cover generator falls back to a solid colour background.
+
+    The DB-stored path is relative to the project root (e.g.
+    ``assets/dune.jpg``).  An absolute path is also accepted.
     """
-    candidates = []
+    candidates: list = []
+    if db_cover:
+        candidates.append(db_cover)
     if saga_global_id:
         for ext in ("jpg", "jpeg", "png"):
             candidates.append(f"assets/cover_{saga_global_id}.{ext}")
@@ -108,7 +118,12 @@ def generate_book_companions(
         output_path = os.path.join(base_output, lang, "books", f"{book_gid}.epub")
         cover_dir = os.path.join(base_output, lang, "books", ".covers")
 
-        base_cover = _base_cover_path(lang, book.get("saga_global_id"))
+        base_cover = _resolve_cover_path(
+            # Book-specific override first; then the saga-level cover
+            db_cover=book.get("book_cover") or book.get("saga_cover"),
+            saga_global_id=book.get("saga_global_id"),
+            lang=lang,
+        )
         # Books in a saga share the saga's colour; standalone books use their own.
         # saga_global_id is None (SQL NULL via LEFT JOIN) when the book has no saga.
         saga_gid = book.get("saga_global_id")
@@ -179,7 +194,11 @@ def generate_saga_companions(
         output_path = os.path.join(base_output, lang, "sagas", f"{saga_gid}.epub")
         cover_dir = os.path.join(base_output, lang, "sagas", ".covers")
 
-        base_cover = _base_cover_path(lang, saga_gid)
+        base_cover = _resolve_cover_path(
+            db_cover=saga.get("cover"),
+            saga_global_id=saga_gid,
+            lang=lang,
+        )
         cover_file = create_cover(
             output_dir=cover_dir,
             title=title,
