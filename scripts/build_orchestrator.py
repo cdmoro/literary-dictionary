@@ -29,6 +29,7 @@ from scripts.db_reader import (
     get_lang_from_db_path,
 )
 from scripts.epub_builder import build_companion_epub
+from src.utils import get_translations
 
 
 # ---------------------------------------------------------------------------
@@ -71,6 +72,7 @@ def generate_book_companions(
     base_output: str,
     lang: str,
     conn,
+    strings: dict,
     include_drafts: bool = False,
 ) -> None:
     """Generate one reading companion EPUB per book in *conn*.
@@ -81,6 +83,10 @@ def generate_book_companions(
     if not books:
         print(f"  No books found for {lang.upper()}")
         return
+
+    companion_label = strings.get("companion_reading", "Reading Companion")
+    lang_label = strings.get("lang", lang.upper())
+    created_by_label = strings.get("companion_created_by", "Created by")
 
     for book in books:
         book_gid = book["global_id"]
@@ -106,8 +112,10 @@ def generate_book_companions(
         cover_file = create_cover(
             output_dir=cover_dir,
             title=title,
-            companion_type="Reading Companion",
             lang=lang,
+            companion_label=companion_label,
+            lang_label=lang_label,
+            created_by_label=created_by_label,
             base_cover_path=base_cover,
         )
         cover_src = os.path.join(cover_dir, cover_file)
@@ -130,6 +138,7 @@ def generate_saga_companions(
     base_output: str,
     lang: str,
     conn,
+    strings: dict,
     include_drafts: bool = False,
 ) -> None:
     """Generate one reading companion EPUB per saga in *conn*.
@@ -140,6 +149,10 @@ def generate_saga_companions(
     if not sagas:
         print(f"  No sagas found for {lang.upper()}")
         return
+
+    companion_label = strings.get("companion_reading", "Reading Companion")
+    lang_label = strings.get("lang", lang.upper())
+    created_by_label = strings.get("companion_created_by", "Created by")
 
     for saga in sagas:
         saga_gid = saga["global_id"]
@@ -165,8 +178,10 @@ def generate_saga_companions(
         cover_file = create_cover(
             output_dir=cover_dir,
             title=title,
-            companion_type="Reading Companion",
             lang=lang,
+            companion_label=companion_label,
+            lang_label=lang_label,
+            created_by_label=created_by_label,
             base_cover_path=base_cover,
         )
         cover_src = os.path.join(cover_dir, cover_file)
@@ -221,14 +236,19 @@ def run(
         db_lang = get_lang_from_db_path(db_path)
         print(f"Processing language: {db_lang.upper()} ({db_path})")
         conn = get_connection(db_path)
+        strings = get_translations(db_lang)
         try:
             if not sagas_only:
                 print(f"\n  📖 Book companions:")
-                generate_book_companions(output_dir, db_lang, conn, include_drafts)
+                generate_book_companions(
+                    output_dir, db_lang, conn, strings, include_drafts
+                )
 
             if not books_only:
                 print(f"\n  📚 Saga companions:")
-                generate_saga_companions(output_dir, db_lang, conn, include_drafts)
+                generate_saga_companions(
+                    output_dir, db_lang, conn, strings, include_drafts
+                )
         finally:
             conn.close()
 

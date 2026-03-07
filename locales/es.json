@@ -7,6 +7,8 @@
     "birth_abbr": "n",
     "books": "Libros",
     "contact": "Contacto",
+    "companion_reading": "Compañero de Lectura",
+    "companion_created_by": "Creado por",
     "contents": "Índice",
     "copyright_desc": "Este diccionario reúne personajes, conceptos y objetos de la literatura mundial en múltiples idiomas. Es un proyecto libre y en evolución, creado para lectores curiosos.",
     "copyright": "<strong>© 2025 {ebook_author}. Todos los derechos reservados.</strong> Esta edición del diccionario está destinada exclusivamente a uso personal y comercial. No está permitida su reproducción, distribución o modificación sin autorización expresa del autor.",
