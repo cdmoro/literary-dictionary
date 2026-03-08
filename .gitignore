@@ -5,6 +5,7 @@ __pycache__/
 reports/
 output/
 output_epub/
+docs/
 
 src/scripts/*.csv
 src/scripts/*.sql
