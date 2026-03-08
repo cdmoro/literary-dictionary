@@ -284,6 +284,15 @@ a:hover { text-decoration: underline; }
     max-width: 520px;
     margin: 0 auto;
 }
+.home-stats {
+    margin: 0.9rem auto 0;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
 /* === Headings ============================================================= */
 h1 {
     font-family: Georgia, 'Times New Roman', serif;
@@ -1177,6 +1186,24 @@ def _index_page(
     language, each augmented with a ``_search_href`` and ``_search_lang`` key
     so that home-page search works across all locales.
     """
+    # All locales share the same entries/books/sagas – use counts from the
+    # first available locale (they are identical across all languages).
+    stats_html = ""
+    if lang_data:
+        first = next(iter(lang_data.values()))
+        n_entries = first.get("entry_count", 0)
+        n_books = first.get("book_count", 0)
+        n_sagas = first.get("saga_count", 0)
+        stats_html = (
+            f'<p class="home-stats">'
+            f'<span>{n_entries} entries</span>'
+            f'<span aria-hidden="true"> · </span>'
+            f'<span>{n_books} books</span>'
+            f'<span aria-hidden="true"> · </span>'
+            f'<span>{n_sagas} sagas</span>'
+            f'</p>\n'
+        )
+
     lang_cards = ""
     for lc in available_langs:
         meta = _LANG_META.get(lc, {"name": lc.upper(), "emoji": ""})
@@ -1203,6 +1230,7 @@ def _index_page(
         '<div class="hero">\n'
         "    <h1>Literary Dictionary</h1>\n"
         '    <p class="tagline">Characters, places, and concepts from world literature</p>\n'
+        f"    {stats_html}"
         "</div>\n"
         "<h2>Available editions</h2>\n"
         f'<div class="cards-grid">{lang_cards}</div>\n'
@@ -1269,6 +1297,7 @@ def generate_site(
         lang_data[lang] = {
             "entry_count": len(entries),
             "book_count": len(books),
+            "saga_count": len(sagas),
             "lang_name": _LANG_META.get(lang, {}).get("name", lang.upper()),
         }
 
