@@ -15,10 +15,13 @@ Use a custom output directory::
 
     python3 generate_site.py --output site
 
-Generate and immediately serve the site locally (default port 8000)::
+Generate and immediately serve the site locally::
 
     python3 generate_site.py --serve
     python3 generate_site.py --lang en --serve --port 9000
+
+Without ``--port`` the server tries 9000, then 9001, 9002 … until it
+finds an available port.
 """
 
 import argparse
@@ -54,9 +57,12 @@ def main() -> None:
     parser.add_argument(
         "--port",
         type=int,
-        default=8000,
+        default=None,
         metavar="PORT",
-        help="Port for the local preview server (default: 8000). Only used with --serve.",
+        help=(
+            "Port for the local preview server. Only used with --serve. "
+            "When omitted, the first available port starting from 9000 is used."
+        ),
     )
     args = parser.parse_args()
 
@@ -70,8 +76,6 @@ def main() -> None:
         import webbrowser
 
         output_abs = os.path.abspath(args.output)
-        port = args.port
-        url = f"http://localhost:{port}/"
 
         # Serve from the output directory
         os.chdir(output_abs)
@@ -80,6 +84,19 @@ def main() -> None:
             def log_message(self, fmt, *a):  # suppress per-request noise
                 """Override to suppress HTTP access log lines."""
 
+        # Determine port: explicit value, or auto-scan from 9000 upward.
+        auto_select = args.port is None
+        port = 9000 if auto_select else args.port
+        httpd = None
+        while httpd is None:
+            try:
+                httpd = socketserver.TCPServer(("", port), _Handler)
+            except OSError:
+                if not auto_select or port >= 65535:
+                    raise
+                port += 1
+
+        url = f"http://localhost:{port}/"
         print(f"\n🌐  Serving site at {url}")
         print("    Press Ctrl+C to stop.\n")
 
@@ -88,7 +105,7 @@ def main() -> None:
         except webbrowser.Error:
             pass  # browser unavailable – user can open the URL manually
 
-        with socketserver.TCPServer(("", port), _Handler) as httpd:
+        with httpd:
             try:
                 httpd.serve_forever()
             except KeyboardInterrupt:
