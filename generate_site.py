@@ -14,6 +14,11 @@ Generate a single language::
 Use a custom output directory::
 
     python3 generate_site.py --output site
+
+Generate and immediately serve the site locally (default port 8000)::
+
+    python3 generate_site.py --serve
+    python3 generate_site.py --lang en --serve --port 9000
 """
 
 import argparse
@@ -41,11 +46,53 @@ def main() -> None:
         default="docs",
         help="Output directory (default: docs).",
     )
+    parser.add_argument(
+        "--serve",
+        action="store_true",
+        help="After generating, start a local HTTP server to preview the site.",
+    )
+    parser.add_argument(
+        "--port",
+        type=int,
+        default=8000,
+        metavar="PORT",
+        help="Port for the local preview server (default: 8000). Only used with --serve.",
+    )
     args = parser.parse_args()
 
     print(f"\n📚 Generating Literary Dictionary static site → {args.output}/\n")
     generate_site(output_dir=args.output, lang_filter=args.lang)
     print("\n🎉 Done!")
+
+    if args.serve:
+        import http.server
+        import socketserver
+        import webbrowser
+
+        output_abs = os.path.abspath(args.output)
+        port = args.port
+        url = f"http://localhost:{port}/"
+
+        # Serve from the output directory
+        os.chdir(output_abs)
+
+        class _Handler(http.server.SimpleHTTPRequestHandler):
+            def log_message(self, fmt, *a):  # suppress per-request noise
+                """Override to suppress HTTP access log lines."""
+
+        print(f"\n🌐  Serving site at {url}")
+        print("    Press Ctrl+C to stop.\n")
+
+        try:
+            webbrowser.open(url)
+        except webbrowser.Error:
+            pass  # browser unavailable – user can open the URL manually
+
+        with socketserver.TCPServer(("", port), _Handler) as httpd:
+            try:
+                httpd.serve_forever()
+            except KeyboardInterrupt:
+                print("\nServer stopped.")
 
 
 if __name__ == "__main__":

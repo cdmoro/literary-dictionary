@@ -20,6 +20,7 @@ Site structure::
 
 import glob as _glob
 import html
+import json
 import os
 import sqlite3
 from collections import defaultdict
@@ -30,173 +31,514 @@ from src.utils import escape_text_nodes, normalize_character
 _ENCODING = "utf-8"
 
 # ---------------------------------------------------------------------------
-# CSS – embedded in every page (no external deps)
+# CSS – embedded in every page
 # ---------------------------------------------------------------------------
 
 _CSS = """\
-*, *::before, *::after { box-sizing: border-box; }
+/* === Reset =============================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
 body {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 1rem;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.7;
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 1rem 1.5rem 3rem;
-    color: #1a1a1a;
-    background: #fafaf8;
+    color: #2c2c2c;
+    background: #f7f3ee;
+    min-height: 100vh;
 }
-a { color: #2a4a8a; text-decoration: none; }
+/* === Links ================================================================ */
+a { color: #2c5282; text-decoration: none; }
 a:hover { text-decoration: underline; }
-nav.site-nav {
+/* === Site Header =========================================================== */
+.site-header {
+    background: #1d2d44;
+    color: #e8dcc8;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.28);
+}
+.header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0.7rem 1.5rem;
     display: flex;
+    align-items: center;
+    gap: 1rem;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    padding: 0.6rem 0;
-    border-bottom: 2px solid #ddd;
-    margin-bottom: 1.5rem;
-    font-size: 0.9rem;
 }
-nav.site-nav a {
-    padding: 0.2rem 0.5rem;
-    border-radius: 3px;
-    background: #eee;
-    color: #333;
+.site-logo {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.15rem;
+    font-weight: bold;
+    color: #e8dcc8;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
-nav.site-nav a:hover { background: #ddd; text-decoration: none; }
-nav.lang-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin: 1rem 0;
+.site-logo:hover { color: #fff; text-decoration: none; }
+/* Language pills in header */
+.header-langs { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+.header-langs a {
+    padding: 0.18rem 0.65rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #a8b8cc;
+    border: 1px solid #344e6a;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: all 0.15s;
 }
-nav.lang-nav a {
-    padding: 0.3rem 0.8rem;
-    border: 1px solid #aaa;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    background: #fff;
-}
-nav.lang-nav a:hover, nav.lang-nav a.active {
-    background: #2a4a8a;
-    color: #fff;
-    border-color: #2a4a8a;
+.header-langs a:hover, .header-langs a.active {
+    background: #e8dcc8;
+    color: #1d2d44;
+    border-color: #e8dcc8;
     text-decoration: none;
 }
-h1 { font-size: 2rem; margin-bottom: 0.3rem; }
-h2 { font-size: 1.4rem; margin-top: 2rem; margin-bottom: 0.5rem; color: #333; }
-h3.letter-heading {
-    font-size: 1.3rem;
-    margin-top: 2rem;
-    color: #444;
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 0.2rem;
+/* Search */
+.search-wrap { position: relative; margin-left: auto; }
+.search-icon {
+    position: absolute;
+    left: 0.65rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.82rem;
+    pointer-events: none;
+    opacity: 0.55;
 }
-.subtitle { color: #666; font-style: italic; margin-bottom: 1.5rem; }
-.stats { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1rem 0 2rem; }
-.stat-box {
+.search-input {
+    width: 210px;
+    padding: 0.34rem 0.75rem 0.34rem 2rem;
+    border-radius: 20px;
+    border: 1px solid #344e6a;
+    background: #263a55;
+    color: #e8dcc8;
+    font-size: 0.86rem;
+    outline: none;
+    transition: background 0.2s, width 0.2s, color 0.2s;
+}
+.search-input::placeholder { color: #7a90a8; }
+.search-input:focus {
     background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 0.8rem 1.2rem;
-    min-width: 120px;
-    text-align: center;
+    color: #2c2c2c;
+    border-color: #a08060;
+    width: 270px;
 }
-.stat-num { font-size: 1.8rem; font-weight: bold; color: #2a4a8a; }
-.stat-lbl { font-size: 0.8rem; color: #666; }
-.letter-nav {
+.search-drop {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    width: 340px;
+    background: #fff;
+    border: 1px solid #d5c9b0;
+    border-radius: 10px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.15);
+    overflow: hidden;
+    z-index: 200;
+}
+.sr-item {
     display: flex;
+    align-items: baseline;
+    gap: 0.45rem;
+    padding: 0.55rem 1rem;
+    border-bottom: 1px solid #f0ebe3;
+    cursor: pointer;
+    text-decoration: none;
+    color: #2c2c2c;
+    transition: background 0.1s;
+}
+.sr-item:last-child { border-bottom: none; }
+.sr-item:hover, .sr-item.focused { background: #f7f3ee; text-decoration: none; color: #2c2c2c; }
+.sr-name { font-weight: 700; font-size: 0.92rem; }
+.sr-abbr { font-size: 0.72rem; color: #8a7a68; font-style: italic; }
+.sr-origin { font-size: 0.78rem; color: #7a8898; margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px; }
+.sr-none { padding: 0.8rem 1rem; color: #888; font-size: 0.88rem; }
+/* === Page Wrapper ========================================================= */
+.page-wrap { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+/* === Hero ================================================================= */
+.hero {
+    text-align: center;
+    padding: 3.5rem 1rem 2.5rem;
+    margin-bottom: 1rem;
+}
+.hero h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 3rem;
+    color: #1d2d44;
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+}
+.hero .tagline {
+    font-size: 1.1rem;
+    color: #7a6a55;
+    font-style: italic;
+    max-width: 520px;
+    margin: 0 auto;
+}
+.hero-langs { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-top: 1.5rem; }
+.hero-langs a {
+    padding: 0.45rem 1.2rem;
+    border-radius: 24px;
+    border: 2px solid #1d2d44;
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: #1d2d44;
+    letter-spacing: 0.06em;
+    transition: all 0.15s;
+}
+.hero-langs a:hover { background: #1d2d44; color: #e8dcc8; text-decoration: none; }
+/* === Headings ============================================================= */
+h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2rem;
+    color: #1d2d44;
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
+}
+h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.35rem;
+    color: #2c3e50;
+    margin: 2.5rem 0 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #d5c9b0;
+}
+.page-subtitle { color: #7a6a55; font-style: italic; font-size: 0.95rem; margin-bottom: 1.5rem; }
+/* === Breadcrumb =========================================================== */
+.breadcrumb {
+    font-size: 0.83rem;
+    color: #9a8a75;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
     flex-wrap: wrap;
     gap: 0.3rem;
-    margin: 1rem 0;
 }
+.breadcrumb a { color: #5c7ab0; }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb-sep { color: #bbb; }
+/* === Stats ================================================================ */
+.stats { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.5rem 0 2rem; }
+.stat-box {
+    background: #fff;
+    border: 1px solid #d5c9b0;
+    border-radius: 10px;
+    padding: 0.9rem 1.5rem;
+    min-width: 110px;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.stat-num {
+    font-family: Georgia, serif;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #1d2d44;
+    line-height: 1;
+}
+.stat-lbl { font-size: 0.75rem; color: #7a6a55; margin-top: 0.2rem; text-transform: uppercase; letter-spacing: 0.05em; }
+/* === Letter Nav =========================================================== */
+.letter-nav { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 1rem 0 1.5rem; }
 .letter-nav a {
-    display: inline-block;
-    width: 2rem;
-    height: 2rem;
-    line-height: 2rem;
-    text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    font-size: 0.9rem;
-    background: #fff;
-}
-.letter-nav a:hover { background: #2a4a8a; color: #fff; border-color: #2a4a8a; text-decoration: none; }
-.entry { margin-bottom: 0; }
-.entry strong { font-size: 1.05rem; }
-.entry-alias { color: #666; font-size: 0.9rem; margin-left: 0.3rem; }
-.definition { margin: 0.3rem 0 0.3rem 1.2rem; }
-.entry-abbr { font-style: italic; color: #555; }
-.origin { margin: 0.2rem 0 0.2rem 1.2rem; font-size: 0.95rem; }
-.see-also { margin: 0.2rem 0 0.2rem 1.2rem; font-size: 0.95rem; }
-hr { border: none; border-top: 1px solid #e0e0e0; margin: 0.8rem 0; }
-.books-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
-}
-.book-card {
-    background: #fff;
-    border: 1px solid #ddd;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.2rem;
+    height: 2.2rem;
     border-radius: 6px;
-    padding: 0.8rem 1rem;
+    border: 1px solid #c8b99a;
+    font-family: Georgia, serif;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #5c4a35;
+    background: #fff;
+    text-decoration: none;
+    transition: all 0.15s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
-.book-card h4 { margin: 0 0 0.3rem; font-size: 1rem; }
-.book-card .author { color: #555; font-size: 0.85rem; }
-.book-card .year { color: #888; font-size: 0.8rem; }
-.book-card .count { margin-top: 0.5rem; font-size: 0.85rem; }
+.letter-nav a:hover, .letter-nav a.active {
+    background: #1d2d44;
+    color: #e8dcc8;
+    border-color: #1d2d44;
+    text-decoration: none;
+}
+/* === Cards Grid =========================================================== */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 0.9rem;
+    margin-top: 0.5rem;
+}
+.card {
+    background: #fff;
+    border: 1px solid #d5c9b0;
+    border-radius: 10px;
+    padding: 1rem 1.1rem 0.9rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    transition: box-shadow 0.2s, transform 0.15s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+.card:hover {
+    box-shadow: 0 5px 16px rgba(0,0,0,0.13);
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+.card-title {
+    font-family: Georgia, serif;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #1d2d44;
+    margin-bottom: 0.3rem;
+    line-height: 1.3;
+}
+.card-author { font-size: 0.84rem; color: #5c4a35; }
+.card-year { color: #9a8a75; font-size: 0.8rem; }
+.card-saga { font-size: 0.8rem; color: #7a6a55; font-style: italic; margin-top: 0.2rem; }
+/* === Entry Cards ========================================================== */
+.letter-section-heading {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1d2d44;
+    margin: 2.2rem 0 0.9rem;
+    padding: 0.35rem 0 0.35rem 0.85rem;
+    border-left: 4px solid #a08060;
+    line-height: 1;
+}
+.entry {
+    background: #fff;
+    border: 1px solid #e8ddd0;
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem 0.75rem;
+    margin-bottom: 0.55rem;
+    transition: box-shadow 0.15s, border-color 0.15s;
+}
+.entry:target { border-color: #a08060; box-shadow: 0 0 0 3px rgba(160,128,96,0.18); }
+.entry:hover { box-shadow: 0 2px 10px rgba(160,128,96,0.15); }
+.entry-head {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 0.35rem;
+}
+.entry-name {
+    font-family: Georgia, serif;
+    font-size: 1.06rem;
+    font-weight: bold;
+    color: #1d2d44;
+}
+.entry-badge {
+    display: inline-block;
+    padding: 0.08rem 0.42rem;
+    border-radius: 4px;
+    background: #e8f0df;
+    color: #3a5a28;
+    font-size: 0.7rem;
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    border: 1px solid #c5d9b8;
+    vertical-align: middle;
+}
+.entry-alias { font-size: 0.84rem; color: #7a6a55; font-style: italic; }
+.entry-body { font-size: 0.94rem; line-height: 1.65; color: #3c3c3c; margin-bottom: 0.45rem; }
+.entry-meta { display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem; font-size: 0.84rem; }
+.entry-origin { color: #5c4a35; }
+.entry-origin a { color: #5c7ab0; }
+.entry-origin a:hover { text-decoration: underline; }
+.entry-see-also { color: #5c4a35; }
+.entry-see-also a { color: #5c7ab0; }
+.entry-see-also a:hover { text-decoration: underline; }
+/* === Back to top ========================================================= */
+.back-top {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.4rem 1rem;
+    border: 1px solid #c8b99a;
+    border-radius: 20px;
+    font-size: 0.84rem;
+    color: #5c4a35;
+    text-decoration: none;
+    transition: all 0.15s;
+}
+.back-top:hover { background: #1d2d44; color: #e8dcc8; border-color: #1d2d44; text-decoration: none; }
+/* === Footer =============================================================== */
 footer {
-    margin-top: 3rem;
-    padding-top: 1rem;
-    border-top: 1px solid #ddd;
-    font-size: 0.85rem;
-    color: #888;
+    margin-top: 4rem;
+    padding: 1.5rem;
+    border-top: 1px solid #d5c9b0;
     text-align: center;
+    font-size: 0.8rem;
+    color: #9a8a75;
+}
+footer a { color: #5c7ab0; }
+/* === Responsive =========================================================== */
+@media (max-width: 640px) {
+    .header-inner { padding: 0.6rem 1rem; gap: 0.6rem; }
+    .search-input { width: 150px; }
+    .search-input:focus { width: 190px; }
+    .search-drop { width: min(300px, 90vw); right: -0.5rem; }
+    .page-wrap { padding: 1.5rem 1rem 3rem; }
+    h1 { font-size: 1.65rem; }
+    .hero h1 { font-size: 2rem; }
+    .hero .tagline { font-size: 0.95rem; }
 }
 """
 
 
 # ---------------------------------------------------------------------------
-# HTML skeleton helpers
+# Search JS – inline in every page (no external deps)
 # ---------------------------------------------------------------------------
 
 
-def _page(title: str, body: str, root_prefix: str = "") -> str:
+def _search_js(entries: list, letter_prefix: str) -> str:
+    """Build the inline search script for a page.
+
+    ``entries``       – full entry list for the current language.
+    ``letter_prefix`` – path prefix to letter pages from the current page.
+                        Use ``""`` when the current page is at the language
+                        level (lang index or letter pages, which live alongside
+                        the letter HTML files).  Use ``"../"`` for nested pages
+                        (books/, sagas/) that are one directory deeper.
+    """
+    data = []
+    for e in entries:
+        name = e.get("display_name") or e["name"]
+        letter = _entry_letter(e)
+        alias = e.get("alias") or ""
+        abbr = e.get("category_abbr") or ""
+        origin = e.get("book_name") or e.get("saga_name") or ""
+        href = f"{letter_prefix}{letter}.html#entry-{e['id']}"
+        # Pre-lowercase search fields to avoid repeated toLowerCase() calls in JS.
+        data.append({
+            "n": name,
+            "nl": name.lower(),
+            "a": alias,
+            "al": alias.lower(),
+            "ab": abbr,
+            "o": origin,
+            "h": href,
+        })
+
+    data_json = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+
+    # Double braces escape literal braces inside .format()
+    return (
+        "<script>(function(){{"
+        "var D={data};"
+        "var inp=document.getElementById('site-search');"
+        "var drop=document.getElementById('search-drop');"
+        "if(!inp)return;"
+        "var t,cur=-1;"
+        "function esc(s){{return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}}"
+        "function run(){{"
+        "var q=inp.value.trim().toLowerCase();"
+        "if(q.length<2){{drop.hidden=true;return;}}"
+        "var res=D.filter(function(e){{return e.nl.indexOf(q)>=0"
+        "||(e.al&&e.al.indexOf(q)>=0);}}).slice(0,8);"
+        "if(!res.length){{drop.innerHTML='<div class=\"sr-none\">No results found</div>';}}"
+        "else{{drop.innerHTML=res.map(function(e){{"
+        "return '<a href=\"'+e.h+'\" class=\"sr-item\">'+"
+        "'<span class=\"sr-name\">'+esc(e.n)+'</span>'+"
+        "(e.ab?'<span class=\"sr-abbr\">'+esc(e.ab)+'</span>':'')+"
+        "(e.o?'<span class=\"sr-origin\">'+esc(e.o)+'</span>':'')+'</a>';"
+        "}}).join('');}}"
+        "drop.hidden=false;cur=-1;"
+        "}}"
+        "inp.addEventListener('input',function(){{clearTimeout(t);t=setTimeout(run,120);}});"
+        "inp.addEventListener('keydown',function(e){{"
+        "var its=drop.querySelectorAll('.sr-item');"
+        "if(e.key==='ArrowDown'){{e.preventDefault();cur=Math.min(cur+1,its.length-1);}}"
+        "else if(e.key==='ArrowUp'){{e.preventDefault();cur=Math.max(cur-1,0);}}"
+        "else if(e.key==='Enter'&&cur>=0&&its[cur]){{window.location.href=its[cur].href;return;}}"
+        "else if(e.key==='Escape'){{drop.hidden=true;return;}}"
+        "its.forEach(function(el,i){{el.classList.toggle('focused',i===cur);}});"
+        "if(cur>=0&&its[cur])its[cur].scrollIntoView({{block:'nearest'}});"
+        "}});"
+        "document.addEventListener('pointerdown',function(e){{"
+        "if(!inp.contains(e.target)&&!drop.contains(e.target))drop.hidden=true;"
+        "}});"
+        "}})();</script>"
+    ).format(data=data_json)
+
+
+# ---------------------------------------------------------------------------
+# HTML page skeleton
+# ---------------------------------------------------------------------------
+
+
+def _header(
+    root_prefix: str,
+    available_langs: list,
+    active_lang: Optional[str],
+) -> str:
+    lang_links = []
+    for lc in available_langs:
+        active = ' class="active"' if lc == active_lang else ""
+        lang_links.append(
+            f'<a href="{root_prefix}{lc}/index.html"{active}>{lc.upper()}</a>'
+        )
+    lang_nav = '<div class="header-langs">' + "".join(lang_links) + "</div>"
+
+    return f"""\
+<header class="site-header">
+  <div class="header-inner">
+    <a class="site-logo" href="{root_prefix}index.html">&#128218; Literary Dictionary</a>
+    {lang_nav}
+    <div class="search-wrap">
+      <span class="search-icon">&#128269;</span>
+      <input id="site-search" class="search-input" type="search"
+             placeholder="Search entries\u2026" autocomplete="off" aria-label="Search entries"/>
+      <div id="search-drop" class="search-drop" hidden></div>
+    </div>
+  </div>
+</header>"""
+
+
+def _page(
+    title: str,
+    body: str,
+    root_prefix: str,
+    available_langs: list,
+    active_lang: Optional[str],
+    entries_for_search: Optional[list] = None,
+    search_letter_prefix: str = "",
+) -> str:
+    search_script = ""
+    if entries_for_search is not None:
+        search_script = _search_js(entries_for_search, search_letter_prefix)
+
     return f"""\
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{active_lang or 'en'}">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>{html.escape(title)} – Literary Dictionary</title>
+    <title>{html.escape(title)} \u2013 Literary Dictionary</title>
     <style>{_CSS}</style>
 </head>
 <body>
+{_header(root_prefix, available_langs, active_lang)}
+<div class="page-wrap">
 {body}
+</div>
 <footer>
-    <p>Literary Dictionary – <a href="{root_prefix}index.html">Home</a></p>
+  <p>Literary Dictionary &mdash; <a href="{root_prefix}index.html">Home</a></p>
 </footer>
+{search_script}
 </body>
 </html>"""
 
 
-def _site_nav(lang: Optional[str], root_prefix: str, available_langs: list) -> str:
-    links = [f'<a href="{root_prefix}index.html">🏠 Home</a>']
-    for lc in available_langs:
-        active = ' class="active"' if lc == lang else ""
-        links.append(f'<a href="{root_prefix}{lc}/index.html"{active}>{lc.upper()}</a>')
-    return '<nav class="site-nav">' + " ".join(links) + "</nav>"
-
-
-def _lang_nav(current_lang: str, available_langs: list, path_from_lang: str = "") -> str:
-    parts = []
-    for lc in available_langs:
-        active = ' class="active"' if lc == current_lang else ""
-        # From a lang subdirectory, link to sibling lang: ../en/ etc.
-        parts.append(
-            f'<a href="../{lc}/{path_from_lang}"{active}>{lc.upper()}</a>'
-        )
-    return '<nav class="lang-nav">' + "".join(parts) + "</nav>"
+def _letter_nav_html(all_letters: list, active: Optional[str] = None) -> str:
+    links = []
+    for ltr in all_letters:
+        disp = ltr if ltr != "Other" else "#"
+        active_class = ' class="active"' if ltr == active else ""
+        links.append(f'<a href="{ltr}.html"{active_class}>{disp}</a>')
+    return '<div class="letter-nav">' + "".join(links) + "</div>"
 
 
 # ---------------------------------------------------------------------------
@@ -284,17 +626,12 @@ def _build_see_also(entries: list) -> dict:
 
 
 # ---------------------------------------------------------------------------
-# Entry HTML fragment (shared between letter pages and book/saga pages)
+# Entry HTML fragment
 # ---------------------------------------------------------------------------
 
 
 def _entry_html(entry: dict, see_also: list, letter_link_prefix: str = "") -> str:
-    """Render a single entry as an HTML fragment.
-
-    ``see_also`` is a list of (related_entry, target_letter) tuples.
-    ``letter_link_prefix`` is prepended to letter-page hrefs (e.g. ``'../'``
-    when inside books/ or sagas/).
-    """
+    """Render a single entry as a styled card HTML fragment."""
     eid = entry["id"]
     name = entry.get("display_name") or entry["name"]
     abbr = entry.get("category_abbr") or ""
@@ -307,53 +644,72 @@ def _entry_html(entry: dict, see_also: list, letter_link_prefix: str = "") -> st
     author_name = entry.get("author_name") or ""
 
     out = f'<div class="entry" id="entry-{eid}">\n'
-    out += f"  <strong>{html.escape(name)}</strong>"
+
+    # --- head line ---
+    out += '  <div class="entry-head">\n'
+    out += f'    <span class="entry-name">{html.escape(name)}</span>\n'
+    if abbr:
+        out += f'    <span class="entry-badge">{html.escape(abbr)}</span>\n'
     if alias:
         aliases = [a.strip() for a in alias.split(";") if a.strip()]
         if aliases:
-            out += f'  <span class="entry-alias">({html.escape(", ".join(aliases))})</span>'
-    out += "\n"
-    out += '  <div class="definition">\n'
-    if abbr:
-        out += f'    <em class="entry-abbr">{html.escape(abbr)}.</em> '
-    out += f"{escape_text_nodes(desc)}\n  </div>\n"
+            out += (
+                f'    <span class="entry-alias">'
+                f'{html.escape(", ".join(aliases))}</span>\n'
+            )
+    out += "  </div>\n"
 
-    # Origin
+    # --- body ---
+    if desc:
+        out += f'  <p class="entry-body">{escape_text_nodes(desc)}</p>\n'
+
+    # --- meta (origin + see also) ---
+    meta_parts = []
+
     if author_name:
         if book_name and saga_name:
-            origin = (
+            origin_text = (
                 f'<em><a href="{letter_link_prefix}books/{html.escape(book_gid)}.html">'
                 f"{html.escape(book_name)}</a></em>"
-                f" (part of <em>{html.escape(saga_name)}</em>), "
-                f"{html.escape(author_name)}"
+                f" (part of <em>{html.escape(saga_name)}</em>),"
+                f" {html.escape(author_name)}"
             )
         elif book_name:
-            origin = (
+            origin_text = (
                 f'<em><a href="{letter_link_prefix}books/{html.escape(book_gid)}.html">'
-                f"{html.escape(book_name)}</a></em>, {html.escape(author_name)}"
+                f"{html.escape(book_name)}</a></em>,"
+                f" {html.escape(author_name)}"
             )
         elif saga_name:
-            origin = (
+            origin_text = (
                 f'<em><a href="{letter_link_prefix}sagas/{html.escape(saga_gid)}.html">'
-                f"{html.escape(saga_name)}</a></em>, {html.escape(author_name)}"
+                f"{html.escape(saga_name)}</a></em>,"
+                f" {html.escape(author_name)}"
             )
         else:
-            origin = f"{html.escape(author_name)}"
-        out += f'  <div class="origin"><strong>Origin:</strong> {origin}</div>\n'
+            origin_text = html.escape(author_name)
+        meta_parts.append(
+            f'<span class="entry-origin">&#128218; {origin_text}</span>'
+        )
 
-    # See also
     if see_also:
         links = [
             f'<a href="{letter_link_prefix}{tgt_letter}.html#entry-{p["id"]}">'
             f'{html.escape(p.get("display_name") or p["name"])}</a>'
             for p, tgt_letter in see_also
         ]
-        out += (
-            f'  <div class="see-also"><strong>See also:</strong>'
-            f" {', '.join(links)}</div>\n"
+        meta_parts.append(
+            f'<span class="entry-see-also">'
+            f"<strong>See also:</strong> {', '.join(links)}</span>"
         )
 
-    out += "</div>\n<hr/>\n"
+    if meta_parts:
+        out += '  <div class="entry-meta">\n'
+        for part in meta_parts:
+            out += f"    {part}\n"
+        out += "  </div>\n"
+
+    out += "</div>\n"
     return out
 
 
@@ -369,34 +725,43 @@ def _letter_page(
     all_letters: list,
     see_also_map: dict,
     available_langs: list,
+    all_entries: list,
 ) -> str:
     display = letter if letter != "Other" else "Symbols and Numbers"
-    letter_nav_links = []
-    for ltr in all_letters:
-        disp = ltr if ltr != "Other" else "#"
-        if ltr == letter:
-            letter_nav_links.append(
-                f'<a href="{ltr}.html" style="background:#2a4a8a;color:#fff">{disp}</a>'
-            )
-        else:
-            letter_nav_links.append(f'<a href="{ltr}.html">{disp}</a>')
-    letter_nav = '<div class="letter-nav">' + "".join(letter_nav_links) + "</div>"
-
     entries_html = "".join(
         _entry_html(e, see_also_map.get(e["id"], []))
         for e in entries
     )
 
-    body = f"""\
-{_site_nav(lang, '../', available_langs)}
-{_lang_nav(lang, available_langs, f'{letter}.html')}
-<h1>Literary Dictionary</h1>
-<p class="subtitle">{display} — {lang.upper()} edition</p>
-{letter_nav}
-<h3 class="letter-heading">{html.escape(display)}</h3>
-{entries_html}"""
+    breadcrumb = (
+        f'<nav class="breadcrumb">'
+        f'<a href="../index.html">Home</a>'
+        f'<span class="breadcrumb-sep">&rsaquo;</span>'
+        f'<a href="index.html">{lang.upper()}</a>'
+        f'<span class="breadcrumb-sep">&rsaquo;</span>'
+        f'<span>{html.escape(display)}</span>'
+        f"</nav>"
+    )
 
-    return _page(f"{display} – {lang.upper()}", body, root_prefix="../")
+    body = f"""\
+{breadcrumb}
+<h1>{html.escape(display)}</h1>
+<p class="page-subtitle">{lang.upper()} edition</p>
+{_letter_nav_html(all_letters, active=letter)}
+<section>
+{entries_html}
+</section>
+<a class="back-top" href="#">&#8593; Back to top</a>"""
+
+    return _page(
+        f"{display} \u2013 {lang.upper()}",
+        body,
+        root_prefix="../",
+        available_langs=available_langs,
+        active_lang=lang,
+        entries_for_search=all_entries,
+        search_letter_prefix="",
+    )
 
 
 def _lang_index_page(
@@ -411,12 +776,6 @@ def _lang_index_page(
     book_count = len(books)
     saga_count = len(sagas)
 
-    letter_nav_links = [
-        f'<a href="{ltr}.html">{ltr if ltr != "Other" else "#"}</a>'
-        for ltr in all_letters
-    ]
-    letter_nav = '<div class="letter-nav">' + "".join(letter_nav_links) + "</div>"
-
     stats = f"""\
 <div class="stats">
   <div class="stat-box"><div class="stat-num">{entry_count}</div><div class="stat-lbl">Entries</div></div>
@@ -424,43 +783,64 @@ def _lang_index_page(
   <div class="stat-box"><div class="stat-num">{saga_count}</div><div class="stat-lbl">Series</div></div>
 </div>"""
 
-    books_html = '<div class="books-grid">'
+    books_html = '<div class="cards-grid">'
     for book in books:
-        year = f'<span class="year">{book["publication_year"]}</span>' if book.get("publication_year") else ""
-        saga_tag = ""
-        if book.get("saga_name"):
-            saga_tag = f'<div class="author">{html.escape(book["saga_name"])}</div>'
-        books_html += f"""\
-<div class="book-card">
-  <h4><a href="books/{html.escape(book['global_id'])}.html">{html.escape(book['name'])}</a></h4>
-  <div class="author">{html.escape(book['author_name'])} {year}</div>
-  {saga_tag}
-</div>"""
+        year = (
+            f' <span class="card-year">({book["publication_year"]})</span>'
+            if book.get("publication_year") else ""
+        )
+        saga_tag = (
+            f'<div class="card-saga">{html.escape(book["saga_name"])}</div>'
+            if book.get("saga_name") else ""
+        )
+        books_html += (
+            f'<a class="card" href="books/{html.escape(book["global_id"])}.html">'
+            f'<div class="card-title">{html.escape(book["name"])}</div>'
+            f'<div class="card-author">{html.escape(book["author_name"])}{year}</div>'
+            f"{saga_tag}"
+            f"</a>"
+        )
     books_html += "</div>"
 
-    sagas_html = '<div class="books-grid">'
+    sagas_html = '<div class="cards-grid">'
     for saga in sagas:
-        sagas_html += f"""\
-<div class="book-card">
-  <h4><a href="sagas/{html.escape(saga['global_id'])}.html">{html.escape(saga['name'])}</a></h4>
-  <div class="author">{html.escape(saga['author_name'])}</div>
-</div>"""
+        sagas_html += (
+            f'<a class="card" href="sagas/{html.escape(saga["global_id"])}.html">'
+            f'<div class="card-title">{html.escape(saga["name"])}</div>'
+            f'<div class="card-author">{html.escape(saga["author_name"])}</div>'
+            f"</a>"
+        )
     sagas_html += "</div>"
 
+    breadcrumb = (
+        f'<nav class="breadcrumb">'
+        f'<a href="../index.html">Home</a>'
+        f'<span class="breadcrumb-sep">&rsaquo;</span>'
+        f'<span>{lang.upper()}</span>'
+        f"</nav>"
+    )
+
     body = f"""\
-{_site_nav(lang, '../', available_langs)}
-{_lang_nav(lang, available_langs)}
+{breadcrumb}
 <h1>Literary Dictionary</h1>
-<p class="subtitle">{lang.upper()} edition</p>
+<p class="page-subtitle">{lang.upper()} edition</p>
 {stats}
 <h2>Browse by letter</h2>
-{letter_nav}
+{_letter_nav_html(all_letters)}
 <h2>Books</h2>
 {books_html}
 <h2>Series</h2>
 {sagas_html}"""
 
-    return _page(f"Literary Dictionary – {lang.upper()}", body, root_prefix="../")
+    return _page(
+        f"Literary Dictionary \u2013 {lang.upper()}",
+        body,
+        root_prefix="../",
+        available_langs=available_langs,
+        active_lang=lang,
+        entries_for_search=entries,
+        search_letter_prefix="",
+    )
 
 
 def _book_page(
@@ -469,6 +849,7 @@ def _book_page(
     entries: list,
     see_also_map: dict,
     available_langs: list,
+    all_lang_entries: list,
 ) -> str:
     title = book["name"]
     author = book["author_name"]
@@ -477,7 +858,8 @@ def _book_page(
     if book.get("saga_name"):
         saga_gid = book.get("saga_gid", "")
         saga_note = (
-            f'<p>Part of: <a href="../sagas/{html.escape(saga_gid)}.html">'
+            f'<p class="page-subtitle">Part of: '
+            f'<a href="../sagas/{html.escape(saga_gid)}.html">'
             f"{html.escape(book['saga_name'])}</a></p>"
         )
 
@@ -486,16 +868,35 @@ def _book_page(
         for e in entries
     )
 
-    body = f"""\
-{_site_nav(lang, '../../', available_langs)}
-{_lang_nav(lang, available_langs, f'books/{html.escape(book["global_id"])}.html')}
-<h1>{html.escape(title)}</h1>
-<p class="subtitle">{html.escape(author)}{html.escape(year)}</p>
-{saga_note}
-<p><a href="../index.html">← {lang.upper()} index</a></p>
-{entries_html}"""
+    breadcrumb = (
+        f'<nav class="breadcrumb">'
+        f'<a href="../../index.html">Home</a>'
+        f'<span class="breadcrumb-sep">&rsaquo;</span>'
+        f'<a href="../index.html">{lang.upper()}</a>'
+        f'<span class="breadcrumb-sep">&rsaquo;</span>'
+        f'<span>{html.escape(title)}</span>'
+        f"</nav>"
+    )
 
-    return _page(f"{title} – {lang.upper()}", body, root_prefix="../../")
+    body = f"""\
+{breadcrumb}
+<h1>{html.escape(title)}</h1>
+<p class="page-subtitle">{html.escape(author)}{html.escape(year)}</p>
+{saga_note}
+<section>
+{entries_html}
+</section>
+<a class="back-top" href="#">&#8593; Back to top</a>"""
+
+    return _page(
+        f"{title} \u2013 {lang.upper()}",
+        body,
+        root_prefix="../../",
+        available_langs=available_langs,
+        active_lang=lang,
+        entries_for_search=all_lang_entries,
+        search_letter_prefix="../",
+    )
 
 
 def _saga_page(
@@ -504,6 +905,7 @@ def _saga_page(
     entries: list,
     see_also_map: dict,
     available_langs: list,
+    all_lang_entries: list,
 ) -> str:
     title = saga["name"]
     author = saga["author_name"]
@@ -513,15 +915,34 @@ def _saga_page(
         for e in entries
     )
 
-    body = f"""\
-{_site_nav(lang, '../../', available_langs)}
-{_lang_nav(lang, available_langs, f'sagas/{html.escape(saga["global_id"])}.html')}
-<h1>{html.escape(title)}</h1>
-<p class="subtitle">{html.escape(author)}</p>
-<p><a href="../index.html">← {lang.upper()} index</a></p>
-{entries_html}"""
+    breadcrumb = (
+        f'<nav class="breadcrumb">'
+        f'<a href="../../index.html">Home</a>'
+        f'<span class="breadcrumb-sep">&rsaquo;</span>'
+        f'<a href="../index.html">{lang.upper()}</a>'
+        f'<span class="breadcrumb-sep">&rsaquo;</span>'
+        f'<span>{html.escape(title)}</span>'
+        f"</nav>"
+    )
 
-    return _page(f"{title} – {lang.upper()}", body, root_prefix="../../")
+    body = f"""\
+{breadcrumb}
+<h1>{html.escape(title)}</h1>
+<p class="page-subtitle">{html.escape(author)}</p>
+<section>
+{entries_html}
+</section>
+<a class="back-top" href="#">&#8593; Back to top</a>"""
+
+    return _page(
+        f"{title} \u2013 {lang.upper()}",
+        body,
+        root_prefix="../../",
+        available_langs=available_langs,
+        active_lang=lang,
+        entries_for_search=all_lang_entries,
+        search_letter_prefix="../",
+    )
 
 
 def _index_page(lang_data: dict, available_langs: list) -> str:
@@ -529,24 +950,37 @@ def _index_page(lang_data: dict, available_langs: list) -> str:
     lang_cards = ""
     for lc in available_langs:
         data = lang_data.get(lc, {})
-        entries = data.get("entry_count", 0)
-        books = data.get("book_count", 0)
-        lang_cards += f"""\
-<div class="book-card">
-  <h4><a href="{lc}/index.html">{lc.upper()} – {html.escape(data.get('lang_name', lc.upper()))}</a></h4>
-  <div class="author">{entries} entries · {books} books</div>
-</div>"""
+        entry_count = data.get("entry_count", 0)
+        book_count = data.get("book_count", 0)
+        lang_name = data.get("lang_name", lc.upper())
+        lang_cards += (
+            f'<a class="card" href="{lc}/index.html">'
+            f'<div class="card-title">{html.escape(lang_name)}</div>'
+            f'<div class="card-author">{entry_count} entries &middot; {book_count} books</div>'
+            f"</a>"
+        )
+
+    hero_lang_links = "".join(
+        f'<a href="{lc}/index.html">{lc.upper()}</a>' for lc in available_langs
+    )
 
     body = f"""\
-<h1>Literary Dictionary</h1>
-<p class="subtitle">Characters, places, spells and more from world literature</p>
-<nav class="lang-nav">
-{''.join(f'<a href="{lc}/index.html">{lc.upper()}</a>' for lc in available_langs)}
-</nav>
+<div class="hero">
+    <h1>Literary Dictionary</h1>
+    <p class="tagline">Characters, places, and concepts from world literature</p>
+    <div class="hero-langs">{hero_lang_links}</div>
+</div>
 <h2>Available editions</h2>
-<div class="books-grid">{lang_cards}</div>"""
+<div class="cards-grid">{lang_cards}</div>"""
 
-    return _page("Literary Dictionary", body, root_prefix="")
+    return _page(
+        "Literary Dictionary",
+        body,
+        root_prefix="",
+        available_langs=available_langs,
+        active_lang=None,
+        entries_for_search=None,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -621,6 +1055,7 @@ def generate_site(
                 _letter_page(
                     lang, letter, by_letter[letter],
                     all_letters, see_also_map, available_langs,
+                    all_entries=entries,
                 ),
             )
 
@@ -637,7 +1072,8 @@ def generate_site(
             b_see_also = _build_see_also(b_entries)
             _write(
                 os.path.join(output_dir, lang, "books", f"{book['global_id']}.html"),
-                _book_page(lang, book, b_entries, b_see_also, available_langs),
+                _book_page(lang, book, b_entries, b_see_also, available_langs,
+                           all_lang_entries=entries),
             )
 
         # --- saga pages ---
@@ -653,7 +1089,8 @@ def generate_site(
             s_see_also = _build_see_also(s_entries)
             _write(
                 os.path.join(output_dir, lang, "sagas", f"{saga['global_id']}.html"),
-                _saga_page(lang, saga, s_entries, s_see_also, available_langs),
+                _saga_page(lang, saga, s_entries, s_see_also, available_langs,
+                           all_lang_entries=entries),
             )
 
     # --- global index ---
