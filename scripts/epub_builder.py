@@ -40,6 +40,7 @@ h3.letter-heading {
     border-bottom: 1px solid #ccc;
     padding-bottom: 0.2em;
 }
+.see-also { margin-left: 1em; margin-top: 0.3em; font-size: 0.95em; }
 .definition { margin-left: 1em; margin-bottom: 0.5em; }
 .entry-abbr { font-style: italic; color: #555; }
 .entry-alias { color: #666; font-size: 0.9em; }
@@ -136,8 +137,35 @@ def _toc_xhtml(lang: str, title: str) -> str:
 </html>"""
 
 
+def _build_see_also_map(entries: list) -> dict:
+    """Return a mapping of entry_id → list of related entries.
+
+    Related entries share the same ``category_id`` within the same
+    book/saga companion.  Self-references are excluded.
+    """
+    by_category: dict = defaultdict(list)
+    for entry in entries:
+        cat_id = entry.get("category_id")
+        if cat_id is not None:
+            by_category[cat_id].append(entry)
+
+    see_also: dict = {}
+    for entry in entries:
+        entry_id = entry["id"]
+        cat_id = entry.get("category_id")
+        if cat_id is not None:
+            see_also[entry_id] = [
+                e for e in by_category[cat_id] if e["id"] != entry_id
+            ]
+        else:
+            see_also[entry_id] = []
+    return see_also
+
+
 def _entries_xhtml(lang: str, title: str, entries: list) -> str:
     """Generate the main XHTML page listing all entries for a book/saga."""
+    see_also_map = _build_see_also_map(entries)
+
     entries_by_letter: dict = defaultdict(list)
     for entry in entries:
         first = normalize_character(entry["name"][0])
@@ -189,6 +217,17 @@ def _entries_xhtml(lang: str, title: str, entries: list) -> str:
                 template += f'        <em class="entry-abbr">{html.escape(abbr)}.</em> '
             template += f"{escape_text_nodes(desc)}\n"
             template += "      </div>\n"
+            see_also = see_also_map.get(entry_id, [])
+            if see_also:
+                links = [
+                    f'<a href="#entry-{e["id"]}">{html.escape(e.get("display_name") or e["name"])}</a>'
+                    for e in see_also
+                ]
+                template += '      <div class="see-also">\n'
+                template += (
+                    f"        <strong>See also:</strong> {', '.join(links)}\n"
+                )
+                template += "      </div>\n"
             template += "    </div>\n"
             template += "    <hr/>\n\n"
 
