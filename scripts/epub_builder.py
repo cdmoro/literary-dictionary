@@ -116,7 +116,13 @@ def _copyright_xhtml(lang: str, title: str, author_name: str) -> str:
 </html>"""
 
 
-def _toc_xhtml(lang: str, title: str) -> str:
+def _toc_xhtml(lang: str, title: str, letters: list) -> str:
+    letter_links = "\n".join(
+        f'    <div><a href="Entries_{letter}.xhtml">'
+        f"{html.escape(letter if letter != 'Other' else 'Symbols and Numbers')}"
+        f"</a></div>"
+        for letter in letters
+    )
     return f"""\
 <?xml version="1.0" encoding="{_ENCODING}"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
@@ -132,47 +138,44 @@ def _toc_xhtml(lang: str, title: str) -> str:
     <div><a href="Cover.xhtml">Cover</a></div>
     <div><a href="Copyright.xhtml">About</a></div>
     <div><a href="TOC.xhtml">Contents</a></div>
-    <div><a href="Entries.xhtml">Dictionary Entries – {html.escape(title)}</a></div>
+{letter_links}
 </body>
 </html>"""
 
 
 def _build_see_also_map(entries: list) -> dict:
-    """Return a mapping of entry_id → list of related entries.
+    """Return a mapping of entry_id → list of (related_entry, target_letter).
 
     Related entries share the same ``category_id`` within the same
     book/saga companion.  Self-references are excluded.
     """
     by_category: dict = defaultdict(list)
+    entry_letter: dict = {}
     for entry in entries:
         cat_id = entry.get("category_id")
         if cat_id is not None:
             by_category[cat_id].append(entry)
+        first = normalize_character(entry["name"][0])
+        entry_letter[entry["id"]] = first if first.isalpha() else "Other"
 
     see_also: dict = {}
     for entry in entries:
         entry_id = entry["id"]
         cat_id = entry.get("category_id")
-        if cat_id is not None:
-            see_also[entry_id] = [
-                e for e in by_category[cat_id] if e["id"] != entry_id
-            ]
-        else:
-            see_also[entry_id] = []
+        peers = [e for e in by_category.get(cat_id, []) if e["id"] != entry_id]
+        see_also[entry_id] = [(e, entry_letter[e["id"]]) for e in peers]
     return see_also
 
 
-def _entries_xhtml(lang: str, title: str, entries: list) -> str:
-    """Generate the main XHTML page listing all entries for a book/saga."""
-    see_also_map = _build_see_also_map(entries)
-
-    entries_by_letter: dict = defaultdict(list)
-    for entry in entries:
-        first = normalize_character(entry["name"][0])
-        if first.isalpha():
-            entries_by_letter[first].append(entry)
-        else:
-            entries_by_letter["Other"].append(entry)
+def _letter_entries_xhtml(
+    lang: str,
+    title: str,
+    letter: str,
+    group: list,
+    see_also_map: dict,
+) -> str:
+    """Generate the XHTML page for a single letter's entries."""
+    display_letter = letter if letter != "Other" else "Symbols and Numbers"
 
     template = f"""\
 <?xml version="1.0" encoding="{_ENCODING}"?>
@@ -182,59 +185,59 @@ def _entries_xhtml(lang: str, title: str, entries: list) -> str:
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="Styles/style.css"/>
-    <title>{html.escape(title)} – Entries</title>
+    <title>{html.escape(title)} – {html.escape(display_letter)}</title>
 </head>
 <body>
     <h1>{html.escape(title)}</h1>
-    <h2>Reading Companion</h2>\n"""
+    <h3 class="letter-heading">{html.escape(display_letter)}</h3>\n"""
 
-    for letter, group in sorted(
-        entries_by_letter.items(), key=lambda x: (x[0] == "Other", x[0])
-    ):
-        display_letter = letter if letter != "Other" else "Symbols and Numbers"
-        template += (
-            f'    <h3 class="letter-heading" id="letter-{letter}">'
-            f"{html.escape(display_letter)}</h3>\n"
-        )
-        for entry in group:
-            entry_id = entry["id"]
-            name = entry.get("display_name") or entry["name"]
-            abbr = entry.get("category_abbr") or ""
-            desc = entry.get("description") or ""
-            alias = entry.get("alias") or ""
+    for entry in group:
+        entry_id = entry["id"]
+        name = entry.get("display_name") or entry["name"]
+        abbr = entry.get("category_abbr") or ""
+        desc = entry.get("description") or ""
+        alias = entry.get("alias") or ""
 
-            template += f'    <div id="entry-{entry_id}">\n'
-            template += f"      <strong>{html.escape(name)}</strong>\n"
-            if alias:
-                aliases = [a.strip() for a in alias.split(";") if a.strip()]
-                if aliases:
-                    template += (
-                        f'      <span class="entry-alias">'
-                        f" ({html.escape(', '.join(aliases))})</span>\n"
-                    )
-            template += '      <div class="definition">\n'
-            if abbr:
-                template += f'        <em class="entry-abbr">{html.escape(abbr)}.</em> '
-            template += f"{escape_text_nodes(desc)}\n"
-            template += "      </div>\n"
-            see_also = see_also_map.get(entry_id, [])
-            if see_also:
-                links = [
-                    f'<a href="#entry-{e["id"]}">{html.escape(e.get("display_name") or e["name"])}</a>'
-                    for e in see_also
-                ]
-                template += '      <div class="see-also">\n'
+        template += f'    <div id="entry-{entry_id}">\n'
+        template += f"      <strong>{html.escape(name)}</strong>\n"
+        if alias:
+            aliases = [a.strip() for a in alias.split(";") if a.strip()]
+            if aliases:
                 template += (
-                    f"        <strong>See also:</strong> {', '.join(links)}\n"
+                    f'      <span class="entry-alias">'
+                    f" ({html.escape(', '.join(aliases))})</span>\n"
                 )
-                template += "      </div>\n"
-            template += "    </div>\n"
-            template += "    <hr/>\n\n"
+        template += '      <div class="definition">\n'
+        if abbr:
+            template += f'        <em class="entry-abbr">{html.escape(abbr)}.</em> '
+        template += f"{escape_text_nodes(desc)}\n"
+        template += "      </div>\n"
+        see_also = see_also_map.get(entry_id, [])
+        if see_also:
+            links = [
+                f'<a href="Entries_{tgt_letter}.xhtml#entry-{e["id"]}">'
+                f'{html.escape(e.get("display_name") or e["name"])}</a>'
+                for e, tgt_letter in see_also
+            ]
+            template += '      <div class="see-also">\n'
+            template += f"        <strong>See also:</strong> {', '.join(links)}\n"
+            template += "      </div>\n"
+        template += "    </div>\n"
+        template += "    <hr/>\n\n"
 
     template += """\
 </body>
 </html>"""
     return template
+
+
+def _entries_by_letter(entries: list) -> dict:
+    """Group entries into an ordered dict keyed by normalised first letter."""
+    result: dict = defaultdict(list)
+    for entry in entries:
+        first = normalize_character(entry["name"][0])
+        result[first if first.isalpha() else "Other"].append(entry)
+    return result
 
 
 def _opf_content(
@@ -244,6 +247,7 @@ def _opf_content(
     cover_filename: str,
     cover_media_type: str,
     author_name: str,
+    letters: list,
 ) -> str:
     from dotenv import load_dotenv
 
@@ -251,6 +255,15 @@ def _opf_content(
 
     creator = os.getenv("AUTHOR", "Carlos Bonadeo")
     cover_id = f"Assets_{cover_filename.replace('.', '_')}"
+
+    letter_manifest = "\n".join(
+        f'    <item id="Entries_{l}_xhtml" href="Entries_{l}.xhtml"'
+        f'\n          media-type="application/xhtml+xml"/>'
+        for l in letters
+    )
+    letter_spine = "\n".join(
+        f'    <itemref idref="Entries_{l}_xhtml"/>' for l in letters
+    )
 
     return f"""\
 <?xml version="1.0" encoding="{_ENCODING}"?>
@@ -276,14 +289,13 @@ def _opf_content(
           media-type="application/xhtml+xml"/>
     <item id="TOC_xhtml" href="TOC.xhtml"
           media-type="application/xhtml+xml"/>
-    <item id="Entries_xhtml" href="Entries.xhtml"
-          media-type="application/xhtml+xml"/>
+{letter_manifest}
   </manifest>
   <spine toc="ncx">
     <itemref idref="Cover_xhtml"/>
     <itemref idref="Copyright_xhtml"/>
     <itemref idref="TOC_xhtml"/>
-    <itemref idref="Entries_xhtml"/>
+{letter_spine}
   </spine>
   <guide>
     <reference type="cover" title="Cover" href="Cover.xhtml"/>
@@ -293,7 +305,19 @@ def _opf_content(
 </package>"""
 
 
-def _ncx_content(lang: str, title: str, uid: str) -> str:
+def _ncx_content(lang: str, title: str, uid: str, letters: list) -> str:
+    # playOrder 1-3 are Cover, About, and TOC; letter pages follow from 4 onward.
+    _STATIC_NAV_COUNT = 3
+    nav_points = ""
+    for i, letter in enumerate(letters):
+        display = letter if letter != "Other" else "Symbols and Numbers"
+        play_order = _STATIC_NAV_COUNT + 1 + i
+        nav_points += f"""\
+    <navPoint id="navpoint-entries-{letter}" playOrder="{play_order}">
+      <navLabel><text>{html.escape(display)}</text></navLabel>
+      <content src="Entries_{letter}.xhtml"/>
+    </navPoint>\n"""
+
     return f"""\
 <?xml version="1.0" encoding="{_ENCODING}"?>
 <!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN"
@@ -322,11 +346,7 @@ def _ncx_content(lang: str, title: str, uid: str) -> str:
       <navLabel><text>Contents</text></navLabel>
       <content src="TOC.xhtml"/>
     </navPoint>
-    <navPoint id="navpoint-entries" playOrder="4">
-      <navLabel><text>Dictionary Entries</text></navLabel>
-      <content src="Entries.xhtml"/>
-    </navPoint>
-  </navMap>
+{nav_points}  </navMap>
 </ncx>"""
 
 
@@ -376,6 +396,11 @@ def build_companion_epub(
     """
     media_type = _cover_media_type(cover_filename)
 
+    # Build per-letter data structures once
+    see_also_map = _build_see_also_map(entries)
+    grouped = _entries_by_letter(entries)
+    sorted_letters = sorted(grouped.keys(), key=lambda x: (x == "Other", x))
+
     with tempfile.TemporaryDirectory() as tmp:
         meta_inf = os.path.join(tmp, "META-INF")
         assets = os.path.join(tmp, "Assets")
@@ -384,21 +409,32 @@ def build_companion_epub(
         os.makedirs(assets)
         os.makedirs(styles)
 
-        # --- text files ---
+        # --- static text files ---
         text_files = {
             os.path.join(meta_inf, "container.xml"): _container_xml(),
             os.path.join(tmp, "content.opf"): _opf_content(
-                lang, title, uid, cover_filename, media_type, author_name
+                lang, title, uid, cover_filename, media_type, author_name,
+                sorted_letters,
             ),
-            os.path.join(tmp, "toc.ncx"): _ncx_content(lang, title, uid),
+            os.path.join(tmp, "toc.ncx"): _ncx_content(
+                lang, title, uid, sorted_letters
+            ),
             os.path.join(tmp, "Cover.xhtml"): _cover_xhtml(lang, cover_filename),
             os.path.join(tmp, "Copyright.xhtml"): _copyright_xhtml(
                 lang, title, author_name
             ),
-            os.path.join(tmp, "TOC.xhtml"): _toc_xhtml(lang, title),
-            os.path.join(tmp, "Entries.xhtml"): _entries_xhtml(lang, title, entries),
+            os.path.join(tmp, "TOC.xhtml"): _toc_xhtml(
+                lang, title, sorted_letters
+            ),
             os.path.join(styles, "style.css"): _companion_styles(),
         }
+
+        # --- per-letter entry pages ---
+        for letter in sorted_letters:
+            letter_xhtml = _letter_entries_xhtml(
+                lang, title, letter, grouped[letter], see_also_map
+            )
+            text_files[os.path.join(tmp, f"Entries_{letter}.xhtml")] = letter_xhtml
 
         for path, content in text_files.items():
             with open(path, "w", encoding=_ENCODING) as fh:
