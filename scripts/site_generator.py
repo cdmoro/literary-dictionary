@@ -30,70 +30,178 @@ from src.utils import escape_text_nodes, normalize_character
 
 _ENCODING = "utf-8"
 
+_GITHUB_REPO = "https://github.com/cdmoro/literary-dictionary"
+
+# Full language names + flag emoji for each supported locale
+_LANG_META: dict = {
+    "en": {"name": "English",    "emoji": "\U0001f1ec\U0001f1e7"},
+    "es": {"name": "Espa\u00f1ol",  "emoji": "\U0001f1ea\U0001f1f8"},
+    "fr": {"name": "Fran\u00e7ais", "emoji": "\U0001f1eb\U0001f1f7"},
+    "it": {"name": "Italiano",   "emoji": "\U0001f1ee\U0001f1f9"},
+    "pt": {"name": "Portugu\u00eas", "emoji": "\U0001f1f5\U0001f1f9"},
+}
+
 # ---------------------------------------------------------------------------
-# CSS – embedded in every page
+# CSS – embedded in every page (uses CSS custom properties for theming)
 # ---------------------------------------------------------------------------
 
 _CSS = """\
 /* === Reset =============================================================== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; font-size: 16px; }
+
+/* === CSS custom properties (light theme defaults) ======================== */
+:root {
+    --bg: #f7f3ee;
+    --surface: #fff;
+    --surface-border: #d5c9b0;
+    --text: #2c2c2c;
+    --text-muted: #7a6a55;
+    --text-subtle: #9a8a75;
+    --link: #2c5282;
+    --header-bg: #1d2d44;
+    --header-text: #e8dcc8;
+    --header-link: #a8b8cc;
+    --header-link-border: #344e6a;
+    --header-link-active-bg: #e8dcc8;
+    --header-link-active-text: #1d2d44;
+    --search-bg: #263a55;
+    --search-text: #e8dcc8;
+    --search-focus-bg: #fff;
+    --search-focus-text: #2c2c2c;
+    --accent: #a08060;
+    --letter-nav-border: #c8b99a;
+    --letter-nav-text: #5c4a35;
+    --entry-border: #e8ddd0;
+    --badge-bg: #e8f0df;
+    --badge-text: #3a5a28;
+    --badge-border: #c5d9b8;
+    --stat-num: #1d2d44;
+    --card-title: #1d2d44;
+    --card-author: #5c4a35;
+    --breadcrumb-link: #5c7ab0;
+    --h1: #1d2d44;
+    --h2: #2c3e50;
+    --footer-text: #9a8a75;
+}
+/* === Dark theme (auto via media query) =================================== */
+@media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]) {
+        --bg: #12192a; --surface: #1a2540; --surface-border: #273b56;
+        --text: #ddd6c8; --text-muted: #a8987a; --text-subtle: #7a6a55;
+        --link: #7caaee; --header-bg: #0c1624; --header-text: #e8dcc8;
+        --header-link: #7a90a8; --header-link-border: #1e3250;
+        --header-link-active-bg: #e8dcc8; --header-link-active-text: #0c1624;
+        --search-bg: #162030; --search-text: #c8d8e8;
+        --search-focus-bg: #1a2540; --search-focus-text: #ddd6c8;
+        --accent: #c09870; --letter-nav-border: #3a5070; --letter-nav-text: #a08060;
+        --entry-border: #273b56; --badge-bg: #1a3020; --badge-text: #88c870;
+        --badge-border: #2a5038; --stat-num: #8ab4e8;
+        --card-title: #a8c8f0; --card-author: #a08060;
+        --breadcrumb-link: #7caaee; --h1: #c8d8f0; --h2: #a0b8d8;
+        --footer-text: #6a5a48;
+    }
+}
+/* === Dark theme (explicit) =============================================== */
+html[data-theme="dark"] {
+    --bg: #12192a; --surface: #1a2540; --surface-border: #273b56;
+    --text: #ddd6c8; --text-muted: #a8987a; --text-subtle: #7a6a55;
+    --link: #7caaee; --header-bg: #0c1624; --header-text: #e8dcc8;
+    --header-link: #7a90a8; --header-link-border: #1e3250;
+    --header-link-active-bg: #e8dcc8; --header-link-active-text: #0c1624;
+    --search-bg: #162030; --search-text: #c8d8e8;
+    --search-focus-bg: #1a2540; --search-focus-text: #ddd6c8;
+    --accent: #c09870; --letter-nav-border: #3a5070; --letter-nav-text: #a08060;
+    --entry-border: #273b56; --badge-bg: #1a3020; --badge-text: #88c870;
+    --badge-border: #2a5038; --stat-num: #8ab4e8;
+    --card-title: #a8c8f0; --card-author: #a08060;
+    --breadcrumb-link: #7caaee; --h1: #c8d8f0; --h2: #a0b8d8;
+    --footer-text: #6a5a48;
+}
 body {
     font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.7;
-    color: #2c2c2c;
-    background: #f7f3ee;
+    color: var(--text);
+    background: var(--bg);
     min-height: 100vh;
+    transition: background 0.25s, color 0.25s;
 }
-/* === Links ================================================================ */
-a { color: #2c5282; text-decoration: none; }
+a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
 /* === Site Header =========================================================== */
 .site-header {
-    background: #1d2d44;
-    color: #e8dcc8;
+    background: var(--header-bg);
+    color: var(--header-text);
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.28);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.35);
+    transition: background 0.25s;
 }
 .header-inner {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 0.7rem 1.5rem;
+    padding: 0.65rem 1.5rem;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
     flex-wrap: wrap;
 }
 .site-logo {
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: bold;
-    color: #e8dcc8;
+    color: var(--header-text);
     text-decoration: none;
     white-space: nowrap;
     flex-shrink: 0;
 }
 .site-logo:hover { color: #fff; text-decoration: none; }
-/* Language pills in header */
-.header-langs { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+/* Language pills */
+.header-langs { display: flex; gap: 0.28rem; flex-wrap: wrap; }
 .header-langs a {
-    padding: 0.18rem 0.65rem;
+    padding: 0.15rem 0.55rem;
     border-radius: 20px;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     font-weight: 700;
-    color: #a8b8cc;
-    border: 1px solid #344e6a;
+    color: var(--header-link);
+    border: 1px solid var(--header-link-border);
     text-decoration: none;
     letter-spacing: 0.04em;
     transition: all 0.15s;
 }
 .header-langs a:hover, .header-langs a.active {
-    background: #e8dcc8;
-    color: #1d2d44;
-    border-color: #e8dcc8;
+    background: var(--header-link-active-bg);
+    color: var(--header-link-active-text);
+    border-color: var(--header-link-active-bg);
     text-decoration: none;
+}
+/* Theme toggle */
+.theme-toggle {
+    display: flex;
+    gap: 0.15rem;
+    background: rgba(0,0,0,0.2);
+    border-radius: 20px;
+    padding: 0.15rem 0.3rem;
+    border: 1px solid var(--header-link-border);
+}
+.theme-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.08rem 0.38rem;
+    border-radius: 14px;
+    font-size: 0.72rem;
+    color: var(--header-link);
+    transition: all 0.15s;
+    font-family: inherit;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+.theme-btn:hover { color: var(--header-text); }
+.theme-btn.active {
+    background: var(--header-link-active-bg);
+    color: var(--header-link-active-text);
 }
 /* Search */
 .search-wrap { position: relative; margin-left: auto; }
@@ -107,32 +215,32 @@ a:hover { text-decoration: underline; }
     opacity: 0.55;
 }
 .search-input {
-    width: 210px;
-    padding: 0.34rem 0.75rem 0.34rem 2rem;
+    width: 200px;
+    padding: 0.32rem 0.7rem 0.32rem 2rem;
     border-radius: 20px;
-    border: 1px solid #344e6a;
-    background: #263a55;
-    color: #e8dcc8;
+    border: 1px solid var(--header-link-border);
+    background: var(--search-bg);
+    color: var(--search-text);
     font-size: 0.86rem;
     outline: none;
     transition: background 0.2s, width 0.2s, color 0.2s;
 }
 .search-input::placeholder { color: #7a90a8; }
 .search-input:focus {
-    background: #fff;
-    color: #2c2c2c;
-    border-color: #a08060;
-    width: 270px;
+    background: var(--search-focus-bg);
+    color: var(--search-focus-text);
+    border-color: var(--accent);
+    width: 260px;
 }
 .search-drop {
     position: absolute;
     top: calc(100% + 6px);
     right: 0;
-    width: 340px;
-    background: #fff;
-    border: 1px solid #d5c9b0;
+    width: 360px;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
     border-radius: 10px;
-    box-shadow: 0 8px 28px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.22);
     overflow: hidden;
     z-index: 200;
 }
@@ -140,88 +248,77 @@ a:hover { text-decoration: underline; }
     display: flex;
     align-items: baseline;
     gap: 0.45rem;
-    padding: 0.55rem 1rem;
-    border-bottom: 1px solid #f0ebe3;
+    padding: 0.52rem 1rem;
+    border-bottom: 1px solid var(--surface-border);
     cursor: pointer;
     text-decoration: none;
-    color: #2c2c2c;
+    color: var(--text);
     transition: background 0.1s;
 }
 .sr-item:last-child { border-bottom: none; }
-.sr-item:hover, .sr-item.focused { background: #f7f3ee; text-decoration: none; color: #2c2c2c; }
-.sr-name { font-weight: 700; font-size: 0.92rem; }
-.sr-abbr { font-size: 0.72rem; color: #8a7a68; font-style: italic; }
-.sr-origin { font-size: 0.78rem; color: #7a8898; margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px; }
-.sr-none { padding: 0.8rem 1rem; color: #888; font-size: 0.88rem; }
+.sr-item:hover, .sr-item.focused { background: var(--bg); text-decoration: none; color: var(--text); }
+.sr-name { font-weight: 700; font-size: 0.9rem; }
+.sr-abbr { font-size: 0.7rem; color: var(--text-muted); font-style: italic; }
+.sr-lang { font-size: 0.7rem; color: var(--text-subtle); opacity: 0.7; }
+.sr-origin { font-size: 0.76rem; color: var(--text-subtle); margin-left: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 130px; }
+.sr-none { padding: 0.8rem 1rem; color: var(--text-subtle); font-size: 0.88rem; }
 /* === Page Wrapper ========================================================= */
 .page-wrap { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 /* === Hero ================================================================= */
 .hero {
     text-align: center;
-    padding: 3.5rem 1rem 2.5rem;
-    margin-bottom: 1rem;
+    padding: 3.2rem 1rem 2.2rem;
+    margin-bottom: 0.5rem;
 }
 .hero h1 {
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: 3rem;
-    color: #1d2d44;
+    font-size: 2.8rem;
+    color: var(--h1);
     line-height: 1.15;
     margin-bottom: 0.5rem;
 }
 .hero .tagline {
-    font-size: 1.1rem;
-    color: #7a6a55;
+    font-size: 1.05rem;
+    color: var(--text-muted);
     font-style: italic;
     max-width: 520px;
     margin: 0 auto;
 }
-.hero-langs { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-top: 1.5rem; }
-.hero-langs a {
-    padding: 0.45rem 1.2rem;
-    border-radius: 24px;
-    border: 2px solid #1d2d44;
-    font-weight: 700;
-    font-size: 0.88rem;
-    color: #1d2d44;
-    letter-spacing: 0.06em;
-    transition: all 0.15s;
-}
-.hero-langs a:hover { background: #1d2d44; color: #e8dcc8; text-decoration: none; }
 /* === Headings ============================================================= */
 h1 {
     font-family: Georgia, 'Times New Roman', serif;
     font-size: 2rem;
-    color: #1d2d44;
+    color: var(--h1);
     line-height: 1.2;
     margin-bottom: 0.25rem;
 }
 h2 {
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: 1.35rem;
-    color: #2c3e50;
-    margin: 2.5rem 0 0.75rem;
+    font-size: 1.3rem;
+    color: var(--h2);
+    margin: 2.2rem 0 0.75rem;
     padding-bottom: 0.4rem;
-    border-bottom: 1px solid #d5c9b0;
+    border-bottom: 1px solid var(--surface-border);
 }
-.page-subtitle { color: #7a6a55; font-style: italic; font-size: 0.95rem; margin-bottom: 1.5rem; }
+.page-subtitle { color: var(--text-muted); font-style: italic; font-size: 0.95rem; margin-bottom: 1.5rem; }
 /* === Breadcrumb =========================================================== */
 .breadcrumb {
     font-size: 0.83rem;
-    color: #9a8a75;
+    color: var(--text-subtle);
     margin-bottom: 1.5rem;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: 0.3rem;
 }
-.breadcrumb a { color: #5c7ab0; }
+.breadcrumb a { color: var(--breadcrumb-link); }
 .breadcrumb a:hover { text-decoration: underline; }
 .breadcrumb-sep { color: #bbb; }
 /* === Stats ================================================================ */
 .stats { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.5rem 0 2rem; }
 .stat-box {
-    background: #fff;
-    border: 1px solid #d5c9b0;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
     border-radius: 10px;
     padding: 0.9rem 1.5rem;
     min-width: 110px;
@@ -232,10 +329,10 @@ h2 {
     font-family: Georgia, serif;
     font-size: 2rem;
     font-weight: bold;
-    color: #1d2d44;
+    color: var(--stat-num);
     line-height: 1;
 }
-.stat-lbl { font-size: 0.75rem; color: #7a6a55; margin-top: 0.2rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.stat-lbl { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem; text-transform: uppercase; letter-spacing: 0.05em; }
 /* === Letter Nav =========================================================== */
 .letter-nav { display: flex; flex-wrap: wrap; gap: 0.3rem; margin: 1rem 0 1.5rem; }
 .letter-nav a {
@@ -245,147 +342,142 @@ h2 {
     width: 2.2rem;
     height: 2.2rem;
     border-radius: 6px;
-    border: 1px solid #c8b99a;
+    border: 1px solid var(--letter-nav-border);
     font-family: Georgia, serif;
     font-size: 1rem;
     font-weight: bold;
-    color: #5c4a35;
-    background: #fff;
+    color: var(--letter-nav-text);
+    background: var(--surface);
     text-decoration: none;
     transition: all 0.15s;
     box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 .letter-nav a:hover, .letter-nav a.active {
-    background: #1d2d44;
-    color: #e8dcc8;
-    border-color: #1d2d44;
+    background: var(--header-bg);
+    color: var(--header-text);
+    border-color: var(--header-bg);
     text-decoration: none;
 }
 /* === Cards Grid =========================================================== */
 .cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 0.9rem;
     margin-top: 0.5rem;
 }
 .card {
-    background: #fff;
-    border: 1px solid #d5c9b0;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
     border-radius: 10px;
     padding: 1rem 1.1rem 0.9rem;
     box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    transition: box-shadow 0.2s, transform 0.15s;
+    transition: box-shadow 0.2s, transform 0.15s, background 0.25s;
     text-decoration: none;
     color: inherit;
     display: block;
 }
-.card:hover {
-    box-shadow: 0 5px 16px rgba(0,0,0,0.13);
-    transform: translateY(-2px);
-    text-decoration: none;
-}
-.card-title {
-    font-family: Georgia, serif;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #1d2d44;
-    margin-bottom: 0.3rem;
-    line-height: 1.3;
-}
-.card-author { font-size: 0.84rem; color: #5c4a35; }
-.card-year { color: #9a8a75; font-size: 0.8rem; }
-.card-saga { font-size: 0.8rem; color: #7a6a55; font-style: italic; margin-top: 0.2rem; }
+.card:hover { box-shadow: 0 5px 16px rgba(0,0,0,0.15); transform: translateY(-2px); text-decoration: none; }
+.card-emoji { font-size: 1.6rem; margin-bottom: 0.4rem; }
+.card-title { font-family: Georgia, serif; font-size: 1rem; font-weight: bold; color: var(--card-title); margin-bottom: 0.2rem; line-height: 1.3; }
+.card-author { font-size: 0.84rem; color: var(--card-author); }
+.card-year { color: var(--text-subtle); font-size: 0.8rem; }
+.card-saga { font-size: 0.8rem; color: var(--text-muted); font-style: italic; margin-top: 0.2rem; }
 /* === Entry Cards ========================================================== */
-.letter-section-heading {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #1d2d44;
-    margin: 2.2rem 0 0.9rem;
-    padding: 0.35rem 0 0.35rem 0.85rem;
-    border-left: 4px solid #a08060;
-    line-height: 1;
-}
 .entry {
-    background: #fff;
-    border: 1px solid #e8ddd0;
+    background: var(--surface);
+    border: 1px solid var(--entry-border);
     border-radius: 8px;
     padding: 0.9rem 1.1rem 0.75rem;
     margin-bottom: 0.55rem;
-    transition: box-shadow 0.15s, border-color 0.15s;
+    transition: box-shadow 0.15s, border-color 0.15s, background 0.25s;
 }
-.entry:target { border-color: #a08060; box-shadow: 0 0 0 3px rgba(160,128,96,0.18); }
-.entry:hover { box-shadow: 0 2px 10px rgba(160,128,96,0.15); }
-.entry-head {
-    display: flex;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 0.45rem;
-    margin-bottom: 0.35rem;
-}
-.entry-name {
-    font-family: Georgia, serif;
-    font-size: 1.06rem;
-    font-weight: bold;
-    color: #1d2d44;
-}
+.entry:target { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(160,128,96,0.2); }
+.entry:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+.entry-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 0.35rem; }
+.entry-name { font-family: Georgia, serif; font-size: 1.06rem; font-weight: bold; color: var(--h1); }
 .entry-badge {
     display: inline-block;
     padding: 0.08rem 0.42rem;
     border-radius: 4px;
-    background: #e8f0df;
-    color: #3a5a28;
+    background: var(--badge-bg);
+    color: var(--badge-text);
     font-size: 0.7rem;
     font-style: italic;
     font-weight: 700;
     letter-spacing: 0.03em;
-    border: 1px solid #c5d9b8;
+    border: 1px solid var(--badge-border);
     vertical-align: middle;
 }
-.entry-alias { font-size: 0.84rem; color: #7a6a55; font-style: italic; }
-.entry-body { font-size: 0.94rem; line-height: 1.65; color: #3c3c3c; margin-bottom: 0.45rem; }
+.entry-alias { font-size: 0.84rem; color: var(--text-muted); font-style: italic; }
+.entry-body { font-size: 0.94rem; line-height: 1.65; color: var(--text); margin-bottom: 0.45rem; }
 .entry-meta { display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem; font-size: 0.84rem; }
-.entry-origin { color: #5c4a35; }
-.entry-origin a { color: #5c7ab0; }
+.entry-origin { color: var(--card-author); }
+.entry-origin a { color: var(--breadcrumb-link); }
 .entry-origin a:hover { text-decoration: underline; }
-.entry-see-also { color: #5c4a35; }
-.entry-see-also a { color: #5c7ab0; }
+.entry-see-also { color: var(--card-author); }
+.entry-see-also a { color: var(--breadcrumb-link); }
 .entry-see-also a:hover { text-decoration: underline; }
+/* === Feedback bar ========================================================= */
+.feedback-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.2rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--surface-border);
+    font-size: 0.82rem;
+}
+.feedback-bar a { color: var(--text-subtle); }
+.feedback-bar a:hover { color: var(--link); text-decoration: underline; }
 /* === Back to top ========================================================= */
 .back-top {
     display: inline-block;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     padding: 0.4rem 1rem;
-    border: 1px solid #c8b99a;
+    border: 1px solid var(--letter-nav-border);
     border-radius: 20px;
     font-size: 0.84rem;
-    color: #5c4a35;
+    color: var(--letter-nav-text);
     text-decoration: none;
     transition: all 0.15s;
 }
-.back-top:hover { background: #1d2d44; color: #e8dcc8; border-color: #1d2d44; text-decoration: none; }
+.back-top:hover { background: var(--header-bg); color: var(--header-text); border-color: var(--header-bg); text-decoration: none; }
 /* === Footer =============================================================== */
 footer {
     margin-top: 4rem;
     padding: 1.5rem;
-    border-top: 1px solid #d5c9b0;
+    border-top: 1px solid var(--surface-border);
     text-align: center;
     font-size: 0.8rem;
-    color: #9a8a75;
+    color: var(--footer-text);
+    transition: color 0.25s;
 }
-footer a { color: #5c7ab0; }
+footer a { color: var(--breadcrumb-link); }
+footer .footer-sep { margin: 0 0.4rem; opacity: 0.4; }
 /* === Responsive =========================================================== */
 @media (max-width: 640px) {
-    .header-inner { padding: 0.6rem 1rem; gap: 0.6rem; }
-    .search-input { width: 150px; }
-    .search-input:focus { width: 190px; }
-    .search-drop { width: min(300px, 90vw); right: -0.5rem; }
+    .header-inner { padding: 0.55rem 1rem; gap: 0.5rem; }
+    .search-input { width: 130px; }
+    .search-input:focus { width: 175px; }
+    .search-drop { width: min(320px, 90vw); right: -0.5rem; }
     .page-wrap { padding: 1.5rem 1rem 3rem; }
-    h1 { font-size: 1.65rem; }
+    h1 { font-size: 1.6rem; }
     .hero h1 { font-size: 2rem; }
-    .hero .tagline { font-size: 0.95rem; }
 }
 """
+
+
+# ---------------------------------------------------------------------------
+# Theme init script – placed in <head> to prevent flash of wrong colour
+# ---------------------------------------------------------------------------
+
+_THEME_INIT_JS = (
+    "<script>(function(){"
+    "var t=localStorage.getItem('ld-theme');"
+    "if(t==='dark')document.documentElement.setAttribute('data-theme','dark');"
+    "else if(t==='light')document.documentElement.setAttribute('data-theme','light');"
+    "})();</script>"
+)
 
 
 # ---------------------------------------------------------------------------
@@ -396,12 +488,13 @@ footer a { color: #5c7ab0; }
 def _search_js(entries: list, letter_prefix: str) -> str:
     """Build the inline search script for a page.
 
-    ``entries``       – full entry list for the current language.
+    ``entries``       – entry list (may span multiple languages when each entry
+                        has a ``_search_href`` key with a pre-built full path
+                        and a ``_search_lang`` key with the language code).
     ``letter_prefix`` – path prefix to letter pages from the current page.
-                        Use ``""`` when the current page is at the language
-                        level (lang index or letter pages, which live alongside
-                        the letter HTML files).  Use ``"../"`` for nested pages
-                        (books/, sagas/) that are one directory deeper.
+                        Use ``""`` for lang-index/letter pages; ``"../"`` for
+                        nested book/saga pages.  Ignored when an entry already
+                        has a ``_search_href`` key.
     """
     data = []
     for e in entries:
@@ -410,7 +503,9 @@ def _search_js(entries: list, letter_prefix: str) -> str:
         alias = e.get("alias") or ""
         abbr = e.get("category_abbr") or ""
         origin = e.get("book_name") or e.get("saga_name") or ""
-        href = f"{letter_prefix}{letter}.html#entry-{e['id']}"
+        # Pre-built href wins (used for global home-page search)
+        href = e.get("_search_href") or f"{letter_prefix}{letter}.html#entry-{e['id']}"
+        lang_tag = e.get("_search_lang", "")
         # Pre-lowercase search fields to avoid repeated toLowerCase() calls in JS.
         data.append({
             "n": name,
@@ -419,6 +514,7 @@ def _search_js(entries: list, letter_prefix: str) -> str:
             "al": alias.lower(),
             "ab": abbr,
             "o": origin,
+            "lg": lang_tag,
             "h": href,
         })
 
@@ -437,12 +533,13 @@ def _search_js(entries: list, letter_prefix: str) -> str:
         "var q=inp.value.trim().toLowerCase();"
         "if(q.length<2){{drop.hidden=true;return;}}"
         "var res=D.filter(function(e){{return e.nl.indexOf(q)>=0"
-        "||(e.al&&e.al.indexOf(q)>=0);}}).slice(0,8);"
+        "||(e.al&&e.al.indexOf(q)>=0);}}).slice(0,10);"
         "if(!res.length){{drop.innerHTML='<div class=\"sr-none\">No results found</div>';}}"
         "else{{drop.innerHTML=res.map(function(e){{"
         "return '<a href=\"'+e.h+'\" class=\"sr-item\">'+"
         "'<span class=\"sr-name\">'+esc(e.n)+'</span>'+"
         "(e.ab?'<span class=\"sr-abbr\">'+esc(e.ab)+'</span>':'')+"
+        "(e.lg?'<span class=\"sr-lang\">'+esc(e.lg.toUpperCase())+'</span>':'')+"
         "(e.o?'<span class=\"sr-origin\">'+esc(e.o)+'</span>':'')+'</a>';"
         "}}).join('');}}"
         "drop.hidden=false;cur=-1;"
@@ -482,19 +579,83 @@ def _header(
         )
     lang_nav = '<div class="header-langs">' + "".join(lang_links) + "</div>"
 
-    return f"""\
-<header class="site-header">
-  <div class="header-inner">
-    <a class="site-logo" href="{root_prefix}index.html">&#128218; Literary Dictionary</a>
-    {lang_nav}
-    <div class="search-wrap">
-      <span class="search-icon">&#128269;</span>
-      <input id="site-search" class="search-input" type="search"
-             placeholder="Search entries\u2026" autocomplete="off" aria-label="Search entries"/>
-      <div id="search-drop" class="search-drop" hidden></div>
-    </div>
-  </div>
-</header>"""
+    theme_toggle = (
+        '<div class="theme-toggle">'
+        '<button class="theme-btn" data-t="auto" title="Auto theme">Auto</button>'
+        '<button class="theme-btn" data-t="light" title="Light theme">\u2600\ufe0f</button>'
+        '<button class="theme-btn" data-t="dark" title="Dark theme">\U0001f319</button>'
+        "</div>"
+    )
+
+    return (
+        '<header class="site-header">\n'
+        '  <div class="header-inner">\n'
+        f'    <a class="site-logo" href="{root_prefix}index.html">&#128218; Literary Dictionary</a>\n'
+        f"    {lang_nav}\n"
+        f"    {theme_toggle}\n"
+        '    <div class="search-wrap">\n'
+        '      <span class="search-icon">&#128269;</span>\n'
+        '      <input id="site-search" class="search-input" type="search"\n'
+        '             placeholder="Search entries\u2026" autocomplete="off" aria-label="Search entries"/>\n'
+        '      <div id="search-drop" class="search-drop" hidden></div>\n'
+        "    </div>\n"
+        "  </div>\n"
+        "</header>"
+    )
+
+
+def _footer(root_prefix: str) -> str:
+    """Render the site footer with repo link, author credit, and feedback links."""
+    report_url = (
+        f"{_GITHUB_REPO}/issues/new?title=Error+report&labels=bug"
+        "&body=Describe+the+error+here%3A%0A%0APage%3A+"
+    )
+    suggest_book_url = (
+        f"{_GITHUB_REPO}/issues/new?title=Book+suggestion%3A+&labels=suggestion"
+    )
+    suggest_saga_url = (
+        f"{_GITHUB_REPO}/issues/new?title=Saga+suggestion%3A+&labels=suggestion"
+    )
+    sep = '<span class="footer-sep">&middot;</span>'
+    return (
+        "<footer>\n"
+        "  <p>\n"
+        f'    <a href="{root_prefix}index.html">Home</a>{sep}'
+        f'<a href="{_GITHUB_REPO}" target="_blank" rel="noopener">GitHub</a>{sep}'
+        f'<a href="{report_url}" target="_blank" rel="noopener">Report an error</a>{sep}'
+        f'<a href="{suggest_book_url}" target="_blank" rel="noopener">Suggest a book</a>{sep}'
+        f'<a href="{suggest_saga_url}" target="_blank" rel="noopener">Suggest a saga</a>\n'
+        "  </p>\n"
+        '  <p style="margin-top:0.4rem;">Made by '
+        f'<a href="https://github.com/cdmoro" target="_blank" rel="noopener">Carlos Bonadeo</a>'
+        "</p>\n"
+        "</footer>"
+    )
+
+
+def _ui_js(active_lang: Optional[str]) -> str:
+    """Return the theme-toggle initialisation and language-preference script."""
+    lang_pref = (
+        f"localStorage.setItem('ld-lang','{active_lang}');"
+        if active_lang else ""
+    )
+    return (
+        "<script>(function(){{"
+        "var cur=localStorage.getItem('ld-theme')||'auto';"
+        "function applyTheme(t){{"
+        "if(t==='dark')document.documentElement.setAttribute('data-theme','dark');"
+        "else if(t==='light')document.documentElement.setAttribute('data-theme','light');"
+        "else document.documentElement.removeAttribute('data-theme');"
+        "document.querySelectorAll('.theme-btn').forEach(function(b){{"
+        "b.classList.toggle('active',b.dataset.t===t);}});"
+        "localStorage.setItem('ld-theme',t);cur=t;"
+        "}}"
+        "document.querySelectorAll('.theme-btn').forEach(function(b){{"
+        "b.addEventListener('click',function(){{applyTheme(b.dataset.t);}});"
+        "}});"
+        f"applyTheme(cur);{lang_pref}"
+        "}})();</script>"
+    )
 
 
 def _page(
@@ -510,26 +671,27 @@ def _page(
     if entries_for_search is not None:
         search_script = _search_js(entries_for_search, search_letter_prefix)
 
-    return f"""\
-<!DOCTYPE html>
-<html lang="{active_lang or 'en'}">
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>{html.escape(title)} \u2013 Literary Dictionary</title>
-    <style>{_CSS}</style>
-</head>
-<body>
-{_header(root_prefix, available_langs, active_lang)}
-<div class="page-wrap">
-{body}
-</div>
-<footer>
-  <p>Literary Dictionary &mdash; <a href="{root_prefix}index.html">Home</a></p>
-</footer>
-{search_script}
-</body>
-</html>"""
+    return (
+        "<!DOCTYPE html>\n"
+        f'<html lang="{active_lang or "en"}">\n'
+        "<head>\n"
+        '    <meta charset="utf-8"/>\n'
+        '    <meta name="viewport" content="width=device-width, initial-scale=1"/>\n'
+        f'    <title>{html.escape(title)} \u2013 Literary Dictionary</title>\n'
+        f"    {_THEME_INIT_JS}\n"
+        f"    <style>{_CSS}</style>\n"
+        "</head>\n"
+        "<body>\n"
+        f"{_header(root_prefix, available_langs, active_lang)}\n"
+        '<div class="page-wrap">\n'
+        f"{body}\n"
+        "</div>\n"
+        f"{_footer(root_prefix)}\n"
+        f"{_ui_js(active_lang)}\n"
+        f"{search_script}\n"
+        "</body>\n"
+        "</html>"
+    )
 
 
 def _letter_nav_html(all_letters: list, active: Optional[str] = None) -> str:
@@ -609,18 +771,44 @@ def _entry_letter(entry: dict) -> str:
 
 
 def _build_see_also(entries: list) -> dict:
-    """entry_id → list of (related_entry, target_letter)."""
-    by_cat: dict = defaultdict(list)
+    """entry_id -> list of (related_entry, target_letter).
+
+    Cross-references are scoped to the same book (or same saga for
+    saga-level entries) so that characters from different books do not
+    cross-reference each other.  The scope key is namespaced to avoid
+    collisions between book IDs and saga IDs that happen to share the
+    same integer value.
+    """
+    by_scope_cat: dict = defaultdict(list)
     letters: dict = {}
     for e in entries:
-        cat = e.get("category_id")
-        if cat is not None:
-            by_cat[cat].append(e)
         letters[e["id"]] = _entry_letter(e)
+        cat = e.get("category_id")
+        if cat is None:
+            continue
+        # Namespace scope to avoid collisions between book_id and saga_id
+        # integer values from different tables.
+        if e.get("book_id"):
+            scope = ("book", e["book_id"])
+        elif e.get("saga_id"):
+            scope = ("saga", e["saga_id"])
+        else:
+            scope = None
+        by_scope_cat[(scope, cat)].append(e)
+
     result = {}
     for e in entries:
         cat = e.get("category_id")
-        peers = [p for p in by_cat.get(cat, []) if p["id"] != e["id"]]
+        if e.get("book_id"):
+            scope = ("book", e["book_id"])
+        elif e.get("saga_id"):
+            scope = ("saga", e["saga_id"])
+        else:
+            scope = None
+        peers = [
+            p for p in by_scope_cat.get((scope, cat), [])
+            if p["id"] != e["id"]
+        ]
         result[e["id"]] = [(p, letters[p["id"]]) for p in peers]
     return result
 
@@ -713,6 +901,33 @@ def _entry_html(entry: dict, see_also: list, letter_link_prefix: str = "") -> st
     return out
 
 
+def _feedback_bar(context: str = "", book_name: str = "") -> str:
+    """Render a small feedback / issue-report bar."""
+    ctx_enc = html.escape(context, quote=True).replace(" ", "+")
+    report_url = (
+        f"{_GITHUB_REPO}/issues/new"
+        f"?title=Error+report%3A+{ctx_enc}"
+        "&labels=bug&body=Describe+the+issue%3A%0A%0APage%3A+"
+        + ctx_enc
+    )
+    parts = [
+        f'<a href="{report_url}" target="_blank" rel="noopener">'
+        f'<span aria-hidden="true">&#9888;&#65039;</span> Report an error</a>',
+    ]
+    if book_name:
+        book_enc = html.escape(book_name, quote=True).replace(" ", "+")
+        entry_url = (
+            f"{_GITHUB_REPO}/issues/new"
+            f"?title=Entry+suggestion%3A+{book_enc}"
+            f"&labels=suggestion&body=Book%2FSaga%3A+{book_enc}"
+            "%0AEntry+name%3A+%0ADescription%3A+"
+        )
+        parts.append(
+            f'<a href="{entry_url}" target="_blank" rel="noopener">&#43; Suggest a new entry</a>'
+        )
+    return '<div class="feedback-bar">' + "".join(parts) + "</div>"
+
+
 # ---------------------------------------------------------------------------
 # Page generators
 # ---------------------------------------------------------------------------
@@ -743,15 +958,17 @@ def _letter_page(
         f"</nav>"
     )
 
-    body = f"""\
-{breadcrumb}
-<h1>{html.escape(display)}</h1>
-<p class="page-subtitle">{lang.upper()} edition</p>
-{_letter_nav_html(all_letters, active=letter)}
-<section>
-{entries_html}
-</section>
-<a class="back-top" href="#">&#8593; Back to top</a>"""
+    body = (
+        f"{breadcrumb}\n"
+        f"<h1>{html.escape(display)}</h1>\n"
+        f'<p class="page-subtitle">{lang.upper()} edition</p>\n'
+        f"{_letter_nav_html(all_letters, active=letter)}\n"
+        "<section>\n"
+        f"{entries_html}"
+        "</section>\n"
+        f"{_feedback_bar(display)}\n"
+        '<a class="back-top" href="#">&#8593; Back to top</a>'
+    )
 
     return _page(
         f"{display} \u2013 {lang.upper()}",
@@ -878,15 +1095,17 @@ def _book_page(
         f"</nav>"
     )
 
-    body = f"""\
-{breadcrumb}
-<h1>{html.escape(title)}</h1>
-<p class="page-subtitle">{html.escape(author)}{html.escape(year)}</p>
-{saga_note}
-<section>
-{entries_html}
-</section>
-<a class="back-top" href="#">&#8593; Back to top</a>"""
+    body = (
+        f"{breadcrumb}\n"
+        f"<h1>{html.escape(title)}</h1>\n"
+        f'<p class="page-subtitle">{html.escape(author)}{html.escape(year)}</p>\n'
+        f"{saga_note}\n"
+        "<section>\n"
+        f"{entries_html}"
+        "</section>\n"
+        f"{_feedback_bar(title, book_name=title)}\n"
+        '<a class="back-top" href="#">&#8593; Back to top</a>'
+    )
 
     return _page(
         f"{title} \u2013 {lang.upper()}",
@@ -925,14 +1144,16 @@ def _saga_page(
         f"</nav>"
     )
 
-    body = f"""\
-{breadcrumb}
-<h1>{html.escape(title)}</h1>
-<p class="page-subtitle">{html.escape(author)}</p>
-<section>
-{entries_html}
-</section>
-<a class="back-top" href="#">&#8593; Back to top</a>"""
+    body = (
+        f"{breadcrumb}\n"
+        f"<h1>{html.escape(title)}</h1>\n"
+        f'<p class="page-subtitle">{html.escape(author)}</p>\n'
+        "<section>\n"
+        f"{entries_html}"
+        "</section>\n"
+        f"{_feedback_bar(title, book_name=title)}\n"
+        '<a class="back-top" href="#">&#8593; Back to top</a>'
+    )
 
     return _page(
         f"{title} \u2013 {lang.upper()}",
@@ -945,33 +1166,48 @@ def _saga_page(
     )
 
 
-def _index_page(lang_data: dict, available_langs: list) -> str:
-    """Global landing page with per-language stats."""
+def _index_page(
+    lang_data: dict,
+    available_langs: list,
+    all_lang_search_entries: Optional[list] = None,
+) -> str:
+    """Global landing page.
+
+    ``all_lang_search_entries`` is a combined list of entries from every
+    language, each augmented with a ``_search_href`` and ``_search_lang`` key
+    so that home-page search works across all locales.
+    """
     lang_cards = ""
     for lc in available_langs:
-        data = lang_data.get(lc, {})
-        entry_count = data.get("entry_count", 0)
-        book_count = data.get("book_count", 0)
-        lang_name = data.get("lang_name", lc.upper())
+        meta = _LANG_META.get(lc, {"name": lc.upper(), "emoji": ""})
+        emoji = meta["emoji"]
+        lang_name = meta["name"]
         lang_cards += (
-            f'<a class="card" href="{lc}/index.html">'
+            f'<a class="card" href="{lc}/index.html" aria-label="{html.escape(lang_name)}">'
+            f'<div class="card-emoji" aria-hidden="true">{emoji}</div>'
             f'<div class="card-title">{html.escape(lang_name)}</div>'
-            f'<div class="card-author">{entry_count} entries &middot; {book_count} books</div>'
             f"</a>"
         )
 
-    hero_lang_links = "".join(
-        f'<a href="{lc}/index.html">{lc.upper()}</a>' for lc in available_langs
+    # If a language preference is stored redirect to that edition on load.
+    lang_list = "','".join(available_langs)
+    lang_redirect_js = (
+        f"<script>(function(){{"
+        f"var lp=localStorage.getItem('ld-lang');"
+        f"if(lp&&['{lang_list}'].indexOf(lp)>=0){{"
+        f"window.location.replace(lp+'/index.html');}}"
+        f"}})();</script>"
     )
 
-    body = f"""\
-<div class="hero">
-    <h1>Literary Dictionary</h1>
-    <p class="tagline">Characters, places, and concepts from world literature</p>
-    <div class="hero-langs">{hero_lang_links}</div>
-</div>
-<h2>Available editions</h2>
-<div class="cards-grid">{lang_cards}</div>"""
+    body = (
+        '<div class="hero">\n'
+        "    <h1>Literary Dictionary</h1>\n"
+        '    <p class="tagline">Characters, places, and concepts from world literature</p>\n'
+        "</div>\n"
+        "<h2>Available editions</h2>\n"
+        f'<div class="cards-grid">{lang_cards}</div>\n'
+        f"{lang_redirect_js}\n"
+    )
 
     return _page(
         "Literary Dictionary",
@@ -979,7 +1215,8 @@ def _index_page(lang_data: dict, available_langs: list) -> str:
         root_prefix="",
         available_langs=available_langs,
         active_lang=None,
-        entries_for_search=None,
+        entries_for_search=all_lang_search_entries,
+        search_letter_prefix="",
     )
 
 
@@ -1015,6 +1252,8 @@ def generate_site(
         db_files = [p for p in db_files if f".{lang_filter}." in p]
 
     lang_data: dict = {}
+    # Accumulated search entries from every language for the global index page
+    all_lang_search_entries: list = []
 
     for db_path in db_files:
         lang = os.path.basename(db_path).split(".")[1]
@@ -1030,8 +1269,17 @@ def generate_site(
         lang_data[lang] = {
             "entry_count": len(entries),
             "book_count": len(books),
-            "lang_name": lang.upper(),
+            "lang_name": _LANG_META.get(lang, {}).get("name", lang.upper()),
         }
+
+        # Augment a copy of each entry with pre-built search hrefs for the
+        # global index page (home-page search across all languages).
+        for e in entries:
+            letter = _entry_letter(e)
+            e_copy = dict(e)
+            e_copy["_search_href"] = f"{lang}/{letter}.html#entry-{e['id']}"
+            e_copy["_search_lang"] = lang
+            all_lang_search_entries.append(e_copy)
 
         # Group entries by letter
         by_letter: dict = defaultdict(list)
@@ -1039,7 +1287,7 @@ def generate_site(
             by_letter[_entry_letter(e)].append(e)
         all_letters = sorted(by_letter.keys(), key=lambda x: (x == "Other", x))
 
-        # Build global see-also (across all entries for this language)
+        # Build see-also scoped per book/saga (not across books)
         see_also_map = _build_see_also(entries)
 
         # --- lang index ---
@@ -1093,10 +1341,10 @@ def generate_site(
                            all_lang_entries=entries),
             )
 
-    # --- global index ---
+    # --- global index (search spans all languages) ---
     _write(
         os.path.join(output_dir, "index.html"),
-        _index_page(lang_data, available_langs),
+        _index_page(lang_data, available_langs, all_lang_search_entries),
     )
 
-    print(f"  ✅ Site written to: {output_dir}/")
+    print(f"  \u2705 Site written to: {output_dir}/")
